@@ -9,6 +9,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -28,6 +29,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.funtime.sciai.R
 import kotlinx.coroutines.delay
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.ui.draw.scale
 
 @Composable
 fun SplashScreen(navController: NavController) {
@@ -61,15 +64,18 @@ fun SplashScreen(navController: NavController) {
         contentAlignment = Alignment.Center
     ) {
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxSize()
+        ) {
 
             Image(
                 painter = painterResource(id = R.drawable.img),
                 contentDescription = "Logo",
-                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(160.dp)
-                    .clip(CircleShape)
+                    .scale(scale.value)
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -78,6 +84,14 @@ fun SplashScreen(navController: NavController) {
                 text = "SciAI",
                 color = Color.White,
                 fontSize = 20.sp
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = "Welcome Student",
+                color = Color.Gray,
+                fontSize = 14.sp
             )
         }
     }

@@ -1,6 +1,7 @@
 package com.funtime.sciai.ui.theme.answer
 
-
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,6 +15,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.clickable
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
@@ -97,16 +99,29 @@ fun AnswerScreen(
     navController: NavController
 ) {
     var answer by remember { mutableStateOf("Loading...") }
+
+    var hasLoaded by remember { mutableStateOf(false) }
     var expertLevel by remember { mutableStateOf("Academic") }
+    var selectedDomain by remember { mutableStateOf("Biology") }
     LaunchedEffect(Unit) {
-        GroqService.ask(
-            question = question,
-            mode = mode,
-            level = expertLevel,
-            domain = "Biology" // temporary (we'll make dynamic later)
-        ) {
-            answer = it
+        if (!hasLoaded) {
+            hasLoaded = true
+
+            GroqService.ask(
+                question = question,
+                mode = mode,
+                level = expertLevel,
+                domain = selectedDomain
+            ) { result ->
+                answer = result
+            }
         }
+    }
+
+    if (answer == "Loading...") {
+        LoadingUI()
+    } else {
+        // show answer
     }
 
     AppScaffold(
@@ -179,9 +194,7 @@ fun AnswerScreen(
 
             val sections = parseDynamicSections(cleaned)
 
-            sections.forEach { (title, content) ->
-                ExpandableSection(title, content, mode)
-            }
+
             if (sections.isEmpty()) {
                 Text(cleaned)
             } else {
