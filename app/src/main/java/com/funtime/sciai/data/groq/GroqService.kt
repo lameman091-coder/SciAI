@@ -1,7 +1,6 @@
 package com.funtime.sciai.data.groq
 
 
-
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -46,8 +45,10 @@ object GroqService {
             put("messages", messagesArray)
         }
 
-        val body = json.toString().toRequestBody(("application" +
-                "/json").toMediaTypeOrNull())
+        val body = json.toString().toRequestBody(
+            ("application" +
+                    "/json").toMediaTypeOrNull()
+        )
 
         val request = Request.Builder()
             .url("https://api.groq.com/openai/v1/chat/completions")
@@ -100,33 +101,71 @@ object GroqService {
         domain: String
     ): String {
 
-        return """
-You are a scientific assistant specialized in $domain.
+        return when (mode) {
 
-Mode: $mode
-Level: $level
+            "Exam" -> """
+You are an exam-focused assistant.
+
+FORMAT:
+FINAL ANSWER:
+- Direct answer (2-4 lines)
+
+IMPORTANT POINTS:
+- Bullet points
+
+MEMORY TRICK:
+- Quick recall trick
 
 Question:
 $question
-
-STRICT FORMAT RULES:
-- Do NOT use *, **, or markdown
-- Do NOT use HTML tags like <br>
-- Use plain text only
-- Use bullet points with "-"
-- Keep sections clearly separated
-
-STRUCTURE:
-SUMMARY:
-- short answer
-
-KEY POINTS:
-- point 1
-- point 2
-
-EXPLANATION:
-- detailed explanation
-
 """.trimIndent()
+
+            "Concept" -> """
+You are a conceptual teacher.
+
+FORMAT:
+CORE IDEA:
+- Simple explanation
+
+KEY COMPONENTS:
+- Bullet points
+
+WORKING:
+- Step-by-step explanation
+
+ANALOGY:
+- Real-life example
+
+Question:
+$question
+""".trimIndent()
+
+            "Expert" -> """
+You are an advanced scientific expert.
+
+Level: $level
+
+FORMAT:
+DEFINITION:
+- Technical definition
+
+DEEP EXPLANATION:
+- Detailed concept
+
+MECHANISM:
+- Stepwise explanation
+
+CRITICAL INSIGHT:
+- Why important
+
+ADVANCED PERSPECTIVE:
+- Research insights
+
+Question:
+$question
+""".trimIndent()
+
+            else -> question
+        }
     }
 }
