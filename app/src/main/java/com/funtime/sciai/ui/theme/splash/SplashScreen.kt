@@ -2,53 +2,82 @@ package com.funtime.sciai.ui.theme.splash
 
 
 
-import androidx.compose.animation.core.*
-import androidx.compose.foundation.layout.*
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.*
-import androidx.compose.ui.draw.alpha
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.funtime.sciai.R
 import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(navController: NavController) {
+    val scale = remember { Animatable(0.8f) }
 
-    var visible by remember { mutableStateOf(false) }
+            LaunchedEffect(Unit) {
+                delay(2000) // 2 seconds
+                navController.navigate("home") {
+                    popUpTo("splash") { inclusive = true }
 
-    val alpha by animateFloatAsState(
-        targetValue = if (visible) 1f else 0f,
-        animationSpec = tween(1200)
-    )
-
+                }
+            }
     LaunchedEffect(Unit) {
-        visible = true
-        delay(1800)
+        scale.animateTo(
+            targetValue = 1f,
+            animationSpec = tween(1200)
+        )
+
+        delay(800)
+
         navController.navigate("home") {
             popUpTo("splash") { inclusive = true }
         }
     }
 
+
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black),
         contentAlignment = Alignment.Center
     ) {
+
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
+            Image(
+                painter = painterResource(id = R.drawable.img),
+                contentDescription = "Logo",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .size(160.dp)
+                    .clip(CircleShape)
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             Text(
                 text = "SciAI",
-                fontSize = 36.sp,
-                modifier = Modifier.alpha(alpha)
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            Text(
-                text = "Welcome, Student",
-                fontSize = 16.sp,
-                modifier = Modifier.alpha(alpha)
+                color = Color.White,
+                fontSize = 20.sp
             )
         }
     }

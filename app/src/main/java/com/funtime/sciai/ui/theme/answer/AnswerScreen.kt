@@ -16,6 +16,9 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.border
+import androidx.compose.foundation.shape.RoundedCornerShape
 fun parseDynamicSections(text: String): List<Pair<String, String>> {
 
     val sections = mutableListOf<Pair<String, String>>()
@@ -45,28 +48,43 @@ fun parseDynamicSections(text: String): List<Pair<String, String>> {
     return sections
 }
 @Composable
-fun ExpandableSection(title: String, content: String) {
+fun ExpandableSection(
+    title: String,
+    content: String,
+    mode: String
+) {
 
     var expanded by remember { mutableStateOf(false) }
+
+    val borderColor = when (mode) {
+        "Exam" -> Color(0xFFFFC107)     // Yellow
+        "Concept" -> Color(0xFF2196F3)  // Blue
+        "Expert" -> Color(0xFF9C27B0)   // Purple
+        else -> Color.Gray
+    }
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
+            .border(1.5.dp, borderColor, shape = RoundedCornerShape(12.dp))
+            .padding(12.dp)
     ) {
 
         Text(
             text = "▼ $title",
+            color = borderColor,
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { expanded = !expanded }
-                .padding(12.dp)
         )
 
         if (expanded) {
+            Spacer(modifier = Modifier.height(8.dp))
+
             Text(
                 text = content,
-                modifier = Modifier.padding(12.dp)
+                color = Color.White
             )
         }
     }
@@ -79,10 +97,13 @@ fun AnswerScreen(
     navController: NavController
 ) {
     var answer by remember { mutableStateOf("Loading...") }
+    var expertLevel by remember { mutableStateOf("Academic") }
     LaunchedEffect(Unit) {
         GroqService.ask(
             question = question,
-            mode = mode
+            mode = mode,
+            level = expertLevel,
+            domain = "Biology" // temporary (we'll make dynamic later)
         ) {
             answer = it
         }
@@ -110,6 +131,45 @@ fun AnswerScreen(
             Text("Mode: $mode")
 
             Spacer(modifier = Modifier.height(16.dp))
+            if (mode == "Expert") {
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+
+                    listOf("Beginner", "Academic", "Research").forEach { level ->
+
+                        val isSelected = expertLevel == level
+
+                        Text(
+                            text = level,
+                            color = if (isSelected) Color.White else Color.Gray,
+                            modifier = Modifier
+                                .border(
+                                    1.dp,
+                                    if (isSelected) Color(0xFF9C27B0) else Color.Gray,
+                                    RoundedCornerShape(8.dp)
+                                )
+                                .padding(8.dp)
+                                .clickable {
+                                    expertLevel = level
+
+                                    GroqService.ask(
+                                        question = question,
+                                        mode = mode,
+                                        level = expertLevel,
+                                        domain = "Biology"
+                                    ) {
+                                        answer = it
+                                    }
+                                }
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+            }
 
             val cleaned = answer
                 .replace("<br>", "\n")
@@ -120,13 +180,13 @@ fun AnswerScreen(
             val sections = parseDynamicSections(cleaned)
 
             sections.forEach { (title, content) ->
-                ExpandableSection(title, content)
+                ExpandableSection(title, content, mode)
             }
             if (sections.isEmpty()) {
                 Text(cleaned)
             } else {
                 sections.forEach { (title, content) ->
-                    ExpandableSection(title, content)
+                    ExpandableSection(title, content, mode)
                 }
             }
         }
