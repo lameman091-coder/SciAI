@@ -31,10 +31,17 @@ import com.funtime.sciai.R
 import kotlinx.coroutines.delay
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.platform.LocalContext
+import com.funtime.sciai.data.UserManager
 
 @Composable
 fun SplashScreen(navController: NavController) {
     val scale = remember { Animatable(0.8f) }
+    val context = LocalContext.current
+    val userManager = UserManager(context)
+    val userName = userManager.getName()
+
+
 
             LaunchedEffect(Unit) {
                 delay(2000) // 2 seconds
@@ -89,9 +96,8 @@ fun SplashScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Welcome Student",
-                color = Color.Gray,
-                fontSize = 14.sp
+                text = if (userName != null) "Welcome, $userName" else "Welcome",
+                color = Color.Gray
             )
         }
     }

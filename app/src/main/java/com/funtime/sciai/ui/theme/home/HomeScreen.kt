@@ -335,6 +335,7 @@ fun getBadge(count: Int): String {
     }
 }
 
+
 fun formatSessionTime(seconds: Long): String {
 
     val hours = seconds / 3600
