@@ -17,11 +17,14 @@ class UserManager(context: Context) {
     }
 
     fun incrementTotal() {
-        val current = prefs.getInt("total_count", 0)
-        prefs.edit().putInt("total_count", current + 1).apply()
+        val current = getTotal()
+        prefs.edit().putInt("total", current + 1).apply()
     }
 
     fun getTotal(): Int {
-        return prefs.getInt("total_count", 0)
+        return prefs.getInt("total", 0)
+    }
+    fun resetTotal() {
+        prefs.edit().putInt("total", 0).apply()
     }
 }

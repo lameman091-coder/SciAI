@@ -1,6 +1,7 @@
 package com.funtime.sciai.ui.theme.home
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.speech.RecognizerIntent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material3.AlertDialog
@@ -34,6 +36,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,9 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.funtime.sciai.data.UserManager
 import kotlinx.coroutines.launch
-import android.provider.MediaStore
-import android.net.Uri
-import androidx.compose.material.icons.filled.Add
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,6 +63,12 @@ fun HomeScreen(navController: NavController) {
     var query by remember { mutableStateOf("") }  // ✅ FIRST
 
     val activity = context as Activity
+    val userManager = UserManager(context)
+    val sessionViewModel: SessionViewModel = viewModel()
+    val sessionTime = sessionViewModel.sessionTime.value
+
+    var totalCount by remember { mutableStateOf<Int>(userManager.getTotal()) }
+
     var imageUri by remember { mutableStateOf<Uri?>(null) }
 
 // Gallery
@@ -90,12 +97,12 @@ fun HomeScreen(navController: NavController) {
             query = spokenText
         }
     }
-    val userManager = UserManager(context)
+
+
 
     var userName by remember { mutableStateOf<String?>(userManager.getName()) }
     var showDialog by remember { mutableStateOf(userManager.getName() == null) }
 
-    var sessionCount by remember { mutableStateOf(0) }
 
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -178,6 +185,7 @@ fun HomeScreen(navController: NavController) {
                 Text("Welcome, ${userName ?: "Student"}")
                 Spacer(modifier = Modifier.height(8.dp))
 
+
                 Card(
                     shape = RoundedCornerShape(16.dp),
                     modifier = Modifier.fillMaxWidth()
@@ -188,7 +196,10 @@ fun HomeScreen(navController: NavController) {
 
                         Spacer(modifier = Modifier.height(8.dp))
 
-                        Text("Session: $sessionCount")
+                        Text(
+                            text = "⏱ ${formatSessionTime(sessionTime)}",
+                            color = Color(0xFFFFC107)
+                        )
                         Text("Total: ${userManager.getTotal()}")
 
                         Spacer(modifier = Modifier.height(8.dp))
@@ -198,6 +209,17 @@ fun HomeScreen(navController: NavController) {
                             color = Color(0xFFFFC107)
                         )
                     }
+                }
+                Button(
+                    onClick = {
+                        userManager.resetTotal()
+                        totalCount = 0   // 🔥 THIS LINE IS CRITICAL
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp)
+                ) {
+                    Text("Reset Progress")
                 }
 
 
@@ -281,12 +303,14 @@ fun HomeScreen(navController: NavController) {
 
 
 
+
                 Button(
                     onClick = {
                         if (query.isNotBlank()) {
 
-                            sessionCount++
+
                             userManager.incrementTotal()
+                            totalCount = userManager.getTotal()
 
                             val encodedQuery = java.net.URLEncoder.encode(query, "UTF-8")
 
@@ -296,6 +320,8 @@ fun HomeScreen(navController: NavController) {
                 ) {
                     Text("Search")
                 }
+
+
             }
         }
     }
@@ -306,6 +332,19 @@ fun getBadge(count: Int): String {
         count >= 20 -> "Smart 🔥"
         count >= 10 -> "Learner 📘"
         else -> "Beginner 🌱"
+    }
+}
+
+fun formatSessionTime(seconds: Long): String {
+
+    val hours = seconds / 3600
+    val minutes = (seconds % 3600) / 60
+
+
+    return when {
+        hours > 0 -> "${hours}h ${minutes}m"
+        minutes > 0 -> "${minutes}m"
+        else -> "${hours}h ${minutes}m"
     }
 }
 
