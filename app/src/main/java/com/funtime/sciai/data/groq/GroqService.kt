@@ -23,7 +23,7 @@ object GroqService {
         val client = OkHttpClient()
         val model = when (mode) {
             "Exam" -> "openai/gpt-oss-20b"
-            "Concept" -> "openai/gpt-oss-20b"
+            "Concept" -> "openai/gpt-oss-120b"
             "Expert" -> "qwen/qwen3-32b"
             else -> "openai/gpt-oss-20b"
         }
@@ -100,45 +100,57 @@ object GroqService {
         level: String,
         domain: String
     ): String {
+        val structureRules = """
+Structure the answer into clear sections.
 
-        return when (mode) {
+Rules:
+- Each section must start with a short heading
+- Followed by explanation
+- Keep headings concise (3–6 words)
+- Do NOT use symbols like ### or **
+- Do NOT include <think> or hidden reasoning
+
+IMPORTANT FOR EQUATIONS:
+- Do NOT use LaTeX (no \frac, $$, \, etc.)
+- Write equations in readable plain format
+
+Example:
+Correct → K = ([C]^c × [D]^d) / ([A]^a × [B]^b)
+Wrong → K = \frac{[C]^c [D]^d}{[A]^a [B]^b}
+""".trimIndent()
+        val domainPrompt = when (domain) {
+            "Biology" -> """
+Focus on biological processes, flow, and real-life examples.
+Use clear terminology and stepwise explanation where needed.
+""".trimIndent()
+
+            "Physics" -> """
+Include formulas, variables, units, and real-world applications.
+Explain meaning of each variable clearly.
+""".trimIndent()
+
+            "Chemistry" -> """
+Include chemical equations, reaction mechanisms, and symbolic representation.
+Focus on clarity in reactions and equilibrium.
+""".trimIndent()
+
+            else -> ""
+        }
+
+        val modePrompt = when (mode) {
 
             "Exam" -> """
 You are an exam-focused assistant.
 
-
-FORMAT:
-FINAL ANSWER:
-- Direct answer (2-4 lines)
-
-IMPORTANT POINTS:
-- Bullet points
-
-MEMORY TRICK:
-- Quick recall trick
-
-Question:
-$question
+Give concise, high-yield answers suitable for exams.
+Use bullet-style clarity where helpful.
 """.trimIndent()
 
             "Concept" -> """
 You are a conceptual teacher.
 
-FORMAT:
-CORE IDEA:
-- Simple explanation
-
-KEY COMPONENTS:
-- Bullet points
-
-WORKING:
-- Step-by-step explanation
-
-ANALOGY:
-- Real-life example
-
-Question:
-$question
+Explain in a simple, intuitive way.
+Focus on understanding rather than memorization.
 """.trimIndent()
 
             "Expert" -> """
@@ -146,27 +158,22 @@ You are an advanced scientific expert.
 
 Level: $level
 
-FORMAT:
-DEFINITION:
-- Technical definition
+Provide deep, analytical, and research-level explanation.
+Include insights, reasoning, and critical understanding.
+""".trimIndent()
 
-DEEP EXPLANATION:
-- Detailed concept
+            else -> ""
+        }
 
-MECHANISM:
-- Stepwise explanation
+        return """
+$modePrompt
 
-CRITICAL INSIGHT:
-- Why important
+$domainPrompt
 
-ADVANCED PERSPECTIVE:
-- Research insights
+$structureRules
 
 Question:
 $question
 """.trimIndent()
-
-            else -> question
-        }
     }
-}
+    }

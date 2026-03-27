@@ -21,30 +21,52 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.border
 import androidx.compose.foundation.shape.RoundedCornerShape
+fun cleanResponse(text: String): String {
+    return text
+        .replace(Regex("<think>.*?</think>", RegexOption.DOT_MATCHES_ALL), "")
+        .replace("</think>", "")
+        .trim()
+}
+fun cleanMath(text: String): String {
+    return text
+        // Remove LaTeX blocks
+        .replace(Regex("\\$\\$.*?\\$\\$", RegexOption.DOT_MATCHES_ALL), "")
+        // Remove \frac patterns (basic cleanup)
+        .replace("\\\\frac".toRegex(), "")
+        .replace("\\\\".toRegex(), "")
+}
 fun parseDynamicSections(text: String): List<Pair<String, String>> {
 
+    val lines = text.split("\n")
     val sections = mutableListOf<Pair<String, String>>()
 
-    val regex = Regex("(\\w[\\w\\s]+):")
+    var currentTitle = ""
+    var currentContent = StringBuilder()
 
-    val matches = regex.findAll(text).toList()
+    for (line in lines) {
 
-    if (matches.isEmpty()) {
-        return listOf("ANSWER" to text)
+        val trimmed = line.trim()
+
+        val isHeading = trimmed.length in 3..60 &&
+                !trimmed.endsWith(".") &&
+                !trimmed.contains(":") &&
+                trimmed.split(" ").size <= 8
+
+        if (isHeading) {
+
+            if (currentTitle.isNotEmpty()) {
+                sections.add(currentTitle to currentContent.toString().trim())
+                currentContent = StringBuilder()
+            }
+
+            currentTitle = trimmed
+        } else {
+            currentContent.append(line).append("\n")
+        }
     }
 
-    for (i in matches.indices) {
-
-        val start = matches[i].range.first
-        val end = if (i < matches.size - 1)
-            matches[i + 1].range.first
-        else
-            text.length
-
-        val title = matches[i].value.replace(":", "").trim()
-        val content = text.substring(start + matches[i].value.length, end).trim()
-
-        sections.add(title to content)
+    if (currentTitle.isNotEmpty()) {
+        sections.add(currentTitle to currentContent.toString().trim())
     }
 
     return sections
@@ -186,17 +208,21 @@ fun AnswerScreen(
                 Spacer(modifier = Modifier.height(12.dp))
             }
 
-            val cleaned = answer
-                .replace("<br>", "\n")
-                .replace("•", "-")
-                .replace("*", "")
-                .replace("|", "")
+            val cleanedText = cleanMath(
+                cleanResponse(
+                    answer
+                        .replace("<br>", "\n")
+                        .replace("•", "-")
+                        .replace("*", "")
+                        .replace("|", "")
+                )
+            )
 
-            val sections = parseDynamicSections(cleaned)
+            val sections = parseDynamicSections(cleanedText)
 
 
             if (sections.isEmpty()) {
-                Text(cleaned)
+                Text(cleanedText)
             } else {
                 sections.forEach { (title, content) ->
                     ExpandableSection(title, content, mode)
