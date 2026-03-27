@@ -1,35 +1,102 @@
 package com.funtime.sciai.ui.theme.home
-import androidx.compose.foundation.layout.*
+import android.app.Activity
+import android.content.Intent
+import android.speech.RecognizerIntent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Mic
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.Divider
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberDrawerState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import kotlinx.coroutines.launch
-import android.content.Context
-import androidx.compose.ui.platform.LocalContext
 import com.funtime.sciai.data.UserManager
+import kotlinx.coroutines.launch
+import android.provider.MediaStore
+import android.net.Uri
+import androidx.compose.material.icons.filled.Add
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController) {
 
+
     var selectedDomain by remember { mutableStateOf("Biology") }
     var selectedMode by remember { mutableStateOf("Exam") }
 
     val context = LocalContext.current
+    var query by remember { mutableStateOf("") }  // ✅ FIRST
+
+    val activity = context as Activity
+    var imageUri by remember { mutableStateOf<Uri?>(null) }
+
+// Gallery
+    val galleryLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri ->
+        imageUri = uri
+    }
+
+// Camera
+    val cameraLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.TakePicturePreview()
+    ) { bitmap ->
+        // You can process bitmap (later for OCR)
+    }
+
+    val voiceLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val spokenText = result.data
+                ?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                ?.firstOrNull()
+                ?: ""
+
+            query = spokenText
+        }
+    }
     val userManager = UserManager(context)
 
     var userName by remember { mutableStateOf<String?>(userManager.getName()) }
     var showDialog by remember { mutableStateOf(userManager.getName() == null) }
 
     var sessionCount by remember { mutableStateOf(0) }
-    var query by remember { mutableStateOf("")}
+
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -111,19 +178,47 @@ fun HomeScreen(navController: NavController) {
                 Text("Welcome, ${userName ?: "Student"}")
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Text("Session: $sessionCount")
-                Text("Total: ${userManager.getTotal()}")
+                Card(
+                    shape = RoundedCornerShape(16.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+
+                        Text("🔥 Progress")
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Text("Session: $sessionCount")
+                        Text("Total: ${userManager.getTotal()}")
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Text(
+                            text = getBadge(userManager.getTotal()),
+                            color = Color(0xFFFFC107)
+                        )
+                    }
+                }
+
+
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Domain Chips
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     listOf("Biology", "Physics", "Chemistry").forEach { domain ->
-                        FilterChip(
-                            selected = selectedDomain == domain,
-                            onClick = { selectedDomain = domain },
-                            label = { Text(domain) }
-                        )
+                        SelectableButton(
+                            text = domain,
+                            isSelected = selectedDomain == domain,
+                            color = when (domain) {
+                                "Biology" -> Color(0xFF4CAF50)
+                                "Physics" -> Color(0xFF2196F3)
+                                "Chemistry" -> Color(0xFFF44336)
+                                else -> Color.Gray
+                            }
+                        ) {
+                            selectedDomain = domain
+                        }
                     }
                 }
 
@@ -132,11 +227,18 @@ fun HomeScreen(navController: NavController) {
                 // Mode Chips
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     listOf("Exam", "Concept", "Expert").forEach { mode ->
-                        FilterChip(
-                            selected = selectedMode == mode,
-                            onClick = { selectedMode = mode },
-                            label = { Text(mode) }
-                        )
+                        SelectableButton(
+                            text = mode,
+                            isSelected = selectedMode == mode,
+                            color = when (mode) {
+                                "Exam" -> Color(0xFFFFC107)
+                                "Concept" -> Color(0xFF2196F3)
+                                "Expert" -> Color(0xFF9C27B0)
+                                else -> Color.Gray
+                            }
+                        ) {
+                            selectedMode = mode
+                        }
                     }
                 }
 
@@ -152,16 +254,31 @@ fun HomeScreen(navController: NavController) {
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                     trailingIcon = {
-                        IconButton(onClick = {
-                            // TODO: Voice input later
-                        }) {
-                            Icon(
-                                imageVector = Icons.Default.Mic,
-                                contentDescription = "Voice"
-                            )
+
+                        Row {
+
+                            // ➕ IMAGE
+                            IconButton(onClick = {
+                                galleryLauncher.launch("image/*")
+                            }) {
+                                Icon(Icons.Default.Add, contentDescription = "Add Image")
+                            }
+
+                            // 🎤 VOICE
+                            IconButton(onClick = {
+                                val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+                                intent.putExtra(
+                                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+                                )
+                                voiceLauncher.launch(intent)
+                            }) {
+                                Icon(Icons.Default.Mic, contentDescription = "Voice")
+                            }
                         }
                     }
                 )
+
 
 
                 Button(
@@ -183,6 +300,14 @@ fun HomeScreen(navController: NavController) {
         }
     }
 }
+fun getBadge(count: Int): String {
+    return when {
+        count >= 50 -> "Expert 🧠"
+        count >= 20 -> "Smart 🔥"
+        count >= 10 -> "Learner 📘"
+        else -> "Beginner 🌱"
+    }
+}
 
 @Composable
 fun DrawerItem(title: String) {
@@ -191,6 +316,26 @@ fun DrawerItem(title: String) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
+    )
+}
+@Composable
+fun SelectableButton(
+    text: String,
+    isSelected: Boolean,
+    color: Color,
+    onClick: () -> Unit
+) {
+    Text(
+        text = text,
+        color = if (isSelected) Color.White else Color.Gray,
+        modifier = Modifier
+            .border(
+                1.5.dp,
+                if (isSelected) color else Color.Gray,
+                RoundedCornerShape(12.dp)
+            )
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .clickable { onClick() }
     )
 }
 
