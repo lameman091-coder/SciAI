@@ -21,12 +21,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.border
 import androidx.compose.foundation.shape.RoundedCornerShape
-fun cleanResponse(text: String): String {
-    return text
-        .replace(Regex("<think>.*?</think>", RegexOption.DOT_MATCHES_ALL), "")
-        .replace("</think>", "")
-        .trim()
-}
+
 fun cleanMath(text: String): String {
     return text
         // Remove LaTeX blocks
@@ -121,6 +116,7 @@ fun AnswerScreen(
     navController: NavController
 ) {
     var answer by remember { mutableStateOf("Loading...") }
+    var isLoading by remember { mutableStateOf(true) }
 
     var hasLoaded by remember { mutableStateOf(false) }
     var expertLevel by remember { mutableStateOf("Academic") }
@@ -140,11 +136,31 @@ fun AnswerScreen(
         }
     }
 
-    if (answer == "Loading...") {
+    if (isLoading) {
         LoadingUI()
     } else {
-        // show answer
+
+        val cleanedText = cleanMath(
+            cleanResponse(answer)
+                .replace("<br>", "\n")
+                .replace("+", " ")
+                .replace("|", "")
+        )
+
+        val sections = parseDynamicSections(cleanedText)
+
+        if (sections.isEmpty()) {
+            Text(cleanedText)
+        } else {
+            sections.forEach { section ->
+                Text(
+                    text = section.toString(),
+                    color = Color.White
+                )
+            }
+        }
     }
+
 
     AppScaffold(
         title = mode,
@@ -209,13 +225,13 @@ fun AnswerScreen(
             }
 
             val cleanedText = cleanMath(
-                cleanResponse(
-                    answer
+                cleanResponse(answer)
+
                         .replace("<br>", "\n")
                         .replace("•", "-")
                         .replace("*", "")
                         .replace("|", "")
-                )
+
             )
 
             val sections = parseDynamicSections(cleanedText)
@@ -231,4 +247,14 @@ fun AnswerScreen(
         }
     }
 }
+fun cleanResponse(text: String): String {
+    return text
+        .replace("**", "")
+        .replace("##", "")
+        .replace("*", "")
+        .replace("•", "-")
+        .replace(Regex("\\n{2,}"), "\n")
+        .trim()
+}
+
 

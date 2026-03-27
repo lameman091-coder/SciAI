@@ -50,6 +50,11 @@ import androidx.navigation.NavController
 import com.funtime.sciai.data.UserManager
 import kotlinx.coroutines.launch
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import android.widget.Toast
+import com.funtime.sciai.data.GeminiService
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -63,6 +68,7 @@ fun HomeScreen(navController: NavController) {
     var query by remember { mutableStateOf("") }  // ✅ FIRST
 
     val activity = context as Activity
+    val coroutineScope = rememberCoroutineScope()
     val userManager = UserManager(context)
     val sessionViewModel: SessionViewModel = viewModel()
     val sessionTime = sessionViewModel.sessionTime.value
@@ -75,7 +81,21 @@ fun HomeScreen(navController: NavController) {
     val galleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri ->
-        imageUri = uri
+
+        if (uri != null) {
+            imageUri = uri
+
+            coroutineScope.launch {
+
+                val result = GeminiService.analyzeImage(context, uri)
+
+                query = result   // 🔥 directly fill answer OR navigate
+
+                // OPTIONAL AUTO NAVIGATION
+                val encodedQuery = java.net.URLEncoder.encode(result, "UTF-8")
+                navController.navigate("answer/$encodedQuery/$selectedMode")
+            }
+        }
     }
 
 // Camera
