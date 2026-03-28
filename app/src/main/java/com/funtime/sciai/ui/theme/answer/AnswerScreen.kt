@@ -201,10 +201,10 @@ fun AnswerScreen(
                                     if (isSelected) Color(0xFF9C27B0) else Color.Gray,
                                     RoundedCornerShape(8.dp)
                                 )
-                                .padding(8.dp)
                                 .clickable {
-
+                                    expertLevel = level
                                 }
+                                .padding(8.dp)
                         )
                     }
                 }
