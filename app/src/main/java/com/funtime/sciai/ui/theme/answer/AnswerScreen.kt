@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.border
 import androidx.compose.foundation.shape.RoundedCornerShape
 
+
 fun cleanMath(text: String): String {
     return text
         // Remove LaTeX blocks
@@ -30,6 +31,16 @@ fun cleanMath(text: String): String {
         .replace("\\\\frac".toRegex(), "")
         .replace("\\\\".toRegex(), "")
 }
+fun cleanResponse(text: String): String {
+    return text
+        .replace("**", "")
+        .replace("##", "")
+        .replace("*", "")
+        .replace("•", "-")
+        .replace(Regex("\\n{2,}"), "\n")
+        .trim()
+}
+
 fun parseDynamicSections(text: String): List<Pair<String, String>> {
 
     val lines = text.split("\n")
@@ -117,49 +128,32 @@ fun AnswerScreen(
 ) {
     var answer by remember { mutableStateOf("Loading...") }
     var isLoading by remember { mutableStateOf(true) }
-
-    var hasLoaded by remember { mutableStateOf(false) }
     var expertLevel by remember { mutableStateOf("Academic") }
     var selectedDomain by remember { mutableStateOf("Biology") }
-    LaunchedEffect(Unit) {
-        if (!hasLoaded) {
-            hasLoaded = true
 
-            GroqService.ask(
-                question = question,
-                mode = mode,
-                level = expertLevel,
-                domain = selectedDomain
-            ) { result ->
-                answer = result
-            }
+    LaunchedEffect(question, mode, expertLevel) {
+        println("Triggered API with:")
+        println("Question: $question")
+        println("Mode: $mode")
+        println("Level: $expertLevel")
+
+        isLoading = true   // ✅ MUST
+
+        GroqService.ask(
+            question = question,
+            mode = mode,
+            level = expertLevel,
+            domain = selectedDomain
+
+        ) { result ->
+            println("Answer: $answer")
+            println("Loading: $isLoading")
+            answer = result
+            isLoading = false   // ✅ MUST
         }
     }
 
-    if (isLoading) {
-        LoadingUI()
-    } else {
 
-        val cleanedText = cleanMath(
-            cleanResponse(answer)
-                .replace("<br>", "\n")
-                .replace("+", " ")
-                .replace("|", "")
-        )
-
-        val sections = parseDynamicSections(cleanedText)
-
-        if (sections.isEmpty()) {
-            Text(cleanedText)
-        } else {
-            sections.forEach { section ->
-                Text(
-                    text = section.toString(),
-                    color = Color.White
-                )
-            }
-        }
-    }
 
 
     AppScaffold(
@@ -184,6 +178,9 @@ fun AnswerScreen(
             Text("Mode: $mode")
 
             Spacer(modifier = Modifier.height(16.dp))
+
+
+// 🔥 EXPERT LEVEL BUTTONS (keep this)
             if (mode == "Expert") {
 
                 Row(
@@ -206,16 +203,7 @@ fun AnswerScreen(
                                 )
                                 .padding(8.dp)
                                 .clickable {
-                                    expertLevel = level
 
-                                    GroqService.ask(
-                                        question = question,
-                                        mode = mode,
-                                        level = expertLevel,
-                                        domain = "Biology"
-                                    ) {
-                                        answer = it
-                                    }
                                 }
                         )
                     }
@@ -224,37 +212,43 @@ fun AnswerScreen(
                 Spacer(modifier = Modifier.height(12.dp))
             }
 
-            val cleanedText = cleanMath(
-                cleanResponse(answer)
 
+// 🔥 MAIN ANSWER BLOCK (THIS IS THE FIX)
+            if (isLoading) {
+
+                LoadingUI()
+
+            } else {
+                println("RAW ANSWER: $answer")
+
+                val cleanedText = cleanMath(
+                    cleanResponse(answer)
                         .replace("<br>", "\n")
                         .replace("•", "-")
                         .replace("*", "")
                         .replace("|", "")
 
-            )
+                )
+                println("CLEANED ANSWER: $cleanedText")
 
-            val sections = parseDynamicSections(cleanedText)
+                val sections = parseDynamicSections(cleanedText)
 
 
-            if (sections.isEmpty()) {
-                Text(cleanedText)
-            } else {
-                sections.forEach { (title, content) ->
-                    ExpandableSection(title, content, mode)
+                if (sections.isNotEmpty()) {
+
+                    sections.forEach { (title, content) ->
+                        ExpandableSection(title, content, mode)
+                    }
+
+                } else {
+
+                    // ❌ DO NOTHING (REMOVE RAW TEXT COMPLETELY)
+                }
                 }
             }
-        }
     }
 }
-fun cleanResponse(text: String): String {
-    return text
-        .replace("**", "")
-        .replace("##", "")
-        .replace("*", "")
-        .replace("•", "-")
-        .replace(Regex("\\n{2,}"), "\n")
-        .trim()
-}
+
+
 
 

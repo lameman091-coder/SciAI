@@ -92,7 +92,7 @@ fun HomeScreen(navController: NavController) {
                 query = result   // 🔥 directly fill answer OR navigate
 
                 // OPTIONAL AUTO NAVIGATION
-                val encodedQuery = java.net.URLEncoder.encode(result, "UTF-8")
+                val encodedQuery = Uri.encode(result)
                 navController.navigate("answer/$encodedQuery/$selectedMode")
             }
         }
@@ -332,7 +332,7 @@ fun HomeScreen(navController: NavController) {
                             userManager.incrementTotal()
                             totalCount = userManager.getTotal()
 
-                            val encodedQuery = java.net.URLEncoder.encode(query, "UTF-8")
+                            val encodedQuery = Uri.encode(query)
 
                             navController.navigate("answer/$encodedQuery/$selectedMode")
                         }

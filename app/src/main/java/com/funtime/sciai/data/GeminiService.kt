@@ -38,7 +38,7 @@ object GeminiService {
 
                     If it contains a scientific question:
                     - Extract the question
-                    - Answer in CLEAN format (NO symbols like **, ##)
+                    - Answer in CLEAN format (NO symbols like **, ##,++)
                     - Answer in structured format:
                       Definition
                       Explanation
