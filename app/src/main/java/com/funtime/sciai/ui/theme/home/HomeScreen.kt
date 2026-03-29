@@ -68,7 +68,16 @@ import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import android.widget.Toast
 import com.funtime.sciai.data.GeminiService
-
+import com.funtime.sciai.data.HistoryManager
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import androidx.compose.ui.unit.sp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController) {
@@ -87,6 +96,11 @@ fun HomeScreen(navController: NavController) {
     val sessionTime = sessionViewModel.sessionTime.value
 
     var totalCount by remember { mutableStateOf<Int>(userManager.getTotal()) }
+    
+    var historyList by remember { mutableStateOf(HistoryManager.getHistory(context)) }
+    LaunchedEffect(Unit) {
+        historyList = HistoryManager.getHistory(context)
+    }
 
     var imageUri by remember { mutableStateOf<Uri?>(null) }
 
@@ -159,25 +173,41 @@ fun HomeScreen(navController: NavController) {
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
+            ModalDrawerSheet(
+                drawerContainerColor = Color(0xFF1E293B) // Premium Dark Slate
+            ) {
+                Text(
+                    text = "SciAI Navigation",
+                    modifier = Modifier.padding(16.dp),
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp
+                )
 
-            ModalDrawerSheet {
+                Divider(color = Color.DarkGray)
 
-                Text("SciAI", modifier = Modifier.padding(16.dp))
+                DrawerItem("Home", Color.White)
+                DrawerItem("Premium", Color(0xFFFFC107))
 
-                Divider()
+                Divider(color = Color.DarkGray)
 
-                DrawerItem("Home")
-                DrawerItem("Library")
-                DrawerItem("Downloads")
-
-                Divider()
-
-                DrawerItem("Premium")
-                DrawerItem("Support")
-
-                Divider()
-
-                DrawerItem("Exit")
+                Text(
+                    text = "Recent Searches",
+                    modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 8.dp),
+                    color = Color(0xFF38BDF8),
+                    fontWeight = FontWeight.Medium
+                )
+                
+                LazyColumn(modifier = Modifier.weight(1f)) {
+                    items(historyList) { item ->
+                        HistoryDrawerItem(item = item) {
+                            coroutineScope.launch { drawerState.close() }
+                            val encodedQuery = Uri.encode(item.query)
+                            // Triggers same behavior, recreating AnswerScreen with cached inputs
+                            navController.navigate("answer/${encodedQuery}/${item.mode}")
+                        }
+                    }
+                }
             }
         }
     ) {
@@ -208,9 +238,15 @@ fun HomeScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(8.dp))
 
 
-                Card(
+                ElevatedCard(
                     shape = RoundedCornerShape(16.dp),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = androidx.compose.material3.CardDefaults.elevatedCardColors(
+                        containerColor = Color(0xFF0F172A)
+                    ),
+                    elevation = androidx.compose.material3.CardDefaults.elevatedCardElevation(
+                        defaultElevation = 6.dp
+                    )
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
 
@@ -431,14 +467,51 @@ fun formatSessionTime(seconds: Long): String {
 }
 
 @Composable
-fun DrawerItem(title: String) {
+fun DrawerItem(title: String, textColor: Color = Color.White) {
     Text(
         text = title,
+        color = textColor,
         modifier = Modifier
             .fillMaxWidth()
+            .clickable { /* action */ }
             .padding(16.dp)
     )
 }
+
+@Composable
+fun HistoryDrawerItem(item: com.funtime.sciai.data.HistoryItem, onClick: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
+            .padding(horizontal = 16.dp, vertical = 10.dp)
+    ) {
+        val sdf = SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault())
+        val dateStr = sdf.format(Date(item.timestamp))
+
+        Text(
+            text = item.query,
+            color = Color.White,
+            fontSize = 14.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+        Row(modifier = Modifier.padding(top = 4.dp)) {
+            Text(
+                text = "${item.mode} • ${item.domain}",
+                color = Color(0xFF94A3B8), // slate 400
+                fontSize = 12.sp,
+                modifier = Modifier.weight(1f)
+            )
+            Text(
+                text = dateStr,
+                color = Color(0xFF64748B), // slate 500
+                fontSize = 10.sp
+            )
+        }
+    }
+}
+
 @Composable
 fun SelectableButton(
     text: String,

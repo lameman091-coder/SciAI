@@ -20,6 +20,10 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.foundation.border
 import androidx.compose.foundation.shape.RoundedCornerShape
 
@@ -102,29 +106,37 @@ fun ExpandableSection(
         else -> Color.Gray
     }
 
-    Column(
+    ElevatedCard(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
-            .border(1.5.dp, borderColor, shape = RoundedCornerShape(12.dp))
-            .padding(12.dp)
+            .padding(vertical = 8.dp),
+        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp),
+        colors = CardDefaults.elevatedCardColors(containerColor = Color(0xFF1E1E1E)),
+        shape = RoundedCornerShape(12.dp)
     ) {
-
-        Text(
-            text = "▼ $title",
-            color = borderColor,
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { expanded = !expanded }
-        )
-
-        if (expanded) {
-            Spacer(modifier = Modifier.height(8.dp))
+                .border(1.5.dp, borderColor, shape = RoundedCornerShape(12.dp))
+                .padding(16.dp)
+        ) {
 
             Text(
-                text = content,
-                color = Color.White
+                text = "▼ $title",
+                color = borderColor,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { expanded = !expanded }
             )
+
+            if (expanded) {
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = content,
+                    color = Color.White
+                )
+            }
         }
     }
 }
@@ -135,6 +147,7 @@ fun AnswerScreen(
     mode: String,
     navController: NavController
 ) {
+    val context = LocalContext.current
     var answer by remember { mutableStateOf("Loading...") }
     var displayedText by remember { mutableStateOf("") }
     var isTyping by remember { mutableStateOf(false) }
@@ -163,6 +176,20 @@ fun AnswerScreen(
         
         println("Answer: $result")
         answer = result
+        
+        // Save history item locally
+        if (result.isNotBlank() && !result.startsWith("Error")) {
+            com.funtime.sciai.data.HistoryManager.saveHistory(
+                context = context,
+                item = com.funtime.sciai.data.HistoryItem(
+                    query = question,
+                    mode = mode,
+                    domain = selectedDomain,
+                    timestamp = System.currentTimeMillis()
+                )
+            )
+        }
+        
         isLoading = false
         isTyping = true
     }
@@ -281,7 +308,9 @@ fun AnswerScreen(
             }
         }
     }
-}
+  }
+
+
 
 
 
