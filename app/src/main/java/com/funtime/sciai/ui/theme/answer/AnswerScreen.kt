@@ -15,9 +15,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.clickable
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.border
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -46,32 +47,33 @@ fun parseDynamicSections(text: String): List<Pair<String, String>> {
     val lines = text.split("\n")
     val sections = mutableListOf<Pair<String, String>>()
 
-    var currentTitle = ""
+    var currentTitle = "Overview"
     var currentContent = StringBuilder()
 
     for (line in lines) {
 
         val trimmed = line.trim()
 
-        val isHeading = trimmed.length in 3..60 &&
+        val isHeading = trimmed.firstOrNull()?.isUpperCase() == true &&
+                trimmed.split(" ").size <= 6 &&
                 !trimmed.endsWith(".") &&
                 !trimmed.contains(":") &&
-                trimmed.split(" ").size <= 8
+                trimmed.isNotEmpty()
 
         if (isHeading) {
 
-            if (currentTitle.isNotEmpty()) {
+            if (currentContent.toString().trim().isNotEmpty()) {
                 sections.add(currentTitle to currentContent.toString().trim())
-                currentContent = StringBuilder()
             }
 
             currentTitle = trimmed
+            currentContent = StringBuilder()
         } else {
             currentContent.append(line).append("\n")
         }
     }
 
-    if (currentTitle.isNotEmpty()) {
+    if (currentContent.toString().trim().isNotEmpty() || currentTitle != "Overview") {
         sections.add(currentTitle to currentContent.toString().trim())
     }
 
@@ -81,10 +83,17 @@ fun parseDynamicSections(text: String): List<Pair<String, String>> {
 fun ExpandableSection(
     title: String,
     content: String,
-    mode: String
+    mode: String,
+    isTyping: Boolean = false
 ) {
 
     var expanded by remember { mutableStateOf(false) }
+
+    LaunchedEffect(isTyping) {
+        if (isTyping) {
+            expanded = true
+        }
+    }
 
     val borderColor = when (mode) {
         "Exam" -> Color(0xFFFFC107)     // Yellow
@@ -127,57 +136,71 @@ fun AnswerScreen(
     navController: NavController
 ) {
     var answer by remember { mutableStateOf("Loading...") }
+    var displayedText by remember { mutableStateOf("") }
+    var isTyping by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(true) }
     var expertLevel by remember { mutableStateOf("Academic") }
     var selectedDomain by remember { mutableStateOf("Biology") }
 
-    LaunchedEffect(question, mode, expertLevel) {
-        println("Triggered API with:")
-        println("Question: $question")
-        println("Mode: $mode")
-        println("Level: $expertLevel")
+    LaunchedEffect(question, mode, expertLevel, selectedDomain) {
+        isLoading = true
+        isTyping = false
+        displayedText = ""
+        answer = "Loading..."
 
-        isLoading = true   // ✅ MUST
+        val result = suspendCancellableCoroutine { continuation ->
+            GroqService.ask(
+                question = question,
+                mode = mode,
+                level = expertLevel,
+                domain = selectedDomain
+            ) { res ->
+                if (continuation.isActive) {
+                    continuation.resume(res)
+                }
+            }
+        }
+        
+        println("Answer: $result")
+        answer = result
+        isLoading = false
+        isTyping = true
+    }
 
-        GroqService.ask(
-            question = question,
-            mode = mode,
-            level = expertLevel,
-            domain = selectedDomain
-
-        ) { result ->
-            println("Answer: $answer")
-            println("Loading: $isLoading")
-            answer = result
-            isLoading = false   // ✅ MUST
+    LaunchedEffect(answer, isTyping) {
+        if (!isLoading && isTyping && answer != "Loading...") {
+            var currentText = ""
+            val chunkLength = 4
+            for (i in 0 until answer.length step chunkLength) {
+                val end = if (i + chunkLength > answer.length) answer.length else i + chunkLength
+                currentText += answer.substring(i, end)
+                displayedText = currentText
+                delay(15)
+            }
+            isTyping = false
         }
     }
 
+    val scrollState = rememberScrollState()
 
-
+    LaunchedEffect(displayedText) {
+        if (isTyping) {
+            scrollState.animateScrollTo(scrollState.maxValue)
+        }
+    }
 
     AppScaffold(
         title = mode,
         navController = navController,
         showBack = true
-    ) { padding ->
+    ) { scaffoldModifier ->
 
         Column(
-            modifier = Modifier
-
+            modifier = scaffoldModifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState()) // ✅ FIX
+                .verticalScroll(scrollState) // ✅ FIX
                 .padding(16.dp)
         ) {
-
-            Text("Question:")
-            Text(question)
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text("Mode: $mode")
-
-            Spacer(modifier = Modifier.height(16.dp))
 
 
 // 🔥 EXPERT LEVEL BUTTONS (keep this)
@@ -219,33 +242,44 @@ fun AnswerScreen(
                 LoadingUI()
 
             } else {
-                println("RAW ANSWER: $answer")
+                
+                // Show cursor text depending on whether it's currently typing
+                val cursorText = if (isTyping) " █" else ""
 
                 val cleanedText = cleanMath(
-                    cleanResponse(answer)
+                    cleanResponse(displayedText) // Use progressively typed text
                         .replace("<br>", "\n")
                         .replace("•", "-")
                         .replace("*", "")
                         .replace("|", "")
-
                 )
-                println("CLEANED ANSWER: $cleanedText")
 
                 val sections = parseDynamicSections(cleanedText)
 
-
                 if (sections.isNotEmpty()) {
 
-                    sections.forEach { (title, content) ->
-                        ExpandableSection(title, content, mode)
+                    sections.forEachIndexed { index, pair ->
+                        val (title, content) = pair
+                        val isLast = index == sections.lastIndex
+                        
+                        ExpandableSection(
+                            title = title,
+                            content = content + if (isLast) cursorText else "",
+                            mode = mode,
+                            isTyping = isLast && isTyping
+                        )
                     }
 
                 } else {
 
-                    // ❌ DO NOTHING (REMOVE RAW TEXT COMPLETELY)
-                }
+                    // Fallback for un-sectioned text
+                    Text(
+                        text = cleanedText + cursorText,
+                        color = Color.White
+                    )
                 }
             }
+        }
     }
 }
 

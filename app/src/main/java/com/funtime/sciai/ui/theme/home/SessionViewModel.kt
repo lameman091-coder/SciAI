@@ -23,4 +23,8 @@ class SessionViewModel : ViewModel() {
             }
         }
     }
+
+    fun resetTime() {
+        sessionTime.value = 0L
+    }
 }

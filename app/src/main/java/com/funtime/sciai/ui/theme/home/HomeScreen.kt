@@ -20,7 +20,20 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Mic
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.AlertDialog
+import androidx.compose.foundation.Image
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.draw.clip
+import androidx.compose.foundation.background
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.Alignment
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
+import android.graphics.BitmapFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
@@ -84,17 +97,6 @@ fun HomeScreen(navController: NavController) {
 
         if (uri != null) {
             imageUri = uri
-
-            coroutineScope.launch {
-
-                val result = GeminiService.analyzeImage(context, uri)
-
-                query = result   // 🔥 directly fill answer OR navigate
-
-                // OPTIONAL AUTO NAVIGATION
-                val encodedQuery = Uri.encode(result)
-                navController.navigate("answer/$encodedQuery/$selectedMode")
-            }
         }
     }
 
@@ -234,6 +236,7 @@ fun HomeScreen(navController: NavController) {
                     onClick = {
                         userManager.resetTotal()
                         totalCount = 0   // 🔥 THIS LINE IS CRITICAL
+                        sessionViewModel.resetTime() // Reset session time
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -286,6 +289,48 @@ fun HomeScreen(navController: NavController) {
 
                 Spacer(modifier = Modifier.weight(1f))
 
+                if (imageUri != null) {
+                    var bitmap by remember(imageUri) { mutableStateOf<android.graphics.Bitmap?>(null) }
+                    LaunchedEffect(imageUri) {
+                        withContext(Dispatchers.IO) {
+                            val stream = context.contentResolver.openInputStream(imageUri!!)
+                            bitmap = BitmapFactory.decodeStream(stream)
+                            stream?.close()
+                        }
+                    }
+
+                    if (bitmap != null) {
+                        Box(
+                            modifier = Modifier
+                                .padding(bottom = 8.dp)
+                                .size(80.dp)
+                        ) {
+                            Image(
+                                bitmap = bitmap!!.asImageBitmap(),
+                                contentDescription = "Selected Image",
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .clip(RoundedCornerShape(12.dp)),
+                                contentScale = ContentScale.Crop
+                            )
+                            IconButton(
+                                onClick = { imageUri = null },
+                                modifier = Modifier
+                                    .align(Alignment.TopEnd)
+                                    .size(24.dp)
+                                    .background(Color.Black.copy(alpha = 0.6f), CircleShape)
+                                    .padding(2.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Close,
+                                    contentDescription = "Remove Image",
+                                    tint = Color.White
+                                )
+                            }
+                        }
+                    }
+                }
+
                 // Search Bar with Voice
                 OutlinedTextField(
                     value = query,
@@ -324,21 +369,37 @@ fun HomeScreen(navController: NavController) {
 
 
 
+                var isProcessingImage by remember { mutableStateOf(false) }
+
                 Button(
                     onClick = {
-                        if (query.isNotBlank()) {
+                        if (imageUri != null) {
+                            coroutineScope.launch {
+                                isProcessingImage = true
+                                val geminiResult = GeminiService.analyzeImage(context, imageUri!!)
+                                isProcessingImage = false
 
+                                userManager.incrementTotal()
+                                totalCount = userManager.getTotal()
 
+                                val finalQuery = if (query.isNotBlank()) "$query\n\nImage Info:\n$geminiResult" else geminiResult
+                                val encodedQuery = Uri.encode(finalQuery)
+                                navController.navigate("answer/$encodedQuery/$selectedMode")
+                                imageUri = null
+                                query = ""
+                            }
+                        } else if (query.isNotBlank()) {
                             userManager.incrementTotal()
                             totalCount = userManager.getTotal()
 
                             val encodedQuery = Uri.encode(query)
-
                             navController.navigate("answer/$encodedQuery/$selectedMode")
                         }
-                    }
+                    },
+                    enabled = !isProcessingImage,
+                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
                 ) {
-                    Text("Search")
+                    Text(if (isProcessingImage) "Processing attached image..." else "Search")
                 }
 
 
