@@ -1,9 +1,10 @@
 package com.funtime.sciai.ui.theme.splash
 
 import androidx.compose.animation.core.*
-import androidx.compose.foundation.Canvas
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,7 +36,10 @@ fun SplashScreen(navController: NavController) {
 
     // Animations
     val phoenixOffsetY = remember { Animatable(2500f) } // Starts below screen
-    val phoenixScale = remember { Animatable(1f) }
+    val phoenixScaleX = remember { Animatable(1f) }
+    val phoenixScaleY = remember { Animatable(1f) }
+    
+    val backgroundLightAlpha = remember { Animatable(0f) }
     
     val logoAlpha = remember { Animatable(0f) }
     val logoScale = remember { Animatable(0.85f) }
@@ -45,16 +49,28 @@ fun SplashScreen(navController: NavController) {
     val textAlpha3 = remember { Animatable(0f) }
 
     LaunchedEffect(Unit) {
-        // 1. Phoenix Swoop Exit
+        // 1. Phoenix Swoop Exit & "Wing Flap" Illusion via ScaleX oscillation
         launch {
-            phoenixScale.animateTo(
-                targetValue = 1.3f,
-                animationSpec = tween(durationMillis = 1500, easing = LinearOutSlowInEasing)
+            // Oscillate X scale slightly to simulate wing subtle motion
+            repeat(3) {
+                phoenixScaleX.animateTo(0.9f, animationSpec = tween(250))
+                phoenixScaleX.animateTo(1.1f, animationSpec = tween(250))
+            }
+        }
+        launch {
+            phoenixScaleY.animateTo(
+                targetValue = 1.6f,
+                animationSpec = tween(durationMillis = 1800, easing = LinearOutSlowInEasing)
             )
         }
+        launch {
+            delay(800)
+            backgroundLightAlpha.animateTo(1f, animationSpec = tween(800))
+        }
+        
         phoenixOffsetY.animateTo(
             targetValue = -2500f, // Exits completely above
-            animationSpec = tween(durationMillis = 1500, easing = FastOutSlowInEasing)
+            animationSpec = tween(durationMillis = 1800, easing = FastOutSlowInEasing)
         )
 
         // Delay 200ms
@@ -91,6 +107,23 @@ fun SplashScreen(navController: NavController) {
             .background(Color(0xFF0F172A)), // Deep premium dark blue
         contentAlignment = Alignment.Center
     ) {
+
+        // Expanding light center
+        if (backgroundLightAlpha.value > 0f) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .alpha(backgroundLightAlpha.value)
+                    .background(
+                        Brush.radialGradient(
+                            colors = listOf(
+                                Color(0xFF1E293B),
+                                Color(0xFF0F172A)
+                            )
+                        )
+                    )
+            )
+        }
 
         // --- BRANDING REVEAL LAYER ---
         Column(
@@ -145,28 +178,16 @@ fun SplashScreen(navController: NavController) {
         // --- PHOENIX ANIMATION LAYER ---
         // Exists purely to fly over the screen and vanish
         if (phoenixOffsetY.value > -2000f) {
-            Canvas(
+            val phoenixResId = context.resources.getIdentifier("phoenix", "drawable", context.packageName)
+            val phoenixDrawableId = if (phoenixResId != 0) phoenixResId else R.drawable.img // Fallback if user hasn't saved it yet
+            Image(
+                painter = painterResource(id = phoenixDrawableId),
+                contentDescription = "Phoenix",
                 modifier = Modifier
-                    .fillMaxSize()
+                    .size(240.dp)
                     .offset { IntOffset(0, phoenixOffsetY.value.toInt()) }
-                    .scale(phoenixScale.value)
-            ) {
-                val path = Path()
-                val width = size.width
-                val height = size.height
-                
-                // Abstract sweeping phoenix shape (red/orange)
-                path.moveTo(width / 2f, height * 0.2f) // Top beak
-                path.quadraticBezierTo(width * 0.8f, height * 0.4f, width, height * 0.3f) // Right wing tip
-                path.quadraticBezierTo(width * 0.7f, height * 0.6f, width / 2f, height * 0.8f) // Right tail
-                path.quadraticBezierTo(width * 0.3f, height * 0.6f, 0f, height * 0.3f) // Left wing tip
-                path.quadraticBezierTo(width * 0.2f, height * 0.4f, width / 2f, height * 0.2f) // Back to beak
-                
-                drawPath(
-                    path = path,
-                    color = Color(0xFFEF4444) // Vibrant Red
-                )
-            }
+                    .scale(scaleX = phoenixScaleX.value, scaleY = phoenixScaleY.value)
+            )
         }
     }
 }

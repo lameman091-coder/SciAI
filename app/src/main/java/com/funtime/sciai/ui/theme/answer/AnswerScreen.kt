@@ -161,7 +161,7 @@ fun AnswerScreen(
         displayedText = ""
         answer = "Loading..."
 
-        val result = suspendCancellableCoroutine { continuation ->
+        val result = suspendCancellableCoroutine<String> { continuation ->
             GroqService.ask(
                 question = question,
                 mode = mode,
@@ -174,11 +174,14 @@ fun AnswerScreen(
             }
         }
         
-        println("Answer: $result")
-        answer = result
+        // Strip out <think> internal reasoning blocks
+        val strippedResult = result.replace(Regex("<think>.*?</think>", RegexOption.DOT_MATCHES_ALL), "").trim()
+        
+        println("Answer: $strippedResult")
+        answer = strippedResult
         
         // Save history item locally
-        if (result.isNotBlank() && !result.startsWith("Error")) {
+        if (strippedResult.isNotBlank() && !strippedResult.startsWith("Error")) {
             com.funtime.sciai.data.HistoryManager.saveHistory(
                 context = context,
                 item = com.funtime.sciai.data.HistoryItem(

@@ -21,6 +21,11 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.AlertDialog
 import androidx.compose.foundation.Image
 import androidx.compose.ui.graphics.asImageBitmap
@@ -102,15 +107,14 @@ fun HomeScreen(navController: NavController) {
         historyList = HistoryManager.getHistory(context)
     }
 
-    var imageUri by remember { mutableStateOf<Uri?>(null) }
+    var imageUris by remember { mutableStateOf<List<Uri>>(emptyList()) }
 
 // Gallery
     val galleryLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent()
-    ) { uri ->
-
-        if (uri != null) {
-            imageUri = uri
+        contract = ActivityResultContracts.GetMultipleContents()
+    ) { uris ->
+        if (uris.isNotEmpty()) {
+            imageUris = uris
         }
     }
 
@@ -325,118 +329,123 @@ fun HomeScreen(navController: NavController) {
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                if (imageUri != null) {
-                    var bitmap by remember(imageUri) { mutableStateOf<android.graphics.Bitmap?>(null) }
-                    LaunchedEffect(imageUri) {
-                        withContext(Dispatchers.IO) {
-                            val stream = context.contentResolver.openInputStream(imageUri!!)
-                            bitmap = BitmapFactory.decodeStream(stream)
-                            stream?.close()
-                        }
-                    }
-
-                    if (bitmap != null) {
-                        Box(
-                            modifier = Modifier
-                                .padding(bottom = 8.dp)
-                                .size(80.dp)
-                        ) {
-                            Image(
-                                bitmap = bitmap!!.asImageBitmap(),
-                                contentDescription = "Selected Image",
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .clip(RoundedCornerShape(12.dp)),
-                                contentScale = ContentScale.Crop
-                            )
-                            IconButton(
-                                onClick = { imageUri = null },
-                                modifier = Modifier
-                                    .align(Alignment.TopEnd)
-                                    .size(24.dp)
-                                    .background(Color.Black.copy(alpha = 0.6f), CircleShape)
-                                    .padding(2.dp)
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Close,
-                                    contentDescription = "Remove Image",
-                                    tint = Color.White
-                                )
+                if (imageUris.isNotEmpty()) {
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    ) {
+                        items(imageUris) { uri ->
+                            var bitmap by remember(uri) { mutableStateOf<android.graphics.Bitmap?>(null) }
+                            LaunchedEffect(uri) {
+                                withContext(Dispatchers.IO) {
+                                    val stream = context.contentResolver.openInputStream(uri)
+                                    bitmap = BitmapFactory.decodeStream(stream)
+                                    stream?.close()
+                                }
+                            }
+                            
+                            if (bitmap != null) {
+                                Box(modifier = Modifier.size(80.dp)) {
+                                    Image(
+                                        bitmap = bitmap!!.asImageBitmap(),
+                                        contentDescription = "Selected Image",
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .clip(RoundedCornerShape(12.dp)),
+                                        contentScale = ContentScale.Crop
+                                    )
+                                    IconButton(
+                                        onClick = { imageUris = imageUris.filter { it != uri } },
+                                        modifier = Modifier
+                                            .align(Alignment.TopEnd)
+                                            .size(24.dp)
+                                            .background(Color.Black.copy(alpha = 0.6f), CircleShape)
+                                            .padding(2.dp)
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Close,
+                                            contentDescription = "Remove Image",
+                                            tint = Color.White
+                                        )
+                                    }
+                                }
                             }
                         }
                     }
                 }
 
-                // Search Bar with Voice
+                var isProcessingImage by remember { mutableStateOf(false) }
+
+                val executeSearch = {
+                    if (imageUris.isNotEmpty()) {
+                        coroutineScope.launch {
+                            isProcessingImage = true
+                            var combinedImageInfo = ""
+                            imageUris.forEach { uri ->
+                                val res = GeminiService.analyzeImage(context, uri)
+                                combinedImageInfo += res + "\n"
+                            }
+                            isProcessingImage = false
+
+                            userManager.incrementTotal()
+                            totalCount = userManager.getTotal()
+
+                            val finalQuery = if (query.isNotBlank()) "$query\n\nImage Info:\n$combinedImageInfo" else combinedImageInfo
+                            val encodedQuery = Uri.encode(finalQuery)
+                            navController.navigate("answer/$encodedQuery/$selectedMode")
+                            imageUris = emptyList()
+                            query = ""
+                        }
+                    } else if (query.isNotBlank()) {
+                        userManager.incrementTotal()
+                        totalCount = userManager.getTotal()
+
+                        val encodedQuery = Uri.encode(query)
+                        navController.navigate("answer/$encodedQuery/$selectedMode")
+                    }
+                }
+
+                // Search Bar with Voice and Send
                 OutlinedTextField(
                     value = query,
-                    onValueChange = { newText ->
-                        query = newText
-                    },
-                    placeholder = { Text("Ask anything...") },
+                    onValueChange = { newText -> query = newText },
+                    placeholder = { Text(if (isProcessingImage) "Processing images..." else "Ask anything...") },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
+                    enabled = !isProcessingImage,
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        imeAction = ImeAction.Send
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onSend = { executeSearch() }
+                    ),
+                    shape = RoundedCornerShape(24.dp),
                     trailingIcon = {
-
-                        Row {
-
-                            // ➕ IMAGE
-                            IconButton(onClick = {
-                                galleryLauncher.launch("image/*")
-                            }) {
-                                Icon(Icons.Default.Add, contentDescription = "Add Image")
+                        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(end = 4.dp)) {
+                            IconButton(onClick = { galleryLauncher.launch("image/*") }) {
+                                Icon(Icons.Default.Add, contentDescription = "Add Images", tint = Color.Gray)
                             }
-
-                            // 🎤 VOICE
                             IconButton(onClick = {
                                 val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-                                intent.putExtra(
-                                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-                                )
+                                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
                                 voiceLauncher.launch(intent)
                             }) {
-                                Icon(Icons.Default.Mic, contentDescription = "Voice")
+                                Icon(Icons.Default.Mic, contentDescription = "Voice", tint = Color.Gray)
+                            }
+                            // SEND CHAT BUTTON
+                            IconButton(
+                                onClick = { executeSearch() },
+                                enabled = (query.isNotBlank() || imageUris.isNotEmpty()) && !isProcessingImage
+                            ) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.Send,
+                                    contentDescription = "Send Search",
+                                    tint = if (isProcessingImage) Color.Gray else Color(0xFF38BDF8)
+                                )
                             }
                         }
                     }
                 )
-
-
-
-
-                var isProcessingImage by remember { mutableStateOf(false) }
-
-                Button(
-                    onClick = {
-                        if (imageUri != null) {
-                            coroutineScope.launch {
-                                isProcessingImage = true
-                                val geminiResult = GeminiService.analyzeImage(context, imageUri!!)
-                                isProcessingImage = false
-
-                                userManager.incrementTotal()
-                                totalCount = userManager.getTotal()
-
-                                val finalQuery = if (query.isNotBlank()) "$query\n\nImage Info:\n$geminiResult" else geminiResult
-                                val encodedQuery = Uri.encode(finalQuery)
-                                navController.navigate("answer/$encodedQuery/$selectedMode")
-                                imageUri = null
-                                query = ""
-                            }
-                        } else if (query.isNotBlank()) {
-                            userManager.incrementTotal()
-                            totalCount = userManager.getTotal()
-
-                            val encodedQuery = Uri.encode(query)
-                            navController.navigate("answer/$encodedQuery/$selectedMode")
-                        }
-                    },
-                    enabled = !isProcessingImage,
-                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
-                ) {
-                    Text(if (isProcessingImage) "Processing attached image..." else "Search")
-                }
 
 
             }
