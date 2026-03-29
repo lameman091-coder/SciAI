@@ -109,12 +109,12 @@ fun HomeScreen(navController: NavController) {
 
     var imageUris by remember { mutableStateOf<List<Uri>>(emptyList()) }
 
-// Gallery
     val galleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetMultipleContents()
     ) { uris ->
         if (uris.isNotEmpty()) {
-            imageUris = uris
+            // Append rather than overwrite, then remove duplicates just in case
+            imageUris = (imageUris + uris).distinct()
         }
     }
 

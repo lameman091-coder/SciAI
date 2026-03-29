@@ -1,7 +1,7 @@
 package com.funtime.sciai.ui.theme.splash
 
 import androidx.compose.animation.core.*
-import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.ui.graphics.Brush
@@ -36,8 +36,7 @@ fun SplashScreen(navController: NavController) {
 
     // Animations
     val phoenixOffsetY = remember { Animatable(2500f) } // Starts below screen
-    val phoenixScaleX = remember { Animatable(1f) }
-    val phoenixScaleY = remember { Animatable(1f) }
+    val phoenixScale = remember { Animatable(1f) }
     
     val backgroundLightAlpha = remember { Animatable(0f) }
     
@@ -49,53 +48,37 @@ fun SplashScreen(navController: NavController) {
     val textAlpha3 = remember { Animatable(0f) }
 
     LaunchedEffect(Unit) {
-        // 1. Phoenix Swoop Exit & "Wing Flap" Illusion via ScaleX oscillation
+        // 1. Phoenix Swoop Exit
         launch {
-            // Oscillate X scale slightly to simulate wing subtle motion
-            repeat(3) {
-                phoenixScaleX.animateTo(0.9f, animationSpec = tween(250))
-                phoenixScaleX.animateTo(1.1f, animationSpec = tween(250))
-            }
-        }
-        launch {
-            phoenixScaleY.animateTo(
-                targetValue = 1.6f,
-                animationSpec = tween(durationMillis = 1800, easing = LinearOutSlowInEasing)
+            phoenixScale.animateTo(
+                targetValue = 1.3f,
+                animationSpec = tween(durationMillis = 1500, easing = LinearOutSlowInEasing)
             )
         }
-        launch {
-            delay(800)
-            backgroundLightAlpha.animateTo(1f, animationSpec = tween(800))
-        }
-        
         phoenixOffsetY.animateTo(
             targetValue = -2500f, // Exits completely above
-            animationSpec = tween(durationMillis = 1800, easing = FastOutSlowInEasing)
+            animationSpec = tween(durationMillis = 1500, easing = FastOutSlowInEasing)
         )
 
-        // Delay 200ms
-        delay(250)
+        // 2. ONLY AFTER phoenix completes, trigger color background transition
+        backgroundLightAlpha.animateTo(1f, animationSpec = tween(800))
 
-        // 2. Logo Fade & Scale
-        launch {
-            logoAlpha.animateTo(1f, animationSpec = tween(600))
-        }
-        launch {
-            logoScale.animateTo(1f, animationSpec = tween(700, easing = FastOutSlowInEasing))
-        }
+        // 3. Logo Fade & Scale
+        launch { logoAlpha.animateTo(1f, animationSpec = tween(600)) }
+        launch { logoScale.animateTo(1f, animationSpec = tween(700, easing = FastOutSlowInEasing)) }
 
-        // 3. Staggered Typography
+        // 4. Staggered Typography
         delay(300)
-        launch { textAlpha1.animateTo(1f, animationSpec = tween(500)) } // "SciAi"
+        launch { textAlpha1.animateTo(1f, animationSpec = tween(500)) } 
         delay(200)
-        launch { textAlpha2.animateTo(1f, animationSpec = tween(500)) } // Tagline
+        launch { textAlpha2.animateTo(1f, animationSpec = tween(500)) } 
         delay(300)
-        launch { textAlpha3.animateTo(1f, animationSpec = tween(500)) } // Welcome
+        launch { textAlpha3.animateTo(1f, animationSpec = tween(500)) } 
 
         // Hold for reading
         delay(1200)
 
-        // 4. Navigate to Home
+        // 5. Navigate to Home
         navController.navigate("home") {
             popUpTo("splash") { inclusive = true }
         }
@@ -132,8 +115,8 @@ fun SplashScreen(navController: NavController) {
             modifier = Modifier.fillMaxSize()
         ) {
             
-            // Try attempting to load the custom provided logo "image_1", fallback if missing
-            val logoResId = context.resources.getIdentifier("image_1", "drawable", context.packageName)
+            // Try attempting to load the custom provided logo "newlogo", fallback if missing
+            val logoResId = context.resources.getIdentifier("newlogo", "drawable", context.packageName)
             val drawableId = if (logoResId != 0) logoResId else R.drawable.img
             
             Image(
@@ -176,18 +159,32 @@ fun SplashScreen(navController: NavController) {
         }
 
         // --- PHOENIX ANIMATION LAYER ---
-        // Exists purely to fly over the screen and vanish
         if (phoenixOffsetY.value > -2000f) {
-            val phoenixResId = context.resources.getIdentifier("phoenix", "drawable", context.packageName)
-            val phoenixDrawableId = if (phoenixResId != 0) phoenixResId else R.drawable.img // Fallback if user hasn't saved it yet
-            Image(
-                painter = painterResource(id = phoenixDrawableId),
-                contentDescription = "Phoenix",
+            Canvas(
                 modifier = Modifier
-                    .size(240.dp)
+                    .fillMaxSize()
                     .offset { IntOffset(0, phoenixOffsetY.value.toInt()) }
-                    .scale(scaleX = phoenixScaleX.value, scaleY = phoenixScaleY.value)
-            )
+                    .scale(phoenixScale.value)
+            ) {
+                val path = Path()
+                val width = size.width
+                val height = size.height
+                
+                // Abstract sweeping phoenix shape (Gold/Red)
+                path.moveTo(width / 2f, height * 0.2f) 
+                path.quadraticBezierTo(width * 0.8f, height * 0.4f, width, height * 0.3f) 
+                path.quadraticBezierTo(width * 0.7f, height * 0.6f, width / 2f, height * 0.8f) 
+                path.quadraticBezierTo(width * 0.3f, height * 0.6f, 0f, height * 0.3f) 
+                path.quadraticBezierTo(width * 0.2f, height * 0.4f, width / 2f, height * 0.2f) 
+                
+                // Core bird shape filling
+                drawPath(
+                    path = path,
+                    brush = Brush.verticalGradient(
+                        colors = listOf(Color(0xFFFFD700), Color(0xFFEF4444)) // Gold to Red Fire gradient
+                    )
+                )
+            }
         }
     }
 }

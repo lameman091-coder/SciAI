@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.funtime.sciai.components.AppScaffold
 import com.funtime.sciai.data.groq.GroqService
+import com.funtime.sciai.data.rag.RagService
 import androidx.compose.runtime.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -162,14 +163,27 @@ fun AnswerScreen(
         answer = "Loading..."
 
         val result = suspendCancellableCoroutine<String> { continuation ->
-            GroqService.ask(
-                question = question,
-                mode = mode,
-                level = expertLevel,
-                domain = selectedDomain
-            ) { res ->
-                if (continuation.isActive) {
-                    continuation.resume(res)
+            // Route RAG Deep Research to Python FastAPI
+            if (mode == "Expert" && expertLevel == "Research") {
+                RagService.ask(
+                    question = question,
+                    mode = mode,
+                    domain = selectedDomain
+                ) { res ->
+                    if (continuation.isActive) {
+                        continuation.resume(res)
+                    }
+                }
+            } else {
+                GroqService.ask(
+                    question = question,
+                    mode = mode,
+                    level = expertLevel,
+                    domain = selectedDomain
+                ) { res ->
+                    if (continuation.isActive) {
+                        continuation.resume(res)
+                    }
                 }
             }
         }
