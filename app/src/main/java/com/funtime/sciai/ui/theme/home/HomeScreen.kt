@@ -190,8 +190,21 @@ fun HomeScreen(navController: NavController) {
 
                 Divider(color = Color.DarkGray)
 
-                DrawerItem("Home", Color.White)
-                DrawerItem("Premium", Color(0xFFFFC107))
+                DrawerItem("Home", Color.White) {
+                    coroutineScope.launch { drawerState.close() }
+                    navController.navigate("home")
+                }
+                DrawerItem("Library", Color.White) {
+                    coroutineScope.launch { drawerState.close() }
+                    navController.navigate("library")
+                }
+                DrawerItem("Articles", Color.White) {
+                    coroutineScope.launch { drawerState.close() }
+                    navController.navigate("articles")
+                }
+                DrawerItem("Premium", Color(0xFFFFC107)) {
+                    coroutineScope.launch { drawerState.close() }
+                }
 
                 Divider(color = Color.DarkGray)
 
@@ -476,13 +489,13 @@ fun formatSessionTime(seconds: Long): String {
 }
 
 @Composable
-fun DrawerItem(title: String, textColor: Color = Color.White) {
+fun DrawerItem(title: String, textColor: Color = Color.White, onClick: () -> Unit = {}) {
     Text(
         text = title,
         color = textColor,
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { /* action */ }
+            .clickable { onClick() }
             .padding(16.dp)
     )
 }

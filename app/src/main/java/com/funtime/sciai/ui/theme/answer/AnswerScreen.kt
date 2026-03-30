@@ -163,27 +163,14 @@ fun AnswerScreen(
         answer = "Loading..."
 
         val result = suspendCancellableCoroutine<String> { continuation ->
-            // Route RAG Deep Research to Python FastAPI
-            if (mode == "Expert" && expertLevel == "Research") {
-                RagService.ask(
-                    question = question,
-                    mode = mode,
-                    domain = selectedDomain
-                ) { res ->
-                    if (continuation.isActive) {
-                        continuation.resume(res)
-                    }
-                }
-            } else {
-                GroqService.ask(
-                    question = question,
-                    mode = mode,
-                    level = expertLevel,
-                    domain = selectedDomain
-                ) { res ->
-                    if (continuation.isActive) {
-                        continuation.resume(res)
-                    }
+            GroqService.ask(
+                question = question,
+                mode = mode,
+                level = expertLevel,
+                domain = selectedDomain
+            ) { res ->
+                if (continuation.isActive) {
+                    continuation.resume(res)
                 }
             }
         }

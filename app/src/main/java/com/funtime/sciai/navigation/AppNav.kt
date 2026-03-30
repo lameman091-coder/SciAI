@@ -5,6 +5,9 @@ import androidx.navigation.compose.*
 import com.funtime.sciai.ui.theme.home.HomeScreen
 import com.funtime.sciai.ui.theme.answer.AnswerScreen
 import com.funtime.sciai.ui.theme.splash.SplashScreen
+import com.funtime.sciai.ui.theme.library.LibraryScreen
+import com.funtime.sciai.ui.theme.library.LibraryDetailScreen
+import com.funtime.sciai.ui.theme.library.ArticlesScreen
 
 
 @Composable
@@ -23,6 +26,19 @@ fun AppNav() {
 
         composable("home") {
             HomeScreen(navController)
+        }
+
+        composable("library") {
+            LibraryScreen(navController)
+        }
+
+        composable("libraryDetail/{bookId}") { backStackEntry ->
+            val bookId = backStackEntry.arguments?.getString("bookId") ?: ""
+            LibraryDetailScreen(bookId = bookId, navController = navController)
+        }
+        
+        composable("articles") {
+            ArticlesScreen(navController)
         }
         composable("answer/{question}/{mode}") { backStackEntry ->
 
