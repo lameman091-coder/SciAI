@@ -8,6 +8,8 @@ import com.funtime.sciai.ui.theme.splash.SplashScreen
 import com.funtime.sciai.ui.theme.library.LibraryScreen
 import com.funtime.sciai.ui.theme.library.LibraryDetailScreen
 import com.funtime.sciai.ui.theme.library.ArticlesScreen
+import com.funtime.sciai.ui.theme.library.WebViewScreen
+import android.net.Uri
 
 
 @Composable
@@ -63,17 +65,16 @@ fun AppNav() {
             )
         }
         
-        composable("article_detail?title={title}&summary={summary}&source={source}") { backStackEntry ->
-            val title = java.net.URLDecoder.decode(backStackEntry.arguments?.getString("title") ?: "", "UTF-8")
-            val summary = java.net.URLDecoder.decode(backStackEntry.arguments?.getString("summary") ?: "", "UTF-8")
-            val source = java.net.URLDecoder.decode(backStackEntry.arguments?.getString("source") ?: "", "UTF-8")
-            
+        composable("article_detail") {
             com.funtime.sciai.ui.theme.library.ArticleDetailScreen(
-                title = title,
-                summary = summary,
-                source = source,
                 navController = navController
             )
+        }
+
+        composable("webView/{url}") { backStackEntry ->
+            val encodedUrl = backStackEntry.arguments?.getString("url") ?: ""
+            val decodedUrl = Uri.decode(encodedUrl)
+            WebViewScreen(url = decodedUrl, navController = navController)
         }
     }
 }
