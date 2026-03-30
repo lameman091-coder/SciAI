@@ -221,7 +221,7 @@ fun HomeScreen(navController: NavController) {
                             coroutineScope.launch { drawerState.close() }
                             val encodedQuery = Uri.encode(item.query)
                             // Triggers same behavior, recreating AnswerScreen with cached inputs
-                            navController.navigate("answer/${encodedQuery}/${item.mode}")
+                            navController.navigate("answer/${encodedQuery}/${item.mode}?hybrid=true")
                         }
                     }
                 }
@@ -405,7 +405,7 @@ fun HomeScreen(navController: NavController) {
 
                             val finalQuery = if (query.isNotBlank()) "$query\n\nImage Info:\n$combinedImageInfo" else combinedImageInfo
                             val encodedQuery = Uri.encode(finalQuery)
-                            navController.navigate("answer/$encodedQuery/$selectedMode")
+                            navController.navigate("answer/$encodedQuery/$selectedMode?hybrid=true")
                             imageUris = emptyList()
                             query = ""
                         }
@@ -414,7 +414,7 @@ fun HomeScreen(navController: NavController) {
                         totalCount = userManager.getTotal()
 
                         val encodedQuery = Uri.encode(query)
-                        navController.navigate("answer/$encodedQuery/$selectedMode")
+                        navController.navigate("answer/$encodedQuery/$selectedMode?hybrid=true")
                     }
                 }
 

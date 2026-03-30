@@ -15,6 +15,7 @@ fun AppScaffold(
     title: String,
     navController: NavController,
     showBack: Boolean = false,
+    floatingActionButton: @Composable () -> Unit = {},
     content: @Composable (Modifier) -> Unit
 ) {
 
@@ -41,7 +42,8 @@ fun AppScaffold(
                     }
                 }
             )
-        }
+        },
+        floatingActionButton = floatingActionButton
     ) { padding ->
         content(Modifier.padding(padding))
     }

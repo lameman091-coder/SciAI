@@ -40,7 +40,7 @@ fun AppNav() {
         composable("articles") {
             ArticlesScreen(navController)
         }
-        composable("answer/{question}/{mode}") { backStackEntry ->
+        composable("answer/{question}/{mode}?bookId={bookId}&hybrid={hybrid}") { backStackEntry ->
 
             val question =
                 backStackEntry.arguments?.getString("question") ?: ""
@@ -48,9 +48,30 @@ fun AppNav() {
             val mode =
                 backStackEntry.arguments?.getString("mode") ?: "Exam"
 
+            val bookId = 
+                backStackEntry.arguments?.getString("bookId")
+
+            val hybrid = 
+                backStackEntry.arguments?.getString("hybrid")?.toBoolean() ?: false
+
             AnswerScreen(
                 question = question,
                 mode = mode,
+                bookId = bookId,
+                hybrid = hybrid,
+                navController = navController
+            )
+        }
+        
+        composable("article_detail?title={title}&summary={summary}&source={source}") { backStackEntry ->
+            val title = java.net.URLDecoder.decode(backStackEntry.arguments?.getString("title") ?: "", "UTF-8")
+            val summary = java.net.URLDecoder.decode(backStackEntry.arguments?.getString("summary") ?: "", "UTF-8")
+            val source = java.net.URLDecoder.decode(backStackEntry.arguments?.getString("source") ?: "", "UTF-8")
+            
+            com.funtime.sciai.ui.theme.library.ArticleDetailScreen(
+                title = title,
+                summary = summary,
+                source = source,
                 navController = navController
             )
         }
