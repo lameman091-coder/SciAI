@@ -205,6 +205,10 @@ fun HomeScreen(navController: NavController) {
                 DrawerItem("Premium", Color(0xFFFFC107)) {
                     coroutineScope.launch { drawerState.close() }
                 }
+                DrawerItem("AI Companion ✨", Color(0xFF38BDF8)) {
+                    coroutineScope.launch { drawerState.close() }
+                    navController.navigate("sphere_settings")
+                }
 
                 Divider(color = Color.DarkGray)
 
