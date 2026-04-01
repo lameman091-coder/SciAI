@@ -4,11 +4,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -33,7 +36,7 @@ fun LibraryDetailScreen(
     val scrollState = rememberScrollState()
 
     AppScaffold(
-        title = "RAG Search",
+        title = "Book Search",
         navController = navController,
         showBack = true
     ) { scaffoldModifier ->
@@ -44,6 +47,13 @@ fun LibraryDetailScreen(
         ) {
             
             // Search Input
+            val doSearch = {
+                if (query.isNotBlank()) {
+                    val encodedQuery = Uri.encode(query)
+                    navController.navigate("answer/$encodedQuery/Library?bookId=$bookId&hybrid=true")
+                }
+            }
+
             OutlinedTextField(
                 value = query,
                 onValueChange = { query = it },
@@ -52,14 +62,15 @@ fun LibraryDetailScreen(
                 singleLine = true,
                 enabled = !isSearching,
                 shape = RoundedCornerShape(24.dp),
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    imeAction = ImeAction.Search
+                ),
+                keyboardActions = KeyboardActions(
+                    onSearch = { doSearch() }
+                ),
                 trailingIcon = {
                     IconButton(
-                        onClick = {
-                            if (query.isNotBlank()) {
-                                val encodedQuery = Uri.encode(query)
-                                navController.navigate("answer/$encodedQuery/Library?bookId=$bookId&hybrid=true")
-                            }
-                        },
+                        onClick = { doSearch() },
                         enabled = query.isNotBlank() && !isSearching
                     ) {
                         Icon(
@@ -73,7 +84,7 @@ fun LibraryDetailScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // RAG Output (Using SAME UI STYLE as AnswerScreen visually)
+            // Book Search Output (Using SAME UI STYLE as AnswerScreen visually)
             if (isSearching) {
                 Text("Searching Database...", color = Color.Gray)
             } else if (answer != null) {

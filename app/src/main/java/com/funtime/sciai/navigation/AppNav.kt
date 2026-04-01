@@ -13,6 +13,7 @@ import com.funtime.sciai.ui.theme.library.WebViewScreen
 import com.funtime.sciai.aisphere.AISphereOverlay
 import com.funtime.sciai.aisphere.AISphereSettingsScreen
 import com.funtime.sciai.aisphere.AISphereViewModel
+import com.funtime.sciai.aisphere.CompanionSetupScreen
 import android.net.Uri
 import androidx.lifecycle.viewmodel.compose.viewModel
 
@@ -46,6 +47,13 @@ fun AppNav() {
 
             composable("splash") {
                 SplashScreen(navController)
+            }
+
+            composable("companion_setup") {
+                CompanionSetupScreen(
+                    navController = navController,
+                    viewModel = aiSphereViewModel
+                )
             }
 
             composable("home") {

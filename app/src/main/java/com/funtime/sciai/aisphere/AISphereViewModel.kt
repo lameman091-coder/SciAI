@@ -61,6 +61,14 @@ class AISphereViewModel(application: Application) : AndroidViewModel(application
     private val _isEnabled = MutableStateFlow(prefs.isEnabled)
     val isEnabled: StateFlow<Boolean> = _isEnabled.asStateFlow()
 
+    // ── Companion profile ────────────────────────────────────────────
+
+    private val _companionProfile = MutableStateFlow(prefs.getCompanionProfile())
+    val companionProfile: StateFlow<CompanionProfile> = _companionProfile.asStateFlow()
+
+    private val _hasCompletedSetup = MutableStateFlow(prefs.hasCompletedSetup)
+    val hasCompletedSetup: StateFlow<Boolean> = _hasCompletedSetup.asStateFlow()
+
     // ── Internal state ──────────────────────────────────────────────
 
     private var lastGesture = GestureType.NONE
@@ -443,5 +451,17 @@ class AISphereViewModel(application: Application) : AndroidViewModel(application
         behaviorTickJob?.cancel()
         messageAutoDismissJob?.cancel()
         soundManager.release()
+    }
+
+    // ── Companion profile management ────────────────────────────────
+
+    fun updateCompanionProfile(profile: CompanionProfile) {
+        _companionProfile.value = profile
+        prefs.saveCompanionProfile(profile)
+    }
+
+    fun completeSetup() {
+        _hasCompletedSetup.value = true
+        prefs.hasCompletedSetup = true
     }
 }

@@ -30,6 +30,14 @@ class AISpherePreferences(context: Context) {
         private const val KEY_AFFECTION_LEVEL = "sphere_affection"
         private const val KEY_FIRST_LAUNCH = "sphere_first_launch"
         private const val KEY_LAST_VISIT_TIME = "sphere_last_visit"
+
+        // Companion profile keys
+        private const val KEY_COMPANION_NAME = "companion_name"
+        private const val KEY_COMPANION_GENDER = "companion_gender"
+        private const val KEY_COMPANION_COLOR = "companion_color_theme"
+        private const val KEY_COMPANION_ACCESSORY = "companion_accessory"
+        private const val KEY_COMPANION_GLOW = "companion_glow"
+        private const val KEY_SETUP_COMPLETED = "companion_setup_completed"
     }
 
     // ── Master toggles ──────────────────────────────────────────────
@@ -141,5 +149,68 @@ class AISpherePreferences(context: Context) {
     fun recordAffection(gesture: GestureType) {
         val growth = BehaviorEngine.calculateAffectionGrowth(gesture)
         affectionLevel = (affectionLevel + growth).coerceAtMost(1f)
+    }
+
+    // ── Companion Profile ───────────────────────────────────────────
+
+    var companionName: String
+        get() = prefs.getString(KEY_COMPANION_NAME, "Orbi") ?: "Orbi"
+        set(value) = prefs.edit().putString(KEY_COMPANION_NAME, value).apply()
+
+    var companionGender: CompanionGender
+        get() {
+            val name = prefs.getString(KEY_COMPANION_GENDER, CompanionGender.NEUTRAL.name)
+            return try {
+                CompanionGender.valueOf(name ?: CompanionGender.NEUTRAL.name)
+            } catch (_: Exception) {
+                CompanionGender.NEUTRAL
+            }
+        }
+        set(value) = prefs.edit().putString(KEY_COMPANION_GENDER, value.name).apply()
+
+    var companionColorTheme: CompanionColorTheme
+        get() {
+            val name = prefs.getString(KEY_COMPANION_COLOR, CompanionColorTheme.OCEAN.name)
+            return try {
+                CompanionColorTheme.valueOf(name ?: CompanionColorTheme.OCEAN.name)
+            } catch (_: Exception) {
+                CompanionColorTheme.OCEAN
+            }
+        }
+        set(value) = prefs.edit().putString(KEY_COMPANION_COLOR, value.name).apply()
+
+    var companionAccessory: CompanionAccessory
+        get() {
+            val name = prefs.getString(KEY_COMPANION_ACCESSORY, CompanionAccessory.NONE.name)
+            return try {
+                CompanionAccessory.valueOf(name ?: CompanionAccessory.NONE.name)
+            } catch (_: Exception) {
+                CompanionAccessory.NONE
+            }
+        }
+        set(value) = prefs.edit().putString(KEY_COMPANION_ACCESSORY, value.name).apply()
+
+    var companionHasGlow: Boolean
+        get() = prefs.getBoolean(KEY_COMPANION_GLOW, true)
+        set(value) = prefs.edit().putBoolean(KEY_COMPANION_GLOW, value).apply()
+
+    var hasCompletedSetup: Boolean
+        get() = prefs.getBoolean(KEY_SETUP_COMPLETED, false)
+        set(value) = prefs.edit().putBoolean(KEY_SETUP_COMPLETED, value).apply()
+
+    fun getCompanionProfile(): CompanionProfile = CompanionProfile(
+        name = companionName,
+        gender = companionGender,
+        colorTheme = companionColorTheme,
+        accessory = companionAccessory,
+        hasGlow = companionHasGlow
+    )
+
+    fun saveCompanionProfile(profile: CompanionProfile) {
+        companionName = profile.name
+        companionGender = profile.gender
+        companionColorTheme = profile.colorTheme
+        companionAccessory = profile.accessory
+        companionHasGlow = profile.hasGlow
     }
 }

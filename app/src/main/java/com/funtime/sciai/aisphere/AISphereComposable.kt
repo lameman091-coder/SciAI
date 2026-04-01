@@ -37,6 +37,7 @@ fun AISphereComposable(
     droopOffset: Float = 0f,
     tiltAngle: Float = 0f,
     reduceAnimations: Boolean = false,
+    companionProfile: CompanionProfile = CompanionProfile(),
     size: Dp = 64.dp,
     modifier: Modifier = Modifier
 ) {
@@ -168,6 +169,8 @@ fun AISphereComposable(
 
     // ── Combined transforms ─────────────────────────────────────────
     val finalScale = breathingScale * bounceScale * compressScale
+    val glowMult = if (companionProfile.hasGlow) 1.2f else 0.15f
+    val theme = companionProfile.colorTheme
 
     // ── Render ──────────────────────────────────────────────────────
     Box(
@@ -187,9 +190,9 @@ fun AISphereComposable(
                 drawCircle(
                     brush = Brush.radialGradient(
                         colors = listOf(
-                            visuals.glowColor.copy(alpha = visuals.glowIntensity * glowPulse * 0.4f),
-                            visuals.glowColor.copy(alpha = visuals.glowIntensity * glowPulse * 0.15f),
-                            visuals.primaryColor.copy(alpha = visuals.glowIntensity * glowPulse * 0.05f),
+                            theme.glow.copy(alpha = visuals.glowIntensity * glowPulse * 0.4f * glowMult),
+                            theme.glow.copy(alpha = visuals.glowIntensity * glowPulse * 0.15f * glowMult),
+                            theme.primary.copy(alpha = visuals.glowIntensity * glowPulse * 0.05f * glowMult),
                             Color.Transparent
                         ),
                         radius = auraRadius
@@ -207,13 +210,13 @@ fun AISphereComposable(
                 drawCircle(
                     brush = Brush.sweepGradient(
                         colors = listOf(
-                            visuals.primaryColor,
-                            visuals.secondaryColor,
-                            visuals.tertiaryColor,
-                            visuals.accentColor,
-                            visuals.primaryColor.copy(alpha = 0.85f),
-                            visuals.secondaryColor.copy(alpha = 0.9f),
-                            visuals.primaryColor
+                            blendColors(visuals.primaryColor, theme.primary, 0.4f),
+                            blendColors(visuals.secondaryColor, theme.secondary, 0.5f),
+                            blendColors(visuals.tertiaryColor, theme.accent, 0.4f),
+                            blendColors(visuals.accentColor, theme.primary, 0.5f),
+                            blendColors(visuals.primaryColor.copy(alpha = 0.85f), theme.primary.copy(alpha = 0.85f), 0.4f),
+                            blendColors(visuals.secondaryColor.copy(alpha = 0.9f), theme.secondary.copy(alpha = 0.9f), 0.5f),
+                            blendColors(visuals.primaryColor, theme.primary, 0.4f)
                         )
                     ),
                     radius = radius,
@@ -225,9 +228,9 @@ fun AISphereComposable(
             drawCircle(
                 brush = Brush.radialGradient(
                     colors = listOf(
-                        visuals.glowColor.copy(alpha = visuals.glowIntensity * 0.3f),
+                        theme.glow.copy(alpha = visuals.glowIntensity * 0.3f * glowMult),
                         Color.Transparent,
-                        visuals.primaryColor.copy(alpha = 0.1f)
+                        theme.primary.copy(alpha = 0.15f)
                     ),
                     center = center,
                     radius = radius * 0.8f
@@ -380,8 +383,24 @@ fun AISphereComposable(
             if (emotionState == EmotionState.CONFUSED && !reduceAnimations) {
                 drawConfusedEffect(center, radius, sparkPhase, visuals.glowColor)
             }
+
+            // ── Accessories ─────────────────────────────────────
+            if (companionProfile.accessory != CompanionAccessory.NONE) {
+                drawAccessory(companionProfile.accessory, center, radius)
+            }
         }
     }
+}
+
+/** Utility to blend two colors nicely */
+private fun blendColors(c1: Color, c2: Color, weight2: Float): Color {
+    val weight1 = 1f - weight2
+    return Color(
+        red = c1.red * weight1 + c2.red * weight2,
+        green = c1.green * weight1 + c2.green * weight2,
+        blue = c1.blue * weight1 + c2.blue * weight2,
+        alpha = c1.alpha * weight1 + c2.alpha * weight2
+    )
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -881,4 +900,113 @@ private fun DrawScope.drawConfusedEffect(
         radius = radius * 0.02f,
         center = Offset(qX, qY + qSize * 1.6f)
     )
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// ACCESSORY DRAWING
+// ═══════════════════════════════════════════════════════════════════════
+
+private fun DrawScope.drawAccessory(accessory: CompanionAccessory, center: Offset, radius: Float) {
+    when (accessory) {
+        CompanionAccessory.NONE -> {}
+        CompanionAccessory.HAT -> drawHat(center, radius)
+        CompanionAccessory.RIBBON -> drawRibbon(center, radius)
+        CompanionAccessory.GLASSES -> drawGlasses(center, radius)
+        CompanionAccessory.CROWN -> drawCrown(center, radius)
+        CompanionAccessory.STAR -> drawAccessoryStar(center, radius)
+    }
+}
+
+private fun DrawScope.drawHat(center: Offset, radius: Float) {
+    val hatY = center.y - radius * 0.85f
+    val hatColor = Color(0xFF1E293B)
+    val bandColor = Color(0xFFEF4444)
+
+    // Brim
+    drawOval(
+        color = hatColor,
+        topLeft = Offset(center.x - radius * 0.5f, hatY),
+        size = Size(radius, radius * 0.2f)
+    )
+    
+    // Top
+    val topPath = Path().apply {
+        moveTo(center.x - radius * 0.3f, hatY + radius * 0.1f)
+        lineTo(center.x - radius * 0.25f, hatY - radius * 0.4f)
+        lineTo(center.x + radius * 0.25f, hatY - radius * 0.4f)
+        lineTo(center.x + radius * 0.3f, hatY + radius * 0.1f)
+        close()
+    }
+    drawPath(topPath, hatColor)
+
+    // Band
+    val bandPath = Path().apply {
+        moveTo(center.x - radius * 0.29f, hatY - radius * 0.05f)
+        lineTo(center.x - radius * 0.28f, hatY - radius * 0.15f)
+        lineTo(center.x + radius * 0.28f, hatY - radius * 0.15f)
+        lineTo(center.x + radius * 0.29f, hatY - radius * 0.05f)
+        close()
+    }
+    drawPath(bandPath, bandColor)
+}
+
+private fun DrawScope.drawRibbon(center: Offset, radius: Float) {
+    val rY = center.y - radius * 0.7f
+    val rX = center.x + radius * 0.4f
+    val ribbonColor = Color(0xFFEC4899)
+    val ribbonSize = radius * 0.3f
+
+    rotate(25f, Offset(rX, rY)) {
+        // Left loop
+        drawOval(ribbonColor, Offset(rX - ribbonSize, rY - ribbonSize * 0.4f), Size(ribbonSize, ribbonSize * 0.8f))
+        // Right loop
+        drawOval(ribbonColor, Offset(rX, rY - ribbonSize * 0.4f), Size(ribbonSize, ribbonSize * 0.8f))
+        // Center knot
+        drawCircle(ribbonColor, radius = ribbonSize * 0.3f, center = Offset(rX, rY))
+    }
+}
+
+private fun DrawScope.drawGlasses(center: Offset, radius: Float) {
+    val eyeSpacing = radius * 0.28f
+    val eyeY = center.y - radius * 0.08f
+    val glassStyle = Stroke(width = radius * 0.04f)
+    val frameColor = Color(0xFF334155)
+
+    // Left lens
+    drawCircle(frameColor, radius = radius * 0.20f, center = Offset(center.x - eyeSpacing, eyeY), style = glassStyle)
+    // Right lens
+    drawCircle(frameColor, radius = radius * 0.20f, center = Offset(center.x + eyeSpacing, eyeY), style = glassStyle)
+    // Bridge
+    drawLine(frameColor, Offset(center.x - eyeSpacing + radius * 0.20f, eyeY), Offset(center.x + eyeSpacing - radius * 0.20f, eyeY), strokeWidth = radius * 0.04f)
+}
+
+private fun DrawScope.drawCrown(center: Offset, radius: Float) {
+    val cY = center.y - radius * 0.9f
+    val crownColor = Color(0xFFFBBF24)
+
+    val path = Path().apply {
+        moveTo(center.x - radius * 0.35f, cY + radius * 0.1f)
+        lineTo(center.x - radius * 0.4f, cY - radius * 0.3f)
+        lineTo(center.x - radius * 0.15f, cY - radius * 0.1f)
+        lineTo(center.x, cY - radius * 0.4f)
+        lineTo(center.x + radius * 0.15f, cY - radius * 0.1f)
+        lineTo(center.x + radius * 0.4f, cY - radius * 0.3f)
+        lineTo(center.x + radius * 0.35f, cY + radius * 0.1f)
+        close()
+    }
+    drawPath(path, crownColor)
+
+    // Jewels
+    drawCircle(Color(0xFFEF4444), radius = radius * 0.04f, center = Offset(center.x - radius * 0.4f, cY - radius * 0.32f))
+    drawCircle(Color(0xFF38BDF8), radius = radius * 0.05f, center = Offset(center.x, cY - radius * 0.43f))
+    drawCircle(Color(0xFFEF4444), radius = radius * 0.04f, center = Offset(center.x + radius * 0.4f, cY - radius * 0.32f))
+}
+
+private fun DrawScope.drawAccessoryStar(center: Offset, radius: Float) {
+    val sY = center.y - radius * 0.7f
+    val sX = center.x - radius * 0.5f
+    val starColor = Color(0xFFFBBF24)
+    rotate(-15f, Offset(sX, sY)) {
+        drawStar(sX, sY, radius * 0.25f, starColor, radius)
+    }
 }
