@@ -43,8 +43,6 @@ val DeepDark = Color(0xFF0F172A)
 val CardDark = Color(0xFF1E293B)
 val SlateGray = Color(0xFF94A3B8)
 
-enum class ScreenMode { TRENDING, RESULTS }
-
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun ArticlesScreen(navController: NavController) {
@@ -52,62 +50,54 @@ fun ArticlesScreen(navController: NavController) {
     val snackbarHostState = remember { SnackbarHostState() }
     val listState = rememberLazyListState()
 
-    // ── Core State ──
-    var searchQuery by remember { mutableStateOf("") }
-    var screenMode by remember { mutableStateOf(ScreenMode.TRENDING) }
-    var articles by remember { mutableStateOf<List<Article>>(emptyList()) }
-    var trendingArticles by remember { mutableStateOf<List<Article>>(emptyList()) }
+    // ── State from hoisted singleton (survives navigation) ──
+    val state = ArticleState
+    var searchQuery by remember { mutableStateOf(state.lastSearchQuery) }
     var isLoading by remember { mutableStateOf(false) }
     var isInfiniteLoading by remember { mutableStateOf(false) }
-    var isTrendingLoading by remember { mutableStateOf(true) }
-    var currentPage by remember { mutableStateOf(1) }
-    var totalCount by remember { mutableStateOf(0) }
+    var isTrendingLoading by remember { mutableStateOf(!state.hasLoadedTrending) }
     var errorMessage by remember { mutableStateOf("") }
 
-    // ── Filter State ──
-    var selectedSort by remember { mutableStateOf("pub+date") }
-    var selectedDomain by remember { mutableStateOf("All") }
-    var selectedType by remember { mutableStateOf("All") }
-    var selectedSource by remember { mutableStateOf("All") }
-    var selectedDate by remember { mutableStateOf("Latest") }
-
     // ── Derived filter values for API ──
-    val apiSource = when (selectedSource) {
+    val apiSource = when (state.selectedSource) {
         "PubMed" -> "pubmed"
         "arXiv" -> "arxiv"
         "Wikipedia" -> "wikipedia"
         else -> "all"
     }
-    val apiDomain = when (selectedDomain) {
+    val apiDomain = when (state.selectedDomain) {
         "Bio" -> "biology"
         "Chemistry" -> "chemistry"
         "Physics" -> "physics"
         else -> "all"
     }
-    val apiType = when (selectedType) {
+    val apiType = when (state.selectedType) {
         "Peer Reviewed" -> "peer_reviewed"
         "Preprint" -> "preprint"
         else -> "all"
     }
-    val apiDate = when (selectedDate) {
+    val apiDate = when (state.selectedDate) {
         "Last 5 yrs" -> "last5"
         else -> "all"
     }
 
     // ── Derived Sections ──
-    val displayArticles = if (screenMode == ScreenMode.TRENDING) trendingArticles else articles
+    val displayArticles = if (state.screenMode == "TRENDING") state.trendingArticles else state.searchResultArticles
     val peerReviewedArticles = displayArticles.filter { it.tier == "peer_reviewed" }
     val preprintArticles = displayArticles.filter { it.tier == "preprint" }
     val backgroundArticles = displayArticles.filter { it.tier == "background" }
 
-    // ── Auto-Load Trending on Screen Open ──
+    // ── Auto-Load Trending on First Screen Open (NOT on back-navigation) ──
     LaunchedEffect(Unit) {
-        isTrendingLoading = true
-        RagService.fetchTrending(limit = 10) { results, count ->
-            if (results != null) {
-                trendingArticles = results
+        if (!state.hasLoadedTrending) {
+            isTrendingLoading = true
+            RagService.fetchTrending(limit = 25) { results, count ->
+                if (results != null) {
+                    state.trendingArticles = results
+                }
+                state.hasLoadedTrending = true
+                isTrendingLoading = false
             }
-            isTrendingLoading = false
         }
     }
 
@@ -117,18 +107,19 @@ fun ArticlesScreen(navController: NavController) {
 
         if (isNewSearch) {
             isLoading = true
-            currentPage = 1
-            screenMode = ScreenMode.RESULTS
-            articles = emptyList()
-            totalCount = 0
+            state.searchCurrentPage = 1
+            state.screenMode = "RESULTS"
+            state.searchResultArticles = emptyList()
+            state.searchTotalCount = 0
+            state.lastSearchQuery = searchQuery
         } else {
             isInfiniteLoading = true
         }
 
         RagService.fetchArticles(
             query = searchQuery,
-            sort = selectedSort,
-            page = currentPage,
+            sort = state.selectedSort,
+            page = state.searchCurrentPage,
             limit = 10,
             source = apiSource,
             domain = apiDomain,
@@ -139,11 +130,10 @@ fun ArticlesScreen(navController: NavController) {
                 errorMessage = "Connection error. Check backend."
             } else {
                 if (isNewSearch) {
-                    articles = results
-                    totalCount = count
+                    state.searchResultArticles = results
+                    state.searchTotalCount = count
                 } else {
-                    articles = articles + results
-                    // totalCount stays from original search
+                    state.searchResultArticles = state.searchResultArticles + results
                 }
                 errorMessage = ""
             }
@@ -156,31 +146,28 @@ fun ArticlesScreen(navController: NavController) {
     val shouldLoadMore = remember {
         derivedStateOf {
             val lastVisibleItem = listState.layoutInfo.visibleItemsInfo.lastOrNull()
-            val currentSize = articles.size
+            val currentSize = state.searchResultArticles.size
             lastVisibleItem != null &&
                 lastVisibleItem.index >= listState.layoutInfo.totalItemsCount - 3 &&
                 !isInfiniteLoading &&
                 !isLoading &&
-                screenMode == ScreenMode.RESULTS &&
-                currentSize < totalCount &&
+                state.screenMode == "RESULTS" &&
+                currentSize < state.searchTotalCount &&
                 currentSize > 0
         }
     }
 
     LaunchedEffect(shouldLoadMore.value) {
         if (shouldLoadMore.value) {
-            currentPage++
+            state.searchCurrentPage++
             performSearch(false)
         }
     }
 
     // ── Unified Back Handler Function ──
     val handleBack: () -> Unit = {
-        if (screenMode == ScreenMode.RESULTS) {
-            screenMode = ScreenMode.TRENDING
-            articles = emptyList()
-            currentPage = 1
-            totalCount = 0
+        if (state.screenMode == "RESULTS") {
+            state.resetToTrending()
             searchQuery = ""
         } else {
             navController.popBackStack()
@@ -195,12 +182,12 @@ fun ArticlesScreen(navController: NavController) {
     val pullRefreshState = rememberPullRefreshState(
         refreshing = isLoading,
         onRefresh = {
-            if (screenMode == ScreenMode.RESULTS) {
+            if (state.screenMode == "RESULTS") {
                 performSearch(true)
             } else {
                 isTrendingLoading = true
-                RagService.fetchTrending(limit = 10) { results, _ ->
-                    if (results != null) trendingArticles = results
+                RagService.fetchTrending(limit = 25) { results, _ ->
+                    if (results != null) state.trendingArticles = results
                     isTrendingLoading = false
                 }
             }
@@ -240,10 +227,8 @@ fun ArticlesScreen(navController: NavController) {
                                     if (searchQuery.isNotEmpty()) {
                                         IconButton(onClick = {
                                             searchQuery = ""
-                                            if (screenMode == ScreenMode.RESULTS) {
-                                                screenMode = ScreenMode.TRENDING
-                                                articles = emptyList()
-                                                totalCount = 0
+                                            if (state.screenMode == "RESULTS") {
+                                                state.resetToTrending()
                                             }
                                         }) {
                                             Icon(Icons.Default.Clear, contentDescription = null, tint = Color.Gray)
@@ -288,7 +273,7 @@ fun ArticlesScreen(navController: NavController) {
                                         "Physics" -> "⚛️ Physics"
                                         else -> domain
                                     },
-                                    selected = selectedDomain == domain,
+                                    selected = state.selectedDomain == domain,
                                     accentColor = when(domain) {
                                         "Bio" -> Color(0xFF22C55E)
                                         "Chemistry" -> Color(0xFFF97316)
@@ -296,8 +281,8 @@ fun ArticlesScreen(navController: NavController) {
                                         else -> CyanAccent
                                     }
                                 ) {
-                                    selectedDomain = if (selectedDomain == domain) "All" else domain
-                                    if (screenMode == ScreenMode.RESULTS) performSearch(true)
+                                    state.selectedDomain = if (state.selectedDomain == domain) "All" else domain
+                                    if (state.screenMode == "RESULTS") performSearch(true)
                                 }
                             }
 
@@ -306,11 +291,11 @@ fun ArticlesScreen(navController: NavController) {
                             items(dates) { date ->
                                 PremiumFilterChip(
                                     label = "📅 $date",
-                                    selected = selectedDate == date,
+                                    selected = state.selectedDate == date,
                                     accentColor = Color(0xFFA78BFA)
                                 ) {
-                                    selectedDate = if (selectedDate == date) "Latest" else date
-                                    if (screenMode == ScreenMode.RESULTS) performSearch(true)
+                                    state.selectedDate = if (state.selectedDate == date) "Latest" else date
+                                    if (state.screenMode == "RESULTS") performSearch(true)
                                 }
                             }
 
@@ -323,15 +308,15 @@ fun ArticlesScreen(navController: NavController) {
                                         "Preprint" -> "🟡 Preprint"
                                         else -> "🧪 All Types"
                                     },
-                                    selected = selectedType == type,
+                                    selected = state.selectedType == type,
                                     accentColor = when(type) {
                                         "Peer Reviewed" -> TrustGreen
                                         "Preprint" -> TrustYellow
                                         else -> CyanAccent
                                     }
                                 ) {
-                                    selectedType = if (selectedType == type) "All" else type
-                                    if (screenMode == ScreenMode.RESULTS) performSearch(true)
+                                    state.selectedType = if (state.selectedType == type) "All" else type
+                                    if (state.screenMode == "RESULTS") performSearch(true)
                                 }
                             }
 
@@ -340,7 +325,7 @@ fun ArticlesScreen(navController: NavController) {
                             items(sources) { source ->
                                 PremiumFilterChip(
                                     label = "⭐ $source",
-                                    selected = selectedSource == source,
+                                    selected = state.selectedSource == source,
                                     accentColor = when(source) {
                                         "PubMed" -> TrustGreen
                                         "arXiv" -> TrustYellow
@@ -348,8 +333,8 @@ fun ArticlesScreen(navController: NavController) {
                                         else -> CyanAccent
                                     }
                                 ) {
-                                    selectedSource = if (selectedSource == source) "All" else source
-                                    if (screenMode == ScreenMode.RESULTS) performSearch(true)
+                                    state.selectedSource = if (state.selectedSource == source) "All" else source
+                                    if (state.screenMode == "RESULTS") performSearch(true)
                                 }
                             }
                         }
@@ -361,13 +346,13 @@ fun ArticlesScreen(navController: NavController) {
                 // ═══════════════════════════════════════
                 when {
                     // Loading state (initial search)
-                    (isLoading && articles.isEmpty()) || (isTrendingLoading && trendingArticles.isEmpty()) -> {
+                    (isLoading && state.searchResultArticles.isEmpty()) || (isTrendingLoading && state.trendingArticles.isEmpty()) -> {
                         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 CircularProgressIndicator(color = CyanAccent, strokeWidth = 3.dp)
                                 Spacer(modifier = Modifier.height(16.dp))
                                 Text(
-                                    if (screenMode == ScreenMode.TRENDING) "Loading trending research..." else "Searching databases...",
+                                    if (state.screenMode == "TRENDING") "Loading trending research..." else "Searching databases...",
                                     color = SlateGray,
                                     fontSize = 14.sp
                                 )
@@ -399,7 +384,7 @@ fun ArticlesScreen(navController: NavController) {
                             verticalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
                             // ── Section Header ──
-                            if (screenMode == ScreenMode.TRENDING) {
+                            if (state.screenMode == "TRENDING") {
                                 item {
                                     Row(
                                         verticalAlignment = Alignment.CenterVertically,
@@ -417,7 +402,7 @@ fun ArticlesScreen(navController: NavController) {
                                 }
                             }
 
-                            if (screenMode == ScreenMode.RESULTS) {
+                            if (state.screenMode == "RESULTS") {
                                 item {
                                     Row(
                                         modifier = Modifier.fillMaxWidth(),
@@ -434,7 +419,7 @@ fun ArticlesScreen(navController: NavController) {
                                             modifier = Modifier.weight(1f)
                                         )
                                         Text(
-                                            "${articles.size} / $totalCount",
+                                            "${state.searchResultArticles.size} / ${state.searchTotalCount}",
                                             color = SlateGray,
                                             fontSize = 12.sp
                                         )
@@ -444,12 +429,12 @@ fun ArticlesScreen(navController: NavController) {
                                 // Sort chips
                                 item {
                                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                        SmallSortChip("Latest", selectedSort == "pub+date") {
-                                            selectedSort = "pub+date"
+                                        SmallSortChip("Latest", state.selectedSort == "pub+date") {
+                                            state.selectedSort = "pub+date"
                                             performSearch(true)
                                         }
-                                        SmallSortChip("Relevance", selectedSort == "relevance") {
-                                            selectedSort = "relevance"
+                                        SmallSortChip("Relevance", state.selectedSort == "relevance") {
+                                            state.selectedSort = "relevance"
                                             performSearch(true)
                                         }
                                     }
@@ -552,14 +537,14 @@ fun ArticlesScreen(navController: NavController) {
                             }
 
                             // ── End of results indicator ──
-                            if (screenMode == ScreenMode.RESULTS && articles.size >= totalCount && articles.isNotEmpty() && !isInfiniteLoading) {
+                            if (state.screenMode == "RESULTS" && state.searchResultArticles.size >= state.searchTotalCount && state.searchResultArticles.isNotEmpty() && !isInfiniteLoading) {
                                 item {
                                     Box(
                                         modifier = Modifier.fillMaxWidth().padding(16.dp),
                                         contentAlignment = Alignment.Center
                                     ) {
                                         Text(
-                                            "— All ${articles.size} results loaded —",
+                                            "— All ${state.searchResultArticles.size} results loaded —",
                                             color = Color(0xFF475569),
                                             fontSize = 12.sp
                                         )

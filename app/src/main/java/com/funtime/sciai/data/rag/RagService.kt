@@ -12,8 +12,8 @@ import java.io.File
 
 object RagService {
 
-    fun fetchBooks(callback: (List<Book>?) -> Unit) {
-        NetworkClient.apiService.getBooks().enqueue(object : Callback<List<Book>> {
+    fun fetchBooks(userId: String, callback: (List<Book>?) -> Unit) {
+        NetworkClient.apiService.getBooks(userId).enqueue(object : Callback<List<Book>> {
             override fun onResponse(call: Call<List<Book>>, response: Response<List<Book>>) {
                 callback(if (response.isSuccessful) response.body() else null)
             }
@@ -52,7 +52,7 @@ object RagService {
     }
 
     fun fetchTrending(
-        limit: Int = 10,
+        limit: Int = 25,
         callback: (List<Article>?, Int) -> Unit
     ) {
         NetworkClient.apiService.getTrending(limit)
@@ -100,6 +100,7 @@ object RagService {
     fun uploadBook(
         file: File,
         domain: String,
+        userId: String,
         sourceType: String = "PDF",
         callback: (Boolean, String) -> Unit
     ) {
@@ -110,8 +111,9 @@ object RagService {
         )
         val domainPart = domain.toRequestBody("text/plain".toMediaTypeOrNull())
         val sourcePart = sourceType.toRequestBody("text/plain".toMediaTypeOrNull())
+        val userIdPart = userId.toRequestBody("text/plain".toMediaTypeOrNull())
 
-        NetworkClient.apiService.uploadBook(filePart, domainPart, sourcePart)
+        NetworkClient.apiService.uploadBook(filePart, domainPart, sourcePart, userIdPart)
             .enqueue(object : Callback<UploadResponse> {
                 override fun onResponse(call: Call<UploadResponse>, response: Response<UploadResponse>) {
                     if (response.isSuccessful) {
@@ -148,8 +150,8 @@ object RagService {
         })
     }
 
-    fun deleteBook(bookId: String, callback: (Boolean, String) -> Unit) {
-        NetworkClient.apiService.deleteBook(bookId).enqueue(object : Callback<Map<String, String>> {
+    fun deleteBook(bookId: String, userId: String, callback: (Boolean, String) -> Unit) {
+        NetworkClient.apiService.deleteBook(bookId, userId).enqueue(object : Callback<Map<String, String>> {
             override fun onResponse(call: Call<Map<String, String>>, response: Response<Map<String, String>>) {
                 if (response.isSuccessful) {
                     callback(true, "PDF deleted successfully")

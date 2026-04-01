@@ -367,32 +367,33 @@ def search_articles(query: str, sort="pub+date", page=1, limit=10,
     }
 
 
-def fetch_trending(limit=5):
+def fetch_trending(limit=25):
     """
     Fetch trending articles from multiple sources using rotating topics.
     Called on app screen open — no search query needed.
+    Uses 3 topics × (5 PubMed + 3 arXiv) = ~24 articles for a rich feed.
     """
-    # Pick 2 random trending topics
-    topics = random.sample(TRENDING_TOPICS, min(2, len(TRENDING_TOPICS)))
+    # Pick 3 random trending topics for variety without too many API calls
+    topics = random.sample(TRENDING_TOPICS, min(3, len(TRENDING_TOPICS)))
     
     all_articles = []
     
     for topic in topics:
         print(f"[SciAI] Fetching trending: '{topic}'")
         
-        # PubMed — 3 latest per topic
-        pubmed_results, _ = fetch_pubmed(topic, sort="pub+date", retstart=0, retmax=3)
+        # PubMed — 5 latest per topic
+        pubmed_results, _ = fetch_pubmed(topic, sort="pub+date", retstart=0, retmax=5)
         all_articles.extend(pubmed_results)
         
-        # arXiv — 2 latest per topic
-        arxiv_results, _ = fetch_arxiv(topic, sort_by="submittedDate", start=0, max_results=2)
+        # arXiv — 3 latest per topic
+        arxiv_results, _ = fetch_arxiv(topic, sort_by="submittedDate", start=0, max_results=3)
         all_articles.extend(arxiv_results)
     
     # Shuffle to mix sources
     random.shuffle(all_articles)
     
-    # Limit total
-    all_articles = all_articles[:limit * 2]
+    # Limit total to requested amount
+    all_articles = all_articles[:limit]
     
     # Format
     final_output = []
@@ -414,3 +415,4 @@ def fetch_trending(limit=5):
         "total_count": len(final_output),
         "page": 1
     }
+

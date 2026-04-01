@@ -46,16 +46,20 @@ def load_db():
             with open(DB_FILE, "r") as f:
                 data = json.load(f)
                 dirty_books = data.get("books", [])
-                # SAFETY CHECK: Filter out any known mock titles from version 1.0
-                books_db = [b for b in dirty_books if "Cellular" not in b['title'] and "Physics" not in b['title']]
+                # MIGRATION: Only keep books that have a user_id field (new v3.0 format)
+                # Old books without user_id are discarded per user request
+                books_db = [b for b in dirty_books if b.get('user_id')]
+                discarded = len(dirty_books) - len(books_db)
+                if discarded > 0:
+                    print(f"[SciAI] Discarded {discarded} legacy books without user_id.")
                 saved_articles = data.get("saved_articles", [])
-                print(f"[SciAI] Loaded Database: {len(books_db)} real books, {len(saved_articles)} saved articles.")
+                print(f"[SciAI] Loaded Database: {len(books_db)} user books, {len(saved_articles)} saved articles.")
         except Exception as e:
             print(f"[SciAI] Load DB error: {e}")
             books_db = []
             saved_articles = []
     else:
-        print("[SciAI] No existing database found. Starting clean v2.0 state.")
+        print("[SciAI] No existing database found. Starting clean v3.0 state.")
 
 app.add_middleware(
     CORSMiddleware,
@@ -151,7 +155,15 @@ def ask_question(request: AskRequest):
 MAX_UPLOAD_SIZE_MB = 100  # Reject files larger than 100 MB
 
 @app.post("/upload-book")
-async def upload_book(file: UploadFile = File(...), domain: str = Form("General"), source_type: str = Form("PDF")):
+async def upload_book(
+    file: UploadFile = File(...), 
+    domain: str = Form("General"), 
+    source_type: str = Form("PDF"),
+    user_id: str = Form(...)
+):
+    if not user_id:
+        raise HTTPException(status_code=400, detail="user_id is required")
+    
     os.makedirs("temp", exist_ok=True)
     temp_path = f"temp/{file.filename}"
 
@@ -176,7 +188,7 @@ async def upload_book(file: UploadFile = File(...), domain: str = Form("General"
             os.remove(temp_path)
         raise HTTPException(status_code=500, detail=f"File write failed: {str(e)}")
 
-    print(f"[SciAI] Received file: {file.filename} ({total_bytes / (1024*1024):.1f} MB). Processing PDF...")
+    print(f"[SciAI] Received file: {file.filename} ({total_bytes / (1024*1024):.1f} MB) from user={user_id}. Processing PDF...")
 
     try:
         chunks = process_pdf(temp_path)
@@ -186,9 +198,10 @@ async def upload_book(file: UploadFile = File(...), domain: str = Form("General"
 
     book_id = str(uuid.uuid4())
 
-    # Save to global memory
+    # Save to global memory with user_id for isolation
     books_db.append({
         "id": book_id,
+        "user_id": user_id,
         "title": file.filename,
         "domain": domain,
         "preview": chunks[0][:150] + "..." if chunks else "No preview available"
@@ -198,7 +211,7 @@ async def upload_book(file: UploadFile = File(...), domain: str = Form("General"
 
     save_db()  # Persist on every upload
     os.remove(temp_path)
-    print(f"[SciAI] Upload complete: {file.filename} → {len(chunks)} chunks, book_id={book_id}")
+    print(f"[SciAI] Upload complete: {file.filename} → {len(chunks)} chunks, book_id={book_id}, user_id={user_id}")
     return {"status": "success", "chunks_processed": len(chunks), "source": source_type, "book_id": book_id}
 
 @app.get("/articles")
@@ -223,7 +236,7 @@ def get_articles(
     return {"articles": [], "total_count": 0, "page": page}
 
 @app.get("/articles/trending")
-def get_trending(limit: int = 10):
+def get_trending(limit: int = 25):
     from live_articles import fetch_trending
     return fetch_trending(limit=limit)
 
@@ -247,23 +260,33 @@ def get_saved_articles():
     return saved_articles
 
 @app.get("/books")
-def get_books():
-    return books_db
+def get_books(user_id: str = None):
+    if not user_id:
+        return []  # Safety: no user_id = empty library
+    user_books = [b for b in books_db if b.get("user_id") == user_id]
+    return user_books
 
 @app.delete("/books/{book_id}")
-def delete_book(book_id: str):
+def delete_book(book_id: str, user_id: str = None):
     global books_db
-    original_count = len(books_db)
-    books_db = [b for b in books_db if b["id"] != book_id]
     
-    if len(books_db) == original_count:
+    if not user_id:
+        return {"status": "error", "message": "user_id is required"}
+    
+    # Find the book and verify ownership
+    target_book = next((b for b in books_db if b["id"] == book_id), None)
+    if not target_book:
         return {"status": "error", "message": "Book not found"}
+    if target_book.get("user_id") != user_id:
+        return {"status": "error", "message": "Not authorized to delete this book"}
+    
+    books_db = [b for b in books_db if b["id"] != book_id]
     
     # Remove associated chunks from FAISS
     removed_chunks = remove_document(book_id)
     save_db()
     
-    print(f"[SciAI] Deleted book {book_id}. Removed {removed_chunks} FAISS chunks.")
+    print(f"[SciAI] Deleted book {book_id} for user {user_id}. Removed {removed_chunks} FAISS chunks.")
     return {"status": "success", "chunks_removed": removed_chunks}
 
 if __name__ == "__main__":
