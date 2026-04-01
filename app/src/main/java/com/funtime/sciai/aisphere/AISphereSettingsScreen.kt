@@ -7,6 +7,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
@@ -39,6 +41,7 @@ fun AISphereSettingsScreen(
     val emotionState by viewModel.emotionState.collectAsState()
     val petHappiness by viewModel.petHappiness.collectAsState()
     val affectionLevel by viewModel.affectionLevel.collectAsState()
+    val companionProfile by viewModel.companionProfile.collectAsState()
 
     Scaffold(
         topBar = {
@@ -85,7 +88,7 @@ fun AISphereSettingsScreen(
                         .padding(24.dp)
                 ) {
                     Text(
-                        text = "Your AI Companion",
+                        text = "Talk to ${companionProfile.name}",
                         color = Color.White,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.SemiBold
@@ -141,6 +144,92 @@ fun AISphereSettingsScreen(
                             else -> Color(0xFFFDA4AF)
                         }
                     )
+                }
+            }
+
+            // ── Identity Settings ───────────────────────────────
+            SettingsSection(title = "Identity") {
+                // Name
+                OutlinedTextField(
+                    value = companionProfile.name,
+                    onValueChange = { if (it.length <= 15) viewModel.updateCompanionProfile(companionProfile.copy(name = it)) },
+                    label = { Text("Name", color = Color(0xFF94A3B8)) },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = companionProfile.colorTheme.primary,
+                        focusedTextColor = Color.White,
+                        unfocusedTextColor = Color.White,
+                        unfocusedBorderColor = Color(0xFF334155),
+                        cursorColor = companionProfile.colorTheme.primary
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                    singleLine = true
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+                
+                // Gender
+                Text("Gender", color = Color(0xFF94A3B8), fontSize = 14.sp)
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    CompanionGender.values().forEach { gender ->
+                        SelectableChip(
+                            modifier = Modifier.weight(1f),
+                            text = "${gender.emoji} ${gender.displayName}",
+                            isSelected = companionProfile.gender == gender,
+                            activeColor = companionProfile.colorTheme.primary,
+                            onClick = { viewModel.updateCompanionProfile(companionProfile.copy(gender = gender)) }
+                        )
+                    }
+                }
+            }
+
+            // ── Appearance Settings ─────────────────────────────
+            SettingsSection(title = "Appearance") {
+                // Glow
+                SettingsToggleItem(
+                    title = "Radiant Aura",
+                    subtitle = "Enable glowing outer aura",
+                    checked = companionProfile.hasGlow,
+                    onCheckedChange = { viewModel.updateCompanionProfile(companionProfile.copy(hasGlow = it)) }
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Color Theme
+                Text("Color Theme", color = Color(0xFF94A3B8), fontSize = 14.sp)
+                Spacer(modifier = Modifier.height(8.dp))
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    items(CompanionColorTheme.values()) { theme ->
+                        ThemeSelectorItem(
+                            theme = theme,
+                            isSelected = companionProfile.colorTheme == theme,
+                            onClick = { viewModel.updateCompanionProfile(companionProfile.copy(colorTheme = theme)) }
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Accessory
+                Text("Accessory", color = Color(0xFF94A3B8), fontSize = 14.sp)
+                Spacer(modifier = Modifier.height(8.dp))
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(CompanionAccessory.values()) { acc ->
+                        SelectableChip(
+                            text = if (acc == CompanionAccessory.NONE) "None" else "${acc.emoji} ${acc.displayName}",
+                            isSelected = companionProfile.accessory == acc,
+                            activeColor = companionProfile.colorTheme.primary,
+                            onClick = { viewModel.updateCompanionProfile(companionProfile.copy(accessory = acc)) }
+                        )
+                    }
                 }
             }
 

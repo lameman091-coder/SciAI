@@ -78,8 +78,11 @@ fun SplashScreen(navController: NavController) {
         // Hold for reading
         delay(1200)
 
-        // 5. Navigate to Home
-        navController.navigate("home") {
+        val prefs = com.funtime.sciai.aisphere.AISpherePreferences(context)
+
+        // 5. Navigate to Home or Setup
+        val nextRoute = if (prefs.hasCompletedSetup) "home" else "companion_setup"
+        navController.navigate(nextRoute) {
             popUpTo("splash") { inclusive = true }
         }
     }

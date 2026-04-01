@@ -52,6 +52,7 @@ fun AISphereOverlay(
     val spherePosition by viewModel.spherePosition.collectAsState()
     val showQuickActions by viewModel.showQuickActions.collectAsState()
     val reduceAnimations by viewModel.reduceAnimations.collectAsState()
+    val companionProfile by viewModel.companionProfile.collectAsState()
 
     // Screen dimensions for clamping
     var screenWidth by remember { mutableFloatStateOf(0f) }
@@ -131,6 +132,7 @@ fun AISphereOverlay(
             currentMessage?.let { message ->
                 MessageBubble(
                     message = message,
+                    companionProfile = companionProfile,
                     sphereX = spherePosition.x,
                     sphereY = spherePosition.y,
                     sphereSize = sphereSizePx,
@@ -229,6 +231,7 @@ fun AISphereOverlay(
                     droopOffset = droopOffset,
                     tiltAngle = tiltAngle,
                     reduceAnimations = reduceAnimations,
+                    companionProfile = companionProfile,
                     size = sphereSizeDp
                 )
             }
@@ -265,6 +268,7 @@ fun AISphereOverlay(
 @Composable
 private fun MessageBubble(
     message: SphereMessage,
+    companionProfile: CompanionProfile,
     sphereX: Float,
     sphereY: Float,
     sphereSize: Float,
@@ -306,14 +310,23 @@ private fun MessageBubble(
                 }
                 .padding(horizontal = 14.dp, vertical = 10.dp)
         ) {
-            Text(
-                text = message.text,
-                color = Color.White.copy(alpha = 0.9f),
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Normal,
-                lineHeight = 16.sp,
-                textAlign = TextAlign.Start
-            )
+            Column {
+                Text(
+                    text = "${companionProfile.name} says:",
+                    color = companionProfile.colorTheme.primary,
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(bottom = 2.dp)
+                )
+                Text(
+                    text = message.text,
+                    color = Color.White.copy(alpha = 0.9f),
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Normal,
+                    lineHeight = 16.sp,
+                    textAlign = TextAlign.Start
+                )
+            }
         }
     }
 }
