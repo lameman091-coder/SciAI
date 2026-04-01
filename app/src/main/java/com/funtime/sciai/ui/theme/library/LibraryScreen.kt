@@ -29,6 +29,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import com.funtime.sciai.components.AppScaffold
 import com.funtime.sciai.data.rag.RagService
 import com.funtime.sciai.data.Book
+import com.funtime.sciai.data.UserManager
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
@@ -36,6 +37,8 @@ import kotlinx.coroutines.launch
 fun LibraryScreen(navController: NavController) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
+    val userManager = remember { UserManager(context) }
+    val userId = remember { userManager.getUserId() }
     var books by remember { mutableStateOf<List<Book>>(emptyList()) }
     var isLoading by remember { mutableStateOf(true) }
     var errorMessage by remember { mutableStateOf("") }
@@ -47,7 +50,7 @@ fun LibraryScreen(navController: NavController) {
 
     val refreshBooks = {
         isLoading = true
-        RagService.fetchBooks { bookList ->
+        RagService.fetchBooks(userId) { bookList ->
             isLoading = false
             if (bookList == null) {
                 scope.launch {
@@ -76,7 +79,7 @@ fun LibraryScreen(navController: NavController) {
                 scope.launch {
                     snackbarHostState.showSnackbar("Uploading ${file.name}...")
                 }
-                RagService.uploadBook(file, "General", "PDF") { success, message ->
+                RagService.uploadBook(file, "General", userId) { success, message ->
                     scope.launch {
                         snackbarHostState.showSnackbar(message)
                         if (success) refreshBooks()
@@ -115,7 +118,7 @@ fun LibraryScreen(navController: NavController) {
                     onClick = {
                         val book = bookToDelete!!
                         isDeleting = true
-                        RagService.deleteBook(book.id) { success, message ->
+                        RagService.deleteBook(book.id, userId) { success, message ->
                             scope.launch {
                                 isDeleting = false
                                 bookToDelete = null

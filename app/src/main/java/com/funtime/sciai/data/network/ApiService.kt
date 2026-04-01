@@ -11,14 +11,15 @@ interface ApiService {
     fun ask(@Body request: AskRequest): Call<AskResponse>
 
     @GET("books")
-    fun getBooks(): Call<List<Book>>
+    fun getBooks(@Query("user_id") userId: String): Call<List<Book>>
 
     @Multipart
     @POST("upload-book")
     fun uploadBook(
         @Part file: MultipartBody.Part,
         @Part("domain") domain: RequestBody,
-        @Part("source_type") sourceType: RequestBody
+        @Part("source_type") sourceType: RequestBody,
+        @Part("user_id") userId: RequestBody
     ): Call<UploadResponse>
 
     @GET("articles")
@@ -35,7 +36,7 @@ interface ApiService {
 
     @GET("articles/trending")
     fun getTrending(
-        @Query("limit") limit: Int? = 10
+        @Query("limit") limit: Int? = 25
     ): Call<ArticlesResponse>
 
     @POST("save-article")
@@ -45,5 +46,5 @@ interface ApiService {
     fun getSavedArticles(): Call<List<Article>>
 
     @DELETE("books/{book_id}")
-    fun deleteBook(@Path("book_id") bookId: String): Call<Map<String, String>>
+    fun deleteBook(@Path("book_id") bookId: String, @Query("user_id") userId: String): Call<Map<String, String>>
 }

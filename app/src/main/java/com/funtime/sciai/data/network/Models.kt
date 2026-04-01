@@ -18,6 +18,7 @@ data class AskResponse(
 
 data class Book(
     val id: String = "",
+    @SerializedName("user_id") val userId: String = "",
     val title: String = "",
     val domain: String = "",
     val preview: String = ""
