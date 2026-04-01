@@ -15,6 +15,7 @@ fun AppScaffold(
     title: String,
     navController: NavController,
     showBack: Boolean = false,
+    onBack: (() -> Unit)? = null,
     floatingActionButton: @Composable () -> Unit = {},
     content: @Composable (Modifier) -> Unit
 ) {
@@ -31,7 +32,7 @@ fun AppScaffold(
                 navigationIcon = {
                     if (showBack) {
                         FilledIconButton(
-                            onClick = { navController.popBackStack() },
+                            onClick = { if (onBack != null) onBack() else navController.popBackStack() },
                             colors = IconButtonDefaults.filledIconButtonColors(
                                 containerColor = Color(0xFF1E293B), // Slate 800
                                 contentColor = Color(0xFF38BDF8)    // Cyan accent

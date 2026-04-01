@@ -196,7 +196,7 @@ fun AnswerScreen(
     var isLoading by remember { mutableStateOf(true) }
     var expertLevel by remember { mutableStateOf("Academic") }
     var selectedDomain by remember { mutableStateOf("Biology") }
-    var hybridMode by remember { mutableStateOf(false) } // Default OFF as requested
+    var hybridMode by remember { mutableStateOf(hybrid) } // Initialize from nav param (true when coming from Library)
     var refreshTrigger by remember { mutableStateOf(0) }
 
     val pullRefreshState = rememberPullRefreshState(
