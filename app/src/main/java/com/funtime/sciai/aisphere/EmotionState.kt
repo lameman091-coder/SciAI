@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
  * 9 states total — covering the full emotional spectrum of a tiny digital companion.
  */
 enum class EmotionState {
-    HAPPY, IDLE, SAD, ANGRY, EXCITED, SLEEP, LOVE, SHY, CONFUSED
+    HAPPY, IDLE, SAD, ANGRY, EXCITED, SLEEP, LOVE, SHY, CONFUSED, PLAYFUL_EVIL, JUGGLING
 }
 
 /**
@@ -30,7 +30,7 @@ data class EmotionVisuals(
 
 enum class ExpressionType {
     NEUTRAL, SMILE, SAD_FACE, ANGRY_FACE, EXCITED_FACE, SLEEPING,
-    LOVE_FACE, SHY_FACE, CONFUSED_FACE
+    LOVE_FACE, SHY_FACE, CONFUSED_FACE, EVIL_FACE, JUGGLING_FACE
 }
 
 /**
@@ -169,6 +169,32 @@ object EmotionPalette {
             breathingScale = 0.04f,
             expression = ExpressionType.CONFUSED_FACE,
             kaomoji = "o_O"
+        )
+
+        EmotionState.PLAYFUL_EVIL -> EmotionVisuals(
+            primaryColor = Color(0xFF0A0A0A),       // Jet black
+            secondaryColor = Color(0xFF1A0000),     // Dark crimson-black
+            accentColor = Color(0xFFDC2626),        // Blood red accent
+            tertiaryColor = Color(0xFF0F0F0F),      // Near-void
+            glowColor = Color(0xFFFF0000),          // Sinister red glow
+            animationSpeed = 2.5f,
+            glowIntensity = 1.2f,
+            breathingScale = 0.12f,                 // Big pulsing
+            expression = ExpressionType.EVIL_FACE,
+            kaomoji = "ψ(｀∇´)ψ"
+        )
+
+        EmotionState.JUGGLING -> EmotionVisuals(
+            primaryColor = Color(0xFFFBBF24),       // Gold
+            secondaryColor = Color(0xFF06B6D4),     // Cyan
+            accentColor = Color(0xFFA855F7),        // Purple
+            tertiaryColor = Color(0xFFEC4899),      // Pink
+            glowColor = Color(0xFFFDE68A),          // Warm glow
+            animationSpeed = 3.0f,                  // Very fast
+            glowIntensity = 1.0f,
+            breathingScale = 0.10f,
+            expression = ExpressionType.JUGGLING_FACE,
+            kaomoji = "◎‿◎"
         )
     }
 }

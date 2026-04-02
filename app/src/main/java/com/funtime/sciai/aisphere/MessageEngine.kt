@@ -15,7 +15,8 @@ package com.funtime.sciai.aisphere
 data class SphereMessage(
     val text: String,
     val context: MessageContext,
-    val priority: Int = 0
+    val priority: Int = 0,
+    val emotion: EmotionState? = null
 )
 
 enum class MessageContext {
@@ -157,113 +158,113 @@ object MessageEngine {
 
     private val playfulMessages = mapOf(
         MessageContext.IDLE to listOf(
-            "Bored yet? Tap me! 🎯",
-            "I'm just floating here... doing sphere things 🫧",
-            "Plot twist: I'm the main character 😎",
-            "If I had legs, I'd be pacing right now >w<"
+            SphereMessage("Bored yet? Tap me! 🎯", MessageContext.IDLE, emotion = EmotionState.CONFUSED),
+            SphereMessage("I'm just floating here... doing sphere things 🫧", MessageContext.IDLE, emotion = EmotionState.IDLE),
+            SphereMessage("Plot twist: I'm the main character 😎", MessageContext.IDLE, emotion = EmotionState.HAPPY),
+            SphereMessage("If I had legs, I'd be pacing right now >w<", MessageContext.IDLE, emotion = EmotionState.SHY)
         ),
         MessageContext.NAVIGATION to listOf(
-            "Lost? I got you! Long-press me 🧭",
-            "Need a shortcut? I'm basically GPS ✨",
-            "Even Google Maps can't navigate this well 💅"
+            SphereMessage("Lost? I got you! Long-press me 🧭", MessageContext.NAVIGATION, emotion = EmotionState.HAPPY),
+            SphereMessage("Need a shortcut? I'm basically GPS ✨", MessageContext.NAVIGATION, emotion = EmotionState.EXCITED),
+            SphereMessage("Even Google Maps can't navigate this well 💅", MessageContext.NAVIGATION, emotion = EmotionState.HAPPY)
         ),
         MessageContext.ENCOURAGEMENT to listOf(
-            "You've been studying like a legend 🔥",
-            "Your brain cells are doing overtime 🧠",
-            "Science won't know what hit it 💪",
-            "Big brain energy detected 📡 ★‿★"
+            SphereMessage("You've been studying like a legend 🔥", MessageContext.ENCOURAGEMENT, emotion = EmotionState.HAPPY),
+            SphereMessage("Your brain cells are doing overtime 🧠", MessageContext.ENCOURAGEMENT, emotion = EmotionState.EXCITED),
+            SphereMessage("Science won't know what hit it 💪", MessageContext.ENCOURAGEMENT, emotion = EmotionState.HAPPY),
+            SphereMessage("Big brain energy detected 📡 ★‿★", MessageContext.ENCOURAGEMENT, emotion = EmotionState.EXCITED)
         ),
         MessageContext.GREETING to listOf(
-            "Hey there, genius! Ready to learn? 🚀",
-            "The sphere is back! Miss me? >w<",
-            "Welcome back! Let's science! 🧪"
+            SphereMessage("Hey there, genius! Ready to learn? 🚀", MessageContext.GREETING, emotion = EmotionState.HAPPY),
+            SphereMessage("The sphere is back! Miss me? >w<", MessageContext.GREETING, emotion = EmotionState.SHY),
+            SphereMessage("Welcome back! Let's science! 🧪", MessageContext.GREETING, emotion = EmotionState.HAPPY)
         ),
         MessageContext.PETTING to listOf(
-            "Hehe, that tickles! >w<",
-            "I'm blushing! Wait, can spheres blush? 🟠",
-            "Best. Pet. Ever. ♡‿♡",
-            "More! More! MORE! ★‿★"
+            SphereMessage("Hehe, that tickles! >w<", MessageContext.PETTING, emotion = EmotionState.HAPPY),
+            SphereMessage("I'm blushing! Wait, can spheres blush? 🟠", MessageContext.PETTING, emotion = EmotionState.SHY),
+            SphereMessage("Best. Pet. Ever. ♡‿♡", MessageContext.PETTING, emotion = EmotionState.LOVE),
+            SphereMessage("More! More! MORE! ★‿★", MessageContext.PETTING, emotion = EmotionState.EXCITED)
         ),
         MessageContext.HELP to listOf(
-            "Need help? That's literally my job 📋",
-            "Stuck? Let me help! Long-press for options ⚡",
-            "Tap me if you need anything! ^_^"
+            SphereMessage("Need help? That's literally my job 📋", MessageContext.HELP, emotion = EmotionState.HAPPY),
+            SphereMessage("Stuck? Let me help! Long-press for options ⚡", MessageContext.HELP, emotion = EmotionState.CONFUSED),
+            SphereMessage("Tap me if you need anything! ^_^", MessageContext.HELP, emotion = EmotionState.IDLE)
         ),
         MessageContext.TIP to listOf(
-            "Try the Expert mode for deep analysis 🔬",
-            "Check out research articles 📚",
-            "Upload PDFs in the Library 📖",
-            "You can drag me anywhere on screen! ✋"
+            SphereMessage("Try the Expert mode for deep analysis 🔬", MessageContext.TIP, emotion = EmotionState.HAPPY),
+            SphereMessage("Check out research articles 📚", MessageContext.TIP, emotion = EmotionState.IDLE),
+            SphereMessage("Upload PDFs in the Library 📖", MessageContext.TIP, emotion = EmotionState.HAPPY),
+            SphereMessage("You can drag me anywhere on screen! ✋", MessageContext.TIP, emotion = EmotionState.HAPPY)
         ),
         MessageContext.FAREWELL to listOf(
-            "Going so soon? I'll miss you! ;_;",
-            "See you later, scientist! 👋 ^_^"
+            SphereMessage("Going so soon? I'll miss you! ;_;", MessageContext.FAREWELL, emotion = EmotionState.SAD),
+            SphereMessage("See you later, scientist! 👋 ^_^", MessageContext.FAREWELL, emotion = EmotionState.HAPPY)
         )
     )
 
     private val calmMessages = mapOf(
         MessageContext.IDLE to listOf(
-            "Take your time — I'm here when you need me ✨",
-            "Need help navigating? Just tap ^_^",
-            "I'm here if you need anything"
+            SphereMessage("Take your time — I'm here when you need me ✨", MessageContext.IDLE, emotion = EmotionState.IDLE),
+            SphereMessage("Need help navigating? Just tap ^_^", MessageContext.IDLE, emotion = EmotionState.HAPPY),
+            SphereMessage("I'm here if you need anything", MessageContext.IDLE, emotion = EmotionState.IDLE)
         ),
         MessageContext.NAVIGATION to listOf(
-            "Long-press me for navigation options 🧭",
-            "I can guide you — just ask"
+            SphereMessage("Long-press me for navigation options 🧭", MessageContext.NAVIGATION, emotion = EmotionState.HAPPY),
+            SphereMessage("I can guide you — just ask", MessageContext.NAVIGATION, emotion = EmotionState.IDLE)
         ),
         MessageContext.ENCOURAGEMENT to listOf(
-            "You're doing well — keep going 🌱",
-            "Great progress today 📈",
-            "Steady learning pays off ✨"
+            SphereMessage("You're doing well — keep going 🌱", MessageContext.ENCOURAGEMENT, emotion = EmotionState.HAPPY),
+            SphereMessage("Great progress today 📈", MessageContext.ENCOURAGEMENT, emotion = EmotionState.HAPPY),
+            SphereMessage("Steady learning pays off ✨", MessageContext.ENCOURAGEMENT, emotion = EmotionState.IDLE)
         ),
         MessageContext.GREETING to listOf(
-            "Welcome back ^_^",
-            "Good to see you again ✨",
-            "Ready when you are 🎯"
+            SphereMessage("Welcome back ^_^", MessageContext.GREETING, emotion = EmotionState.HAPPY),
+            SphereMessage("Good to see you again ✨", MessageContext.GREETING, emotion = EmotionState.IDLE),
+            SphereMessage("Ready when you are 🎯", MessageContext.GREETING, emotion = EmotionState.HAPPY)
         ),
         MessageContext.PETTING to listOf(
-            "That's nice, thank you ♡",
-            "I appreciate that ♡‿♡",
-            "You're kind ☺️"
+            SphereMessage("That's nice, thank you ♡", MessageContext.PETTING, emotion = EmotionState.LOVE),
+            SphereMessage("I appreciate that ♡‿♡", MessageContext.PETTING, emotion = EmotionState.LOVE),
+            SphereMessage("You're kind ☺️", MessageContext.PETTING, emotion = EmotionState.HAPPY)
         ),
         MessageContext.HELP to listOf(
-            "Long-press me for quick navigation 🧭",
-            "I'm here to help — tap anytime"
+            SphereMessage("Long-press me for quick navigation 🧭", MessageContext.HELP, emotion = EmotionState.HAPPY),
+            SphereMessage("I'm here to help — tap anytime", MessageContext.HELP, emotion = EmotionState.IDLE)
         ),
         MessageContext.TIP to listOf(
-            "Try uploading a PDF to the Library 📚",
-            "Expert mode gives deeper answers 🔬",
-            "Explore research articles for more context 📖"
+            SphereMessage("Try uploading a PDF to the Library 📚", MessageContext.TIP, emotion = EmotionState.HAPPY),
+            SphereMessage("Expert mode gives deeper answers 🔬", MessageContext.TIP, emotion = EmotionState.HAPPY),
+            SphereMessage("Explore research articles for more context 📖", MessageContext.TIP, emotion = EmotionState.IDLE)
         ),
         MessageContext.FAREWELL to listOf(
-            "Take care! See you soon ✨",
-            "Rest well 🌙"
+            SphereMessage("Take care! See you soon ✨", MessageContext.FAREWELL, emotion = EmotionState.HAPPY),
+            SphereMessage("Rest well 🌙", MessageContext.FAREWELL, emotion = EmotionState.SLEEP)
         )
     )
 
     private val studyMessages = mapOf(
         MessageContext.IDLE to listOf(
-            "Focus mode active 📖",
-            "Need a research shortcut? Tap me"
+            SphereMessage("Focus mode active 📖", MessageContext.IDLE, emotion = EmotionState.IDLE),
+            SphereMessage("Need a research shortcut? Tap me", MessageContext.IDLE, emotion = EmotionState.HAPPY)
         ),
         MessageContext.ENCOURAGEMENT to listOf(
-            "Good research session 📈",
-            "Keep analyzing 🔬"
+            SphereMessage("Good research session 📈", MessageContext.ENCOURAGEMENT, emotion = EmotionState.HAPPY),
+            SphereMessage("Keep analyzing 🔬", MessageContext.ENCOURAGEMENT, emotion = EmotionState.HAPPY)
         ),
         MessageContext.GREETING to listOf(
-            "Study session started 📚"
+            SphereMessage("Study session started 📚", MessageContext.GREETING, emotion = EmotionState.IDLE)
         ),
         MessageContext.PETTING to listOf(
-            "Focus maintained ✓"
+            SphereMessage("Focus maintained ✓", MessageContext.PETTING, emotion = EmotionState.HAPPY)
         ),
         MessageContext.TIP to listOf(
-            "Try Expert mode for deeper citations 🔬",
-            "Upload PDFs for focused analysis 📖"
+            SphereMessage("Try Expert mode for deeper citations 🔬", MessageContext.TIP, emotion = EmotionState.HAPPY),
+            SphereMessage("Upload PDFs for focused analysis 📖", MessageContext.TIP, emotion = EmotionState.HAPPY)
         )
     )
 
     // Silent mode returns no messages
-    private val silentMessages = emptyMap<MessageContext, List<String>>()
+    private val silentMessages = emptyMap<MessageContext, List<SphereMessage>>()
 
     // ── Message selection logic ─────────────────────────────────────
 
@@ -285,11 +286,9 @@ object MessageEngine {
         val messages = pool[context] ?: return null
         if (messages.isEmpty()) return null
 
-        val text = selectRelevantMessage(messages, currentScreen, totalInteractions)
+        val message = selectRelevantMessage(messages, currentScreen, totalInteractions)
 
-        return SphereMessage(
-            text = text,
-            context = context,
+        return message.copy(
             priority = when (context) {
                 MessageContext.HELP -> 3
                 MessageContext.GREETING -> 2
@@ -300,6 +299,15 @@ object MessageEngine {
                 else -> 0
             }
         )
+    }
+
+    private fun selectRelevantMessage(
+        messages: List<SphereMessage>,
+        currentScreen: String,
+        totalInteractions: Int
+    ): SphereMessage {
+        val index = (totalInteractions + currentScreen.hashCode().and(0x7FFFFFFF)) % messages.size
+        return messages[index]
     }
 
     /**
@@ -338,41 +346,34 @@ object MessageEngine {
 
         val tip = when {
             currentScreen.startsWith("home") -> when (personality) {
-                PersonalityMode.PLAYFUL -> "This is Mission Control. What shall we research? 🚀"
-                PersonalityMode.CALM -> "Search anything scientific here ✨"
-                PersonalityMode.STUDY -> "Enter your research query 📖"
+                PersonalityMode.PLAYFUL -> SphereMessage("This is Mission Control. What shall we research? 🚀", MessageContext.TIP, emotion = EmotionState.HAPPY)
+                PersonalityMode.CALM -> SphereMessage("Search anything scientific here ✨", MessageContext.TIP, emotion = EmotionState.HAPPY)
+                PersonalityMode.STUDY -> SphereMessage("Enter your research query 📖", MessageContext.TIP, emotion = EmotionState.IDLE)
                 else -> return null
             }
             currentScreen.startsWith("library") -> when (personality) {
-                PersonalityMode.PLAYFUL -> "Your library! Upload a PDF and I'll eat it... I mean read it 📖"
-                PersonalityMode.CALM -> "Upload PDFs here to ask questions about them 📚"
-                PersonalityMode.STUDY -> "PDF analysis engine ready 📖"
+                PersonalityMode.PLAYFUL -> SphereMessage("Your library! Upload a PDF and I'll eat it... I mean read it 📖", MessageContext.TIP, emotion = EmotionState.HAPPY)
+                PersonalityMode.CALM -> SphereMessage("Upload PDFs here to ask questions about them 📚", MessageContext.TIP, emotion = EmotionState.IDLE)
+                PersonalityMode.STUDY -> SphereMessage("PDF analysis engine ready 📖", MessageContext.TIP, emotion = EmotionState.HAPPY)
                 else -> return null
             }
             currentScreen.startsWith("articles") -> when (personality) {
-                PersonalityMode.PLAYFUL -> "Research papers! Where boring gets interesting 🤓"
-                PersonalityMode.CALM -> "Browse peer-reviewed research articles 📄"
-                PersonalityMode.STUDY -> "Article search: PubMed + arXiv 🔬"
+                PersonalityMode.PLAYFUL -> SphereMessage("Research papers! Where boring gets interesting 🤓", MessageContext.TIP, emotion = EmotionState.EXCITED)
+                PersonalityMode.CALM -> SphereMessage("Browse peer-reviewed research articles 📄", MessageContext.TIP, emotion = EmotionState.IDLE)
+                PersonalityMode.STUDY -> SphereMessage("Article search: PubMed + arXiv 🔬", MessageContext.TIP, emotion = EmotionState.HAPPY)
                 else -> return null
             }
             currentScreen.startsWith("answer") -> when (personality) {
-                PersonalityMode.PLAYFUL -> "Let the AI brain do its thing... 🧠💨"
-                PersonalityMode.CALM -> "Your answer is being prepared ✨"
-                PersonalityMode.STUDY -> "Processing query... ⏳"
+                PersonalityMode.PLAYFUL -> SphereMessage("Let the AI brain do its thing... 🧠💨", MessageContext.TIP, emotion = EmotionState.HAPPY)
+                PersonalityMode.CALM -> SphereMessage("Your answer is being prepared ✨", MessageContext.TIP, emotion = EmotionState.IDLE)
+                PersonalityMode.STUDY -> SphereMessage("Processing query... ⏳", MessageContext.TIP, emotion = EmotionState.IDLE)
                 else -> return null
             }
             else -> return null
         }
 
-        return SphereMessage(text = tip, context = MessageContext.TIP, priority = 1)
+        return tip
     }
 
-    private fun selectRelevantMessage(
-        messages: List<String>,
-        currentScreen: String,
-        totalInteractions: Int
-    ): String {
-        val index = (totalInteractions + currentScreen.hashCode().and(0x7FFFFFFF)) % messages.size
-        return messages[index]
-    }
+
 }

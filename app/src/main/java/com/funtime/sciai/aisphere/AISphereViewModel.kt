@@ -247,10 +247,22 @@ class AISphereViewModel(application: Application) : AndroidViewModel(application
         if (!_isMuted.value) {
             val screenTip = MessageEngine.getScreenTip(currentScreen, _personalityMode.value)
             if (screenTip != null && System.currentTimeMillis() - lastMessageTime > 5000) {
+                // Apply tip emotion if present
+                screenTip.emotion?.let {
+                    overrideEmotion = it
+                    overrideEmotionTime = System.currentTimeMillis()
+                    _emotionState.value = it
+                }
+                
                 _currentMessage.value = screenTip
                 lastMessageTime = System.currentTimeMillis()
                 autoCloseMessage()
             }
+        }
+
+        // Playful mode special burst trigger
+        if (_personalityMode.value == PersonalityMode.PLAYFUL && (prefs.totalInteractions % 12 == 0)) {
+            triggerBurstAnimation(if (System.currentTimeMillis() % 2 == 0L) EmotionState.PLAYFUL_EVIL else EmotionState.JUGGLING)
         }
     }
 
@@ -316,6 +328,34 @@ class AISphereViewModel(application: Application) : AndroidViewModel(application
         }
 
         showMessage(MessageContext.PETTING)
+        
+        // Playful mode special burst trigger on petting
+        if (_personalityMode.value == PersonalityMode.PLAYFUL && (prefs.totalInteractions % 7 == 0)) {
+            triggerBurstAnimation(EmotionState.JUGGLING)
+        }
+    }
+
+    /**
+     * Trigger a short-lived special animation (2.5 seconds).
+     */
+    fun triggerBurstAnimation(emotion: EmotionState) {
+        val now = System.currentTimeMillis()
+        overrideEmotion = emotion
+        overrideEmotionTime = now
+        _emotionState.value = emotion
+        soundManager.onEmotionChanged(emotion)
+        
+        // Optional: show a special message for the burst
+        if (!_isMuted.value && emotion == EmotionState.PLAYFUL_EVIL) {
+            _currentMessage.value = SphereMessage(
+                "Mwhehehe! FEAR ME! 😈",
+                MessageContext.EMOTION_REACTION,
+                priority = 3,
+                emotion = EmotionState.PLAYFUL_EVIL
+            )
+            lastMessageTime = now
+            autoCloseMessage()
+        }
     }
 
     // ── Navigation ──────────────────────────────────────────────────
@@ -341,6 +381,14 @@ class AISphereViewModel(application: Application) : AndroidViewModel(application
         ) ?: return
 
         _currentMessage.value = message
+        
+        // Apply message emotion to face
+        message.emotion?.let {
+            overrideEmotion = it
+            overrideEmotionTime = System.currentTimeMillis()
+            _emotionState.value = it
+        }
+
         lastMessageTime = System.currentTimeMillis()
         autoCloseMessage()
     }

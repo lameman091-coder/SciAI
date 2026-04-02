@@ -96,12 +96,14 @@ def ask_question(request: AskRequest):
         }
     
     # 2. HYBRID ON -> Smart RAG
-    # Retrieve local FAISS results
-    faiss_results = search(request.question, top_k=5, book_id=request.book_id)
+    # Retrieve local FAISS results (more chunks for book-specific queries)
+    book_top_k = 10 if request.book_id else 5
+    faiss_results = search(request.question, top_k=book_top_k, book_id=request.book_id)
     
     print(f"[SciAI] FAISS results for book_id={request.book_id}: {len(faiss_results)} chunks found")
     for i, r in enumerate(faiss_results):
-        print(f"  Chunk {i}: dist={r['distance']:.3f}, book={r['metadata'].get('book_id', 'N/A')}, preview={r['chunk'][:80]}...")
+        kw = r.get('keyword_hits', 0)
+        print(f"  Chunk {i}: dist={r['distance']:.3f}, boost={r.get('boosted_distance', r['distance']):.3f}, kw_hits={kw}, book={r['metadata'].get('book_id', 'N/A')}, preview={r['chunk'][:80]}...")
     
     # Only fetch external articles if NOT a book-specific query
     external_articles = []
@@ -112,6 +114,14 @@ def ask_question(request: AskRequest):
     
     # Check for relevance/context availability
     if not faiss_results and not external_articles:
+        # For book-specific queries, provide a specific error instead of LLM fallback
+        if request.book_id:
+            print(f"[SciAI] CRITICAL: Book query for book_id={request.book_id} returned 0 FAISS chunks. Index may be empty or corrupted.")
+            return {
+                "answer": "No indexed content found for this document. The PDF may not have been processed correctly, or the vector index may need rebuilding. Try re-uploading the document.",
+                "type": "LLM_FALLBACK",
+                "sources": []
+            }
         print(f"[SciAI] Mode: Smart RAG (Fallback). No relevant context found.")
         answer = generate_llm_only(request.question, request.mode, request.domain)
         return {
