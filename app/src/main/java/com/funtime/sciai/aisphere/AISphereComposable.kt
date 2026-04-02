@@ -168,7 +168,13 @@ fun AISphereComposable(
     )
 
     // ── Combined transforms ─────────────────────────────────────────
-    val finalScale = breathingScale * bounceScale * compressScale
+    // Special burst scale for "Engulf" (Evil) state
+    val burstPulse by animateFloatAsState(
+        targetValue = if (emotionState == EmotionState.PLAYFUL_EVIL) 1.4f else 1f,
+        animationSpec = spring(dampingRatio = 0.4f, stiffness = 400f),
+        label = "burstPulse"
+    )
+    val finalScale = breathingScale * bounceScale * compressScale * burstPulse
     val glowMult = if (companionProfile.hasGlow) 1.2f else 0.15f
     val theme = companionProfile.colorTheme
 
@@ -379,9 +385,20 @@ fun AISphereComposable(
                 drawSleepEffect(center, radius, sparkPhase, Color.White.copy(alpha = 0.3f))
             }
 
-            // ── Confused question mark (CONFUSED) ───────────────
+            // ── Confused question mark (CONFUSED) ───────────
             if (emotionState == EmotionState.CONFUSED && !reduceAnimations) {
                 drawConfusedEffect(center, radius, sparkPhase, visuals.glowColor)
+            }
+
+            // ── PLAYFUL_EVIL dark aura + smoke ───────────────
+            if (emotionState == EmotionState.PLAYFUL_EVIL && !reduceAnimations) {
+                drawEvilAura(center, radius, rippleExpand)
+                drawSmokeParticles(center, radius, sparkPhase)
+            }
+
+            // ── JUGGLING orbiting balls ─────────────────────
+            if (emotionState == EmotionState.JUGGLING && !reduceAnimations) {
+                drawJugglingBalls(center, radius, sparkPhase)
             }
 
             // ── Accessories ─────────────────────────────────────
@@ -430,6 +447,8 @@ private fun DrawScope.drawExpression(
         ExpressionType.LOVE_FACE -> drawLoveFace(center, eyeSpacing, eyeY, mouthY, eyeRadius, color, radius, alpha)
         ExpressionType.SHY_FACE -> drawShyFace(center, eyeSpacing, eyeY, mouthY, eyeRadius, color, radius, alpha)
         ExpressionType.CONFUSED_FACE -> drawConfusedFace(center, eyeSpacing, eyeY, mouthY, eyeRadius, blinkValue, color, radius)
+        ExpressionType.EVIL_FACE -> drawEvilFace(center, eyeSpacing, eyeY, mouthY, eyeRadius, blinkValue, color, radius, alpha)
+        ExpressionType.JUGGLING_FACE -> drawJugglingFace(center, eyeSpacing, eyeY, mouthY, eyeRadius, blinkValue, color, radius, alpha)
     }
 }
 
@@ -740,6 +759,57 @@ private fun DrawScope.drawConfusedFace(
     )
 }
 
+// ── EVIL ψ(｀∇´)ψ ──────────────────────────────────────────────────
+private fun DrawScope.drawEvilFace(
+    center: Offset, eyeSpacing: Float, eyeY: Float, mouthY: Float,
+    eyeRadius: Float, blinkValue: Float, color: Color, radius: Float,
+    alpha: Float = 1.0f
+) {
+    val eyeH = eyeRadius * 1.8f * blinkValue
+    val evilRed = Color(0xFFEF4444).copy(alpha = alpha)
+    
+    // Slanted menacing eyes (narrow slits)
+    drawOval(evilRed, Offset(center.x - eyeSpacing - eyeRadius * 1.5f, eyeY - eyeH / 2f), Size(eyeRadius * 3f, eyeH))
+    drawOval(evilRed, Offset(center.x + eyeSpacing - eyeRadius * 1.5f, eyeY - eyeH / 2f), Size(eyeRadius * 3f, eyeH))
+    
+    // Eyebrows slanted sharply down-in
+    drawLine(Color.White.copy(alpha = alpha), Offset(center.x - eyeSpacing * 2f, eyeY - radius * 0.15f), Offset(center.x - eyeSpacing * 0.5f, eyeY - radius * 0.05f), strokeWidth = radius * 0.05f, cap = StrokeCap.Round)
+    drawLine(Color.White.copy(alpha = alpha), Offset(center.x + eyeSpacing * 2f, eyeY - radius * 0.15f), Offset(center.x + eyeSpacing * 0.5f, eyeY - radius * 0.05f), strokeWidth = radius * 0.05f, cap = StrokeCap.Round)
+
+    // Sharp wicked grin
+    val mouthPath = Path().apply {
+        moveTo(center.x - radius * 0.25f, mouthY)
+        quadraticTo(center.x, mouthY + radius * 0.25f, center.x + radius * 0.25f, mouthY)
+        lineTo(center.x + radius * 0.15f, mouthY + radius * 0.05f)
+        lineTo(center.x - radius * 0.15f, mouthY + radius * 0.05f)
+        close()
+    }
+    drawPath(mouthPath, Color.White.copy(alpha = alpha))
+}
+
+// ── JUGGLING ◎‿◎ ────────────────────────────────────────────────────
+private fun DrawScope.drawJugglingFace(
+    center: Offset, eyeSpacing: Float, eyeY: Float, mouthY: Float,
+    eyeRadius: Float, blinkValue: Float, color: Color, radius: Float,
+    alpha: Float = 1.0f
+) {
+    // Wide starry eyes
+    drawStar(center.x - eyeSpacing, eyeY, eyeRadius * 2.5f * blinkValue, Color.White.copy(alpha = alpha), radius)
+    drawStar(center.x + eyeSpacing, eyeY, eyeRadius * 2.5f * blinkValue, Color.White.copy(alpha = alpha), radius)
+
+    // Bouncing wide mouth
+    val bounceMouthY = mouthY + sin(System.currentTimeMillis() / 200f) * radius * 0.05f
+    drawArc(
+        color = Color.White.copy(alpha = alpha),
+        startAngle = 0f,
+        sweepAngle = 180f,
+        useCenter = false,
+        topLeft = Offset(center.x - radius * 0.2f, bounceMouthY - radius * 0.1f),
+        size = Size(radius * 0.4f, radius * 0.25f),
+        style = Stroke(width = radius * 0.04f, cap = StrokeCap.Round)
+    )
+}
+
 // ═══════════════════════════════════════════════════════════════════════
 // HELPER DRAWING FUNCTIONS
 // ═══════════════════════════════════════════════════════════════════════
@@ -1008,5 +1078,73 @@ private fun DrawScope.drawAccessoryStar(center: Offset, radius: Float) {
     val starColor = Color(0xFFFBBF24)
     rotate(-15f, Offset(sX, sY)) {
         drawStar(sX, sY, radius * 0.25f, starColor, radius)
+    }
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// SPECIAL BURST VISUALS
+// ═══════════════════════════════════════════════════════════════════════
+
+private fun DrawScope.drawEvilAura(center: Offset, radius: Float, pulse: Float) {
+    // Massive black "engulfing" circle behind the sphere
+    val auraRadius = radius * (1.5f + pulse * 0.8f)
+    drawCircle(
+        brush = Brush.radialGradient(
+            colors = listOf(Color.Black, Color.Black.copy(alpha = 0.8f), Color.Transparent),
+            center = center,
+            radius = auraRadius
+        ),
+        radius = auraRadius,
+        center = center
+    )
+    
+    // Sinister red ring
+    drawCircle(
+        color = Color(0xFFEF4444).copy(alpha = 0.5f * (1f - pulse)),
+        radius = radius * (1.2f + pulse * 0.5f),
+        center = center,
+        style = Stroke(width = radius * 0.1f)
+    )
+}
+
+private fun DrawScope.drawSmokeParticles(center: Offset, radius: Float, phase: Float) {
+    val count = 6
+    for (i in 0 until count) {
+        val p = (phase + i.toFloat() / count) % 1f
+        val angle = (i * 360f / count) * PI.toFloat() / 180f
+        val dist = radius * (1f + p * 1.5f)
+        val particleSize = radius * 0.2f * (1f - p)
+        val alpha = (1f - p) * 0.4f
+        
+        drawCircle(
+            color = Color.Black.copy(alpha = alpha),
+            radius = particleSize,
+            center = Offset(center.x + cos(angle) * dist, center.y + sin(angle) * dist)
+        )
+    }
+}
+
+private fun DrawScope.drawJugglingBalls(center: Offset, radius: Float, phase: Float) {
+    val colors = listOf(Color(0xFFFBBF24), Color(0xFF06B6D4), Color(0xFFEC4899))
+    val orbitRadius = radius * 1.4f
+    
+    colors.forEachIndexed { i, color ->
+        val angle = (phase * 360f + i * (360f / colors.size)) * PI.toFloat() / 180f
+        val x = center.x + cos(angle) * orbitRadius
+        val y = center.y + sin(angle) * orbitRadius + sin(phase * PI.toFloat() * 2f + i) * radius * 0.2f
+        
+        // Glow for the ball
+        drawCircle(
+            brush = Brush.radialGradient(
+                colors = listOf(color.copy(alpha = 0.8f), Color.Transparent),
+                center = Offset(x, y),
+                radius = radius * 0.25f
+            ),
+            radius = radius * 0.25f,
+            center = Offset(x, y)
+        )
+        
+        // The ball itself
+        drawCircle(color, radius = radius * 0.1f, center = Offset(x, y))
     }
 }

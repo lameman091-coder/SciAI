@@ -113,17 +113,16 @@ def search(query, top_k=5, threshold=1.5, book_id=None):
         
     q_emb = embed_text(query).astype("float32").reshape(1, -1)
     
-    # When filtering by book_id, fetch many more candidates and use relaxed threshold
     if book_id:
-        search_k = min(top_k * 10, index.ntotal)
-        effective_threshold = 3.0  # Relaxed: we want chunks from this specific book
+        # BOOK-SPECIFIC: Search ALL vectors, filter by book_id, NO threshold
+        # The user uploaded this book to query it — always return best chunks
+        search_k = index.ntotal
     else:
-        search_k = min(top_k, index.ntotal)
-        effective_threshold = threshold
+        search_k = min(top_k * 3, index.ntotal)  # Slightly over-fetch for global
     
     distances, indices = index.search(q_emb, search_k)
     
-    # Threshold check for the top match (only for global search, not book-specific)
+    # Threshold check for global search only (not book-specific)
     if not book_id and distances[0][0] > threshold:
         return []
     
@@ -133,20 +132,30 @@ def search(query, top_k=5, threshold=1.5, book_id=None):
             dist = float(distances[0][i])
             metadata = doc_metadata[idx]
             
-            # Book-specific filtering
+            # Book-specific filtering: only keep chunks from this book
             if book_id and metadata.get("book_id") != book_id:
                 continue
             
-            # Apply threshold (relaxed for book-specific queries)
-            if dist > effective_threshold:
+            # For global search, apply threshold
+            if not book_id and dist > threshold:
                 continue
+            
+            # Keyword boost: reduce distance for chunks containing query keywords
+            query_words = set(query.lower().split())
+            chunk_lower = chunk_store[idx].lower()
+            keyword_hits = sum(1 for w in query_words if len(w) > 3 and w in chunk_lower)
+            boosted_dist = dist - (keyword_hits * 0.15)  # Boost relevance per keyword match
                 
             results.append({
                 "chunk": chunk_store[idx],
                 "metadata": metadata,
-                "distance": dist
+                "distance": dist,
+                "boosted_distance": boosted_dist,
+                "keyword_hits": keyword_hits
             })
-            if len(results) == top_k:
-                break
     
-    return results
+    # Sort by boosted distance (keyword-matched chunks rank higher)
+    results.sort(key=lambda r: r["boosted_distance"])
+    
+    # Return top_k results
+    return results[:top_k]
