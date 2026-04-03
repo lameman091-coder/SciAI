@@ -192,22 +192,22 @@ fun HomeScreen(navController: NavController) {
 
                 DrawerItem("Home", Color.White) {
                     coroutineScope.launch { drawerState.close() }
-                    navController.navigate("home")
+                    navController.navigate("home") { launchSingleTop = true }
                 }
                 DrawerItem("Library", Color.White) {
                     coroutineScope.launch { drawerState.close() }
-                    navController.navigate("library")
+                    navController.navigate("library") { launchSingleTop = true }
                 }
                 DrawerItem("Articles", Color.White) {
                     coroutineScope.launch { drawerState.close() }
-                    navController.navigate("articles")
+                    navController.navigate("articles") { launchSingleTop = true }
                 }
                 DrawerItem("Premium", Color(0xFFFFC107)) {
                     coroutineScope.launch { drawerState.close() }
                 }
                 DrawerItem("AI Companion ✨", Color(0xFF38BDF8)) {
                     coroutineScope.launch { drawerState.close() }
-                    navController.navigate("sphere_settings")
+                    navController.navigate("sphere_settings") { launchSingleTop = true }
                 }
 
                 Divider(color = Color.DarkGray)
@@ -225,7 +225,7 @@ fun HomeScreen(navController: NavController) {
                             coroutineScope.launch { drawerState.close() }
                             val encodedQuery = Uri.encode(item.query)
                             // Triggers same behavior, recreating AnswerScreen with cached inputs
-                            navController.navigate("answer/${encodedQuery}/${item.mode}?hybrid=true")
+                            navController.navigate("answer/${encodedQuery}/${item.mode}?hybrid=true") { launchSingleTop = true }
                         }
                     }
                 }
