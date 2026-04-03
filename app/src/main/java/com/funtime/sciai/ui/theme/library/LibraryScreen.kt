@@ -58,7 +58,14 @@ fun LibraryScreen(navController: NavController) {
                 }
             } else {
                 books = bookList.map {
-                    Book(it.id, it.title, it.domain, it.preview)
+                    val finalId = it.id?.takeIf { id -> id.isNotBlank() } 
+                        ?: "syn_book_${it.title.hashCode()}"
+                    Book(
+                        finalId, 
+                        it.title ?: "", 
+                        it.domain ?: "General", 
+                        it.preview ?: ""
+                    )
                 }
                 errorMessage = ""
             }
@@ -238,7 +245,7 @@ fun LibraryScreen(navController: NavController) {
                         verticalArrangement = Arrangement.spacedBy(12.dp),
                         modifier = Modifier.fillMaxSize()
                     ) {
-                        items(books) { book ->
+                        items(books, key = { "library_${it.id}" }) { book ->
                             ElevatedCard(
                                 modifier = Modifier
                                     .fillMaxWidth()

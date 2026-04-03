@@ -22,30 +22,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.funtime.sciai.components.AppScaffold
+import com.funtime.sciai.data.UserManager
 import com.funtime.sciai.data.network.*
 import com.funtime.sciai.data.rag.RagService
 import kotlinx.coroutines.launch
 
 // ──────────────────────────────────────────────
-// Trust Hierarchy Colors
+// Articles Engine v3.0 logic
 // ──────────────────────────────────────────────
-val TrustGreen = Color(0xFF22C55E)    // Peer Reviewed
-val TrustYellow = Color(0xFFF59E0B)   // Preprint
-val TrustBlue = Color(0xFF3B82F6)     // Background
-val CyanAccent = Color(0xFF38BDF8)
-val DeepDark = Color(0xFF0F172A)
-val CardDark = Color(0xFF1E293B)
-val SlateGray = Color(0xFF94A3B8)
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun ArticlesScreen(navController: NavController) {
+    val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     val listState = rememberLazyListState()
@@ -87,13 +83,16 @@ fun ArticlesScreen(navController: NavController) {
     val preprintArticles = displayArticles.filter { it.tier == "preprint" }
     val backgroundArticles = displayArticles.filter { it.tier == "background" }
 
+    val userManager = remember { UserManager(context) }
+    val userId = remember { userManager.getUserId() }
+
     // ── Auto-Load Trending on First Screen Open (NOT on back-navigation) ──
     LaunchedEffect(Unit) {
         if (!state.hasLoadedTrending) {
             isTrendingLoading = true
-            RagService.fetchTrending(limit = 25) { results, count ->
+            RagService.fetchTrending(limit = 20) { results, count ->
                 if (results != null) {
-                    state.trendingArticles = results
+                    state.trendingArticles = results.map { state.safeArticle(it) }.distinctBy { it.id }
                 }
                 state.hasLoadedTrending = true
                 isTrendingLoading = false
@@ -129,11 +128,12 @@ fun ArticlesScreen(navController: NavController) {
             if (results == null) {
                 errorMessage = "Connection error. Check backend."
             } else {
+                val safeResults = results.map { state.safeArticle(it) }
                 if (isNewSearch) {
-                    state.searchResultArticles = results
+                    state.searchResultArticles = safeResults.distinctBy { it.id }
                     state.searchTotalCount = count
                 } else {
-                    state.searchResultArticles = state.searchResultArticles + results
+                    state.searchResultArticles = (state.searchResultArticles + safeResults).distinctBy { it.id }
                 }
                 errorMessage = ""
             }
@@ -187,7 +187,9 @@ fun ArticlesScreen(navController: NavController) {
             } else {
                 isTrendingLoading = true
                 RagService.fetchTrending(limit = 25) { results, _ ->
-                    if (results != null) state.trendingArticles = results
+                    if (results != null) {
+                        state.trendingArticles = results.map { state.safeArticle(it) }.distinctBy { it.id }
+                    }
                     isTrendingLoading = false
                 }
             }
@@ -288,7 +290,7 @@ fun ArticlesScreen(navController: NavController) {
 
                             // Date Filters
                             val dates = listOf("Latest", "Last 5 yrs")
-                            items(dates) { date ->
+                            items(dates, key = { it }) { date ->
                                 PremiumFilterChip(
                                     label = "📅 $date",
                                     selected = state.selectedDate == date,
@@ -451,10 +453,10 @@ fun ArticlesScreen(navController: NavController) {
                                         color = TrustGreen
                                     )
                                 }
-                                items(peerReviewedArticles, key = { "pr_${it.title}_${it.link}" }) { article ->
+                                items(peerReviewedArticles, key = { "pr_${it.id}" }) { article ->
                                     PremiumArticleCard(
                                         article = article,
-                                        onSave = { saveArticle(article, RagService, scope, snackbarHostState) }
+                                        onSave = { saveArticle(userId, article, RagService, scope, snackbarHostState) }
                                     ) {
                                         ArticleState.selectedArticle = article
                                         navController.navigate("article_detail")
@@ -472,10 +474,10 @@ fun ArticlesScreen(navController: NavController) {
                                         color = TrustYellow
                                     )
                                 }
-                                items(preprintArticles, key = { "pp_${it.title}_${it.link}" }) { article ->
+                                items(preprintArticles, key = { "pp_${it.id}" }) { article ->
                                     PremiumArticleCard(
                                         article = article,
-                                        onSave = { saveArticle(article, RagService, scope, snackbarHostState) }
+                                        onSave = { saveArticle(userId, article, RagService, scope, snackbarHostState) }
                                     ) {
                                         ArticleState.selectedArticle = article
                                         navController.navigate("article_detail")
@@ -493,10 +495,10 @@ fun ArticlesScreen(navController: NavController) {
                                         color = TrustBlue
                                     )
                                 }
-                                items(backgroundArticles, key = { "bg_${it.title}_${it.link}" }) { article ->
+                                items(backgroundArticles, key = { "bg_${it.id}" }) { article ->
                                     PremiumArticleCard(
                                         article = article,
-                                        onSave = { saveArticle(article, RagService, scope, snackbarHostState) }
+                                        onSave = { saveArticle(userId, article, RagService, scope, snackbarHostState) }
                                     ) {
                                         ArticleState.selectedArticle = article
                                         navController.navigate("article_detail")
@@ -843,10 +845,12 @@ fun PremiumArticleCard(article: Article, onSave: () -> Unit, onClick: () -> Unit
     }
 }
 
-fun saveArticle(article: Article, service: RagService, scope: kotlinx.coroutines.CoroutineScope, snackbar: SnackbarHostState) {
-    service.saveArticle(article) { success ->
+// Simplified internal save helper
+fun saveArticle(userId: String, article: Article, service: com.funtime.sciai.data.rag.RagService, scope: kotlinx.coroutines.CoroutineScope, snackbar: androidx.compose.material3.SnackbarHostState) {
+    service.saveArticle(userId, article) { success ->
         scope.launch {
-            snackbar.showSnackbar(if (success) "✅ Saved to Library" else "❌ Failed to save")
+            if (success) snackbar.showSnackbar("Saved to library")
+            else snackbar.showSnackbar("Failed to save")
         }
     }
 }

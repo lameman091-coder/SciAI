@@ -78,9 +78,10 @@ object RagService {
         domain: String,
         bookId: String? = null,
         hybrid: Boolean = false,
+        userId: String = "guest",
         callback: (AskResponse?) -> Unit
     ) {
-        val request = AskRequest(question, mode, domain, bookId, hybrid)
+        val request = AskRequest(question, mode, domain, bookId, hybrid, userId)
         NetworkClient.apiService.ask(request).enqueue(object : Callback<AskResponse> {
             override fun onResponse(call: Call<AskResponse>, response: Response<AskResponse>) {
                 println("API Response [/ask]: ${response.code()} body: ${response.body()}")
@@ -128,8 +129,21 @@ object RagService {
             })
     }
 
-    fun saveArticle(article: Article, callback: (Boolean) -> Unit) {
-        NetworkClient.apiService.saveArticle(article).enqueue(object : Callback<Map<String, String>> {
+    fun saveArticle(userId: String, article: Article, callback: (Boolean) -> Unit) {
+        val request = SaveArticleRequest(
+            userId = userId,
+            id = article.id,
+            title = article.title,
+            summary = article.summary,
+            source = article.source,
+            link = article.link,
+            score = article.score,
+            authors = article.authors,
+            journal = article.journal,
+            date = article.date,
+            tier = article.tier
+        )
+        NetworkClient.apiService.saveArticle(request).enqueue(object : Callback<Map<String, String>> {
             override fun onResponse(call: Call<Map<String, String>>, response: Response<Map<String, String>>) {
                 callback(response.isSuccessful)
             }
@@ -139,8 +153,8 @@ object RagService {
         })
     }
 
-    fun fetchSavedArticles(callback: (List<Article>?) -> Unit) {
-        NetworkClient.apiService.getSavedArticles().enqueue(object : Callback<List<Article>> {
+    fun fetchSavedArticles(userId: String, callback: (List<Article>?) -> Unit) {
+        NetworkClient.apiService.getSavedArticles(userId).enqueue(object : Callback<List<Article>> {
             override fun onResponse(call: Call<List<Article>>, response: Response<List<Article>>) {
                 callback(if (response.isSuccessful) response.body() else null)
             }

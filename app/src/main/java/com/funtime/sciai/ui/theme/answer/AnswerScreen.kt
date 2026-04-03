@@ -198,6 +198,9 @@ fun AnswerScreen(
     var selectedDomain by remember { mutableStateOf("Biology") }
     var hybridMode by remember { mutableStateOf(hybrid) } // Initialize from nav param (true when coming from Library)
     var refreshTrigger by remember { mutableStateOf(0) }
+    
+    val userManager = remember { com.funtime.sciai.data.UserManager(context) }
+    val userId = remember { userManager.getUserId() }
 
     val pullRefreshState = rememberPullRefreshState(
         refreshing = isLoading,
@@ -219,7 +222,8 @@ fun AnswerScreen(
                 mode = mode,
                 domain = selectedDomain,
                 bookId = bookId,
-                hybrid = true
+                hybrid = true,
+                userId = userId
             ) { askRes ->
                 if (askRes == null) {
                     answer = "Error: Failed to connect to research engine."

@@ -40,10 +40,10 @@ interface ApiService {
     ): Call<ArticlesResponse>
 
     @POST("save-article")
-    fun saveArticle(@Body article: Article): Call<Map<String, String>>
+    fun saveArticle(@Body request: SaveArticleRequest): Call<Map<String, String>>
 
     @GET("saved-articles")
-    fun getSavedArticles(): Call<List<Article>>
+    fun getSavedArticles(@Query("user_id") userId: String): Call<List<Article>>
 
     @DELETE("books/{book_id}")
     fun deleteBook(@Path("book_id") bookId: String, @Query("user_id") userId: String): Call<Map<String, String>>

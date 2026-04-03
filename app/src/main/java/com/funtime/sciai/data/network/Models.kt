@@ -7,7 +7,8 @@ data class AskRequest(
     val mode: String,
     val domain: String,
     @SerializedName("book_id") val bookId: String? = null,
-    val hybrid: Boolean = false
+    val hybrid: Boolean = false,
+    @SerializedName("user_id") val userId: String = "guest"
 )
 
 data class AskResponse(
@@ -25,6 +26,7 @@ data class Book(
 )
 
 data class Article(
+    val id: String = "",
     val title: String = "",
     val summary: String = "",
     val source: String = "",
@@ -34,6 +36,20 @@ data class Article(
     val journal: String = "Research Journal",
     val date: String = "Unknown Date",
     val tier: String = "peer_reviewed"  // "peer_reviewed", "preprint", "background"
+)
+
+data class SaveArticleRequest(
+    @SerializedName("user_id") val userId: String,
+    val id: String,
+    val title: String,
+    val summary: String,
+    val source: String,
+    val link: String,
+    val score: Double = 0.0,
+    val authors: String = "Various Authors",
+    val journal: String = "Research Journal",
+    val date: String = "Unknown Date",
+    val tier: String = "peer_reviewed"
 )
 
 data class ArticlesResponse(
@@ -48,3 +64,4 @@ data class UploadResponse(
     val source: String,
     @SerializedName("book_id") val bookId: String
 )
+

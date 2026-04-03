@@ -10,29 +10,51 @@ import androidx.compose.runtime.setValue
  * (e.g., going to article_detail and pressing back).
  */
 object ArticleState {
-    var selectedArticle by mutableStateOf<Article?>(null)
-
-    // ── Persisted screen state (survives navigation recomposition) ──
     var trendingArticles by mutableStateOf<List<Article>>(emptyList())
     var searchResultArticles by mutableStateOf<List<Article>>(emptyList())
+    var hasLoadedTrending by mutableStateOf(false)
     var screenMode by mutableStateOf("TRENDING") // "TRENDING" or "RESULTS"
-    var lastSearchQuery by mutableStateOf("")
     var searchTotalCount by mutableStateOf(0)
     var searchCurrentPage by mutableStateOf(1)
-    var hasLoadedTrending by mutableStateOf(false)
+    var lastSearchQuery by mutableStateOf("")
 
-    // Filter state
-    var selectedSort by mutableStateOf("pub+date")
-    var selectedDomain by mutableStateOf("All")
-    var selectedType by mutableStateOf("All")
+    // ── Filter State ──
+    var selectedSort by mutableStateOf("Relevance")
     var selectedSource by mutableStateOf("All")
-    var selectedDate by mutableStateOf("Latest")
+    var selectedDomain by mutableStateOf("All")
+    var selectedDate by mutableStateOf("All Time")
+    var selectedType by mutableStateOf("All")
+
+    var selectedArticle by mutableStateOf<Article?>(null)
 
     fun resetToTrending() {
         screenMode = "TRENDING"
         searchResultArticles = emptyList()
-        searchCurrentPage = 1
         searchTotalCount = 0
+        searchCurrentPage = 1
         lastSearchQuery = ""
+        selectedSort = "Relevance"
+        selectedSource = "All"
+        selectedDomain = "All"
+        selectedDate = "All Time"
+        selectedType = "All"
+    }
+
+    /**
+     * Ensures an article has a valid ID and non-null fields before UI storage.
+     * Generates a synthetic ID if the original is blank.
+     */
+    fun safeArticle(it: Article): Article {
+        val finalId = it.id.takeIf { id -> id.isNotBlank() }
+            ?: "syn_${it.title.hashCode().toString(16)}_${it.link.hashCode().toString(16)}_${(1000..9999).random()}"
+        return it.copy(
+            id = finalId,
+            title = it.title ?: "",
+            summary = it.summary ?: "",
+            source = it.source ?: "Unknown",
+            authors = it.authors ?: "Various Authors",
+            journal = it.journal ?: "Research",
+            date = it.date ?: ""
+        )
     }
 }
