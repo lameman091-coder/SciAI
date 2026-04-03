@@ -1,6 +1,9 @@
 fastapi
 uvicorn
 pydantic
+pydantic-settings
+sqlalchemy
+aiosqlite
 PyPDF2
 sentence-transformers
 faiss-cpu
@@ -8,4 +11,9 @@ numpy
 python-multipart
 python-dotenv
 groq
-requests
+httpx
+loguru
+tiktoken
+diskcache
+beautifulsoup4
+lxml

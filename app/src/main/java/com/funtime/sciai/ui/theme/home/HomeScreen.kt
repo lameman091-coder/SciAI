@@ -220,7 +220,7 @@ fun HomeScreen(navController: NavController) {
                 )
                 
                 LazyColumn(modifier = Modifier.weight(1f)) {
-                    items(historyList) { item ->
+                    items(historyList, key = { "hist_${it.timestamp}_${it.query.hashCode()}" }) { item ->
                         HistoryDrawerItem(item = item) {
                             coroutineScope.launch { drawerState.close() }
                             val encodedQuery = Uri.encode(item.query)
