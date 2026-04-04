@@ -10,6 +10,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * Central state holder for the AI Sphere Companion.
@@ -92,29 +96,29 @@ class AISphereViewModel(application: Application) : AndroidViewModel(application
     private var previousEmotionForSound: EmotionState = EmotionState.IDLE
 
     init {
-        soundManager.initialize()
-        soundManager.setSoundEnabled(prefs.isSoundEnabled)
-        startBehaviorLoop()
+        viewModelScope.launch(Dispatchers.IO) {
+            soundManager.initialize()
+            soundManager.setSoundEnabled(prefs.isSoundEnabled)
+            
+            withContext(Dispatchers.Main) {
+                startBehaviorLoop()
 
-        // Show greeting on first launch
-        if (prefs.isFirstLaunch) {
-            viewModelScope.launch {
-                delay(1500)
-                showMessage(MessageContext.GREETING)
-                prefs.isFirstLaunch = false
+                // Show greeting on first launch
+                if (prefs.isFirstLaunch) {
+                    delay(1500)
+                    showMessage(MessageContext.GREETING)
+                    prefs.isFirstLaunch = false
+                }
+
+                // Check if user hasn't visited in a while → mood memory message
+                val timeSinceLastVisit = System.currentTimeMillis() - prefs.lastVisitTime
+                if (timeSinceLastVisit > 24 * 60 * 60 * 1000L && !prefs.isFirstLaunch) {
+                    delay(2000)
+                    showMessage(MessageContext.IDLE)
+                }
+                prefs.lastVisitTime = System.currentTimeMillis()
             }
         }
-
-        // Check if user hasn't visited in a while → mood memory message
-        val timeSinceLastVisit = System.currentTimeMillis() - prefs.lastVisitTime
-        if (timeSinceLastVisit > 24 * 60 * 60 * 1000L && !prefs.isFirstLaunch) {
-            // More than 24 hours — show a "missed you" message
-            viewModelScope.launch {
-                delay(2000)
-                showMessage(MessageContext.IDLE)
-            }
-        }
-        prefs.lastVisitTime = System.currentTimeMillis()
     }
 
     // ── Behavior loop ───────────────────────────────────────────────

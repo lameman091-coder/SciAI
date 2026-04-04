@@ -40,7 +40,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
-fun ArticlesScreen(navController: NavController) {
+fun ArticlesScreen(navController: NavController, drawerState: androidx.compose.material3.DrawerState) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -199,11 +199,13 @@ fun ArticlesScreen(navController: NavController) {
     AppScaffold(
         title = "Articles Engine v3.0",
         navController = navController,
-        showBack = true,
+        showBack = false,
+        onMenuClick = { scope.launch { drawerState.open() } },
         onBack = handleBack
-    ) { scaffoldModifier ->
+    ) { padding ->
         Box(
-            modifier = scaffoldModifier
+            modifier = Modifier
+                .padding(padding)
                 .fillMaxSize()
                 .pullRefresh(pullRefreshState)
         ) {

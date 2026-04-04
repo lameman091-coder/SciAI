@@ -25,10 +25,12 @@ object GeminiService {
                     apiKey = API_KEY
                 )
 
-                val bitmap = MediaStore.Images.Media.getBitmap(
-                    context.contentResolver,
-                    uri
-                )
+                val bitmap = ImageUtils.decodeSampledBitmapFromUri(
+                    context,
+                    uri,
+                    1024,
+                    1024
+                ) ?: throw IllegalArgumentException("Failed to decode image")
 
                 val inputContent = content {
                     image(bitmap)

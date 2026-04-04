@@ -26,6 +26,7 @@ import androidx.navigation.NavController
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.text.style.TextOverflow
 import com.funtime.sciai.components.AppScaffold
 import com.funtime.sciai.data.rag.RagService
 import com.funtime.sciai.data.Book
@@ -34,7 +35,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
-fun LibraryScreen(navController: NavController) {
+fun LibraryScreen(navController: NavController, drawerState: androidx.compose.material3.DrawerState) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val userManager = remember { UserManager(context) }
@@ -164,7 +165,8 @@ fun LibraryScreen(navController: NavController) {
     AppScaffold(
         title = "Library v2.0",
         navController = navController,
-        showBack = true,
+        showBack = false,
+        onMenuClick = { scope.launch { drawerState.open() } },
 
         floatingActionButton = {
             FloatingActionButton(
@@ -175,9 +177,10 @@ fun LibraryScreen(navController: NavController) {
                 Icon(Icons.Default.Add, contentDescription = "Upload PDF")
             }
         }
-    ) { scaffoldModifier ->
+    ) { padding ->
         Box(
-            modifier = scaffoldModifier
+            modifier = Modifier
+                .padding(padding)
                 .fillMaxSize()
                 .pullRefresh(pullRefreshState)
         ) {
@@ -284,7 +287,9 @@ fun LibraryScreen(navController: NavController) {
                                         Text(
                                             text = book.preview,
                                             color = Color(0xFF94A3B8),
-                                            fontSize = 14.sp
+                                            fontSize = 14.sp,
+                                            maxLines = 3,
+                                            overflow = TextOverflow.Ellipsis
                                         )
                                     }
 

@@ -12,6 +12,10 @@ import com.funtime.sciai.components.AppScaffold
 import com.funtime.sciai.data.groq.GroqService
 import com.funtime.sciai.data.rag.RagService
 import androidx.compose.runtime.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.unit.sp
@@ -165,10 +169,16 @@ fun ExpandableSection(
             if (expanded) {
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Text(
-                    text = content,
-                    color = Color.White
-                )
+                val paragraphs = content.split('\n')
+                paragraphs.forEach { paragraph ->
+                    if (paragraph.isNotBlank()) {
+                        Text(
+                            text = paragraph.trim(),
+                            color = Color.White
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                    }
+                }
             }
         }
     }
@@ -241,8 +251,15 @@ fun AnswerScreen(
                         ""
                     )
                         .trim()
+
+                val fullyCleaned = cleanMath(
+                    cleanResponse(stripped)
+                        .replace("<br>", "\n")
+                        .replace("|", "")
+                )
+
                 answer =
-                    if (stripped.isEmpty()) "No relevant data found in current context." else stripped
+                    if (fullyCleaned.isEmpty()) "No relevant data found in current context." else fullyCleaned
 
                 isLoading = false
                 isTyping = true
@@ -261,14 +278,21 @@ fun AnswerScreen(
                         ""
                     )
                         .trim()
-                answer = if (stripped.isEmpty() || stripped.startsWith("Error")) {
-                    stripped.ifBlank { "AI response is currently empty. Please retry." }
+
+                val fullyCleaned = cleanMath(
+                    cleanResponse(stripped)
+                        .replace("<br>", "\n")
+                        .replace("|", "")
+                )
+
+                answer = if (fullyCleaned.isEmpty() || fullyCleaned.startsWith("Error")) {
+                    fullyCleaned.ifBlank { "AI response is currently empty. Please retry." }
                 } else {
-                    stripped
+                    fullyCleaned
                 }
 
                 // Save history item locally
-                if (stripped.isNotBlank() && !stripped.startsWith("Error")) {
+                if (answer.isNotBlank() && !answer.startsWith("Error")) {
                     com.funtime.sciai.data.HistoryManager.saveHistory(
                         context = context,
                         item = com.funtime.sciai.data.HistoryItem(
@@ -291,23 +315,27 @@ fun AnswerScreen(
     LaunchedEffect(answer, isTyping) {
         if (!isLoading && isTyping && answer != "Loading...") {
             var currentText = ""
-            val chunkLength = 4
+            val chunkLength = 15
             val len = answer.length
             for (i in 0 until len step chunkLength) {
                 val end = (i + chunkLength).coerceAtMost(len)
                 currentText = answer.safeSubstring(0, end)
                 displayedText = currentText
-                delay(15)
+                delay(40)
             }
             isTyping = false
         }
     }
 
-    val scrollState = rememberScrollState()
+
+    val listState = rememberLazyListState()
 
     LaunchedEffect(displayedText) {
         if (isTyping) {
-            scrollState.animateScrollTo(scrollState.maxValue)
+            val lastIndex = listState.layoutInfo.totalItemsCount - 1
+            if (lastIndex > 0) {
+                listState.animateScrollToItem(lastIndex)
+            }
         }
     }
 
@@ -315,18 +343,19 @@ fun AnswerScreen(
         title = mode,
         navController = navController,
         showBack = true
-    ) { scaffoldModifier ->
+    ) { padding ->
         Box(
-            modifier = scaffoldModifier
+            modifier = Modifier
+                .padding(padding)
                 .fillMaxSize()
                 .pullRefresh(pullRefreshState)
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(scrollState)
-                    .padding(16.dp)
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                state = listState,
+                contentPadding = PaddingValues(16.dp)
             ) {
+                item {
 
                 // Hybrid Toggle for enhanced search
                 Surface(
@@ -394,8 +423,10 @@ fun AnswerScreen(
                     }
                     Spacer(modifier = Modifier.height(12.dp))
                 }
+                } // End of top item block
 
                 if (isLoading) {
+                    item {
                     // PREMIUM CIRCULAR LOADING UI
                     Box(
                         modifier = Modifier
@@ -419,7 +450,17 @@ fun AnswerScreen(
                             )
                         }
                     }
+                    } // end item
                 } else {
+                    val cursorText = if (isTyping) " █" else ""
+                    val fullCleanedText = displayedText
+                    val sections = try {
+                        parseDynamicSections(fullCleanedText)
+                    } catch (e: Exception) {
+                        emptyList<Pair<String, String>>()
+                    }
+
+                    item {
                     // Confidence Badge (Bonus)
                     Row(
                         modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp),
@@ -452,24 +493,10 @@ fun AnswerScreen(
                                 .padding(horizontal = 6.dp, vertical = 2.dp)
                         )
                     }
-
-                    val cursorText = if (isTyping) " █" else ""
-
-                    val fullCleanedText = cleanMath(
-                        cleanResponse(displayedText)
-                            .replace("<br>", "\n")
-                            .replace("|", "")
-                    )
-
-                    // RAG behavior: always try sections first for premium look
-                    val sections = try {
-                        parseDynamicSections(fullCleanedText)
-                    } catch (e: Exception) {
-                        emptyList()
                     }
 
                     if (sections.isNotEmpty()) {
-                        sections.forEachIndexed { index, pair ->
+                        itemsIndexed(sections) { index, pair ->
                             val (title, content) = pair
                             val isLast = index == sections.lastIndex
 
@@ -481,16 +508,23 @@ fun AnswerScreen(
                             )
                         }
                     } else {
-                        // Fallback to simple Text if no sections parsed
-                        Text(
-                            text = fullCleanedText + cursorText,
-                            color = Color.White,
-                            fontSize = 16.sp,
-                            lineHeight = 24.sp
-                        )
+                        val textToRender = fullCleanedText + cursorText
+                        val paragraphs = textToRender.split('\n')
+                        items(paragraphs) { paragraph ->
+                            if (paragraph.isNotBlank()) {
+                                Text(
+                                    text = paragraph.trim(),
+                                    color = Color.White,
+                                    fontSize = 16.sp,
+                                    lineHeight = 24.sp
+                                )
+                                Spacer(modifier = Modifier.height(8.dp))
+                            }
+                        }
                     }
 
                     if (responseSources.isNotEmpty() && !isTyping) {
+                        item {
                         Spacer(modifier = Modifier.height(24.dp))
                         Text(
                             text = "Sources Verified:",
@@ -515,9 +549,10 @@ fun AnswerScreen(
                                 )
                             }
                         }
+                        } // end item
                     }
                 }
-            }
+            } // Close LazyColumn
 
             PullRefreshIndicator(
                 refreshing = isLoading,

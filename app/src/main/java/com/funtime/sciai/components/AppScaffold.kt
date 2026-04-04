@@ -1,9 +1,11 @@
 package com.funtime.sciai.components
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,8 +18,9 @@ fun AppScaffold(
     navController: NavController,
     showBack: Boolean = false,
     onBack: (() -> Unit)? = null,
+    onMenuClick: (() -> Unit)? = null,
     floatingActionButton: @Composable () -> Unit = {},
-    content: @Composable (Modifier) -> Unit
+    content: @Composable (PaddingValues) -> Unit
 ) {
 
     Scaffold(
@@ -38,7 +41,11 @@ fun AppScaffold(
                                 contentColor = Color(0xFF38BDF8)    // Cyan accent
                             )
                         ) {
-                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Go Back")
+                            Icon(androidx.compose.material.icons.Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Go Back")
+                        }
+                    } else if (onMenuClick != null) {
+                        IconButton(onClick = onMenuClick) {
+                            Icon(Icons.Default.Menu, contentDescription = "Open Drawer")
                         }
                     }
                 }
@@ -46,6 +53,6 @@ fun AppScaffold(
         },
         floatingActionButton = floatingActionButton
     ) { padding ->
-        content(Modifier.padding(padding))
+        content(padding)
     }
 }
