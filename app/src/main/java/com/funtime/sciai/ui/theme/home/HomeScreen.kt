@@ -175,6 +175,17 @@ fun HomeScreen(navController: NavController, drawerState: androidx.compose.mater
         }
     }
 
+    val speechLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val results = result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            if (!results.isNullOrEmpty()) {
+                query = results[0]
+            }
+        }
+    }
+
     val executeSearch = {
         coroutineScope.launch {
             if (imageUris.isNotEmpty()) {
@@ -391,9 +402,12 @@ fun HomeScreen(navController: NavController, drawerState: androidx.compose.mater
                             Icon(Icons.Default.Add, contentDescription = "Add Images", tint = Color.Gray)
                         }
                         IconButton(onClick = {
-                            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-                            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-                            context.startActivity(intent) // Updated for context
+                            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+                                putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+                                putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+                                putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak now...")
+                            }
+                            speechLauncher.launch(intent)
                         }) {
                             Icon(Icons.Default.Mic, contentDescription = "Voice", tint = Color.Gray)
                         }
