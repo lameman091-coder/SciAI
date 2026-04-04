@@ -45,10 +45,20 @@ fun WebViewScreen(url: String, navController: NavController) {
                             override fun onPageFinished(view: WebView?, url: String?) {
                                 isLoading = false
                             }
+                            override fun onRenderProcessGone(
+                                view: WebView?,
+                                detail: android.webkit.RenderProcessGoneDetail?
+                            ): Boolean {
+                                return true
+                            }
                         }
                         settings.javaScriptEnabled = true
                         loadUrl(url)
                     }
+                },
+                onRelease = { webView ->
+                    webView.stopLoading()
+                    webView.destroy()
                 },
                 modifier = Modifier.fillMaxSize()
             )

@@ -39,9 +39,10 @@ fun LibraryDetailScreen(
         title = "Book Search",
         navController = navController,
         showBack = true
-    ) { scaffoldModifier ->
+    ) { padding ->
         Column(
-            modifier = scaffoldModifier
+            modifier = Modifier
+                .padding(padding)
                 .fillMaxSize()
                 .padding(16.dp)
         ) {

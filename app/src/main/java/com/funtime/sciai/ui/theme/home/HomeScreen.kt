@@ -39,6 +39,7 @@ import androidx.compose.foundation.layout.size
 import android.graphics.BitmapFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.launch
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
@@ -83,16 +84,59 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import androidx.compose.ui.unit.sp
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun HomeScreen(navController: NavController) {
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import androidx.compose.material3.*
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 
+import androidx.compose.material3.DrawerState
+import androidx.compose.runtime.MutableState
+
+
+
+
+suspend fun safeNavigate(
+    navController: NavController,
+    drawerState: DrawerState,
+    route: String,
+    isNavigatingState: MutableState<Boolean>
+) {
+    if (isNavigatingState.value) return
+
+    isNavigatingState.value = true
+
+    drawerState.close()
+
+    // 🔥 simple & reliable instead of snapshotFlow
+    delay(250)
+
+    navController.navigate(route) {
+        launchSingleTop = true
+        restoreState = true
+        popUpTo(navController.graph.startDestinationId) {
+            saveState = true
+        }
+    }
+
+    delay(200)
+
+    isNavigatingState.value = false
+}
+@OptIn(ExperimentalMaterial3Api::class)
+
+
+@Composable
+fun HomeScreen(navController: NavController, drawerState: androidx.compose.material3.DrawerState) {
+    val isNavigatingState = remember { mutableStateOf(false) }
+    var isProcessingImage by remember { mutableStateOf(false) }
 
     var selectedDomain by remember { mutableStateOf("Biology") }
     var selectedMode by remember { mutableStateOf("Exam") }
 
     val context = LocalContext.current
-    var query by remember { mutableStateOf("") }  // ✅ FIRST
+    var query by remember { mutableStateOf("") }
 
     val activity = context as Activity
     val coroutineScope = rememberCoroutineScope()
@@ -100,11 +144,25 @@ fun HomeScreen(navController: NavController) {
     val sessionViewModel: SessionViewModel = viewModel()
     val sessionTime = sessionViewModel.sessionTime.value
 
-    var totalCount by remember { mutableStateOf<Int>(userManager.getTotal()) }
-    
-    var historyList by remember { mutableStateOf(HistoryManager.getHistory(context)) }
+    var totalCount by remember { mutableStateOf(0) }
+    var historyList by remember { mutableStateOf<List<com.funtime.sciai.data.HistoryItem>>(emptyList()) }
+    var userName by remember { mutableStateOf<String?>(null) }
+    var showDialog by remember { mutableStateOf(false) }
+
     LaunchedEffect(Unit) {
-        historyList = HistoryManager.getHistory(context)
+        delay(100) // let UI render first
+        withContext(Dispatchers.IO) {
+            val history = HistoryManager.getHistory(context)
+            val total = userManager.getTotal()
+            val name = userManager.getName()
+
+            withContext(Dispatchers.Main) {
+                historyList = history
+                totalCount = total
+                userName = name
+                showDialog = name == null
+            }
+        }
     }
 
     var imageUris by remember { mutableStateOf<List<Uri>>(emptyList()) }
@@ -113,43 +171,46 @@ fun HomeScreen(navController: NavController) {
         contract = ActivityResultContracts.GetMultipleContents()
     ) { uris ->
         if (uris.isNotEmpty()) {
-            // Append rather than overwrite, then remove duplicates just in case
             imageUris = (imageUris + uris).distinct()
         }
     }
 
-// Camera
-    val cameraLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.TakePicturePreview()
-    ) { bitmap ->
-        // You can process bitmap (later for OCR)
-    }
+    val executeSearch = {
+        coroutineScope.launch {
+            if (imageUris.isNotEmpty()) {
+                isProcessingImage = true
+                val results = imageUris.map { uri ->
+                    async(Dispatchers.IO) {
+                        GeminiService.analyzeImage(context, uri)
+                    }
+                }.awaitAll()
 
-    val voiceLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val spokenText = result.data
-                ?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                ?.firstOrNull()
-                ?: ""
+                val combinedImageInfo = results.joinToString("\n")
+                isProcessingImage = false
 
-            query = spokenText
+                userManager.incrementTotal()
+                totalCount = userManager.getTotal()
+
+                val finalQuery = if (query.isNotBlank())
+                    "$query\n\nImage Info:\n$combinedImageInfo"
+                else combinedImageInfo
+
+                val encodedQuery = Uri.encode(finalQuery)
+                navController.navigate("answer/$encodedQuery/$selectedMode?hybrid=true")
+                imageUris = emptyList()
+                query = ""
+            } else if (query.isNotBlank()) {
+                userManager.incrementTotal()
+                totalCount = userManager.getTotal()
+                val encodedQuery = Uri.encode(query)
+                navController.navigate("answer/$encodedQuery/$selectedMode?hybrid=true")
+                query = ""
+            }
         }
     }
 
-
-
-    var userName by remember { mutableStateOf<String?>(userManager.getName()) }
-    var showDialog by remember { mutableStateOf(userManager.getName() == null) }
-
-
-
-    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
     if (showDialog) {
         var input by remember { mutableStateOf("") }
-
         AlertDialog(
             onDismissRequest = {},
             confirmButton = {
@@ -174,301 +235,185 @@ fun HomeScreen(navController: NavController) {
         )
     }
 
-    ModalNavigationDrawer(
-        drawerState = drawerState,
-        drawerContent = {
-            ModalDrawerSheet(
-                drawerContainerColor = Color(0xFF1E293B) // Premium Dark Slate
+    com.funtime.sciai.components.AppScaffold(
+        title = "SciAI",
+        navController = navController,
+        onMenuClick = { coroutineScope.launch { drawerState.open() } }
+    ) { padding ->
+        Column(
+            modifier = Modifier
+                .padding(padding)
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
+            Text("Welcome, ${userName ?: "Student"}")
+            Spacer(modifier = Modifier.height(8.dp))
+
+            ElevatedCard(
+                shape = RoundedCornerShape(16.dp),
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.elevatedCardColors(
+                    containerColor = Color(0xFF0F172A)
+                ),
+                elevation = CardDefaults.elevatedCardElevation(
+                    defaultElevation = 6.dp
+                )
             ) {
-                Text(
-                    text = "SciAI Navigation",
-                    modifier = Modifier.padding(16.dp),
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
-                )
-
-                Divider(color = Color.DarkGray)
-
-                DrawerItem("Home", Color.White) {
-                    coroutineScope.launch { drawerState.close() }
-                    navController.navigate("home") { launchSingleTop = true }
-                }
-                DrawerItem("Library", Color.White) {
-                    coroutineScope.launch { drawerState.close() }
-                    navController.navigate("library") { launchSingleTop = true }
-                }
-                DrawerItem("Articles", Color.White) {
-                    coroutineScope.launch { drawerState.close() }
-                    navController.navigate("articles") { launchSingleTop = true }
-                }
-                DrawerItem("Premium", Color(0xFFFFC107)) {
-                    coroutineScope.launch { drawerState.close() }
-                }
-                DrawerItem("AI Companion ✨", Color(0xFF38BDF8)) {
-                    coroutineScope.launch { drawerState.close() }
-                    navController.navigate("sphere_settings") { launchSingleTop = true }
-                }
-
-                Divider(color = Color.DarkGray)
-
-                Text(
-                    text = "Recent Searches",
-                    modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 8.dp),
-                    color = Color(0xFF38BDF8),
-                    fontWeight = FontWeight.Medium
-                )
-                
-                LazyColumn(modifier = Modifier.weight(1f)) {
-                    items(historyList, key = { "hist_${it.timestamp}_${it.query.hashCode()}" }) { item ->
-                        HistoryDrawerItem(item = item) {
-                            coroutineScope.launch { drawerState.close() }
-                            val encodedQuery = Uri.encode(item.query)
-                            // Triggers same behavior, recreating AnswerScreen with cached inputs
-                            navController.navigate("answer/${encodedQuery}/${item.mode}?hybrid=true") { launchSingleTop = true }
-                        }
-                    }
-                }
-            }
-        }
-    ) {
-
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = { Text("SciAI") },
-                    navigationIcon = {
-                        IconButton(onClick = {
-                            scope.launch { drawerState.open() }
-                        }) {
-                            Icon(Icons.Default.Menu, contentDescription = "Menu")
-                        }
-                    }
-                )
-            }
-        ) { padding ->
-
-            Column(
-                modifier = Modifier
-                    .padding(padding)
-                    .fillMaxSize()
-                    .padding(16.dp)
-            ) {
-
-                Text("Welcome, ${userName ?: "Student"}")
-                Spacer(modifier = Modifier.height(8.dp))
-
-
-                ElevatedCard(
-                    shape = RoundedCornerShape(16.dp),
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = androidx.compose.material3.CardDefaults.elevatedCardColors(
-                        containerColor = Color(0xFF0F172A)
-                    ),
-                    elevation = androidx.compose.material3.CardDefaults.elevatedCardElevation(
-                        defaultElevation = 6.dp
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text("🔥 Progress")
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = "⏱ ${formatSessionTime(sessionTime)}",
+                        color = Color(0xFFFFC107)
                     )
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-
-                        Text("🔥 Progress")
-
-                        Spacer(modifier = Modifier.height(8.dp))
-
-                        Text(
-                            text = "⏱ ${formatSessionTime(sessionTime)}",
-                            color = Color(0xFFFFC107)
-                        )
-                        Text("Total: ${userManager.getTotal()}")
-
-                        Spacer(modifier = Modifier.height(8.dp))
-
-                        Text(
-                            text = getBadge(userManager.getTotal()),
-                            color = Color(0xFFFFC107)
-                        )
-                    }
+                    Text("Total: ${userManager.getTotal()}")
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = getBadge(userManager.getTotal()),
+                        color = Color(0xFFFFC107)
+                    )
                 }
-                Button(
-                    onClick = {
-                        userManager.resetTotal()
-                        totalCount = 0   // 🔥 THIS LINE IS CRITICAL
-                        sessionViewModel.resetTime() // Reset session time
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp)
-                ) {
-                    Text("Reset Progress")
-                }
-
-
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Domain Chips
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    listOf("Biology", "Physics", "Chemistry").forEach { domain ->
-                        SelectableButton(
-                            text = domain,
-                            isSelected = selectedDomain == domain,
-                            color = when (domain) {
-                                "Biology" -> Color(0xFF4CAF50)
-                                "Physics" -> Color(0xFF2196F3)
-                                "Chemistry" -> Color(0xFFF44336)
-                                else -> Color.Gray
-                            }
-                        ) {
-                            selectedDomain = domain
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Mode Chips
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    listOf("Exam", "Concept", "Expert").forEach { mode ->
-                        SelectableButton(
-                            text = mode,
-                            isSelected = selectedMode == mode,
-                            color = when (mode) {
-                                "Exam" -> Color(0xFFFFC107)
-                                "Concept" -> Color(0xFF2196F3)
-                                "Expert" -> Color(0xFF9C27B0)
-                                else -> Color.Gray
-                            }
-                        ) {
-                            selectedMode = mode
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.weight(1f))
-
-                if (imageUris.isNotEmpty()) {
-                    LazyRow(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        modifier = Modifier.padding(bottom = 8.dp)
-                    ) {
-                        items(imageUris) { uri ->
-                            var bitmap by remember(uri) { mutableStateOf<android.graphics.Bitmap?>(null) }
-                            LaunchedEffect(uri) {
-                                withContext(Dispatchers.IO) {
-                                    val stream = context.contentResolver.openInputStream(uri)
-                                    bitmap = BitmapFactory.decodeStream(stream)
-                                    stream?.close()
-                                }
-                            }
-                            
-                            if (bitmap != null) {
-                                Box(modifier = Modifier.size(80.dp)) {
-                                    Image(
-                                        bitmap = bitmap!!.asImageBitmap(),
-                                        contentDescription = "Selected Image",
-                                        modifier = Modifier
-                                            .fillMaxSize()
-                                            .clip(RoundedCornerShape(12.dp)),
-                                        contentScale = ContentScale.Crop
-                                    )
-                                    IconButton(
-                                        onClick = { imageUris = imageUris.filter { it != uri } },
-                                        modifier = Modifier
-                                            .align(Alignment.TopEnd)
-                                            .size(24.dp)
-                                            .background(Color.Black.copy(alpha = 0.6f), CircleShape)
-                                            .padding(2.dp)
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.Close,
-                                            contentDescription = "Remove Image",
-                                            tint = Color.White
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                var isProcessingImage by remember { mutableStateOf(false) }
-
-                val executeSearch = {
-                    if (imageUris.isNotEmpty()) {
-                        coroutineScope.launch {
-                            isProcessingImage = true
-                            var combinedImageInfo = ""
-                            imageUris.forEach { uri ->
-                                val res = GeminiService.analyzeImage(context, uri)
-                                combinedImageInfo += res + "\n"
-                            }
-                            isProcessingImage = false
-
-                            userManager.incrementTotal()
-                            totalCount = userManager.getTotal()
-
-                            val finalQuery = if (query.isNotBlank()) "$query\n\nImage Info:\n$combinedImageInfo" else combinedImageInfo
-                            val encodedQuery = Uri.encode(finalQuery)
-                            navController.navigate("answer/$encodedQuery/$selectedMode?hybrid=true")
-                            imageUris = emptyList()
-                            query = ""
-                        }
-                    } else if (query.isNotBlank()) {
-                        userManager.incrementTotal()
-                        totalCount = userManager.getTotal()
-
-                        val encodedQuery = Uri.encode(query)
-                        navController.navigate("answer/$encodedQuery/$selectedMode?hybrid=true")
-                    }
-                }
-
-                // Search Bar with Voice and Send
-                OutlinedTextField(
-                    value = query,
-                    onValueChange = { newText -> query = newText },
-                    placeholder = { Text(if (isProcessingImage) "Processing images..." else "Ask anything...") },
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = true,
-                    enabled = !isProcessingImage,
-                    keyboardOptions = KeyboardOptions.Default.copy(
-                        imeAction = ImeAction.Send
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onSend = { executeSearch() }
-                    ),
-                    shape = RoundedCornerShape(24.dp),
-                    trailingIcon = {
-                        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(end = 4.dp)) {
-                            IconButton(onClick = { galleryLauncher.launch("image/*") }) {
-                                Icon(Icons.Default.Add, contentDescription = "Add Images", tint = Color.Gray)
-                            }
-                            IconButton(onClick = {
-                                val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-                                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-                                voiceLauncher.launch(intent)
-                            }) {
-                                Icon(Icons.Default.Mic, contentDescription = "Voice", tint = Color.Gray)
-                            }
-                            // SEND CHAT BUTTON
-                            IconButton(
-                                onClick = { executeSearch() },
-                                enabled = (query.isNotBlank() || imageUris.isNotEmpty()) && !isProcessingImage
-                            ) {
-                                Icon(
-                                    imageVector = Icons.AutoMirrored.Filled.Send,
-                                    contentDescription = "Send Search",
-                                    tint = if (isProcessingImage) Color.Gray else Color(0xFF38BDF8)
-                                )
-                            }
-                        }
-                    }
-                )
-
-
             }
+
+            Button(
+                onClick = {
+                    userManager.resetTotal()
+                    totalCount = 0
+                    sessionViewModel.resetTime()
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp)
+            ) {
+                Text("Reset Progress")
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                listOf("Biology", "Physics", "Chemistry").forEach { domain ->
+                    SelectableButton(
+                        text = domain,
+                        isSelected = selectedDomain == domain,
+                        color = when (domain) {
+                            "Biology" -> Color(0xFF4CAF50)
+                            "Physics" -> Color(0xFF2196F3)
+                            "Chemistry" -> Color(0xFFF44336)
+                            else -> Color.Gray
+                        }
+                    ) {
+                        selectedDomain = domain
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                listOf("Exam", "Concept", "Expert").forEach { mode ->
+                    SelectableButton(
+                        text = mode,
+                        isSelected = selectedMode == mode,
+                        color = when (mode) {
+                            "Exam" -> Color(0xFFFFC107)
+                            "Concept" -> Color(0xFF2196F3)
+                            "Expert" -> Color(0xFF9C27B0)
+                            else -> Color.Gray
+                        }
+                    ) {
+                        selectedMode = mode
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            if (imageUris.isNotEmpty()) {
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.padding(bottom = 8.dp)
+                ) {
+                    items(imageUris) { uri ->
+                        var bitmap by remember(uri) { mutableStateOf<android.graphics.Bitmap?>(null) }
+                        LaunchedEffect(uri) {
+                            withContext(Dispatchers.IO) {
+                                bitmap = com.funtime.sciai.data.ImageUtils.decodeSampledBitmapFromUri(context, uri, 200, 200)
+                            }
+                        }
+
+                        if (bitmap != null) {
+                            Box(modifier = Modifier.size(80.dp)) {
+                                Image(
+                                    bitmap = bitmap!!.asImageBitmap(),
+                                    contentDescription = "Selected Image",
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .clip(RoundedCornerShape(12.dp)),
+                                    contentScale = ContentScale.Crop
+                                )
+                                IconButton(
+                                    onClick = { imageUris = imageUris.filter { it != uri } },
+                                    modifier = Modifier
+                                        .align(Alignment.TopEnd)
+                                        .size(24.dp)
+                                        .background(Color.Black.copy(alpha = 0.6f), CircleShape)
+                                        .padding(2.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Close,
+                                        contentDescription = "Remove Image",
+                                        tint = Color.White
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            OutlinedTextField(
+                value = query,
+                onValueChange = { query = it },
+                placeholder = { Text(if (isProcessingImage) "Processing images..." else "Ask anything...") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                enabled = !isProcessingImage,
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    imeAction = ImeAction.Send
+                ),
+                keyboardActions = KeyboardActions(
+                    onSend = { executeSearch() }
+                ),
+                shape = RoundedCornerShape(24.dp),
+                trailingIcon = {
+                    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(end = 4.dp)) {
+                        IconButton(onClick = { galleryLauncher.launch("image/*") }) {
+                            Icon(Icons.Default.Add, contentDescription = "Add Images", tint = Color.Gray)
+                        }
+                        IconButton(onClick = {
+                            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+                            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+                            context.startActivity(intent) // Updated for context
+                        }) {
+                            Icon(Icons.Default.Mic, contentDescription = "Voice", tint = Color.Gray)
+                        }
+                        IconButton(
+                            onClick = { executeSearch() },
+                            enabled = (query.isNotBlank() || imageUris.isNotEmpty()) && !isProcessingImage
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.Send,
+                                contentDescription = "Send Search",
+                                tint = if (isProcessingImage) Color.Gray else Color(0xFF38BDF8)
+                            )
+                        }
+                    }
+                }
+            )
         }
     }
 }
+
 fun getBadge(count: Int): String {
     return when {
         count >= 50 -> "Expert 🧠"
@@ -478,63 +423,13 @@ fun getBadge(count: Int): String {
     }
 }
 
-
 fun formatSessionTime(seconds: Long): String {
-
     val hours = seconds / 3600
     val minutes = (seconds % 3600) / 60
-
-
     return when {
         hours > 0 -> "${hours}h ${minutes}m"
         minutes > 0 -> "${minutes}m"
-        else -> "${hours}h ${minutes}m"
-    }
-}
-
-@Composable
-fun DrawerItem(title: String, textColor: Color = Color.White, onClick: () -> Unit = {}) {
-    Text(
-        text = title,
-        color = textColor,
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onClick() }
-            .padding(16.dp)
-    )
-}
-
-@Composable
-fun HistoryDrawerItem(item: com.funtime.sciai.data.HistoryItem, onClick: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onClick() }
-            .padding(horizontal = 16.dp, vertical = 10.dp)
-    ) {
-        val sdf = SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault())
-        val dateStr = sdf.format(Date(item.timestamp))
-
-        Text(
-            text = item.query,
-            color = Color.White,
-            fontSize = 14.sp,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
-        Row(modifier = Modifier.padding(top = 4.dp)) {
-            Text(
-                text = "${item.mode} • ${item.domain}",
-                color = Color(0xFF94A3B8), // slate 400
-                fontSize = 12.sp,
-                modifier = Modifier.weight(1f)
-            )
-            Text(
-                text = dateStr,
-                color = Color(0xFF64748B), // slate 500
-                fontSize = 10.sp
-            )
-        }
+        else -> "0m"
     }
 }
 

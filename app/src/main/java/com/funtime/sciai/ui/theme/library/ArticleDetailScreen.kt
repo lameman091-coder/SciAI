@@ -8,7 +8,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Favorite
@@ -53,16 +54,15 @@ fun ArticleDetailScreen(
         title = "Article View",
         navController = navController,
         showBack = true
-    ) { scaffoldModifier ->
+    ) { padding ->
         // Use a Box as the immediate container for the Snackbar alignment scope.
         Box(modifier = Modifier.fillMaxSize()) {
             
-            Column(
-                modifier = scaffoldModifier
-                    .fillMaxSize()
-                    .padding(16.dp)
-                    .verticalScroll(rememberScrollState())
+            LazyColumn(
+                modifier = Modifier.padding(padding).fillMaxSize(),
+                contentPadding = PaddingValues(16.dp)
             ) {
+                item {
                 // Trust HUD
                 val tierColor = when (article?.tier) {
                     "peer_reviewed" -> TrustGreen
@@ -143,13 +143,23 @@ fun ArticleDetailScreen(
                 Spacer(modifier = Modifier.height(24.dp))
                 HorizontalDivider(color = Color.Gray.copy(alpha = 0.3f))
                 Spacer(modifier = Modifier.height(24.dp))
+                }
                 
-                Text(
-                    text = summary.ifBlank { "No description available" },
-                    color = Color(0xFFCBD5E1),
-                    fontSize = 17.sp,
-                    lineHeight = 26.sp
-                )
+                val paragraphs = summary.ifBlank { "No description available" }.split('\n')
+                
+                items(paragraphs) { paragraph ->
+                    if (paragraph.isNotBlank()) {
+                        Text(
+                            text = paragraph.trim(),
+                            color = Color(0xFFCBD5E1),
+                            fontSize = 17.sp,
+                            lineHeight = 26.sp
+                        )
+                        Spacer(modifier = Modifier.height(14.dp))
+                    }
+                }
+                
+                item {
                 
                 Spacer(modifier = Modifier.height(48.dp))
                 
@@ -210,14 +220,15 @@ fun ArticleDetailScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
                 
-                TextButton(
-                    onClick = { navController.popBackStack() },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.textButtonColors(contentColor = Color.Gray)
-                ) {
-                    Text("Back to Search")
-                }
-            } // Close Column
+                    TextButton(
+                        onClick = { navController.popBackStack() },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.textButtonColors(contentColor = Color.Gray)
+                    ) {
+                        Text("Back to Search")
+                    }
+                } // Close item block
+            } // Close LazyColumn
             
             // Align the snackbar directly within the parent Box (BoxScope).
             SnackbarHost(
