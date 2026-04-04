@@ -13,3 +13,24 @@
 .externalNativeBuild
 .cxx
 local.properties
+# Python backend
+__pycache__/
+*.pyc
+backend/__pycache__/
+backend/cache/
+backend/logs/
+
+# Database
+*.db
+
+# FAISS / ML files
+*.bin
+*.json
+
+# Test files
+test*
+*.pdf
+
+# Secrets
+.env
+apikeys.properties
