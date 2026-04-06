@@ -1,10 +1,8 @@
 package com.funtime.sciai.ui.theme.splash
 
 import androidx.compose.animation.core.*
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,17 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.funtime.sciai.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import androidx.compose.ui.platform.LocalContext
 import com.funtime.sciai.data.UserManager
 
 @Composable
@@ -34,91 +30,81 @@ fun SplashScreen(navController: NavController) {
     val userManager = UserManager(context)
     val userName = userManager.getName()
 
-    // Animations
-    val phoenixOffsetY = remember { Animatable(2500f) } // Starts below screen
-    val phoenixScale = remember { Animatable(1f) }
-    
-    val backgroundLightAlpha = remember { Animatable(0f) }
-    
+    // Clean, premium animations
+    val logoScale = remember { Animatable(0.5f) }
     val logoAlpha = remember { Animatable(0f) }
-    val logoScale = remember { Animatable(0.85f) }
     
-    val textAlpha1 = remember { Animatable(0f) }
-    val textAlpha2 = remember { Animatable(0f) }
-    val textAlpha3 = remember { Animatable(0f) }
+    val textAlpha = remember { Animatable(0f) }
+    val subtitleAlpha = remember { Animatable(0f) }
 
     LaunchedEffect(Unit) {
-        // 1. Phoenix Swoop Exit
+        // 1. Initial Logo scale & fade-in (ChatGPT style)
         launch {
-            phoenixScale.animateTo(
-                targetValue = 1.3f,
-                animationSpec = tween(durationMillis = 1500, easing = LinearOutSlowInEasing)
+            logoAlpha.animateTo(
+                targetValue = 1f,
+                animationSpec = tween(durationMillis = 800, easing = EaseOutCubic)
             )
         }
-        phoenixOffsetY.animateTo(
-            targetValue = -2500f, // Exits completely above
-            animationSpec = tween(durationMillis = 1500, easing = FastOutSlowInEasing)
+        logoScale.animateTo(
+            targetValue = 1.0f,
+            animationSpec = spring(
+                dampingRatio = Spring.DampingRatioMediumBouncy,
+                stiffness = Spring.StiffnessLow
+            )
         )
 
-        // 2. ONLY AFTER phoenix completes, trigger color background transition
-        backgroundLightAlpha.animateTo(1f, animationSpec = tween(800))
-
-        // 3. Logo Fade & Scale
-        launch { logoAlpha.animateTo(1f, animationSpec = tween(600)) }
-        launch { logoScale.animateTo(1f, animationSpec = tween(700, easing = FastOutSlowInEasing)) }
-
-        // 4. Staggered Typography
+        // 2. Slow fade in text
         delay(300)
-        launch { textAlpha1.animateTo(1f, animationSpec = tween(500)) } 
-        delay(200)
-        launch { textAlpha2.animateTo(1f, animationSpec = tween(500)) } 
+        launch { 
+            textAlpha.animateTo(
+                1f, 
+                animationSpec = tween(600, easing = EaseInOutSine)
+            ) 
+        }
+        
         delay(300)
-        launch { textAlpha3.animateTo(1f, animationSpec = tween(500)) } 
+        launch { 
+            subtitleAlpha.animateTo(
+                1f, 
+                animationSpec = tween(600, easing = EaseInOutSine)
+            ) 
+        }
 
-        // Hold for reading
+        // 3. Short hold on the splash
         delay(1200)
 
-        val prefs = com.funtime.sciai.aisphere.AISpherePreferences(context)
+        // 4. Subtle scale out before exiting
+        launch {
+            logoAlpha.animateTo(0f, animationSpec = tween(400))
+        }
+        launch {
+            textAlpha.animateTo(0f, animationSpec = tween(300))
+        }
+        launch {
+            subtitleAlpha.animateTo(0f, animationSpec = tween(200))
+        }
+        logoScale.animateTo(0.9f, animationSpec = tween(400))
 
-        // 5. Navigate to Home or Setup
+        val prefs = com.funtime.sciai.aisphere.AISpherePreferences(context)
         val nextRoute = if (prefs.hasCompletedSetup) "home" else "companion_setup"
         navController.navigate(nextRoute) {
             popUpTo("splash") { inclusive = true }
         }
     }
 
+    // Premium Solid Dark Background (like modern AI tools)
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF0F172A)), // Deep premium dark blue
+            .background(Color(0xFF0A0A0A)), // True dark UI
         contentAlignment = Alignment.Center
     ) {
-
-        // Expanding light center
-        if (backgroundLightAlpha.value > 0f) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .alpha(backgroundLightAlpha.value)
-                    .background(
-                        Brush.radialGradient(
-                            colors = listOf(
-                                Color(0xFF1E293B),
-                                Color(0xFF0F172A)
-                            )
-                        )
-                    )
-            )
-        }
-
-        // --- BRANDING REVEAL LAYER ---
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            
-            // Try attempting to load the custom provided logo "newlogo", fallback if missing
+            // Logo Image
             val logoResId = context.resources.getIdentifier("newlogo", "drawable", context.packageName)
             val drawableId = if (logoResId != 0) logoResId else R.drawable.img
             
@@ -126,68 +112,33 @@ fun SplashScreen(navController: NavController) {
                 painter = painterResource(id = drawableId),
                 contentDescription = "SciAI Logo",
                 modifier = Modifier
-                    .size(140.dp)
+                    .size(100.dp)
                     .scale(logoScale.value)
                     .alpha(logoAlpha.value)
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
+            // Premium Typography
             Text(
                 text = "SciAI",
                 color = Color.White,
-                fontSize = 28.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.alpha(textAlpha1.value)
+                fontSize = 32.sp,
+                fontWeight = FontWeight.SemiBold,
+                letterSpacing = 1.sp,
+                modifier = Modifier.alpha(textAlpha.value)
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = "Seriously Smart. Surprisingly Fun",
-                color = Color(0xFF94A3B8), // Slate gray complementary
-                fontSize = 14.sp,
-                modifier = Modifier.alpha(textAlpha2.value)
+                text = if (userName != null) "Welcome back, $userName" else "Seriously Smart. Surprisingly Fun.",
+                color = Color(0xFFA1A1AA), // Zinc-400 equivalent for clean look
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Normal,
+                letterSpacing = 0.5.sp,
+                modifier = Modifier.alpha(subtitleAlpha.value)
             )
-
-            Spacer(modifier = Modifier.height(32.dp))
-
-            Text(
-                text = if (userName != null) "Welcome, $userName" else "Welcome",
-                color = Color(0xFF38BDF8), // Cyan/Blue accent
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.alpha(textAlpha3.value)
-            )
-        }
-
-        // --- PHOENIX ANIMATION LAYER ---
-        if (phoenixOffsetY.value > -2000f) {
-            Canvas(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .offset { IntOffset(0, phoenixOffsetY.value.toInt()) }
-                    .scale(phoenixScale.value)
-            ) {
-                val path = Path()
-                val width = size.width
-                val height = size.height
-                
-                // Abstract sweeping phoenix shape (Gold/Red)
-                path.moveTo(width / 2f, height * 0.2f) 
-                path.quadraticBezierTo(width * 0.8f, height * 0.4f, width, height * 0.3f) 
-                path.quadraticBezierTo(width * 0.7f, height * 0.6f, width / 2f, height * 0.8f) 
-                path.quadraticBezierTo(width * 0.3f, height * 0.6f, 0f, height * 0.3f) 
-                path.quadraticBezierTo(width * 0.2f, height * 0.4f, width / 2f, height * 0.2f) 
-                
-                // Core bird shape filling
-                drawPath(
-                    path = path,
-                    brush = Brush.verticalGradient(
-                        colors = listOf(Color(0xFFFFD700), Color(0xFFEF4444)) // Gold to Red Fire gradient
-                    )
-                )
-            }
         }
     }
 }
