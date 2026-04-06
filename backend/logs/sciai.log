@@ -1,0 +1,820 @@
+2026-04-02 16:19:27 | WARNING  | faiss_store:load:48 - FAISS: No existing index found.
+2026-04-02 16:33:00 | WARNING  | faiss_store:load:48 - FAISS: No existing index found.
+2026-04-02 16:33:00 | INFO     | __main__:startup_event:31 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-02 16:33:00 | WARNING  | faiss_store:load:48 - FAISS: No existing index found.
+2026-04-02 16:33:00 | INFO     | __main__:shutdown_event:37 - SciAI SHUTTING DOWN...
+2026-04-02 16:34:54 | WARNING  | faiss_store:load:48 - FAISS: No existing index found.
+2026-04-02 16:34:54 | INFO     | __main__:startup_event:31 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-02 16:34:54 | WARNING  | faiss_store:load:48 - FAISS: No existing index found.
+2026-04-02 16:34:58 | INFO     | live_articles:search_articles:207 - Article Search: 'Quantum' | Page: 1
+2026-04-02 16:34:58 | INFO     | live_articles:search_articles:219 - Adding PubMed task for 'Quantum'
+2026-04-02 16:34:58 | INFO     | live_articles:search_articles:222 - Adding arXiv task for 'Quantum'
+2026-04-02 16:34:58 | INFO     | live_articles:search_articles:226 - Adding Wikipedia task for 'Quantum'
+2026-04-02 16:35:13 | ERROR    | live_articles:fetch_arxiv:201 - arXiv API error: 
+2026-04-02 16:35:13 | INFO     | live_articles:search_articles:249 - Source 0 returned 10 articles (Total in source: 257407)
+2026-04-02 16:35:13 | INFO     | live_articles:search_articles:249 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-02 16:35:13 | ERROR    | live_articles:search_articles:244 - Task 2 failed with exception: module 'httpx' has no attribute 'utils'
+2026-04-02 16:35:13 | INFO     | live_articles:fetch_trending:268 - Fetching trending for topics: ['protein folding', 'artificial intelligence drug discovery', 'nanomaterials']
+2026-04-02 16:35:28 | ERROR    | live_articles:fetch_arxiv:201 - arXiv API error: 
+2026-04-02 16:38:42 | WARNING  | faiss_store:load:48 - FAISS: No existing index found.
+2026-04-02 16:38:42 | INFO     | __main__:startup_event:31 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-02 16:38:42 | WARNING  | faiss_store:load:48 - FAISS: No existing index found.
+2026-04-02 16:38:49 | INFO     | live_articles:search_articles:209 - Article Search: 'Quantum' | Page: 1
+2026-04-02 16:38:50 | INFO     | live_articles:search_articles:219 - Adding PubMed task for 'Quantum'
+2026-04-02 16:38:50 | INFO     | live_articles:search_articles:222 - Adding arXiv task for 'Quantum'
+2026-04-02 16:38:50 | INFO     | live_articles:search_articles:226 - Adding Wikipedia task for 'Quantum'
+2026-04-02 16:39:05 | ERROR    | live_articles:fetch_arxiv:203 - arXiv API error: 
+2026-04-02 16:39:05 | INFO     | live_articles:search_articles:249 - Source 0 returned 10 articles (Total in source: 257407)
+2026-04-02 16:39:05 | INFO     | live_articles:search_articles:249 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-02 16:39:05 | INFO     | live_articles:search_articles:253 - Wikipedia returned 0 articles
+2026-04-02 16:39:05 | INFO     | live_articles:fetch_trending:268 - Fetching trending for topics: ['dark matter detection', 'climate change mitigation', 'CRISPR gene editing']
+2026-04-02 16:39:20 | ERROR    | live_articles:fetch_arxiv:203 - arXiv API error: 
+2026-04-02 16:39:20 | ERROR    | live_articles:fetch_arxiv:203 - arXiv API error: 
+2026-04-02 16:39:20 | ERROR    | live_articles:fetch_arxiv:203 - arXiv API error: 
+2026-04-02 16:40:58 | INFO     | pdf_processor:process_pdf:55 - PDF: Processed 406 chunks from temp/03c42a23-4537-4faf-aa67-0dfeb668b261_100 Most Probable Questions 2020 Vol-I.pdf
+2026-04-02 16:41:19 | INFO     | faiss_store:save:33 - FAISS: Saved 405 vectors.
+2026-04-02 16:41:19 | INFO     | __main__:ask_question:73 - Question: TELL ME ABOUT THIS PDF | Hybrid: True | Book: 03c42a23-4537-4faf-aa67-0dfeb668b261
+2026-04-02 16:41:20 | INFO     | __main__:process_pdf_background:129 - Background: Completed 03c42a23-4537-4faf-aa67-0dfeb668b261 processing.
+2026-04-02 16:41:36 | INFO     | live_articles:fetch_trending:268 - Fetching trending for topics: ['nanomaterials', 'quantum computing', 'stem cell therapy']
+2026-04-02 16:41:51 | ERROR    | live_articles:fetch_arxiv:203 - arXiv API error: 
+2026-04-02 16:41:51 | ERROR    | live_articles:fetch_arxiv:203 - arXiv API error: 
+2026-04-02 16:42:19 | INFO     | __main__:ask_question:73 - Question: INDIAN MEDIA | Hybrid: True | Book: None
+2026-04-02 16:42:19 | INFO     | live_articles:search_articles:209 - Article Search: 'INDIAN MEDIA' | Page: 1
+2026-04-02 16:42:19 | INFO     | live_articles:search_articles:219 - Adding PubMed task for 'INDIAN MEDIA'
+2026-04-02 16:42:19 | INFO     | live_articles:search_articles:222 - Adding arXiv task for 'INDIAN MEDIA'
+2026-04-02 16:42:19 | INFO     | live_articles:search_articles:226 - Adding Wikipedia task for 'INDIAN MEDIA'
+2026-04-02 16:42:34 | ERROR    | live_articles:fetch_arxiv:203 - arXiv API error: 
+2026-04-02 16:42:34 | INFO     | live_articles:search_articles:249 - Source 0 returned 10 articles (Total in source: 6634)
+2026-04-02 16:42:34 | INFO     | live_articles:search_articles:249 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-02 16:42:34 | INFO     | live_articles:search_articles:253 - Wikipedia returned 0 articles
+2026-04-02 16:43:22 | INFO     | __main__:ask_question:73 - Question: CELLULAR MOVEMENTS AND ROLE OF FLAGELLA | Hybrid: True | Book: None
+2026-04-02 16:43:22 | INFO     | live_articles:search_articles:209 - Article Search: 'CELLULAR MOVEMENTS AND ROLE OF FLAGELLA' | Page: 1
+2026-04-02 16:43:22 | INFO     | live_articles:search_articles:219 - Adding PubMed task for 'CELLULAR MOVEMENTS AND ROLE OF FLAGELLA'
+2026-04-02 16:43:22 | INFO     | live_articles:search_articles:222 - Adding arXiv task for 'CELLULAR MOVEMENTS AND ROLE OF FLAGELLA'
+2026-04-02 16:43:22 | INFO     | live_articles:search_articles:226 - Adding Wikipedia task for 'CELLULAR MOVEMENTS AND ROLE OF FLAGELLA'
+2026-04-02 16:43:26 | INFO     | __main__:ask_question:73 - Question: CELLULAR MOVEMENTS AND ROLE OF FLAGELLA | Hybrid: True | Book: None
+2026-04-02 16:43:26 | INFO     | live_articles:search_articles:209 - Article Search: 'CELLULAR MOVEMENTS AND ROLE OF FLAGELLA' | Page: 1
+2026-04-02 16:43:26 | INFO     | live_articles:search_articles:219 - Adding PubMed task for 'CELLULAR MOVEMENTS AND ROLE OF FLAGELLA'
+2026-04-02 16:43:26 | INFO     | live_articles:search_articles:222 - Adding arXiv task for 'CELLULAR MOVEMENTS AND ROLE OF FLAGELLA'
+2026-04-02 16:43:26 | INFO     | live_articles:search_articles:226 - Adding Wikipedia task for 'CELLULAR MOVEMENTS AND ROLE OF FLAGELLA'
+2026-04-02 16:43:37 | ERROR    | live_articles:fetch_arxiv:203 - arXiv API error: 
+2026-04-02 16:43:37 | INFO     | live_articles:search_articles:249 - Source 0 returned 10 articles (Total in source: 663)
+2026-04-02 16:43:37 | INFO     | live_articles:search_articles:249 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-02 16:43:37 | INFO     | live_articles:search_articles:253 - Wikipedia returned 0 articles
+2026-04-02 16:43:39 | INFO     | live_articles:search_articles:249 - Source 0 returned 10 articles (Total in source: 663)
+2026-04-02 16:43:39 | INFO     | live_articles:search_articles:249 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-02 16:43:39 | INFO     | live_articles:search_articles:253 - Wikipedia returned 0 articles
+2026-04-02 16:44:21 | INFO     | live_articles:fetch_trending:268 - Fetching trending for topics: ['CRISPR gene editing', 'climate change mitigation', 'neuroscience consciousness']
+2026-04-02 16:44:36 | ERROR    | live_articles:fetch_arxiv:203 - arXiv API error: 
+2026-04-02 16:44:36 | ERROR    | live_articles:fetch_arxiv:203 - arXiv API error: 
+2026-04-02 16:46:42 | INFO     | live_articles:fetch_trending:268 - Fetching trending for topics: ['protein folding', 'artificial intelligence drug discovery', 'cancer immunotherapy']
+2026-04-02 16:46:57 | ERROR    | live_articles:fetch_arxiv:203 - arXiv API error: 
+2026-04-02 16:46:57 | ERROR    | live_articles:fetch_arxiv:203 - arXiv API error: 
+2026-04-02 16:47:40 | INFO     | faiss_store:load:46 - FAISS: Loaded 405 vectors.
+2026-04-02 16:47:41 | INFO     | __main__:startup_event:31 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-02 16:47:41 | INFO     | faiss_store:load:46 - FAISS: Loaded 405 vectors.
+2026-04-02 16:47:44 | INFO     | live_articles:search_articles:214 - Article Search: 'Quantum' | Page: 1
+2026-04-02 16:47:45 | INFO     | live_articles:search_articles:224 - Adding PubMed task for 'Quantum'
+2026-04-02 16:47:45 | INFO     | live_articles:search_articles:227 - Adding arXiv task for 'Quantum'
+2026-04-02 16:47:45 | INFO     | live_articles:search_articles:231 - Adding Wikipedia task for 'Quantum'
+2026-04-02 16:48:00 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:48:00 | INFO     | live_articles:search_articles:254 - Source 0 returned 10 articles (Total in source: 257407)
+2026-04-02 16:48:00 | INFO     | live_articles:search_articles:254 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-02 16:48:00 | INFO     | live_articles:search_articles:258 - Wikipedia returned 0 articles
+2026-04-02 16:48:00 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['protein folding', 'dark matter detection', 'nanomaterials']
+2026-04-02 16:48:00 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:48:00 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'protein folding' (retmax=5)
+2026-04-02 16:48:00 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'dark matter detection' (retmax=5)
+2026-04-02 16:48:00 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'nanomaterials' (retmax=5)
+2026-04-02 16:48:01 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 98736)
+2026-04-02 16:48:01 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 433242)
+2026-04-02 16:48:01 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 1037)
+2026-04-02 16:48:15 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:48:15 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 0 articles.
+2026-04-02 16:48:15 | WARNING  | live_articles:fetch_trending:297 - Trending: No articles found. Trying fallback broad topics...
+2026-04-02 16:48:15 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'science research' (retmax=10)
+2026-04-02 16:48:16 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 10 IDs (Total: 6119649)
+2026-04-02 16:48:17 | INFO     | live_articles:fetch_pubmed:154 - PubMed: Successfully parsed 10 articles.
+2026-04-02 16:49:08 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['graphene applications', 'climate change mitigation', 'dark matter detection']
+2026-04-02 16:49:08 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:49:08 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'graphene applications' (retmax=5)
+2026-04-02 16:49:08 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'climate change mitigation' (retmax=5)
+2026-04-02 16:49:08 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'dark matter detection' (retmax=5)
+2026-04-02 16:49:09 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 1037)
+2026-04-02 16:49:09 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 15913)
+2026-04-02 16:49:09 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 35032)
+2026-04-02 16:49:23 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:49:23 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 0 articles.
+2026-04-02 16:49:23 | WARNING  | live_articles:fetch_trending:297 - Trending: No articles found. Trying fallback broad topics...
+2026-04-02 16:49:38 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:50:21 | INFO     | live_articles:search_articles:214 - Article Search: 'SCNT' | Page: 1
+2026-04-02 16:50:21 | INFO     | live_articles:search_articles:224 - Adding PubMed task for 'SCNT'
+2026-04-02 16:50:21 | INFO     | live_articles:search_articles:227 - Adding arXiv task for 'SCNT'
+2026-04-02 16:50:21 | INFO     | live_articles:search_articles:231 - Adding Wikipedia task for 'SCNT'
+2026-04-02 16:50:21 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'SCNT' (retmax=10)
+2026-04-02 16:50:23 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 10 IDs (Total: 1866)
+2026-04-02 16:50:23 | INFO     | live_articles:fetch_pubmed:154 - PubMed: Successfully parsed 10 articles.
+2026-04-02 16:50:36 | INFO     | live_articles:search_articles:254 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 16:50:36 | INFO     | live_articles:search_articles:254 - Source 1 returned 1 articles (Total in source: 1)
+2026-04-02 16:50:36 | INFO     | live_articles:search_articles:258 - Wikipedia returned 0 articles
+2026-04-02 16:51:14 | INFO     | live_articles:search_articles:214 - Article Search: 'SCNT' | Page: 1
+2026-04-02 16:51:14 | INFO     | live_articles:search_articles:224 - Adding PubMed task for 'SCNT'
+2026-04-02 16:51:14 | INFO     | live_articles:search_articles:227 - Adding arXiv task for 'SCNT'
+2026-04-02 16:51:14 | INFO     | live_articles:search_articles:231 - Adding Wikipedia task for 'SCNT'
+2026-04-02 16:51:15 | INFO     | live_articles:search_articles:254 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 16:51:15 | INFO     | live_articles:search_articles:254 - Source 1 returned 1 articles (Total in source: 1)
+2026-04-02 16:51:15 | INFO     | live_articles:search_articles:258 - Wikipedia returned 0 articles
+2026-04-02 16:51:19 | INFO     | live_articles:search_articles:214 - Article Search: 'SCNT' | Page: 2
+2026-04-02 16:51:19 | INFO     | live_articles:search_articles:224 - Adding PubMed task for 'SCNT'
+2026-04-02 16:51:19 | INFO     | live_articles:search_articles:227 - Adding arXiv task for 'SCNT'
+2026-04-02 16:51:19 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'SCNT' (retmax=10)
+2026-04-02 16:51:21 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 10 IDs (Total: 1866)
+2026-04-02 16:51:22 | INFO     | live_articles:fetch_pubmed:154 - PubMed: Successfully parsed 10 articles.
+2026-04-02 16:51:34 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:51:34 | INFO     | live_articles:search_articles:254 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 16:51:34 | INFO     | live_articles:search_articles:254 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-02 16:51:43 | INFO     | live_articles:search_articles:214 - Article Search: 'SCNT' | Page: 3
+2026-04-02 16:51:43 | INFO     | live_articles:search_articles:224 - Adding PubMed task for 'SCNT'
+2026-04-02 16:51:43 | INFO     | live_articles:search_articles:227 - Adding arXiv task for 'SCNT'
+2026-04-02 16:51:43 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'SCNT' (retmax=10)
+2026-04-02 16:51:44 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 10 IDs (Total: 1866)
+2026-04-02 16:51:46 | INFO     | live_articles:fetch_pubmed:154 - PubMed: Successfully parsed 10 articles.
+2026-04-02 16:51:58 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:51:58 | INFO     | live_articles:search_articles:254 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 16:51:58 | INFO     | live_articles:search_articles:254 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-02 16:53:31 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['protein folding', 'neuroscience consciousness', 'graphene applications']
+2026-04-02 16:53:31 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:53:31 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'protein folding' (retmax=5)
+2026-04-02 16:53:31 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'neuroscience consciousness' (retmax=5)
+2026-04-02 16:53:31 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'graphene applications' (retmax=5)
+2026-04-02 16:53:32 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 35032)
+2026-04-02 16:53:32 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 6694)
+2026-04-02 16:53:32 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['protein folding', 'graphene applications', 'CRISPR gene editing']
+2026-04-02 16:53:32 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:53:32 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'protein folding' (retmax=5)
+2026-04-02 16:53:32 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'graphene applications' (retmax=5)
+2026-04-02 16:53:32 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'CRISPR gene editing' (retmax=5)
+2026-04-02 16:53:32 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 98736)
+2026-04-02 16:53:33 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 35032)
+2026-04-02 16:53:33 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 98736)
+2026-04-02 16:53:33 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 24024)
+2026-04-02 16:53:34 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['CRISPR gene editing', 'quantum computing', 'stem cell therapy']
+2026-04-02 16:53:34 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:53:34 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'CRISPR gene editing' (retmax=5)
+2026-04-02 16:53:34 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'quantum computing' (retmax=5)
+2026-04-02 16:53:34 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'stem cell therapy' (retmax=5)
+2026-04-02 16:53:34 | ERROR    | live_articles:fetch_pubmed:100 - PubMed search failed with status 429
+2026-04-02 16:53:34 | ERROR    | live_articles:fetch_pubmed:100 - PubMed search failed with status 429
+2026-04-02 16:53:34 | ERROR    | live_articles:fetch_pubmed:100 - PubMed search failed with status 429
+2026-04-02 16:53:35 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['artificial intelligence drug discovery', 'graphene applications', 'stem cell therapy']
+2026-04-02 16:53:35 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:53:35 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'artificial intelligence drug discovery' (retmax=5)
+2026-04-02 16:53:35 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'graphene applications' (retmax=5)
+2026-04-02 16:53:35 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'stem cell therapy' (retmax=5)
+2026-04-02 16:53:35 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 197622)
+2026-04-02 16:53:35 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 35032)
+2026-04-02 16:53:35 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 9627)
+2026-04-02 16:53:36 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['stem cell therapy', 'CRISPR gene editing', 'graphene applications']
+2026-04-02 16:53:36 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:53:36 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'stem cell therapy' (retmax=5)
+2026-04-02 16:53:36 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'CRISPR gene editing' (retmax=5)
+2026-04-02 16:53:36 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'graphene applications' (retmax=5)
+2026-04-02 16:53:37 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 35032)
+2026-04-02 16:53:37 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 24024)
+2026-04-02 16:53:37 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 197622)
+2026-04-02 16:53:46 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:53:46 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:53:46 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 0 articles.
+2026-04-02 16:53:46 | WARNING  | live_articles:fetch_trending:297 - Trending: No articles found. Trying fallback broad topics...
+2026-04-02 16:53:47 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:53:47 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:53:47 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:53:47 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 0 articles.
+2026-04-02 16:53:47 | WARNING  | live_articles:fetch_trending:297 - Trending: No articles found. Trying fallback broad topics...
+2026-04-02 16:53:49 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:53:49 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:53:49 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:53:49 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 0 articles.
+2026-04-02 16:53:49 | WARNING  | live_articles:fetch_trending:297 - Trending: No articles found. Trying fallback broad topics...
+2026-04-02 16:53:50 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:53:50 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:53:50 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:53:50 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 0 articles.
+2026-04-02 16:53:50 | WARNING  | live_articles:fetch_trending:297 - Trending: No articles found. Trying fallback broad topics...
+2026-04-02 16:53:51 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:53:51 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:53:51 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:53:51 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 0 articles.
+2026-04-02 16:53:51 | WARNING  | live_articles:fetch_trending:297 - Trending: No articles found. Trying fallback broad topics...
+2026-04-02 16:54:01 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:54:01 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['stem cell therapy', 'nanomaterials', 'dark matter detection']
+2026-04-02 16:54:01 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:54:01 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'stem cell therapy' (retmax=5)
+2026-04-02 16:54:01 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'nanomaterials' (retmax=5)
+2026-04-02 16:54:01 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'dark matter detection' (retmax=5)
+2026-04-02 16:54:02 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:54:02 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['graphene applications', 'cancer immunotherapy', 'neuroscience consciousness']
+2026-04-02 16:54:02 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:54:02 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'graphene applications' (retmax=5)
+2026-04-02 16:54:02 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'cancer immunotherapy' (retmax=5)
+2026-04-02 16:54:02 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'neuroscience consciousness' (retmax=5)
+2026-04-02 16:54:02 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 433242)
+2026-04-02 16:54:02 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 197622)
+2026-04-02 16:54:03 | ERROR    | live_articles:fetch_pubmed:100 - PubMed search failed with status 429
+2026-04-02 16:54:03 | ERROR    | live_articles:fetch_pubmed:100 - PubMed search failed with status 429
+2026-04-02 16:54:03 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 6694)
+2026-04-02 16:54:04 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 35032)
+2026-04-02 16:54:04 | INFO     | live_articles:fetch_pubmed:154 - PubMed: Successfully parsed 5 articles.
+2026-04-02 16:54:04 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:54:05 | INFO     | live_articles:fetch_pubmed:154 - PubMed: Successfully parsed 5 articles.
+2026-04-02 16:54:05 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:54:06 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:54:09 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['quantum computing', 'protein folding', 'stem cell therapy']
+2026-04-02 16:54:09 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:54:09 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'quantum computing' (retmax=5)
+2026-04-02 16:54:09 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'protein folding' (retmax=5)
+2026-04-02 16:54:09 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'stem cell therapy' (retmax=5)
+2026-04-02 16:54:10 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['quantum computing', 'climate change mitigation', 'cancer immunotherapy']
+2026-04-02 16:54:10 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:54:10 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'quantum computing' (retmax=5)
+2026-04-02 16:54:10 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'climate change mitigation' (retmax=5)
+2026-04-02 16:54:10 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'cancer immunotherapy' (retmax=5)
+2026-04-02 16:54:11 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 98736)
+2026-04-02 16:54:11 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 197622)
+2026-04-02 16:54:11 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 51085)
+2026-04-02 16:54:11 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['climate change mitigation', 'dark matter detection', 'cancer immunotherapy']
+2026-04-02 16:54:11 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:54:11 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'climate change mitigation' (retmax=5)
+2026-04-02 16:54:11 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'dark matter detection' (retmax=5)
+2026-04-02 16:54:11 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'cancer immunotherapy' (retmax=5)
+2026-04-02 16:54:11 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 51085)
+2026-04-02 16:54:11 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 15913)
+2026-04-02 16:54:12 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 224326)
+2026-04-02 16:54:12 | ERROR    | live_articles:fetch_pubmed:100 - PubMed search failed with status 429
+2026-04-02 16:54:12 | ERROR    | live_articles:fetch_pubmed:100 - PubMed search failed with status 429
+2026-04-02 16:54:12 | ERROR    | live_articles:fetch_pubmed:100 - PubMed search failed with status 429
+2026-04-02 16:54:16 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:54:16 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 5 articles.
+2026-04-02 16:54:16 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['nanomaterials', 'protein folding', 'dark matter detection']
+2026-04-02 16:54:16 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:54:16 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'protein folding' (retmax=5)
+2026-04-02 16:54:16 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'dark matter detection' (retmax=5)
+2026-04-02 16:54:17 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 1037)
+2026-04-02 16:54:17 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 98736)
+2026-04-02 16:54:17 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:54:17 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:54:17 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 8 articles.
+2026-04-02 16:54:18 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['mRNA vaccine', 'quantum computing', 'CRISPR gene editing']
+2026-04-02 16:54:18 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:54:18 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'mRNA vaccine' (retmax=5)
+2026-04-02 16:54:18 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'quantum computing' (retmax=5)
+2026-04-02 16:54:18 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'CRISPR gene editing' (retmax=5)
+2026-04-02 16:54:18 | INFO     | live_articles:fetch_pubmed:154 - PubMed: Successfully parsed 5 articles.
+2026-04-02 16:54:19 | ERROR    | live_articles:fetch_pubmed:100 - PubMed search failed with status 429
+2026-04-02 16:54:19 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 21237)
+2026-04-02 16:54:19 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 24024)
+2026-04-02 16:54:19 | INFO     | live_articles:fetch_pubmed:154 - PubMed: Successfully parsed 5 articles.
+2026-04-02 16:54:24 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:54:24 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:54:24 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:54:24 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 0 articles.
+2026-04-02 16:54:24 | WARNING  | live_articles:fetch_trending:297 - Trending: No articles found. Trying fallback broad topics...
+2026-04-02 16:54:25 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:54:25 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:54:25 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 3 articles.
+2026-04-02 16:54:26 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:54:26 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:54:26 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 3 articles.
+2026-04-02 16:54:31 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:54:31 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 10 articles.
+2026-04-02 16:54:33 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:54:33 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:54:33 | ERROR    | live_articles:fetch_arxiv:208 - arXiv API error: 
+2026-04-02 16:54:33 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 5 articles.
+2026-04-02 16:56:07 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['dark matter detection', 'neuroscience consciousness', 'climate change mitigation']
+2026-04-02 16:56:07 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:56:07 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'climate change mitigation' (retmax=5)
+2026-04-02 16:56:08 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['graphene applications', 'CRISPR gene editing', 'quantum computing']
+2026-04-02 16:56:08 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:56:08 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'graphene applications' (retmax=5)
+2026-04-02 16:56:08 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'CRISPR gene editing' (retmax=5)
+2026-04-02 16:56:08 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'quantum computing' (retmax=5)
+2026-04-02 16:56:08 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 15913)
+2026-04-02 16:56:09 | ERROR    | live_articles:fetch_pubmed:100 - PubMed search failed with status 429
+2026-04-02 16:56:09 | INFO     | live_articles:fetch_pubmed:154 - PubMed: Successfully parsed 5 articles.
+2026-04-02 16:56:09 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 15 articles.
+2026-04-02 16:56:09 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 24024)
+2026-04-02 16:56:09 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 51085)
+2026-04-02 16:56:09 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['quantum computing', 'artificial intelligence drug discovery', 'nanomaterials']
+2026-04-02 16:56:09 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:56:09 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'quantum computing' (retmax=5)
+2026-04-02 16:56:09 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'artificial intelligence drug discovery' (retmax=5)
+2026-04-02 16:56:10 | ERROR    | live_articles:fetch_pubmed:100 - PubMed search failed with status 429
+2026-04-02 16:56:10 | ERROR    | live_articles:fetch_pubmed:100 - PubMed search failed with status 429
+2026-04-02 16:56:10 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 5 articles.
+2026-04-02 16:56:10 | INFO     | live_articles:fetch_pubmed:154 - PubMed: Successfully parsed 5 articles.
+2026-04-02 16:56:10 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 5 articles.
+2026-04-02 16:56:13 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['cancer immunotherapy', 'quantum computing', 'climate change mitigation']
+2026-04-02 16:56:13 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:56:13 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'cancer immunotherapy' (retmax=5)
+2026-04-02 16:56:13 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'quantum computing' (retmax=5)
+2026-04-02 16:56:13 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 51085)
+2026-04-02 16:56:13 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 224326)
+2026-04-02 16:56:14 | INFO     | live_articles:fetch_pubmed:154 - PubMed: Successfully parsed 5 articles.
+2026-04-02 16:56:14 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 13 articles.
+2026-04-02 16:56:14 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['neuroscience consciousness', 'climate change mitigation', 'cancer immunotherapy']
+2026-04-02 16:56:14 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:56:15 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 18 articles.
+2026-04-02 16:56:53 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['nanomaterials', 'graphene applications', 'stem cell therapy']
+2026-04-02 16:56:53 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:56:53 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'graphene applications' (retmax=5)
+2026-04-02 16:56:53 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'stem cell therapy' (retmax=5)
+2026-04-02 16:56:54 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 35032)
+2026-04-02 16:56:54 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 197622)
+2026-04-02 16:56:54 | INFO     | live_articles:fetch_pubmed:154 - PubMed: Successfully parsed 5 articles.
+2026-04-02 16:56:54 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 10 articles.
+2026-04-02 16:56:59 | INFO     | live_articles:fetch_trending:273 - Fetching trending for topics: ['climate change mitigation', 'protein folding', 'quantum computing']
+2026-04-02 16:56:59 | INFO     | live_articles:fetch_trending:277 - Trending: Starting parallel fetch for topics...
+2026-04-02 16:56:59 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'protein folding' (retmax=5)
+2026-04-02 16:56:59 | INFO     | live_articles:fetch_pubmed:97 - PubMed: Searching for 'quantum computing' (retmax=5)
+2026-04-02 16:57:00 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 98736)
+2026-04-02 16:57:00 | INFO     | live_articles:fetch_pubmed:107 - PubMed search returned 5 IDs (Total: 51085)
+2026-04-02 16:57:01 | INFO     | live_articles:fetch_pubmed:154 - PubMed: Successfully parsed 5 articles.
+2026-04-02 16:57:01 | INFO     | live_articles:fetch_trending:293 - Trending: Total fetched 10 articles.
+2026-04-02 17:06:27 | INFO     | faiss_store:load:46 - FAISS: Loaded 405 vectors.
+2026-04-02 17:06:28 | INFO     | __main__:startup_event:31 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-02 17:06:28 | INFO     | faiss_store:load:46 - FAISS: Loaded 405 vectors.
+2026-04-02 17:06:32 | INFO     | live_articles:search_articles:213 - Article Search: 'Quantum' | Page: 1
+2026-04-02 17:06:32 | INFO     | live_articles:search_articles:223 - Adding PubMed task for 'Quantum'
+2026-04-02 17:06:32 | INFO     | live_articles:search_articles:226 - Adding arXiv task for 'Quantum'
+2026-04-02 17:06:32 | INFO     | live_articles:search_articles:230 - Adding Wikipedia task for 'Quantum'
+2026-04-02 17:06:47 | ERROR    | live_articles:fetch_arxiv:207 - arXiv API error: 
+2026-04-02 17:06:47 | INFO     | live_articles:search_articles:253 - Source 0 returned 10 articles (Total in source: 257407)
+2026-04-02 17:06:47 | INFO     | live_articles:search_articles:253 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-02 17:06:47 | INFO     | live_articles:search_articles:257 - Wikipedia returned 0 articles
+2026-04-02 17:06:47 | INFO     | live_articles:fetch_trending:272 - Fetching trending for topics: ['dark matter detection', 'cancer immunotherapy', 'mRNA vaccine']
+2026-04-02 17:06:47 | INFO     | live_articles:fetch_trending:276 - Trending: Starting parallel fetch for topics...
+2026-04-02 17:06:47 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'dark matter detection' (retmax=10)
+2026-04-02 17:06:47 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'cancer immunotherapy' (retmax=10)
+2026-04-02 17:06:47 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'mRNA vaccine' (retmax=10)
+2026-04-02 17:06:48 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 1037)
+2026-04-02 17:06:48 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 224326)
+2026-04-02 17:06:49 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 21237)
+2026-04-02 17:07:02 | ERROR    | live_articles:fetch_arxiv:207 - arXiv API error: 
+2026-04-02 17:07:02 | ERROR    | live_articles:fetch_arxiv:207 - arXiv API error: 
+2026-04-02 17:07:02 | ERROR    | live_articles:fetch_arxiv:207 - arXiv API error: 
+2026-04-02 17:07:02 | INFO     | live_articles:fetch_trending:292 - Trending: Total fetched 0 articles.
+2026-04-02 17:07:02 | WARNING  | live_articles:fetch_trending:296 - Trending: No articles found. Trying fallback broad topics...
+2026-04-02 17:07:17 | ERROR    | live_articles:fetch_arxiv:207 - arXiv API error: 
+2026-04-02 17:08:28 | INFO     | faiss_store:load:46 - FAISS: Loaded 405 vectors.
+2026-04-02 17:08:28 | INFO     | __main__:startup_event:31 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-02 17:08:28 | INFO     | faiss_store:load:46 - FAISS: Loaded 405 vectors.
+2026-04-02 17:11:05 | INFO     | live_articles:fetch_trending:275 - Fetching trending for topics: ['dark matter detection', 'climate change mitigation', 'mRNA vaccine']
+2026-04-02 17:11:05 | INFO     | live_articles:fetch_trending:279 - Trending: Starting parallel fetch for topics...
+2026-04-02 17:11:05 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'dark matter detection' (retmax=10)
+2026-04-02 17:11:05 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'climate change mitigation' (retmax=10)
+2026-04-02 17:11:05 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'mRNA vaccine' (retmax=10)
+2026-04-02 17:11:07 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 21237)
+2026-04-02 17:11:07 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 1037)
+2026-04-02 17:11:07 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 15913)
+2026-04-02 17:11:07 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:11:07 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:11:07 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:11:21 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:11:21 | INFO     | live_articles:fetch_trending:295 - Trending: Total fetched 10 articles.
+2026-04-02 17:11:54 | INFO     | live_articles:fetch_trending:275 - Fetching trending for topics: ['climate change mitigation', 'dark matter detection', 'protein folding']
+2026-04-02 17:11:54 | INFO     | live_articles:fetch_trending:279 - Trending: Starting parallel fetch for topics...
+2026-04-02 17:11:54 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'climate change mitigation' (retmax=10)
+2026-04-02 17:11:54 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'dark matter detection' (retmax=10)
+2026-04-02 17:11:54 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'protein folding' (retmax=10)
+2026-04-02 17:11:55 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 15913)
+2026-04-02 17:11:55 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 98736)
+2026-04-02 17:11:55 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 1037)
+2026-04-02 17:11:56 | INFO     | live_articles:fetch_trending:275 - Fetching trending for topics: ['cancer immunotherapy', 'CRISPR gene editing', 'stem cell therapy']
+2026-04-02 17:11:56 | INFO     | live_articles:fetch_trending:279 - Trending: Starting parallel fetch for topics...
+2026-04-02 17:11:56 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'cancer immunotherapy' (retmax=10)
+2026-04-02 17:11:56 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'CRISPR gene editing' (retmax=10)
+2026-04-02 17:11:56 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'stem cell therapy' (retmax=10)
+2026-04-02 17:11:56 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:11:56 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:11:56 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:11:57 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 24024)
+2026-04-02 17:11:57 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 197622)
+2026-04-02 17:11:57 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 224326)
+2026-04-02 17:11:57 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:11:57 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:11:57 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:12:09 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:12:09 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:12:09 | INFO     | live_articles:fetch_trending:295 - Trending: Total fetched 5 articles.
+2026-04-02 17:12:11 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:12:11 | INFO     | live_articles:fetch_trending:295 - Trending: Total fetched 0 articles.
+2026-04-02 17:12:11 | WARNING  | live_articles:fetch_trending:299 - Trending: No articles found. Trying fallback broad topics...
+2026-04-02 17:12:17 | INFO     | live_articles:fetch_trending:275 - Fetching trending for topics: ['protein folding', 'graphene applications', 'quantum computing']
+2026-04-02 17:12:17 | INFO     | live_articles:fetch_trending:279 - Trending: Starting parallel fetch for topics...
+2026-04-02 17:12:17 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'protein folding' (retmax=10)
+2026-04-02 17:12:17 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'graphene applications' (retmax=10)
+2026-04-02 17:12:17 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'quantum computing' (retmax=10)
+2026-04-02 17:12:18 | INFO     | live_articles:fetch_trending:275 - Fetching trending for topics: ['graphene applications', 'mRNA vaccine', 'CRISPR gene editing']
+2026-04-02 17:12:18 | INFO     | live_articles:fetch_trending:279 - Trending: Starting parallel fetch for topics...
+2026-04-02 17:12:18 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'graphene applications' (retmax=10)
+2026-04-02 17:12:18 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'mRNA vaccine' (retmax=10)
+2026-04-02 17:12:18 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'CRISPR gene editing' (retmax=10)
+2026-04-02 17:12:18 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 35032)
+2026-04-02 17:12:18 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 98736)
+2026-04-02 17:12:18 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 51085)
+2026-04-02 17:12:19 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:12:19 | ERROR    | live_articles:fetch_pubmed:99 - PubMed search failed with status 429
+2026-04-02 17:12:19 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:12:19 | ERROR    | live_articles:fetch_pubmed:99 - PubMed search failed with status 429
+2026-04-02 17:12:19 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:12:19 | ERROR    | live_articles:fetch_pubmed:99 - PubMed search failed with status 429
+2026-04-02 17:12:19 | INFO     | live_articles:fetch_trending:275 - Fetching trending for topics: ['dark matter detection', 'CRISPR gene editing', 'climate change mitigation']
+2026-04-02 17:12:19 | INFO     | live_articles:fetch_trending:279 - Trending: Starting parallel fetch for topics...
+2026-04-02 17:12:19 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'dark matter detection' (retmax=10)
+2026-04-02 17:12:19 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'CRISPR gene editing' (retmax=10)
+2026-04-02 17:12:19 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'climate change mitigation' (retmax=10)
+2026-04-02 17:12:19 | ERROR    | live_articles:fetch_pubmed:99 - PubMed search failed with status 429
+2026-04-02 17:12:19 | ERROR    | live_articles:fetch_pubmed:99 - PubMed search failed with status 429
+2026-04-02 17:12:19 | ERROR    | live_articles:fetch_pubmed:99 - PubMed search failed with status 429
+2026-04-02 17:12:21 | INFO     | live_articles:fetch_trending:275 - Fetching trending for topics: ['nanomaterials', 'cancer immunotherapy', 'graphene applications']
+2026-04-02 17:12:21 | INFO     | live_articles:fetch_trending:279 - Trending: Starting parallel fetch for topics...
+2026-04-02 17:12:21 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'nanomaterials' (retmax=10)
+2026-04-02 17:12:21 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'cancer immunotherapy' (retmax=10)
+2026-04-02 17:12:21 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'graphene applications' (retmax=10)
+2026-04-02 17:12:21 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 433242)
+2026-04-02 17:12:21 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 35032)
+2026-04-02 17:12:21 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 224326)
+2026-04-02 17:12:22 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:12:22 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:12:22 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:12:26 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:12:32 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:12:32 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:12:32 | INFO     | live_articles:fetch_trending:295 - Trending: Total fetched 0 articles.
+2026-04-02 17:12:32 | WARNING  | live_articles:fetch_trending:299 - Trending: No articles found. Trying fallback broad topics...
+2026-04-02 17:12:33 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:12:33 | INFO     | live_articles:fetch_trending:295 - Trending: Total fetched 5 articles.
+2026-04-02 17:12:34 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:12:34 | INFO     | live_articles:fetch_trending:295 - Trending: Total fetched 5 articles.
+2026-04-02 17:12:36 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:12:36 | INFO     | live_articles:fetch_trending:295 - Trending: Total fetched 0 articles.
+2026-04-02 17:12:36 | WARNING  | live_articles:fetch_trending:299 - Trending: No articles found. Trying fallback broad topics...
+2026-04-02 17:13:15 | INFO     | live_articles:search_articles:216 - Article Search: 'APOPTOSIS' | Page: 1
+2026-04-02 17:13:15 | INFO     | live_articles:search_articles:226 - Adding PubMed task for 'APOPTOSIS'
+2026-04-02 17:13:15 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'APOPTOSIS' (retmax=10)
+2026-04-02 17:13:16 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 627322)
+2026-04-02 17:13:18 | INFO     | live_articles:fetch_pubmed:153 - PubMed: Successfully parsed 10 articles.
+2026-04-02 17:13:18 | INFO     | live_articles:search_articles:256 - Source 0 returned 10 articles (Total in source: 627322)
+2026-04-02 17:13:18 | INFO     | live_articles:search_articles:216 - Article Search: 'APOPTOSIS' | Page: 2
+2026-04-02 17:13:18 | INFO     | live_articles:search_articles:226 - Adding PubMed task for 'APOPTOSIS'
+2026-04-02 17:13:18 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'APOPTOSIS' (retmax=10)
+2026-04-02 17:13:18 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 627322)
+2026-04-02 17:13:20 | INFO     | live_articles:fetch_pubmed:153 - PubMed: Successfully parsed 10 articles.
+2026-04-02 17:13:20 | INFO     | live_articles:search_articles:256 - Source 0 returned 10 articles (Total in source: 627322)
+2026-04-02 17:14:06 | INFO     | live_articles:search_articles:216 - Article Search: 'APOPTOSIS' | Page: 1
+2026-04-02 17:14:06 | INFO     | live_articles:search_articles:226 - Adding PubMed task for 'APOPTOSIS'
+2026-04-02 17:14:06 | INFO     | live_articles:search_articles:256 - Source 0 returned 10 articles (Total in source: 627322)
+2026-04-02 17:14:11 | INFO     | live_articles:search_articles:216 - Article Search: 'APOPTOSIS' | Page: 1
+2026-04-02 17:14:11 | INFO     | live_articles:search_articles:226 - Adding PubMed task for 'APOPTOSIS'
+2026-04-02 17:14:11 | INFO     | live_articles:search_articles:256 - Source 0 returned 10 articles (Total in source: 627322)
+2026-04-02 17:14:12 | INFO     | live_articles:search_articles:216 - Article Search: 'APOPTOSIS' | Page: 1
+2026-04-02 17:14:12 | INFO     | live_articles:search_articles:226 - Adding PubMed task for 'APOPTOSIS'
+2026-04-02 17:14:12 | INFO     | live_articles:search_articles:256 - Source 0 returned 10 articles (Total in source: 627322)
+2026-04-02 17:14:14 | INFO     | live_articles:search_articles:216 - Article Search: 'APOPTOSIS' | Page: 1
+2026-04-02 17:14:14 | INFO     | live_articles:search_articles:226 - Adding PubMed task for 'APOPTOSIS'
+2026-04-02 17:14:14 | INFO     | live_articles:search_articles:256 - Source 0 returned 10 articles (Total in source: 627322)
+2026-04-02 17:14:16 | INFO     | live_articles:search_articles:216 - Article Search: 'APOPTOSIS' | Page: 1
+2026-04-02 17:14:16 | INFO     | live_articles:search_articles:226 - Adding PubMed task for 'APOPTOSIS'
+2026-04-02 17:14:16 | INFO     | live_articles:search_articles:256 - Source 0 returned 10 articles (Total in source: 627322)
+2026-04-02 17:14:48 | INFO     | live_articles:search_articles:216 - Article Search: 'APOPTOSIS' | Page: 2
+2026-04-02 17:14:48 | INFO     | live_articles:search_articles:226 - Adding PubMed task for 'APOPTOSIS'
+2026-04-02 17:14:48 | INFO     | live_articles:search_articles:256 - Source 0 returned 10 articles (Total in source: 627322)
+2026-04-02 17:14:51 | INFO     | live_articles:search_articles:216 - Article Search: 'APOPTOSIS' | Page: 3
+2026-04-02 17:14:51 | INFO     | live_articles:search_articles:226 - Adding PubMed task for 'APOPTOSIS'
+2026-04-02 17:14:51 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'APOPTOSIS' (retmax=10)
+2026-04-02 17:14:52 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 627322)
+2026-04-02 17:14:53 | INFO     | live_articles:fetch_pubmed:153 - PubMed: Successfully parsed 10 articles.
+2026-04-02 17:14:53 | INFO     | live_articles:search_articles:256 - Source 0 returned 10 articles (Total in source: 627322)
+2026-04-02 17:25:28 | INFO     | live_articles:fetch_trending:275 - Fetching trending for topics: ['mRNA vaccine', 'quantum computing', 'stem cell therapy']
+2026-04-02 17:25:28 | INFO     | live_articles:fetch_trending:279 - Trending: Starting parallel fetch for topics...
+2026-04-02 17:25:28 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'mRNA vaccine' (retmax=10)
+2026-04-02 17:25:28 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'quantum computing' (retmax=10)
+2026-04-02 17:25:28 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'stem cell therapy' (retmax=10)
+2026-04-02 17:25:30 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 197622)
+2026-04-02 17:25:30 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 21237)
+2026-04-02 17:25:30 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 51085)
+2026-04-02 17:25:30 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:25:30 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:25:30 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:25:40 | INFO     | live_articles:search_articles:216 - Article Search: 'SCNT' | Page: 1
+2026-04-02 17:25:40 | INFO     | live_articles:search_articles:226 - Adding PubMed task for 'SCNT'
+2026-04-02 17:25:40 | INFO     | live_articles:search_articles:229 - Adding arXiv task for 'SCNT'
+2026-04-02 17:25:40 | INFO     | live_articles:search_articles:233 - Adding Wikipedia task for 'SCNT'
+2026-04-02 17:25:40 | INFO     | live_articles:search_articles:256 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 17:25:40 | INFO     | live_articles:search_articles:256 - Source 1 returned 1 articles (Total in source: 1)
+2026-04-02 17:25:40 | INFO     | live_articles:search_articles:260 - Wikipedia returned 0 articles
+2026-04-02 17:25:43 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:25:43 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:25:43 | INFO     | live_articles:fetch_trending:295 - Trending: Total fetched 5 articles.
+2026-04-02 17:25:53 | INFO     | live_articles:search_articles:216 - Article Search: 'SCNT' | Page: 1
+2026-04-02 17:25:53 | INFO     | live_articles:search_articles:226 - Adding PubMed task for 'SCNT'
+2026-04-02 17:25:53 | INFO     | live_articles:search_articles:229 - Adding arXiv task for 'SCNT'
+2026-04-02 17:25:53 | INFO     | live_articles:search_articles:233 - Adding Wikipedia task for 'SCNT'
+2026-04-02 17:25:53 | INFO     | live_articles:search_articles:256 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 17:25:53 | INFO     | live_articles:search_articles:256 - Source 1 returned 1 articles (Total in source: 1)
+2026-04-02 17:25:53 | INFO     | live_articles:search_articles:260 - Wikipedia returned 0 articles
+2026-04-02 17:25:56 | INFO     | live_articles:search_articles:216 - Article Search: 'SCNT' | Page: 1
+2026-04-02 17:25:56 | INFO     | live_articles:search_articles:226 - Adding PubMed task for 'SCNT'
+2026-04-02 17:25:56 | INFO     | live_articles:search_articles:229 - Adding arXiv task for 'SCNT'
+2026-04-02 17:25:56 | INFO     | live_articles:search_articles:233 - Adding Wikipedia task for 'SCNT'
+2026-04-02 17:25:56 | INFO     | live_articles:search_articles:256 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 17:25:56 | INFO     | live_articles:search_articles:256 - Source 1 returned 1 articles (Total in source: 1)
+2026-04-02 17:25:56 | INFO     | live_articles:search_articles:260 - Wikipedia returned 0 articles
+2026-04-02 17:27:48 | INFO     | faiss_store:load:46 - FAISS: Loaded 405 vectors.
+2026-04-02 17:27:49 | INFO     | __main__:startup_event:31 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-02 17:27:49 | INFO     | faiss_store:load:46 - FAISS: Loaded 405 vectors.
+2026-04-02 17:27:59 | INFO     | live_articles:search_articles:216 - Article Search: 'Quantum' | Page: 1
+2026-04-02 17:27:59 | INFO     | live_articles:search_articles:225 - Adding PubMed task for 'Quantum'
+2026-04-02 17:27:59 | INFO     | live_articles:search_articles:228 - Adding arXiv task for 'Quantum'
+2026-04-02 17:27:59 | INFO     | live_articles:search_articles:235 - Adding Wikipedia task for 'Quantum'
+2026-04-02 17:27:59 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'Quantum' (retmax=10)
+2026-04-02 17:28:00 | INFO     | faiss_store:load:46 - FAISS: Loaded 405 vectors.
+2026-04-02 17:28:00 | INFO     | __main__:startup_event:31 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-02 17:28:00 | INFO     | faiss_store:load:46 - FAISS: Loaded 405 vectors.
+2026-04-02 17:28:00 | INFO     | __main__:shutdown_event:37 - SciAI SHUTTING DOWN...
+2026-04-02 17:28:00 | INFO     | faiss_store:save:33 - FAISS: Saved 405 vectors.
+2026-04-02 17:28:00 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 257407)
+2026-04-02 17:28:01 | INFO     | live_articles:fetch_pubmed:153 - PubMed: Successfully parsed 10 articles.
+2026-04-02 17:28:14 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:28:14 | INFO     | live_articles:search_articles:261 - Source 0 returned 10 articles (Total in source: 257407)
+2026-04-02 17:28:14 | INFO     | live_articles:search_articles:261 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-02 17:28:14 | INFO     | live_articles:search_articles:265 - Wikipedia returned 0 articles
+2026-04-02 17:28:14 | INFO     | live_articles:fetch_trending:280 - Fetching trending for topics: ['neuroscience consciousness', 'graphene applications', 'climate change mitigation']
+2026-04-02 17:28:14 | INFO     | live_articles:fetch_trending:284 - Trending: Starting parallel fetch for topics...
+2026-04-02 17:28:14 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'neuroscience consciousness' (retmax=10)
+2026-04-02 17:28:14 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'graphene applications' (retmax=10)
+2026-04-02 17:28:14 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'climate change mitigation' (retmax=10)
+2026-04-02 17:28:16 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 6694)
+2026-04-02 17:28:16 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 15913)
+2026-04-02 17:28:16 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 35032)
+2026-04-02 17:28:16 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:28:16 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:28:16 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:28:29 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:28:29 | INFO     | live_articles:fetch_trending:300 - Trending: Total fetched 5 articles.
+2026-04-02 17:30:29 | INFO     | live_articles:fetch_trending:280 - Fetching trending for topics: ['CRISPR gene editing', 'artificial intelligence drug discovery', 'quantum computing']
+2026-04-02 17:30:29 | INFO     | live_articles:fetch_trending:284 - Trending: Starting parallel fetch for topics...
+2026-04-02 17:30:29 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'CRISPR gene editing' (retmax=10)
+2026-04-02 17:30:29 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'artificial intelligence drug discovery' (retmax=10)
+2026-04-02 17:30:29 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'quantum computing' (retmax=10)
+2026-04-02 17:30:30 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 9627)
+2026-04-02 17:30:30 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 51085)
+2026-04-02 17:30:30 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 24024)
+2026-04-02 17:30:31 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:30:31 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:30:31 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:30:44 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:30:44 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:30:44 | INFO     | live_articles:fetch_trending:300 - Trending: Total fetched 0 articles.
+2026-04-02 17:30:44 | WARNING  | live_articles:fetch_trending:304 - Trending: No articles found. Trying fallback broad topics...
+2026-04-02 17:30:44 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'science research' (retmax=10)
+2026-04-02 17:30:46 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 6119649)
+2026-04-02 17:30:47 | INFO     | live_articles:fetch_pubmed:153 - PubMed: Successfully parsed 10 articles.
+2026-04-02 17:31:12 | INFO     | live_articles:fetch_trending:280 - Fetching trending for topics: ['artificial intelligence drug discovery', 'CRISPR gene editing', 'climate change mitigation']
+2026-04-02 17:31:12 | INFO     | live_articles:fetch_trending:284 - Trending: Starting parallel fetch for topics...
+2026-04-02 17:31:12 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'artificial intelligence drug discovery' (retmax=10)
+2026-04-02 17:31:12 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'CRISPR gene editing' (retmax=10)
+2026-04-02 17:31:12 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'climate change mitigation' (retmax=10)
+2026-04-02 17:31:13 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 9627)
+2026-04-02 17:31:13 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 24024)
+2026-04-02 17:31:13 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 15913)
+2026-04-02 17:31:14 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:31:14 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:31:14 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:31:14 | INFO     | live_articles:fetch_trending:280 - Fetching trending for topics: ['cancer immunotherapy', 'quantum computing', 'mRNA vaccine']
+2026-04-02 17:31:14 | INFO     | live_articles:fetch_trending:284 - Trending: Starting parallel fetch for topics...
+2026-04-02 17:31:14 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'cancer immunotherapy' (retmax=10)
+2026-04-02 17:31:14 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'quantum computing' (retmax=10)
+2026-04-02 17:31:14 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'mRNA vaccine' (retmax=10)
+2026-04-02 17:31:15 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 21237)
+2026-04-02 17:31:15 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 224326)
+2026-04-02 17:31:15 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 51085)
+2026-04-02 17:31:15 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:31:15 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:31:15 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:31:15 | INFO     | live_articles:fetch_trending:300 - Trending: Total fetched 5 articles.
+2026-04-02 17:31:16 | INFO     | live_articles:fetch_trending:280 - Fetching trending for topics: ['neuroscience consciousness', 'mRNA vaccine', 'quantum computing']
+2026-04-02 17:31:16 | INFO     | live_articles:fetch_trending:284 - Trending: Starting parallel fetch for topics...
+2026-04-02 17:31:16 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'neuroscience consciousness' (retmax=10)
+2026-04-02 17:31:16 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'mRNA vaccine' (retmax=10)
+2026-04-02 17:31:16 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'quantum computing' (retmax=10)
+2026-04-02 17:31:16 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 21237)
+2026-04-02 17:31:16 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 6694)
+2026-04-02 17:31:16 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 51085)
+2026-04-02 17:31:16 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:31:16 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:31:16 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:31:27 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:31:27 | INFO     | live_articles:fetch_trending:300 - Trending: Total fetched 0 articles.
+2026-04-02 17:31:27 | WARNING  | live_articles:fetch_trending:304 - Trending: No articles found. Trying fallback broad topics...
+2026-04-02 17:31:27 | INFO     | live_articles:fetch_trending:280 - Fetching trending for topics: ['CRISPR gene editing', 'quantum computing', 'nanomaterials']
+2026-04-02 17:31:27 | INFO     | live_articles:fetch_trending:284 - Trending: Starting parallel fetch for topics...
+2026-04-02 17:31:27 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'CRISPR gene editing' (retmax=10)
+2026-04-02 17:31:27 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'quantum computing' (retmax=10)
+2026-04-02 17:31:27 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'nanomaterials' (retmax=10)
+2026-04-02 17:31:29 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 433242)
+2026-04-02 17:31:29 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 24024)
+2026-04-02 17:31:29 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 51085)
+2026-04-02 17:31:29 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:31:29 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:31:29 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:31:30 | INFO     | live_articles:fetch_trending:280 - Fetching trending for topics: ['protein folding', 'climate change mitigation', 'nanomaterials']
+2026-04-02 17:31:30 | INFO     | live_articles:fetch_trending:284 - Trending: Starting parallel fetch for topics...
+2026-04-02 17:31:30 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'protein folding' (retmax=10)
+2026-04-02 17:31:30 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'climate change mitigation' (retmax=10)
+2026-04-02 17:31:30 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'nanomaterials' (retmax=10)
+2026-04-02 17:31:31 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 98736)
+2026-04-02 17:31:31 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 433242)
+2026-04-02 17:31:31 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 15913)
+2026-04-02 17:31:31 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:31:31 | INFO     | live_articles:fetch_trending:300 - Trending: Total fetched 5 articles.
+2026-04-02 17:31:31 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:31:31 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:31:33 | INFO     | live_articles:fetch_pubmed:153 - PubMed: Successfully parsed 10 articles.
+2026-04-02 17:31:33 | INFO     | live_articles:fetch_trending:300 - Trending: Total fetched 15 articles.
+2026-04-02 17:31:38 | INFO     | live_articles:fetch_trending:280 - Fetching trending for topics: ['graphene applications', 'quantum computing', 'dark matter detection']
+2026-04-02 17:31:38 | INFO     | live_articles:fetch_trending:284 - Trending: Starting parallel fetch for topics...
+2026-04-02 17:31:38 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'graphene applications' (retmax=10)
+2026-04-02 17:31:38 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'quantum computing' (retmax=10)
+2026-04-02 17:31:38 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'dark matter detection' (retmax=10)
+2026-04-02 17:31:39 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 35032)
+2026-04-02 17:31:39 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 51085)
+2026-04-02 17:31:39 | ERROR    | live_articles:fetch_pubmed:158 - PubMed efetch failed with status 429
+2026-04-02 17:31:40 | INFO     | live_articles:fetch_pubmed:153 - PubMed: Successfully parsed 10 articles.
+2026-04-02 17:31:40 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 1037)
+2026-04-02 17:31:41 | INFO     | live_articles:fetch_pubmed:153 - PubMed: Successfully parsed 10 articles.
+2026-04-02 17:31:43 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:31:43 | INFO     | live_articles:fetch_trending:300 - Trending: Total fetched 0 articles.
+2026-04-02 17:31:43 | WARNING  | live_articles:fetch_trending:304 - Trending: No articles found. Trying fallback broad topics...
+2026-04-02 17:31:53 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:31:53 | INFO     | live_articles:fetch_trending:300 - Trending: Total fetched 30 articles.
+2026-04-02 17:32:25 | INFO     | live_articles:search_articles:216 - Article Search: 'SCNT' | Page: 1
+2026-04-02 17:32:25 | INFO     | live_articles:search_articles:225 - Adding PubMed task for 'SCNT'
+2026-04-02 17:32:25 | INFO     | live_articles:search_articles:228 - Adding arXiv task for 'SCNT'
+2026-04-02 17:32:25 | INFO     | live_articles:search_articles:235 - Adding Wikipedia task for 'SCNT'
+2026-04-02 17:32:25 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'SCNT' (retmax=10)
+2026-04-02 17:32:26 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 1866)
+2026-04-02 17:32:27 | INFO     | live_articles:fetch_pubmed:153 - PubMed: Successfully parsed 10 articles.
+2026-04-02 17:32:27 | INFO     | live_articles:search_articles:261 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 17:32:27 | INFO     | live_articles:search_articles:261 - Source 1 returned 1 articles (Total in source: 1)
+2026-04-02 17:32:27 | INFO     | live_articles:search_articles:265 - Wikipedia returned 0 articles
+2026-04-02 17:32:45 | INFO     | live_articles:search_articles:216 - Article Search: 'SCNT' | Page: 2
+2026-04-02 17:32:45 | INFO     | live_articles:search_articles:225 - Adding PubMed task for 'SCNT'
+2026-04-02 17:32:45 | INFO     | live_articles:search_articles:228 - Adding arXiv task for 'SCNT'
+2026-04-02 17:32:45 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'SCNT' (retmax=10)
+2026-04-02 17:32:46 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 1866)
+2026-04-02 17:32:47 | INFO     | live_articles:fetch_pubmed:153 - PubMed: Successfully parsed 10 articles.
+2026-04-02 17:32:47 | INFO     | live_articles:search_articles:261 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 17:32:47 | INFO     | live_articles:search_articles:261 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-02 17:32:54 | INFO     | live_articles:search_articles:216 - Article Search: 'SCNT' | Page: 3
+2026-04-02 17:32:54 | INFO     | live_articles:search_articles:225 - Adding PubMed task for 'SCNT'
+2026-04-02 17:32:54 | INFO     | live_articles:search_articles:228 - Adding arXiv task for 'SCNT'
+2026-04-02 17:32:54 | INFO     | live_articles:fetch_pubmed:96 - PubMed: Searching for 'SCNT' (retmax=10)
+2026-04-02 17:32:55 | INFO     | live_articles:fetch_pubmed:106 - PubMed search returned 10 IDs (Total: 1866)
+2026-04-02 17:32:56 | INFO     | live_articles:fetch_pubmed:153 - PubMed: Successfully parsed 10 articles.
+2026-04-02 17:33:04 | INFO     | live_articles:search_articles:216 - Article Search: 'SCNT' | Page: 1
+2026-04-02 17:33:04 | INFO     | live_articles:search_articles:225 - Adding PubMed task for 'SCNT'
+2026-04-02 17:33:04 | INFO     | live_articles:search_articles:228 - Adding arXiv task for 'SCNT'
+2026-04-02 17:33:04 | INFO     | live_articles:search_articles:235 - Adding Wikipedia task for 'SCNT'
+2026-04-02 17:33:04 | INFO     | live_articles:search_articles:261 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 17:33:04 | INFO     | live_articles:search_articles:261 - Source 1 returned 1 articles (Total in source: 1)
+2026-04-02 17:33:04 | INFO     | live_articles:search_articles:265 - Wikipedia returned 0 articles
+2026-04-02 17:33:07 | INFO     | live_articles:search_articles:216 - Article Search: 'SCNT' | Page: 1
+2026-04-02 17:33:07 | INFO     | live_articles:search_articles:225 - Adding PubMed task for 'SCNT'
+2026-04-02 17:33:07 | INFO     | live_articles:search_articles:228 - Adding arXiv task for 'SCNT'
+2026-04-02 17:33:07 | INFO     | live_articles:search_articles:235 - Adding Wikipedia task for 'SCNT'
+2026-04-02 17:33:07 | INFO     | live_articles:search_articles:261 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 17:33:07 | INFO     | live_articles:search_articles:261 - Source 1 returned 1 articles (Total in source: 1)
+2026-04-02 17:33:07 | INFO     | live_articles:search_articles:265 - Wikipedia returned 0 articles
+2026-04-02 17:33:09 | ERROR    | live_articles:fetch_arxiv:210 - arXiv API error: 
+2026-04-02 17:33:09 | INFO     | live_articles:search_articles:261 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 17:33:09 | INFO     | live_articles:search_articles:261 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-02 17:33:15 | INFO     | live_articles:search_articles:216 - Article Search: 'SCNT' | Page: 1
+2026-04-02 17:33:15 | INFO     | live_articles:search_articles:225 - Adding PubMed task for 'SCNT'
+2026-04-02 17:33:15 | INFO     | live_articles:search_articles:228 - Adding arXiv task for 'SCNT'
+2026-04-02 17:33:15 | INFO     | live_articles:search_articles:235 - Adding Wikipedia task for 'SCNT'
+2026-04-02 17:33:15 | INFO     | live_articles:search_articles:261 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 17:33:15 | INFO     | live_articles:search_articles:261 - Source 1 returned 1 articles (Total in source: 1)
+2026-04-02 17:33:15 | INFO     | live_articles:search_articles:265 - Wikipedia returned 0 articles
+2026-04-02 17:35:00 | INFO     | live_articles:search_articles:216 - Article Search: 'SCNT' | Page: 1
+2026-04-02 17:35:00 | INFO     | live_articles:search_articles:225 - Adding PubMed task for 'SCNT'
+2026-04-02 17:35:00 | INFO     | live_articles:search_articles:228 - Adding arXiv task for 'SCNT'
+2026-04-02 17:35:00 | INFO     | live_articles:search_articles:235 - Adding Wikipedia task for 'SCNT'
+2026-04-02 17:35:00 | INFO     | live_articles:search_articles:261 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 17:35:00 | INFO     | live_articles:search_articles:261 - Source 1 returned 1 articles (Total in source: 1)
+2026-04-02 17:35:00 | INFO     | live_articles:search_articles:265 - Wikipedia returned 0 articles
+2026-04-02 17:35:02 | INFO     | live_articles:search_articles:216 - Article Search: 'SCNT' | Page: 1
+2026-04-02 17:35:02 | INFO     | live_articles:search_articles:225 - Adding PubMed task for 'SCNT'
+2026-04-02 17:35:02 | INFO     | live_articles:search_articles:228 - Adding arXiv task for 'SCNT'
+2026-04-02 17:35:02 | INFO     | live_articles:search_articles:235 - Adding Wikipedia task for 'SCNT'
+2026-04-02 17:35:02 | INFO     | live_articles:search_articles:261 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 17:35:02 | INFO     | live_articles:search_articles:261 - Source 1 returned 1 articles (Total in source: 1)
+2026-04-02 17:35:02 | INFO     | live_articles:search_articles:265 - Wikipedia returned 0 articles
+2026-04-02 17:39:39 | INFO     | faiss_store:load:46 - FAISS: Loaded 405 vectors.
+2026-04-02 17:39:39 | INFO     | __main__:startup_event:31 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-02 17:39:39 | INFO     | faiss_store:load:46 - FAISS: Loaded 405 vectors.
+2026-04-02 17:42:24 | INFO     | faiss_store:load:46 - FAISS: Loaded 405 vectors.
+2026-04-02 17:42:25 | INFO     | __main__:startup_event:31 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-02 17:42:25 | INFO     | faiss_store:load:46 - FAISS: Loaded 405 vectors.
+2026-04-02 17:44:03 | INFO     | live_articles:fetch_trending:292 - Fetching trending for topics: ['protein folding', 'mRNA vaccine', 'nanomaterials']
+2026-04-02 17:44:04 | INFO     | live_articles:fetch_trending:296 - Trending: Starting parallel fetch for topics...
+2026-04-02 17:44:04 | INFO     | live_articles:fetch_pubmed:105 - PubMed: Searching for 'mRNA vaccine' (retmax=10)
+2026-04-02 17:44:04 | INFO     | live_articles:fetch_pubmed:105 - PubMed: Searching for 'nanomaterials' (retmax=10)
+2026-04-02 17:44:06 | INFO     | live_articles:fetch_pubmed:115 - PubMed search returned 10 IDs (Total: 21237)
+2026-04-02 17:44:06 | INFO     | live_articles:fetch_pubmed:115 - PubMed search returned 10 IDs (Total: 433242)
+2026-04-02 17:44:06 | ERROR    | live_articles:fetch_pubmed:169 - PubMed efetch failed with status 429
+2026-04-02 17:44:07 | INFO     | live_articles:fetch_pubmed:164 - PubMed: Successfully parsed 10 articles.
+2026-04-02 17:44:07 | INFO     | live_articles:fetch_trending:312 - Trending: Total fetched 35 articles.
+2026-04-02 17:44:20 | INFO     | live_articles:search_articles:228 - Article Search: 'SCNT' | Page: 1
+2026-04-02 17:44:20 | INFO     | live_articles:search_articles:237 - Adding PubMed task for 'SCNT'
+2026-04-02 17:44:20 | INFO     | live_articles:search_articles:240 - Adding arXiv task for 'SCNT'
+2026-04-02 17:44:20 | INFO     | live_articles:search_articles:247 - Adding Wikipedia task for 'SCNT'
+2026-04-02 17:44:21 | INFO     | live_articles:search_articles:273 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 17:44:21 | INFO     | live_articles:search_articles:273 - Source 1 returned 1 articles (Total in source: 1)
+2026-04-02 17:44:21 | INFO     | live_articles:search_articles:277 - Wikipedia returned 0 articles
+2026-04-02 17:48:49 | INFO     | live_articles:fetch_trending:292 - Fetching trending for topics: ['protein folding', 'graphene applications', 'climate change mitigation']
+2026-04-02 17:48:49 | INFO     | live_articles:fetch_trending:296 - Trending: Starting parallel fetch for topics...
+2026-04-02 17:48:49 | INFO     | live_articles:fetch_pubmed:105 - PubMed: Searching for 'climate change mitigation' (retmax=10)
+2026-04-02 17:48:50 | INFO     | live_articles:fetch_pubmed:115 - PubMed search returned 10 IDs (Total: 15913)
+2026-04-02 17:48:52 | INFO     | live_articles:fetch_pubmed:164 - PubMed: Successfully parsed 10 articles.
+2026-04-02 17:48:52 | INFO     | live_articles:fetch_trending:312 - Trending: Total fetched 45 articles.
+2026-04-02 17:48:57 | INFO     | live_articles:search_articles:228 - Article Search: 'SCNT' | Page: 1
+2026-04-02 17:48:57 | INFO     | live_articles:search_articles:237 - Adding PubMed task for 'SCNT'
+2026-04-02 17:48:57 | INFO     | live_articles:search_articles:240 - Adding arXiv task for 'SCNT'
+2026-04-02 17:48:57 | INFO     | live_articles:search_articles:247 - Adding Wikipedia task for 'SCNT'
+2026-04-02 17:48:57 | INFO     | live_articles:search_articles:273 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 17:48:57 | INFO     | live_articles:search_articles:273 - Source 1 returned 1 articles (Total in source: 1)
+2026-04-02 17:48:57 | INFO     | live_articles:search_articles:277 - Wikipedia returned 0 articles
+2026-04-02 17:49:01 | INFO     | live_articles:search_articles:228 - Article Search: 'SCNT' | Page: 1
+2026-04-02 17:49:01 | INFO     | live_articles:search_articles:237 - Adding PubMed task for 'SCNT'
+2026-04-02 17:49:01 | INFO     | live_articles:search_articles:240 - Adding arXiv task for 'SCNT'
+2026-04-02 17:49:01 | INFO     | live_articles:search_articles:247 - Adding Wikipedia task for 'SCNT'
+2026-04-02 17:49:01 | INFO     | live_articles:fetch_pubmed:105 - PubMed: Searching for 'SCNT' (retmax=10)
+2026-04-02 17:49:02 | INFO     | live_articles:fetch_pubmed:115 - PubMed search returned 10 IDs (Total: 1866)
+2026-04-02 17:49:04 | INFO     | live_articles:fetch_pubmed:164 - PubMed: Successfully parsed 10 articles.
+2026-04-02 17:49:04 | INFO     | live_articles:search_articles:273 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 17:49:04 | INFO     | live_articles:search_articles:273 - Source 1 returned 1 articles (Total in source: 1)
+2026-04-02 17:49:04 | INFO     | live_articles:search_articles:277 - Wikipedia returned 0 articles
+2026-04-02 17:49:12 | INFO     | live_articles:search_articles:228 - Article Search: 'SCNT' | Page: 2
+2026-04-02 17:49:12 | INFO     | live_articles:search_articles:237 - Adding PubMed task for 'SCNT'
+2026-04-02 17:49:12 | INFO     | live_articles:search_articles:240 - Adding arXiv task for 'SCNT'
+2026-04-02 17:49:12 | INFO     | live_articles:fetch_pubmed:105 - PubMed: Searching for 'SCNT' (retmax=10)
+2026-04-02 17:49:13 | INFO     | live_articles:fetch_pubmed:115 - PubMed search returned 10 IDs (Total: 1866)
+2026-04-02 17:49:14 | INFO     | live_articles:fetch_pubmed:164 - PubMed: Successfully parsed 10 articles.
+2026-04-02 17:49:14 | INFO     | live_articles:search_articles:273 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 17:49:14 | INFO     | live_articles:search_articles:273 - Source 1 returned 0 articles (Total in source: 1)
+2026-04-02 17:49:20 | INFO     | live_articles:search_articles:228 - Article Search: 'SCNT' | Page: 1
+2026-04-02 17:49:20 | INFO     | live_articles:search_articles:237 - Adding PubMed task for 'SCNT'
+2026-04-02 17:49:20 | INFO     | live_articles:search_articles:240 - Adding arXiv task for 'SCNT'
+2026-04-02 17:49:20 | INFO     | live_articles:search_articles:247 - Adding Wikipedia task for 'SCNT'
+2026-04-02 17:49:21 | INFO     | live_articles:search_articles:273 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-02 17:49:21 | INFO     | live_articles:search_articles:273 - Source 1 returned 1 articles (Total in source: 1)
+2026-04-02 17:49:21 | INFO     | live_articles:search_articles:277 - Wikipedia returned 0 articles
+2026-04-02 18:00:15 | INFO     | __main__:ask_question:73 - Question: TELL ME ABOUT THE STATE OF INDIAN MEDIA | Hybrid: True | Book: 03c42a23-4537-4faf-aa67-0dfeb668b261
+2026-04-02 18:00:30 | INFO     | live_articles:fetch_trending:292 - Fetching trending for topics: ['graphene applications', 'dark matter detection', 'cancer immunotherapy']
+2026-04-02 18:00:30 | INFO     | live_articles:fetch_trending:296 - Trending: Starting parallel fetch for topics...
+2026-04-02 18:00:30 | INFO     | live_articles:fetch_pubmed:105 - PubMed: Searching for 'cancer immunotherapy' (retmax=10)
+2026-04-02 18:00:31 | INFO     | live_articles:fetch_pubmed:115 - PubMed search returned 10 IDs (Total: 224326)
+2026-04-02 18:00:33 | INFO     | live_articles:fetch_pubmed:164 - PubMed: Successfully parsed 10 articles.
+2026-04-02 18:00:45 | ERROR    | live_articles:fetch_arxiv:222 - arXiv API error: 
+2026-04-02 18:00:45 | INFO     | live_articles:fetch_trending:312 - Trending: Total fetched 40 articles.
+2026-04-02 18:01:24 | INFO     | live_articles:fetch_trending:292 - Fetching trending for topics: ['CRISPR gene editing', 'dark matter detection', 'nanomaterials']
+2026-04-02 18:01:24 | INFO     | live_articles:fetch_trending:296 - Trending: Starting parallel fetch for topics...
+2026-04-02 18:01:24 | INFO     | live_articles:fetch_pubmed:105 - PubMed: Searching for 'CRISPR gene editing' (retmax=10)
+2026-04-02 18:01:24 | INFO     | live_articles:fetch_pubmed:105 - PubMed: Searching for 'nanomaterials' (retmax=10)
+2026-04-02 18:01:25 | INFO     | live_articles:fetch_pubmed:115 - PubMed search returned 10 IDs (Total: 433242)
+2026-04-02 18:01:25 | INFO     | live_articles:fetch_pubmed:115 - PubMed search returned 10 IDs (Total: 24024)
+2026-04-02 18:01:25 | ERROR    | live_articles:fetch_pubmed:169 - PubMed efetch failed with status 429
+2026-04-02 18:01:26 | INFO     | live_articles:fetch_pubmed:164 - PubMed: Successfully parsed 10 articles.
+2026-04-02 18:01:39 | ERROR    | live_articles:fetch_arxiv:222 - arXiv API error: 
+2026-04-02 18:01:39 | INFO     | live_articles:fetch_trending:312 - Trending: Total fetched 30 articles.
+2026-04-02 18:01:59 | INFO     | live_articles:fetch_trending:292 - Fetching trending for topics: ['mRNA vaccine', 'graphene applications', 'artificial intelligence drug discovery']
+2026-04-02 18:01:59 | INFO     | live_articles:fetch_trending:296 - Trending: Starting parallel fetch for topics...
+2026-04-02 18:01:59 | INFO     | live_articles:fetch_pubmed:105 - PubMed: Searching for 'artificial intelligence drug discovery' (retmax=10)
+2026-04-02 18:02:01 | INFO     | live_articles:fetch_pubmed:115 - PubMed search returned 10 IDs (Total: 9627)
+2026-04-02 18:02:01 | INFO     | live_articles:fetch_trending:292 - Fetching trending for topics: ['climate change mitigation', 'protein folding', 'stem cell therapy']
+2026-04-02 18:02:01 | INFO     | live_articles:fetch_trending:296 - Trending: Starting parallel fetch for topics...
+2026-04-02 18:02:01 | INFO     | live_articles:fetch_pubmed:105 - PubMed: Searching for 'stem cell therapy' (retmax=10)
+2026-04-02 18:02:02 | INFO     | live_articles:fetch_pubmed:164 - PubMed: Successfully parsed 10 articles.
+2026-04-02 18:02:02 | INFO     | live_articles:fetch_pubmed:115 - PubMed search returned 10 IDs (Total: 197622)
+2026-04-02 18:02:03 | INFO     | live_articles:fetch_trending:292 - Fetching trending for topics: ['cancer immunotherapy', 'dark matter detection', 'graphene applications']
+2026-04-02 18:02:03 | INFO     | live_articles:fetch_trending:296 - Trending: Starting parallel fetch for topics...
+2026-04-02 18:02:03 | INFO     | live_articles:fetch_trending:312 - Trending: Total fetched 45 articles.
+2026-04-02 18:02:03 | INFO     | live_articles:fetch_pubmed:164 - PubMed: Successfully parsed 10 articles.
+2026-04-02 18:02:03 | INFO     | live_articles:fetch_trending:312 - Trending: Total fetched 40 articles.
+2026-04-02 18:02:15 | ERROR    | live_articles:fetch_arxiv:222 - arXiv API error: 
+2026-04-02 18:02:15 | INFO     | live_articles:fetch_trending:312 - Trending: Total fetched 40 articles.
+2026-04-03 18:21:12 | INFO     | faiss_store:load:46 - FAISS: Loaded 405 vectors.
+2026-04-03 18:21:12 | INFO     | faiss_store:load:50 - FAISS: Migrating IndexFlatIP to IndexIDMap2...
+2026-04-03 18:21:12 | INFO     | faiss_store:load:59 - FAISS: Migration successful.
