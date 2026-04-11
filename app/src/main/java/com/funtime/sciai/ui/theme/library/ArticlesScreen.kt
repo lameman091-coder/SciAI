@@ -53,6 +53,9 @@ fun ArticlesScreen(navController: NavController, drawerState: androidx.compose.m
     var isInfiniteLoading by remember { mutableStateOf(false) }
     var isTrendingLoading by remember { mutableStateOf(!state.hasLoadedTrending) }
     var errorMessage by remember { mutableStateOf("") }
+    
+    var savedIds by remember { mutableStateOf(setOf<String>()) }
+    var articleToUnsave by remember { mutableStateOf<Article?>(null) }
 
     // ── Derived filter values for API ──
     val apiSource = when (state.selectedSource) {
@@ -86,8 +89,14 @@ fun ArticlesScreen(navController: NavController, drawerState: androidx.compose.m
     val userManager = remember { UserManager(context) }
     val userId = remember { userManager.getUserId() }
 
-    // ── Auto-Load Trending on First Screen Open (NOT on back-navigation) ──
+    // ── Auto-Load Trending and Saved State ──
     LaunchedEffect(Unit) {
+        RagService.fetchSavedArticles(userId) { results ->
+            if (results != null) {
+                savedIds = results.map { it.id }.toSet()
+            }
+        }
+        
         if (!state.hasLoadedTrending) {
             isTrendingLoading = true
             RagService.fetchTrending(limit = 20) { results, count ->
@@ -210,6 +219,40 @@ fun ArticlesScreen(navController: NavController, drawerState: androidx.compose.m
                 .pullRefresh(pullRefreshState)
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
+                
+                // ── Removal Confirmation Dialog ──
+                if (articleToUnsave != null) {
+                    AlertDialog(
+                        onDismissRequest = { articleToUnsave = null },
+                        containerColor = Color(0xFF1E293B),
+                        titleContentColor = Color.White,
+                        textContentColor = Color(0xFF94A3B8),
+                        title = { Text("Remove from Library?", fontWeight = FontWeight.Bold) },
+                        text = { Text("This article will no longer be available in your saved research collection.") },
+                        confirmButton = {
+                            Button(
+                                onClick = {
+                                    val art = articleToUnsave!!
+                                    articleToUnsave = null
+                                    RagService.unsaveArticle(userId, art.id) { success ->
+                                        if (success) {
+                                            savedIds = savedIds - art.id
+                                            scope.launch { snackbarHostState.showSnackbar("Removed from library") }
+                                        }
+                                    }
+                                },
+                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEF4444))
+                            ) {
+                                Text("Remove", color = Color.White)
+                            }
+                        },
+                        dismissButton = {
+                            TextButton(onClick = { articleToUnsave = null }) {
+                                Text("Cancel", color = Color.Gray)
+                            }
+                        }
+                    )
+                }
 
                 // ═══════════════════════════════════════
                 // SEARCH BAR + FILTERS
@@ -456,9 +499,22 @@ fun ArticlesScreen(navController: NavController, drawerState: androidx.compose.m
                                     )
                                 }
                                 items(peerReviewedArticles, key = { "pr_${it.id}" }) { article ->
+                                    val isSaved = savedIds.contains(article.id)
                                     PremiumArticleCard(
                                         article = article,
-                                        onSave = { saveArticle(userId, article, RagService, scope, snackbarHostState) }
+                                        isSaved = isSaved,
+                                        onSave = { 
+                                            if (isSaved) {
+                                                articleToUnsave = article
+                                            } else {
+                                                RagService.saveArticle(userId, article) { success ->
+                                                    if (success) {
+                                                        savedIds = savedIds + article.id
+                                                        scope.launch { snackbarHostState.showSnackbar("Saved to library") }
+                                                    }
+                                                }
+                                            }
+                                        }
                                     ) {
                                         ArticleState.selectedArticle = article
                                         navController.navigate("article_detail")
@@ -477,9 +533,22 @@ fun ArticlesScreen(navController: NavController, drawerState: androidx.compose.m
                                     )
                                 }
                                 items(preprintArticles, key = { "pp_${it.id}" }) { article ->
+                                    val isSaved = savedIds.contains(article.id)
                                     PremiumArticleCard(
                                         article = article,
-                                        onSave = { saveArticle(userId, article, RagService, scope, snackbarHostState) }
+                                        isSaved = isSaved,
+                                        onSave = { 
+                                            if (isSaved) {
+                                                articleToUnsave = article
+                                            } else {
+                                                RagService.saveArticle(userId, article) { success ->
+                                                    if (success) {
+                                                        savedIds = savedIds + article.id
+                                                        scope.launch { snackbarHostState.showSnackbar("Saved to library") }
+                                                    }
+                                                }
+                                            }
+                                        }
                                     ) {
                                         ArticleState.selectedArticle = article
                                         navController.navigate("article_detail")
@@ -498,9 +567,22 @@ fun ArticlesScreen(navController: NavController, drawerState: androidx.compose.m
                                     )
                                 }
                                 items(backgroundArticles, key = { "bg_${it.id}" }) { article ->
+                                    val isSaved = savedIds.contains(article.id)
                                     PremiumArticleCard(
                                         article = article,
-                                        onSave = { saveArticle(userId, article, RagService, scope, snackbarHostState) }
+                                        isSaved = isSaved,
+                                        onSave = { 
+                                            if (isSaved) {
+                                                articleToUnsave = article
+                                            } else {
+                                                RagService.saveArticle(userId, article) { success ->
+                                                    if (success) {
+                                                        savedIds = savedIds + article.id
+                                                        scope.launch { snackbarHostState.showSnackbar("Saved to library") }
+                                                    }
+                                                }
+                                            }
+                                        }
                                     ) {
                                         ArticleState.selectedArticle = article
                                         navController.navigate("article_detail")
@@ -673,7 +755,12 @@ fun SmallSortChip(label: String, selected: Boolean, onClick: () -> Unit) {
 }
 
 @Composable
-fun PremiumArticleCard(article: Article, onSave: () -> Unit, onClick: () -> Unit) {
+fun PremiumArticleCard(
+    article: Article,
+    isSaved: Boolean = false,
+    onSave: () -> Unit,
+    onClick: () -> Unit
+) {
     val tierColor = when (article.tier) {
         "peer_reviewed" -> TrustGreen
         "preprint" -> TrustYellow
@@ -708,7 +795,7 @@ fun PremiumArticleCard(article: Article, onSave: () -> Unit, onClick: () -> Unit
         )
 
         Column(modifier = Modifier.padding(16.dp)) {
-            // ── Header: Source Badge + Trust Indicator + Save ──
+            // Header: Source Badge + Trust Indicator + Save
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -756,9 +843,9 @@ fun PremiumArticleCard(article: Article, onSave: () -> Unit, onClick: () -> Unit
 
                 IconButton(onClick = onSave, modifier = Modifier.size(32.dp)) {
                     Icon(
-                        Icons.Default.FavoriteBorder,
+                        if (isSaved) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                         contentDescription = "Save",
-                        tint = CyanAccent,
+                        tint = if (isSaved) Color(0xFFFF69B4) else CyanAccent,
                         modifier = Modifier.size(18.dp)
                     )
                 }

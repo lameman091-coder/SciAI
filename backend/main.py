@@ -65,6 +65,20 @@ class SavedArticleRequest(BaseModel):
     date: str = "Unknown Date"
     tier: str = "peer_reviewed"
 
+class GenerateQuestionsRequest(BaseModel):
+    mode: str
+    topic: str
+    domain: str
+    level: int
+    count: int = 4
+    context_chunks: list[str] = []
+    previous_questions: list[dict] = []
+
+class EvaluateAnswerRequest(BaseModel):
+    question: str
+    user_answer: str
+    correct_answer: str
+
 # ── UTILITIES ──
 async def get_or_create_user(db: AsyncSession, user_id: str) -> User:
     res = await db.execute(select(User).where(User.id == user_id))
@@ -135,6 +149,23 @@ async def ask_question(request: AskRequest):
         
     query_cache[cache_key] = (final_result, time.time())
     return final_result
+
+@app.post("/generate-questions")
+async def generate_questions_endpoint(request: GenerateQuestionsRequest):
+    result = await llm_engine.generate_questions(
+        mode=request.mode,
+        topic=request.topic,
+        domain=request.domain,
+        level=request.level,
+        context_chunks=request.context_chunks,
+        previous_questions=request.previous_questions
+    )
+    try:
+        data = json.loads(result)
+        return data
+    except Exception as e:
+        log.error(f"Failed to parse LLM JSON output: {e}\nRaw output: {result}")
+        return {"error": "Invalid JSON from LLM", "raw": result}
 
 async def process_pdf_background(temp_path: str, book_id: str, domain: str, source_type: str, user_id: str):
     try:
@@ -221,22 +252,60 @@ async def get_trending(limit: int = 20):
 
 @app.post("/save-article")
 async def save_article(request: SavedArticleRequest, db: AsyncSession = Depends(get_db)):
-    await get_or_create_user(db, request.user_id)
-    # Check if already exists to prevent integrity error
-    res = await db.execute(select(SavedArticle).where(SavedArticle.id == request.id, SavedArticle.user_id == request.user_id))
-    if res.scalar_one_or_none():
-        return {"status": "already_exists"}
-        
-    new_art_data = request.model_dump(exclude={"tier"})
-    new_art = SavedArticle(**new_art_data)
-    db.add(new_art)
-    await db.commit()
-    return {"status": "success"}
+    try:
+        log.info(f"DB: Saving article {request.id} for user {request.user_id}")
+        await get_or_create_user(db, request.user_id)
+        # Check if already exists to prevent integrity error
+        res = await db.execute(select(SavedArticle).where(SavedArticle.id == request.id, SavedArticle.user_id == request.user_id))
+        if res.scalar_one_or_none():
+            log.info(f"DB: Article {request.id} already exists for user {request.user_id}")
+            return {"status": "already_exists"}
+            
+        new_art_data = request.model_dump()
+        new_art = SavedArticle(**new_art_data)
+        db.add(new_art)
+        await db.commit()
+        log.info(f"DB: Successfully saved article {request.id}")
+        return {"status": "success"}
+    except Exception as e:
+        log.error(f"DB: Save article failed: {str(e)}")
+        await db.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/evaluate-answer")
+async def evaluate_answer(request: EvaluateAnswerRequest):
+    try:
+        feedback = await llm_engine.evaluate_theory_answer(
+            request.question, 
+            request.user_answer, 
+            request.correct_answer
+        )
+        return {"feedback": feedback}
+    except Exception as e:
+        log.error(f"LLM: Evaluation endpoint failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/saved-articles")
 async def get_saved_articles(user_id: str, db: AsyncSession = Depends(get_db)):
     res = await db.execute(select(SavedArticle).where(SavedArticle.user_id == user_id).order_by(SavedArticle.created_at.desc()))
     return res.scalars().all()
+
+@app.delete("/saved-articles/{user_id}/{article_id}")
+async def unsave_article(user_id: str, article_id: str, db: AsyncSession = Depends(get_db)):
+    try:
+        res = await db.execute(select(SavedArticle).where(SavedArticle.id == article_id, SavedArticle.user_id == user_id))
+        target = res.scalar_one_or_none()
+        if not target:
+            raise HTTPException(status_code=404, detail="Article not found in your library.")
+        
+        await db.delete(target)
+        await db.commit()
+        log.info(f"DB: Successfully unsaved article {article_id} for user {user_id}")
+        return {"status": "success", "message": "Article removed from library."}
+    except Exception as e:
+        log.error(f"DB: Unsave article failed: {e}")
+        await db.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/books")
 async def get_books(user_id: str, db: AsyncSession = Depends(get_db)):

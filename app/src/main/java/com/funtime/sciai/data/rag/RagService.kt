@@ -178,4 +178,65 @@ object RagService {
             }
         })
     }
+
+    fun generateQuestions(
+        mode: String,
+        topic: String,
+        domain: String,
+        level: Int,
+        count: Int = 4,
+        callback: (GenerateQuestionsResponse?) -> Unit
+    ) {
+        val request = GenerateQuestionsRequest(
+            mode = mode,
+            topic = topic,
+            domain = domain,
+            level = level,
+            count = count
+        )
+        NetworkClient.apiService.generateQuestions(request).enqueue(object : Callback<GenerateQuestionsResponse> {
+            override fun onResponse(
+                call: Call<GenerateQuestionsResponse>,
+                response: Response<GenerateQuestionsResponse>
+            ) {
+                if (response.isSuccessful) {
+                    callback(response.body())
+                } else {
+                    callback(null)
+                }
+            }
+
+            override fun onFailure(call: Call<GenerateQuestionsResponse>, t: Throwable) {
+                callback(null)
+            }
+        })
+    }
+
+    fun evaluateAnswer(
+        question: String,
+        userAnswer: String,
+        correctAnswer: String,
+        callback: (String?) -> Unit
+    ) {
+        val request = EvaluateAnswerRequest(question, userAnswer, correctAnswer)
+        NetworkClient.apiService.evaluateAnswer(request).enqueue(object : Callback<EvaluateAnswerResponse> {
+            override fun onResponse(call: Call<EvaluateAnswerResponse>, response: Response<EvaluateAnswerResponse>) {
+                callback(if (response.isSuccessful) response.body()?.feedback else null)
+            }
+            override fun onFailure(call: Call<EvaluateAnswerResponse>, t: Throwable) {
+                callback(null)
+            }
+        })
+    }
+
+    fun unsaveArticle(userId: String, articleId: String, callback: (Boolean) -> Unit) {
+        NetworkClient.apiService.unsaveArticle(userId, articleId).enqueue(object : Callback<Map<String, String>> {
+            override fun onResponse(call: Call<Map<String, String>>, response: Response<Map<String, String>>) {
+                callback(response.isSuccessful)
+            }
+            override fun onFailure(call: Call<Map<String, String>>, t: Throwable) {
+                callback(false)
+            }
+        })
+    }
 }

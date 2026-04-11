@@ -1683,3 +1683,634 @@ The image does not contain a scientific question. It is a personal professional 
 2026-04-06 13:42:56 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 1866)
 2026-04-06 13:42:56 | INFO     | live_articles:search_articles:289 - Source 1 returned 1 articles (Total in source: 1)
 2026-04-06 13:42:56 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-06 15:28:16 | INFO     | __main__:startup_event:37 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-11 12:08:05 | INFO     | __main__:startup_event:37 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-11 12:10:09 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['CRISPR gene editing', 'graphene applications', 'artificial intelligence drug discovery']
+2026-04-11 12:10:09 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-11 12:10:09 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'CRISPR gene editing' (retmax=10)
+2026-04-11 12:10:09 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'graphene applications' (retmax=10)
+2026-04-11 12:10:09 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'artificial intelligence drug discovery' (retmax=10)
+2026-04-11 12:10:11 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 24107)
+2026-04-11 12:10:11 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 9670)
+2026-04-11 12:10:11 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 35065)
+2026-04-11 12:10:11 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-11 12:10:12 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 12:10:12 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 12:10:14 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 12:10:14 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-11 12:25:27 | INFO     | __main__:startup_event:37 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-11 12:25:31 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['neuroscience consciousness', 'protein folding', 'cancer immunotherapy']
+2026-04-11 12:25:32 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-11 12:25:32 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'neuroscience consciousness' (retmax=10)
+2026-04-11 12:25:32 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'protein folding' (retmax=10)
+2026-04-11 12:25:32 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cancer immunotherapy' (retmax=10)
+2026-04-11 12:25:33 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 6707)
+2026-04-11 12:25:33 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 98796)
+2026-04-11 12:25:34 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 224905)
+2026-04-11 12:25:34 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-11 12:25:34 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-11 12:25:36 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 12:25:37 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 12:25:38 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 12:25:38 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-11 12:26:06 | INFO     | __main__:ask_question:90 - Question: TELL ME ABOUT THIS | Hybrid: True | Book: edb4c32b-0f48-4640-81db-ab7deb671fb8
+2026-04-11 12:26:06 | INFO     | faiss_store:load:73 - FAISS: Loaded 11303 vectors of type IndexIDMap2.
+2026-04-11 12:26:06 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-11 12:26:12 | INFO     | faiss_store:search:202 - FAISS Search: query='TELL ME ABOUT THIS...', search_k=11303, ntotal=11303
+2026-04-11 12:26:12 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=edb4c32b-0f48-4640-81db-ab7deb671fb8: 405
+2026-04-11 12:35:33 | INFO     | __main__:startup_event:37 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-11 12:36:33 | INFO     | __main__:ask_question:90 - Question: CELLULAR MOVEMENT | Hybrid: True | Book: None
+2026-04-11 12:36:33 | INFO     | faiss_store:load:73 - FAISS: Loaded 11303 vectors of type IndexIDMap2.
+2026-04-11 12:36:33 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-11 12:36:38 | INFO     | faiss_store:search:202 - FAISS Search: query='CELLULAR MOVEMENT...', search_k=25, ntotal=11303
+2026-04-11 12:36:38 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-11 12:36:38 | INFO     | live_articles:search_articles:244 - Article Search: 'CELLULAR MOVEMENT' | Page: 1
+2026-04-11 12:36:39 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'CELLULAR MOVEMENT'
+2026-04-11 12:36:39 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'CELLULAR MOVEMENT'
+2026-04-11 12:36:39 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'CELLULAR MOVEMENT'
+2026-04-11 12:36:39 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'CELLULAR MOVEMENT' (retmax=10)
+2026-04-11 12:36:41 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 288516)
+2026-04-11 12:36:43 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 12:36:43 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 288516)
+2026-04-11 12:36:43 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 32414)
+2026-04-11 12:36:43 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-11 12:38:24 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['neuroscience consciousness', 'CRISPR gene editing', 'graphene applications']
+2026-04-11 12:38:24 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-11 12:38:24 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-11 12:38:28 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['artificial intelligence drug discovery', 'neuroscience consciousness', 'protein folding']
+2026-04-11 12:38:28 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-11 12:38:28 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-11 12:38:29 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['graphene applications', 'climate change mitigation', 'artificial intelligence drug discovery']
+2026-04-11 12:38:29 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-11 12:38:29 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'climate change mitigation' (retmax=10)
+2026-04-11 12:38:30 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['CRISPR gene editing', 'climate change mitigation', 'stem cell therapy']
+2026-04-11 12:38:30 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-11 12:38:30 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'climate change mitigation' (retmax=10)
+2026-04-11 12:38:30 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'stem cell therapy' (retmax=10)
+2026-04-11 12:38:30 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 15965)
+2026-04-11 12:38:31 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 197935)
+2026-04-11 12:38:32 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-11 12:38:32 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 15965)
+2026-04-11 12:38:32 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 12:38:32 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-11 12:38:33 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 12:38:34 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 12:38:34 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-11 12:42:49 | INFO     | __main__:startup_event:37 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-11 12:42:55 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['nanomaterials', 'graphene applications', 'neuroscience consciousness']
+2026-04-11 12:42:56 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-11 12:42:56 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'nanomaterials' (retmax=10)
+2026-04-11 12:42:57 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 433903)
+2026-04-11 12:42:59 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 12:42:59 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-11 12:51:48 | INFO     | __main__:ask_question:90 - Question: generate questions | Hybrid: True | Book: None
+2026-04-11 12:51:48 | INFO     | faiss_store:load:73 - FAISS: Loaded 11303 vectors of type IndexIDMap2.
+2026-04-11 12:51:48 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-11 12:51:54 | INFO     | faiss_store:search:202 - FAISS Search: query='generate questions...', search_k=25, ntotal=11303
+2026-04-11 12:51:54 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 2
+2026-04-11 12:51:54 | INFO     | live_articles:search_articles:244 - Article Search: 'generate questions' | Page: 1
+2026-04-11 12:51:54 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'generate questions'
+2026-04-11 12:51:54 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'generate questions'
+2026-04-11 12:51:54 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'generate questions'
+2026-04-11 12:51:54 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'generate questions' (retmax=10)
+2026-04-11 12:51:55 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 162881)
+2026-04-11 12:51:57 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 12:51:57 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 162881)
+2026-04-11 12:51:57 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 951378)
+2026-04-11 12:51:57 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-11 12:52:31 | INFO     | __main__:ask_question:90 - Question: qwestions | Hybrid: True | Book: None
+2026-04-11 12:52:31 | INFO     | faiss_store:search:202 - FAISS Search: query='qwestions...', search_k=25, ntotal=11303
+2026-04-11 12:52:31 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-11 12:52:31 | INFO     | live_articles:search_articles:244 - Article Search: 'qwestions' | Page: 1
+2026-04-11 12:52:31 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'qwestions'
+2026-04-11 12:52:31 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'qwestions'
+2026-04-11 12:52:31 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'qwestions'
+2026-04-11 12:52:31 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'qwestions' (retmax=10)
+2026-04-11 12:52:33 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 0 IDs (Total: 0)
+2026-04-11 12:52:33 | INFO     | live_articles:search_articles:289 - Source 0 returned 0 articles (Total in source: 0)
+2026-04-11 12:52:33 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-11 12:52:33 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-11 12:55:36 | INFO     | __main__:ask_question:90 - Question: generate qwestions | Hybrid: True | Book: None
+2026-04-11 12:55:36 | INFO     | faiss_store:search:202 - FAISS Search: query='generate qwestions...', search_k=25, ntotal=11303
+2026-04-11 12:55:36 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-11 12:55:36 | INFO     | live_articles:search_articles:244 - Article Search: 'generate qwestions' | Page: 1
+2026-04-11 12:55:36 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'generate qwestions'
+2026-04-11 12:55:36 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'generate qwestions'
+2026-04-11 12:55:36 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'generate qwestions'
+2026-04-11 12:55:36 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'generate qwestions' (retmax=10)
+2026-04-11 12:55:37 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 5081881)
+2026-04-11 12:55:38 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 12:55:38 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 5081881)
+2026-04-11 12:55:38 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 882266)
+2026-04-11 12:55:38 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-11 12:55:52 | INFO     | __main__:ask_question:90 - Question: generate qwestions | Hybrid: True | Book: None
+2026-04-11 12:56:49 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['quantum computing', 'neuroscience consciousness', 'graphene applications']
+2026-04-11 12:56:49 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-11 12:56:49 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'quantum computing' (retmax=10)
+2026-04-11 12:56:51 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 51200)
+2026-04-11 12:56:52 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 12:56:52 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-11 13:11:26 | INFO     | __main__:startup_event:37 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-11 13:14:56 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['CRISPR gene editing', 'protein folding', 'mRNA vaccine']
+2026-04-11 13:14:57 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-11 13:14:57 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'CRISPR gene editing' (retmax=10)
+2026-04-11 13:14:57 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'mRNA vaccine' (retmax=10)
+2026-04-11 13:14:58 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 24107)
+2026-04-11 13:14:58 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 21289)
+2026-04-11 13:14:59 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-11 13:15:00 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 13:15:02 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 13:15:02 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-11 13:41:23 | INFO     | __main__:ask_question:90 - Question: cellular movement | Hybrid: True | Book: None
+2026-04-11 13:41:24 | INFO     | faiss_store:load:73 - FAISS: Loaded 11303 vectors of type IndexIDMap2.
+2026-04-11 13:41:24 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-11 13:41:29 | INFO     | faiss_store:search:202 - FAISS Search: query='cellular movement...', search_k=25, ntotal=11303
+2026-04-11 13:41:29 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-11 13:41:29 | INFO     | live_articles:search_articles:244 - Article Search: 'cellular movement' | Page: 1
+2026-04-11 13:41:29 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cellular movement'
+2026-04-11 13:41:29 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cellular movement'
+2026-04-11 13:41:29 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cellular movement'
+2026-04-11 13:41:29 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cellular movement' (retmax=10)
+2026-04-11 13:41:31 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 288516)
+2026-04-11 13:41:33 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 13:41:33 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 288516)
+2026-04-11 13:41:33 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 32414)
+2026-04-11 13:41:33 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-11 13:45:07 | INFO     | __main__:startup_event:37 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-11 13:56:35 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['mRNA vaccine', 'protein folding', 'graphene applications']
+2026-04-11 13:56:35 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-11 13:56:35 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'protein folding' (retmax=10)
+2026-04-11 13:56:35 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'graphene applications' (retmax=10)
+2026-04-11 13:56:36 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 98796)
+2026-04-11 13:56:36 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 35065)
+2026-04-11 13:56:37 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-11 13:56:38 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 13:56:40 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 13:56:40 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-11 13:56:41 | INFO     | __main__:save_article:256 - DB: Saving article 4477a1da2cd18aed7e75ebec190cade8 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:56:41 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('4477a1da2cd18aed7e75ebec190cade8', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:56:43 | INFO     | __main__:save_article:256 - DB: Saving article 4477a1da2cd18aed7e75ebec190cade8 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:56:43 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('4477a1da2cd18aed7e75ebec190cade8', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:56:43 | INFO     | __main__:save_article:256 - DB: Saving article 4477a1da2cd18aed7e75ebec190cade8 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:56:43 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('4477a1da2cd18aed7e75ebec190cade8', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:00 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:00 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:00 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:00 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:01 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:01 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:01 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:01 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:04 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:04 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:05 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:05 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:05 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:05 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:05 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:05 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:05 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:05 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:05 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:05 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:05 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:05 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:06 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:06 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:06 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:06 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:06 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:06 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:06 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:06 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:06 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:06 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:07 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:07 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:07 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:07 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:07 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:07 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:07 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:07 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:07 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:07 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:08 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:08 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:08 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:08 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:08 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:08 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:08 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:08 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:11 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:11 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:11 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:11 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:12 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:12 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:12 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:12 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:12 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:12 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:12 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:12 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:12 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:12 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:13 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:13 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:13 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:13 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:13 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:13 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:13 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:13 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:14 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:14 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:15 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:15 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:15 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:15 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:15 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:15 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:16 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:16 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:16 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:16 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:17 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:17 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:17 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:17 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:18 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:18 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 13:57:18 | INFO     | __main__:save_article:256 - DB: Saving article 6a4815c11d25427bc820747501485d01 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 13:57:18 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.OperationalError) no such column: saved_articles.link
+[SQL: SELECT saved_articles.id, saved_articles.user_id, saved_articles.title, saved_articles.summary, saved_articles.source, saved_articles.link, saved_articles.score, saved_articles.authors, saved_articles.journal, saved_articles.date, saved_articles.tier, saved_articles.created_at 
+FROM saved_articles 
+WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
+[parameters: ('6a4815c11d25427bc820747501485d01', 'dc074a61-c488-4fca-afff-eaa39ed429a0')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-11 14:09:17 | INFO     | __main__:startup_event:37 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-11 14:09:39 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['quantum computing', 'stem cell therapy', 'protein folding']
+2026-04-11 14:09:39 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-11 14:09:39 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'quantum computing' (retmax=10)
+2026-04-11 14:09:39 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'stem cell therapy' (retmax=10)
+2026-04-11 14:09:41 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 51200)
+2026-04-11 14:09:41 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 197935)
+2026-04-11 14:09:42 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 14:09:43 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 14:09:43 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-11 14:09:47 | INFO     | __main__:save_article:256 - DB: Saving article dca91503c362791de55499238354a204 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:09:47 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.IntegrityError) datatype mismatch
+[SQL: INSERT INTO saved_articles (id, user_id, title, summary, source, link, score, authors, journal, date, tier, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('dca91503c362791de55499238354a204', 'dc074a61-c488-4fca-afff-eaa39ed429a0', 'Prenatal nutrition modulates hepatic long non-coding RNA regulatory elements in Nellore cattle offspring.', 'This study investigated the effects of maternal nutrition on hepatic long non-coding RNA (lncRNA) expression in Nellore cattle offspring. To this end ... (1223 characters truncated) ...  insights into the role of maternal nutrition in modulating long-term epigenetic programming via lncRNA-mediated mechanisms in beef cattle offspring.', 'PubMed', 'https://pubmed.ncbi.nlm.nih.gov/41802685/', 1.0, 'Polizel Guilherme Henrique Gebim, Cánovas Angela, Cesar Aline Silva Mello', 'The Journal of nutritional biochemistry', 'Recent', 'peer_reviewed', '2026-04-11 08:39:47.125147')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-04-11 14:09:50 | INFO     | __main__:save_article:256 - DB: Saving article b9ece0f141c7e00e3c3a37401af5fdf3 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:09:50 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.IntegrityError) datatype mismatch
+[SQL: INSERT INTO saved_articles (id, user_id, title, summary, source, link, score, authors, journal, date, tier, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('b9ece0f141c7e00e3c3a37401af5fdf3', 'dc074a61-c488-4fca-afff-eaa39ed429a0', 'Cost-effectiveness of exagamglogene autotemcel gene-edited therapy in patients with sickle cell disease with recurrent vaso-occlusive crises in the United States.', 'Exagamglogene autotemcel (exa-cel) is a one-time nonviral gene-edited therapy approved in the United States (US) for treatment of patients aged ≥12\u ... (3317 characters truncated) ... al and quality of life for people with SCD and recurrent VOCs, while reducing long-term health care costs, making it a valuable new treatment option.', 'PubMed', 'https://pubmed.ncbi.nlm.nih.gov/41730016/', 1.0, 'Lopez Andrea, Gargano Michael, Yang Hongbo', 'Journal of medical economics', 'Recent', 'peer_reviewed', '2026-04-11 08:39:50.433617')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-04-11 14:09:50 | INFO     | __main__:save_article:256 - DB: Saving article b9ece0f141c7e00e3c3a37401af5fdf3 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:09:50 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.IntegrityError) datatype mismatch
+[SQL: INSERT INTO saved_articles (id, user_id, title, summary, source, link, score, authors, journal, date, tier, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('b9ece0f141c7e00e3c3a37401af5fdf3', 'dc074a61-c488-4fca-afff-eaa39ed429a0', 'Cost-effectiveness of exagamglogene autotemcel gene-edited therapy in patients with sickle cell disease with recurrent vaso-occlusive crises in the United States.', 'Exagamglogene autotemcel (exa-cel) is a one-time nonviral gene-edited therapy approved in the United States (US) for treatment of patients aged ≥12\u ... (3317 characters truncated) ... al and quality of life for people with SCD and recurrent VOCs, while reducing long-term health care costs, making it a valuable new treatment option.', 'PubMed', 'https://pubmed.ncbi.nlm.nih.gov/41730016/', 1.0, 'Lopez Andrea, Gargano Michael, Yang Hongbo', 'Journal of medical economics', 'Recent', 'peer_reviewed', '2026-04-11 08:39:50.927372')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-04-11 14:09:51 | INFO     | __main__:save_article:256 - DB: Saving article b9ece0f141c7e00e3c3a37401af5fdf3 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:09:51 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.IntegrityError) datatype mismatch
+[SQL: INSERT INTO saved_articles (id, user_id, title, summary, source, link, score, authors, journal, date, tier, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('b9ece0f141c7e00e3c3a37401af5fdf3', 'dc074a61-c488-4fca-afff-eaa39ed429a0', 'Cost-effectiveness of exagamglogene autotemcel gene-edited therapy in patients with sickle cell disease with recurrent vaso-occlusive crises in the United States.', 'Exagamglogene autotemcel (exa-cel) is a one-time nonviral gene-edited therapy approved in the United States (US) for treatment of patients aged ≥12\u ... (3317 characters truncated) ... al and quality of life for people with SCD and recurrent VOCs, while reducing long-term health care costs, making it a valuable new treatment option.', 'PubMed', 'https://pubmed.ncbi.nlm.nih.gov/41730016/', 1.0, 'Lopez Andrea, Gargano Michael, Yang Hongbo', 'Journal of medical economics', 'Recent', 'peer_reviewed', '2026-04-11 08:39:51.114955')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-04-11 14:09:51 | INFO     | __main__:save_article:256 - DB: Saving article b9ece0f141c7e00e3c3a37401af5fdf3 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:09:51 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.IntegrityError) datatype mismatch
+[SQL: INSERT INTO saved_articles (id, user_id, title, summary, source, link, score, authors, journal, date, tier, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('b9ece0f141c7e00e3c3a37401af5fdf3', 'dc074a61-c488-4fca-afff-eaa39ed429a0', 'Cost-effectiveness of exagamglogene autotemcel gene-edited therapy in patients with sickle cell disease with recurrent vaso-occlusive crises in the United States.', 'Exagamglogene autotemcel (exa-cel) is a one-time nonviral gene-edited therapy approved in the United States (US) for treatment of patients aged ≥12\u ... (3317 characters truncated) ... al and quality of life for people with SCD and recurrent VOCs, while reducing long-term health care costs, making it a valuable new treatment option.', 'PubMed', 'https://pubmed.ncbi.nlm.nih.gov/41730016/', 1.0, 'Lopez Andrea, Gargano Michael, Yang Hongbo', 'Journal of medical economics', 'Recent', 'peer_reviewed', '2026-04-11 08:39:51.496216')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-04-11 14:09:51 | INFO     | __main__:save_article:256 - DB: Saving article b9ece0f141c7e00e3c3a37401af5fdf3 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:09:51 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.IntegrityError) datatype mismatch
+[SQL: INSERT INTO saved_articles (id, user_id, title, summary, source, link, score, authors, journal, date, tier, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('b9ece0f141c7e00e3c3a37401af5fdf3', 'dc074a61-c488-4fca-afff-eaa39ed429a0', 'Cost-effectiveness of exagamglogene autotemcel gene-edited therapy in patients with sickle cell disease with recurrent vaso-occlusive crises in the United States.', 'Exagamglogene autotemcel (exa-cel) is a one-time nonviral gene-edited therapy approved in the United States (US) for treatment of patients aged ≥12\u ... (3317 characters truncated) ... al and quality of life for people with SCD and recurrent VOCs, while reducing long-term health care costs, making it a valuable new treatment option.', 'PubMed', 'https://pubmed.ncbi.nlm.nih.gov/41730016/', 1.0, 'Lopez Andrea, Gargano Michael, Yang Hongbo', 'Journal of medical economics', 'Recent', 'peer_reviewed', '2026-04-11 08:39:51.674263')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-04-11 14:09:52 | INFO     | __main__:save_article:256 - DB: Saving article b9ece0f141c7e00e3c3a37401af5fdf3 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:09:52 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.IntegrityError) datatype mismatch
+[SQL: INSERT INTO saved_articles (id, user_id, title, summary, source, link, score, authors, journal, date, tier, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('b9ece0f141c7e00e3c3a37401af5fdf3', 'dc074a61-c488-4fca-afff-eaa39ed429a0', 'Cost-effectiveness of exagamglogene autotemcel gene-edited therapy in patients with sickle cell disease with recurrent vaso-occlusive crises in the United States.', 'Exagamglogene autotemcel (exa-cel) is a one-time nonviral gene-edited therapy approved in the United States (US) for treatment of patients aged ≥12\u ... (3317 characters truncated) ... al and quality of life for people with SCD and recurrent VOCs, while reducing long-term health care costs, making it a valuable new treatment option.', 'PubMed', 'https://pubmed.ncbi.nlm.nih.gov/41730016/', 1.0, 'Lopez Andrea, Gargano Michael, Yang Hongbo', 'Journal of medical economics', 'Recent', 'peer_reviewed', '2026-04-11 08:39:52.124928')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-04-11 14:10:22 | INFO     | live_articles:search_articles:244 - Article Search: 'scnt' | Page: 1
+2026-04-11 14:10:22 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'scnt'
+2026-04-11 14:10:22 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'scnt'
+2026-04-11 14:10:22 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'scnt'
+2026-04-11 14:10:22 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'scnt' (retmax=10)
+2026-04-11 14:10:23 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 1866)
+2026-04-11 14:10:25 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 14:10:25 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-11 14:10:25 | INFO     | live_articles:search_articles:289 - Source 1 returned 1 articles (Total in source: 1)
+2026-04-11 14:10:25 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-11 14:10:29 | INFO     | __main__:save_article:256 - DB: Saving article 189aa9e037c33deca766160a09f8b20a for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:10:29 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.IntegrityError) datatype mismatch
+[SQL: INSERT INTO saved_articles (id, user_id, title, summary, source, link, score, authors, journal, date, tier, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('189aa9e037c33deca766160a09f8b20a', 'dc074a61-c488-4fca-afff-eaa39ed429a0', 'Epigenetic manipulation to improve mouse SCNT embryonic development.', 'Cloned mammals can be achieved through somatic cell nuclear transfer (SCNT), which involves reprogramming of differentiated somatic cells into a toti ... (265 characters truncated) ... t epigenetic barriers in SCNT embryos and strategies to correct these epigenetic defects and avoid the occurrence of abnormalities in cloned animals.', 'PubMed', 'https://pubmed.ncbi.nlm.nih.gov/36110221/', 1.0, 'Li Yamei, Sun Qiang', 'Frontiers in genetics', 'Recent', 'peer_reviewed', '2026-04-11 08:40:29.493390')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-04-11 14:10:30 | INFO     | __main__:save_article:256 - DB: Saving article 189aa9e037c33deca766160a09f8b20a for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:10:30 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.IntegrityError) datatype mismatch
+[SQL: INSERT INTO saved_articles (id, user_id, title, summary, source, link, score, authors, journal, date, tier, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('189aa9e037c33deca766160a09f8b20a', 'dc074a61-c488-4fca-afff-eaa39ed429a0', 'Epigenetic manipulation to improve mouse SCNT embryonic development.', 'Cloned mammals can be achieved through somatic cell nuclear transfer (SCNT), which involves reprogramming of differentiated somatic cells into a toti ... (265 characters truncated) ... t epigenetic barriers in SCNT embryos and strategies to correct these epigenetic defects and avoid the occurrence of abnormalities in cloned animals.', 'PubMed', 'https://pubmed.ncbi.nlm.nih.gov/36110221/', 1.0, 'Li Yamei, Sun Qiang', 'Frontiers in genetics', 'Recent', 'peer_reviewed', '2026-04-11 08:40:30.530999')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-04-11 14:10:30 | INFO     | __main__:save_article:256 - DB: Saving article 189aa9e037c33deca766160a09f8b20a for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:10:30 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.IntegrityError) datatype mismatch
+[SQL: INSERT INTO saved_articles (id, user_id, title, summary, source, link, score, authors, journal, date, tier, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('189aa9e037c33deca766160a09f8b20a', 'dc074a61-c488-4fca-afff-eaa39ed429a0', 'Epigenetic manipulation to improve mouse SCNT embryonic development.', 'Cloned mammals can be achieved through somatic cell nuclear transfer (SCNT), which involves reprogramming of differentiated somatic cells into a toti ... (265 characters truncated) ... t epigenetic barriers in SCNT embryos and strategies to correct these epigenetic defects and avoid the occurrence of abnormalities in cloned animals.', 'PubMed', 'https://pubmed.ncbi.nlm.nih.gov/36110221/', 1.0, 'Li Yamei, Sun Qiang', 'Frontiers in genetics', 'Recent', 'peer_reviewed', '2026-04-11 08:40:30.695365')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-04-11 14:10:30 | INFO     | __main__:save_article:256 - DB: Saving article 189aa9e037c33deca766160a09f8b20a for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:10:30 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.IntegrityError) datatype mismatch
+[SQL: INSERT INTO saved_articles (id, user_id, title, summary, source, link, score, authors, journal, date, tier, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('189aa9e037c33deca766160a09f8b20a', 'dc074a61-c488-4fca-afff-eaa39ed429a0', 'Epigenetic manipulation to improve mouse SCNT embryonic development.', 'Cloned mammals can be achieved through somatic cell nuclear transfer (SCNT), which involves reprogramming of differentiated somatic cells into a toti ... (265 characters truncated) ... t epigenetic barriers in SCNT embryos and strategies to correct these epigenetic defects and avoid the occurrence of abnormalities in cloned animals.', 'PubMed', 'https://pubmed.ncbi.nlm.nih.gov/36110221/', 1.0, 'Li Yamei, Sun Qiang', 'Frontiers in genetics', 'Recent', 'peer_reviewed', '2026-04-11 08:40:30.883516')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-04-11 14:10:31 | INFO     | __main__:save_article:256 - DB: Saving article 189aa9e037c33deca766160a09f8b20a for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:10:31 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.IntegrityError) datatype mismatch
+[SQL: INSERT INTO saved_articles (id, user_id, title, summary, source, link, score, authors, journal, date, tier, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('189aa9e037c33deca766160a09f8b20a', 'dc074a61-c488-4fca-afff-eaa39ed429a0', 'Epigenetic manipulation to improve mouse SCNT embryonic development.', 'Cloned mammals can be achieved through somatic cell nuclear transfer (SCNT), which involves reprogramming of differentiated somatic cells into a toti ... (265 characters truncated) ... t epigenetic barriers in SCNT embryos and strategies to correct these epigenetic defects and avoid the occurrence of abnormalities in cloned animals.', 'PubMed', 'https://pubmed.ncbi.nlm.nih.gov/36110221/', 1.0, 'Li Yamei, Sun Qiang', 'Frontiers in genetics', 'Recent', 'peer_reviewed', '2026-04-11 08:40:31.056777')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-04-11 14:10:34 | INFO     | __main__:save_article:256 - DB: Saving article 189aa9e037c33deca766160a09f8b20a for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:10:34 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.IntegrityError) datatype mismatch
+[SQL: INSERT INTO saved_articles (id, user_id, title, summary, source, link, score, authors, journal, date, tier, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('189aa9e037c33deca766160a09f8b20a', 'dc074a61-c488-4fca-afff-eaa39ed429a0', 'Epigenetic manipulation to improve mouse SCNT embryonic development.', 'Cloned mammals can be achieved through somatic cell nuclear transfer (SCNT), which involves reprogramming of differentiated somatic cells into a toti ... (265 characters truncated) ... t epigenetic barriers in SCNT embryos and strategies to correct these epigenetic defects and avoid the occurrence of abnormalities in cloned animals.', 'PubMed', 'https://pubmed.ncbi.nlm.nih.gov/36110221/', 1.0, 'Li Yamei, Sun Qiang', 'Frontiers in genetics', 'Recent', 'peer_reviewed', '2026-04-11 08:40:34.248544')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-04-11 14:10:34 | INFO     | __main__:save_article:256 - DB: Saving article 189aa9e037c33deca766160a09f8b20a for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:10:34 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.IntegrityError) datatype mismatch
+[SQL: INSERT INTO saved_articles (id, user_id, title, summary, source, link, score, authors, journal, date, tier, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('189aa9e037c33deca766160a09f8b20a', 'dc074a61-c488-4fca-afff-eaa39ed429a0', 'Epigenetic manipulation to improve mouse SCNT embryonic development.', 'Cloned mammals can be achieved through somatic cell nuclear transfer (SCNT), which involves reprogramming of differentiated somatic cells into a toti ... (265 characters truncated) ... t epigenetic barriers in SCNT embryos and strategies to correct these epigenetic defects and avoid the occurrence of abnormalities in cloned animals.', 'PubMed', 'https://pubmed.ncbi.nlm.nih.gov/36110221/', 1.0, 'Li Yamei, Sun Qiang', 'Frontiers in genetics', 'Recent', 'peer_reviewed', '2026-04-11 08:40:34.638246')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-04-11 14:10:34 | INFO     | __main__:save_article:256 - DB: Saving article 189aa9e037c33deca766160a09f8b20a for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:10:34 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.IntegrityError) datatype mismatch
+[SQL: INSERT INTO saved_articles (id, user_id, title, summary, source, link, score, authors, journal, date, tier, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('189aa9e037c33deca766160a09f8b20a', 'dc074a61-c488-4fca-afff-eaa39ed429a0', 'Epigenetic manipulation to improve mouse SCNT embryonic development.', 'Cloned mammals can be achieved through somatic cell nuclear transfer (SCNT), which involves reprogramming of differentiated somatic cells into a toti ... (265 characters truncated) ... t epigenetic barriers in SCNT embryos and strategies to correct these epigenetic defects and avoid the occurrence of abnormalities in cloned animals.', 'PubMed', 'https://pubmed.ncbi.nlm.nih.gov/36110221/', 1.0, 'Li Yamei, Sun Qiang', 'Frontiers in genetics', 'Recent', 'peer_reviewed', '2026-04-11 08:40:34.834375')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-04-11 14:10:37 | INFO     | __main__:save_article:256 - DB: Saving article 2759bb46c5e1dcfb2c39105ea43ba53e for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:10:37 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.IntegrityError) datatype mismatch
+[SQL: INSERT INTO saved_articles (id, user_id, title, summary, source, link, score, authors, journal, date, tier, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('2759bb46c5e1dcfb2c39105ea43ba53e', 'dc074a61-c488-4fca-afff-eaa39ed429a0', 'SCNT versus iPSCs: proteins and small molecules in reprogramming.', 'Somatic cell nuclear transplantation (SCNT) and induced pluripotent stem cell (iPSC) technologies can be employed to change cell fate by reprogrammin ... (1090 characters truncated) ... esearch in which chemical biology and proteomics are combining to facilitate improving cellular reprogramming and production of clinical grade iPSCs.', 'PubMed', 'https://pubmed.ncbi.nlm.nih.gov/26505250/', 1.0, 'Han Fei, Li Xia, Song Dandan', 'The International journal of developmental biology', 'Recent', 'peer_reviewed', '2026-04-11 08:40:37.537134')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-04-11 14:10:37 | INFO     | __main__:save_article:256 - DB: Saving article 2759bb46c5e1dcfb2c39105ea43ba53e for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:10:37 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.IntegrityError) datatype mismatch
+[SQL: INSERT INTO saved_articles (id, user_id, title, summary, source, link, score, authors, journal, date, tier, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('2759bb46c5e1dcfb2c39105ea43ba53e', 'dc074a61-c488-4fca-afff-eaa39ed429a0', 'SCNT versus iPSCs: proteins and small molecules in reprogramming.', 'Somatic cell nuclear transplantation (SCNT) and induced pluripotent stem cell (iPSC) technologies can be employed to change cell fate by reprogrammin ... (1090 characters truncated) ... esearch in which chemical biology and proteomics are combining to facilitate improving cellular reprogramming and production of clinical grade iPSCs.', 'PubMed', 'https://pubmed.ncbi.nlm.nih.gov/26505250/', 1.0, 'Han Fei, Li Xia, Song Dandan', 'The International journal of developmental biology', 'Recent', 'peer_reviewed', '2026-04-11 08:40:37.834996')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-04-11 14:10:40 | INFO     | __main__:save_article:256 - DB: Saving article f99bd1b72e2a5251307c5ed006b5d3b1 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:10:40 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.IntegrityError) datatype mismatch
+[SQL: INSERT INTO saved_articles (id, user_id, title, summary, source, link, score, authors, journal, date, tier, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('f99bd1b72e2a5251307c5ed006b5d3b1', 'dc074a61-c488-4fca-afff-eaa39ed429a0', 'Aberrant nucleosome organization in mouse SCNT embryos revealed by ULI-MNase-seq.', 'Somatic cell nuclear transfer (SCNT) can reprogram terminally differentiated somatic cells into totipotent embryos, but with multiple defects. The nu ... (855 characters truncated) ... iated with the memory of promoter NDRs. Our study provides insight into nucleosome reconfiguration during SCNT preimplantation embryonic development.', 'PubMed', 'https://pubmed.ncbi.nlm.nih.gov/35750045/', 1.0, 'Yang Lingyue, Xu Xiaocui, Xu Ruimin', 'Stem cell reports', 'Recent', 'peer_reviewed', '2026-04-11 08:40:40.139148')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-04-11 14:10:40 | INFO     | __main__:save_article:256 - DB: Saving article f99bd1b72e2a5251307c5ed006b5d3b1 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:10:40 | ERROR    | __main__:save_article:271 - DB: Save article failed: (sqlite3.IntegrityError) datatype mismatch
+[SQL: INSERT INTO saved_articles (id, user_id, title, summary, source, link, score, authors, journal, date, tier, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('f99bd1b72e2a5251307c5ed006b5d3b1', 'dc074a61-c488-4fca-afff-eaa39ed429a0', 'Aberrant nucleosome organization in mouse SCNT embryos revealed by ULI-MNase-seq.', 'Somatic cell nuclear transfer (SCNT) can reprogram terminally differentiated somatic cells into totipotent embryos, but with multiple defects. The nu ... (855 characters truncated) ... iated with the memory of promoter NDRs. Our study provides insight into nucleosome reconfiguration during SCNT preimplantation embryonic development.', 'PubMed', 'https://pubmed.ncbi.nlm.nih.gov/35750045/', 1.0, 'Yang Lingyue, Xu Xiaocui, Xu Ruimin', 'Stem cell reports', 'Recent', 'peer_reviewed', '2026-04-11 08:40:40.359186')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-04-11 14:15:50 | INFO     | __main__:startup_event:37 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-11 14:16:04 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['stem cell therapy', 'quantum computing', 'neuroscience consciousness']
+2026-04-11 14:16:04 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-11 14:16:04 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'neuroscience consciousness' (retmax=10)
+2026-04-11 14:16:06 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 6707)
+2026-04-11 14:16:07 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 14:16:07 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-11 14:16:10 | INFO     | __main__:save_article:256 - DB: Saving article 6b86a25c859734a8a90989415fec648e for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:16:10 | INFO     | __main__:save_article:268 - DB: Successfully saved article 6b86a25c859734a8a90989415fec648e

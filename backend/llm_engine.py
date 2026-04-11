@@ -92,3 +92,200 @@ async def generate_book_answer(question: str, context: str, mode: str, domain: s
     except Exception as e:
         log.error(f"LLM: Book generation failed: {e}")
         return f"Selection error: {str(e)}"
+
+async def generate_questions(
+    mode: str, topic: str, domain: str, level: int, count: int = 4,
+    context_chunks: List[str] = None, previous_questions: List[dict] = None
+) -> str:
+    client = get_groq_client()
+    if not client: return '{"error": "GROQ_API_KEY missing"}'
+
+    system = """You are SciAI’s intelligent question generation engine.
+You generate HIGH-QUALITY, NON-REPETITIVE, DOMAIN-AWARE scientific questions.
+
+STRICT RULES:
+- Never repeat previously generated questions (ensure variation in framing, depth, and angle)
+- Questions must be scientifically accurate and concept-driven
+- Avoid generic textbook phrasing
+- Adapt difficulty dynamically based on level
+- Use retrieved context if available, else expand using domain knowledge
+- Questions must feel like they are from a top-tier competitive exam or research discussion
+
+--------------------------------------
+
+INPUT PARAMETERS:
+- mode: {quiz | test}
+- topic: user input topic (can be broad or specific)
+- domain: {physics, chemistry, biology, general_science, interdisciplinary, other}
+- level: {10, 30, 50, 80, 100, 500, 1000}
+- context_chunks: retrieved FAISS data (optional)
+- previous_questions: list of last generated questions (to avoid repetition)
+
+--------------------------------------
+
+1. MODE DIFFERENTIATION:
+
+QUIZ MODE (Gaming / MCQ):
+- Format: STRICTLY Multiple Choice Questions (MCQ).
+- Options: ALWAYS exactly 4 options (A, B, C, D).
+- Scope: Conceptual, quick-thinking, fact-based.
+
+TEST MODE (Theoretical / Insightful):
+- Format: STRICTLY Open-ended / Theoretical questions.
+- Options: NULL (Do not provide options).
+- Scope: In-depth analysis, mechanism exploration, "how" and "why" questions.
+- Requires user to write a detailed answer.
+
+--------------------------------------
+
+3. DIFFICULTY SCALING:
+
+Level 10:
+- Basic definitions, simple recall
+Level 30:
+- Understanding + basic application
+Level 50:
+- Concept integration
+Level 80:
+- Multi-step reasoning
+Level 100:
+- Advanced application + tricky concepts
+Level 500 (Legendary):
+- Cross-domain + edge cases
+- Real-world + research-level thinking
+Level 1000 (GOAT):
+- Research-grade
+- Hypothetical scenarios
+- Requires deep conceptual synthesis
+
+--------------------------------------
+
+4. QUESTION VARIATION LOGIC:
+Ensure variation in:
+- Cognitive skill (recall, application, analysis)
+- Structure (direct, case-based, reverse logic)
+- Context (real-world, experimental, theoretical)
+Avoid:
+- Reworded duplicates
+- Same pattern repetition
+
+--------------------------------------
+
+5. OUTPUT FORMAT (STRICT JSON):
+{
+  "mode": "quiz/test",
+  "topic": "expanded/interpreted topic",
+  "domain": "final inferred domain",
+  "level": number,
+  "questions": [
+    {
+      "id": "unique_id",
+      "type": "open|mcq|assertion_reason|numerical|case",
+      "question": "text",
+      "options": ["A", "B", "C", "D"] # (only for MCQ)
+      "answer": "correct answer or explanation",
+      "explanation": "deep conceptual explanation",
+      "difficulty_tag": "easy|medium|hard|legendary|goat",
+      "concepts": ["concept1", "concept2"],
+      "variation_tag": "application|analysis|conceptual|edge_case"
+    }
+  ]
+}
+
+--------------------------------------
+
+6. CONTEXT USAGE (FAISS):
+If context_chunks available:
+- Prioritize them
+- Generate questions grounded in retrieved knowledge
+Else:
+- Use general scientific knowledge
+- Expand intelligently
+
+--------------------------------------
+
+7. NON-REPETITION:
+Compare with previous_questions:
+- Avoid similar structure or concept overlap
+- Generate fresh angles
+
+--------------------------------------
+
+8. BONUS INTELLIGENCE:
+- Occasionally include:
+  - Trick questions
+  - Misconception-based questions
+  - Real-world scenarios
+
+OUTPUT ONLY JSON. NO EXTRA TEXT. MAKE THE UI/UX PREMIUM"""
+
+    import json
+    
+    prompt_parts = [
+        f"MODE: {mode}",
+        f"TOPIC: {topic}",
+        f"DOMAIN: {domain}",
+        f"LEVEL: {level}",
+        f"COUNT: Generate exactly {count} distinct questions."
+    ]
+    
+    if context_chunks:
+        trimmed_context = trim_context("\n".join(context_chunks), 3000)
+        prompt_parts.append(f"CONTEXT_CHUNKS:\n{trimmed_context}")
+        
+    if previous_questions:
+        # Pass a compressed view of previous questions
+        try:
+            prev_str = json.dumps([{"q": pq.get("question"), "t": pq.get("type")} for pq in previous_questions])
+            prompt_parts.append(f"PREVIOUS_QUESTIONS:\n{prev_str}")
+        except Exception:
+            pass
+            
+    prompt = "\n\n".join(prompt_parts) + "\n\nGenerate strictly valid JSON."
+
+    try:
+        resp = await client.chat.completions.create(
+            model=MODEL_FAST,
+            messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
+            temperature=0.7, max_tokens=3000,
+            response_format={"type": "json_object"}
+        )
+        return resp.choices[0].message.content.strip()
+    except Exception as e:
+        log.error(f"LLM: Question generation failed: {e}")
+        return json.dumps({"error": str(e)})
+
+async def evaluate_theory_answer(question: str, user_answer: str, correct_answer: str) -> str:
+    """
+    Evaluates a user's theoretical answer against the expert answer.
+    Provides conceptual corrections and improvement suggestions.
+    """
+    client = get_groq_client()
+    if not client: return "Error: API Key missing."
+
+    system = (
+        "You are SciAI's Grading Engine. Analyze the user's theoretical answer.\n"
+        "1. Compare it with the expert answer.\n"
+        "2. Identify conceptual gaps or errors.\n"
+        "3. Provide exactly 3 short, actionable suggestions for improvement.\n"
+        "4. Tone: Encouraging, academic, and precise.\n"
+        "Format: [Corrections]\n- ...\n\n[Improvement Suggestions]\n- ..."
+    )
+    
+    prompt = (
+        f"QUESTION: {question}\n"
+        f"EXPERT ANSWER: {correct_answer}\n"
+        f"USER ANSWER: {user_answer}\n\n"
+        "Analyze and provide feedback:"
+    )
+
+    try:
+        resp = await client.chat.completions.create(
+            model=MODEL_FAST,
+            messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
+            temperature=0.3, max_tokens=1000
+        )
+        return resp.choices[0].message.content.strip()
+    except Exception as e:
+        log.error(f"LLM: Evaluation failed: {e}")
+        return f"Could not evaluate answer: {str(e)}"
