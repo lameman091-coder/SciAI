@@ -2314,3 +2314,92 @@ WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
 2026-04-11 14:16:07 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
 2026-04-11 14:16:10 | INFO     | __main__:save_article:256 - DB: Saving article 6b86a25c859734a8a90989415fec648e for user dc074a61-c488-4fca-afff-eaa39ed429a0
 2026-04-11 14:16:10 | INFO     | __main__:save_article:268 - DB: Successfully saved article 6b86a25c859734a8a90989415fec648e
+2026-04-11 14:46:02 | INFO     | __main__:startup_event:37 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-11 14:50:44 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['nanomaterials', 'climate change mitigation', 'dark matter detection']
+2026-04-11 14:50:45 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-11 14:50:45 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'nanomaterials' (retmax=10)
+2026-04-11 14:50:45 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'climate change mitigation' (retmax=10)
+2026-04-11 14:50:45 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'dark matter detection' (retmax=10)
+2026-04-11 14:50:46 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 1038)
+2026-04-11 14:50:46 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 15965)
+2026-04-11 14:50:46 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 433903)
+2026-04-11 14:50:47 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-11 14:50:47 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-11 14:50:48 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 14:50:50 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 14:50:50 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 14:50:50 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-11 14:50:54 | INFO     | __main__:save_article:256 - DB: Saving article e2c85eea09b8ef78e90e917b8e1b42ae for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:50:54 | INFO     | __main__:save_article:268 - DB: Successfully saved article e2c85eea09b8ef78e90e917b8e1b42ae
+2026-04-11 14:50:59 | INFO     | __main__:unsave_article:303 - DB: Successfully unsaved article e2c85eea09b8ef78e90e917b8e1b42ae for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:51:10 | INFO     | __main__:unsave_article:303 - DB: Successfully unsaved article 6b86a25c859734a8a90989415fec648e for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:51:19 | INFO     | __main__:save_article:256 - DB: Saving article e2c85eea09b8ef78e90e917b8e1b42ae for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 14:51:19 | INFO     | __main__:save_article:268 - DB: Successfully saved article e2c85eea09b8ef78e90e917b8e1b42ae
+2026-04-11 15:38:38 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['protein folding', 'mRNA vaccine', 'climate change mitigation']
+2026-04-11 15:38:38 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-11 15:38:38 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'protein folding' (retmax=10)
+2026-04-11 15:38:38 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'mRNA vaccine' (retmax=10)
+2026-04-11 15:38:40 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 98796)
+2026-04-11 15:38:40 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 21289)
+2026-04-11 15:38:41 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-11 15:38:41 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 15:38:45 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 15:38:45 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-11 15:38:50 | INFO     | __main__:save_article:256 - DB: Saving article 1a926b3de738b87408e19d8fceeb046d for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 15:38:50 | INFO     | __main__:save_article:268 - DB: Successfully saved article 1a926b3de738b87408e19d8fceeb046d
+2026-04-11 15:38:59 | INFO     | __main__:unsave_article:303 - DB: Successfully unsaved article e2c85eea09b8ef78e90e917b8e1b42ae for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 15:39:06 | INFO     | __main__:unsave_article:303 - DB: Successfully unsaved article 1a926b3de738b87408e19d8fceeb046d for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 15:45:47 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['protein folding', 'quantum computing', 'neuroscience consciousness']
+2026-04-11 15:45:47 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-11 15:45:47 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'quantum computing' (retmax=10)
+2026-04-11 15:45:47 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'neuroscience consciousness' (retmax=10)
+2026-04-11 15:45:48 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 6707)
+2026-04-11 15:45:49 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 51200)
+2026-04-11 15:45:50 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 15:45:50 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 15:45:50 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-11 15:45:55 | INFO     | __main__:save_article:256 - DB: Saving article 4d1cf7a924ecfe45568a41fc0e00a0d0 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 15:45:55 | INFO     | __main__:save_article:268 - DB: Successfully saved article 4d1cf7a924ecfe45568a41fc0e00a0d0
+2026-04-11 15:46:45 | INFO     | __main__:ask_question:96 - Question: SILICO UNWINDING ELEGANS ARTICLE SUMMARY | Hybrid: True | Book: None
+2026-04-11 15:46:45 | INFO     | faiss_store:load:73 - FAISS: Loaded 11303 vectors of type IndexIDMap2.
+2026-04-11 15:46:45 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-11 15:46:51 | INFO     | faiss_store:search:202 - FAISS Search: query='SILICO UNWINDING ELEGANS ARTIC...', search_k=25, ntotal=11303
+2026-04-11 15:46:51 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-11 15:46:51 | INFO     | live_articles:search_articles:244 - Article Search: 'SILICO UNWINDING ELEGANS ARTICLE SUMMARY' | Page: 1
+2026-04-11 15:46:51 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'SILICO UNWINDING ELEGANS ARTICLE SUMMARY'
+2026-04-11 15:46:51 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'SILICO UNWINDING ELEGANS ARTICLE SUMMARY'
+2026-04-11 15:46:51 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'SILICO UNWINDING ELEGANS ARTICLE SUMMARY'
+2026-04-11 15:46:51 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'SILICO UNWINDING ELEGANS ARTICLE SUMMARY' (retmax=10)
+2026-04-11 15:46:53 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 0 IDs (Total: 0)
+2026-04-11 15:46:53 | INFO     | live_articles:search_articles:289 - Source 0 returned 0 articles (Total in source: 0)
+2026-04-11 15:46:53 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 116495)
+2026-04-11 15:46:53 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-11 15:49:08 | INFO     | __main__:save_article:256 - DB: Saving article 4d1cf7a924ecfe45568a41fc0e00a0d0 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 15:49:08 | INFO     | __main__:save_article:261 - DB: Article 4d1cf7a924ecfe45568a41fc0e00a0d0 already exists for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 15:49:10 | INFO     | __main__:save_article:256 - DB: Saving article 4d1cf7a924ecfe45568a41fc0e00a0d0 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 15:49:10 | INFO     | __main__:save_article:261 - DB: Article 4d1cf7a924ecfe45568a41fc0e00a0d0 already exists for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 15:49:11 | INFO     | __main__:save_article:256 - DB: Saving article 4d1cf7a924ecfe45568a41fc0e00a0d0 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 15:49:11 | INFO     | __main__:save_article:261 - DB: Article 4d1cf7a924ecfe45568a41fc0e00a0d0 already exists for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 15:49:11 | INFO     | __main__:save_article:256 - DB: Saving article 4d1cf7a924ecfe45568a41fc0e00a0d0 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 15:49:11 | INFO     | __main__:save_article:261 - DB: Article 4d1cf7a924ecfe45568a41fc0e00a0d0 already exists for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 15:49:15 | INFO     | __main__:unsave_article:303 - DB: Successfully unsaved article 4d1cf7a924ecfe45568a41fc0e00a0d0 for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 15:50:20 | INFO     | __main__:ask_question:96 - Question: CELLS  | Hybrid: True | Book: None
+2026-04-11 15:50:20 | INFO     | faiss_store:search:202 - FAISS Search: query='CELLS ...', search_k=25, ntotal=11303
+2026-04-11 15:50:20 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-11 15:50:20 | INFO     | live_articles:search_articles:244 - Article Search: 'CELLS ' | Page: 1
+2026-04-11 15:50:20 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'CELLS '
+2026-04-11 15:50:20 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'CELLS '
+2026-04-11 15:50:20 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'CELLS '
+2026-04-11 15:50:20 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'CELLS ' (retmax=10)
+2026-04-11 15:50:22 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 6979669)
+2026-04-11 15:50:23 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 15:50:23 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 6979669)
+2026-04-11 15:50:23 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 51735)
+2026-04-11 15:50:23 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-11 15:50:38 | INFO     | __main__:ask_question:96 - Question: CELLS  | Hybrid: True | Book: None
+2026-04-11 16:07:55 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['mRNA vaccine', 'neuroscience consciousness', 'climate change mitigation']
+2026-04-11 16:07:55 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-11 16:07:55 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'climate change mitigation' (retmax=10)
+2026-04-11 16:07:57 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 15965)
+2026-04-11 16:07:59 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 16:07:59 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
