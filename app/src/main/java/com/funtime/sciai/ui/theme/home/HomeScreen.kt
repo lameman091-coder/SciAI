@@ -301,8 +301,11 @@ fun HomeScreen(navController: NavController, drawerState: androidx.compose.mater
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                listOf("Biology", "Physics", "Chemistry").forEach { domain ->
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                items(listOf("Biology", "Physics", "Chemistry", "Science")) { domain ->
                     SelectableButton(
                         text = domain,
                         isSelected = selectedDomain == domain,
@@ -310,6 +313,7 @@ fun HomeScreen(navController: NavController, drawerState: androidx.compose.mater
                             "Biology" -> Color(0xFF4CAF50)
                             "Physics" -> Color(0xFF2196F3)
                             "Chemistry" -> Color(0xFFF44336)
+                            "Science" -> Color(0xFF00BCD4)
                             else -> Color.Gray
                         }
                     ) {
@@ -320,8 +324,11 @@ fun HomeScreen(navController: NavController, drawerState: androidx.compose.mater
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                listOf("Exam", "Concept", "Expert").forEach { mode ->
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                items(listOf("Exam", "Concept", "Expert", "Quiz", "Test")) { mode ->
                     SelectableButton(
                         text = mode,
                         isSelected = selectedMode == mode,
@@ -329,6 +336,8 @@ fun HomeScreen(navController: NavController, drawerState: androidx.compose.mater
                             "Exam" -> Color(0xFFFFC107)
                             "Concept" -> Color(0xFF2196F3)
                             "Expert" -> Color(0xFF9C27B0)
+                            "Quiz" -> Color(0xFF38BDF8)
+                            "Test" -> Color(0xFFEF4444)
                             else -> Color.Gray
                         }
                     ) {
@@ -454,18 +463,28 @@ fun SelectableButton(
     color: Color,
     onClick: () -> Unit
 ) {
-    Text(
-        text = text,
-        color = if (isSelected) Color.White else Color.Gray,
-        modifier = Modifier
-            .border(
-                1.5.dp,
-                if (isSelected) color else Color.Gray,
-                RoundedCornerShape(12.dp)
+    Surface(
+        color = if (isSelected) color.copy(alpha = 0.2f) else Color.Transparent,
+        shape = RoundedCornerShape(16.dp),
+        border = androidx.compose.foundation.BorderStroke(
+            1.5.dp,
+            if (isSelected) color else Color.Gray.copy(alpha = 0.5f)
+        ),
+        modifier = Modifier.clickable { onClick() }
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp)
+        ) {
+            Text(
+                text = text,
+                color = if (isSelected) color else Color.Gray,
+                fontWeight = if (isSelected) FontWeight.ExtraBold else FontWeight.Medium,
+                letterSpacing = 0.5.sp,
+                fontSize = 14.sp
             )
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-            .clickable { onClick() }
-    )
+        }
+    }
 }
 
 

@@ -31,6 +31,7 @@ import com.funtime.sciai.components.AppScaffold
 import com.funtime.sciai.data.rag.RagService
 import com.funtime.sciai.data.Book
 import com.funtime.sciai.data.UserManager
+import com.funtime.sciai.data.network.*
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
@@ -41,12 +42,15 @@ fun LibraryScreen(navController: NavController, drawerState: androidx.compose.ma
     val userManager = remember { UserManager(context) }
     val userId = remember { userManager.getUserId() }
     var books by remember { mutableStateOf<List<Book>>(emptyList()) }
+    var savedArticles by remember { mutableStateOf<List<Article>>(emptyList()) }
     var isLoading by remember { mutableStateOf(true) }
+    var isArticlesLoading by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
     val snackbarHostState = remember { SnackbarHostState() }
 
     // Delete confirmation dialog state
     var bookToDelete by remember { mutableStateOf<Book?>(null) }
+    var articleToUnsave by remember { mutableStateOf<Article?>(null) }
     var isDeleting by remember { mutableStateOf(false) }
 
     val refreshBooks = {
@@ -97,8 +101,19 @@ fun LibraryScreen(navController: NavController, drawerState: androidx.compose.ma
         }
     }
 
+    val refreshArticles = {
+        isArticlesLoading = true
+        RagService.fetchSavedArticles(userId) { articles ->
+            isArticlesLoading = false
+            if (articles != null) {
+                savedArticles = articles
+            }
+        }
+    }
+
     LaunchedEffect(Unit) {
         refreshBooks()
+        refreshArticles()
     }
 
     // Delete Confirmation Dialog
@@ -157,6 +172,40 @@ fun LibraryScreen(navController: NavController, drawerState: androidx.compose.ma
                     enabled = !isDeleting
                 ) {
                     Text("Cancel", color = Color(0xFF38BDF8))
+                }
+            }
+        )
+    }
+    
+    // Article Removal Dialog
+    if (articleToUnsave != null) {
+        AlertDialog(
+            onDismissRequest = { articleToUnsave = null },
+            containerColor = Color(0xFF1E293B),
+            titleContentColor = Color.White,
+            textContentColor = Color(0xFF94A3B8),
+            title = { Text("Remove from Library?", fontWeight = FontWeight.Bold) },
+            text = { Text("This article will be permanently removed from your saved research collection.") },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        val art = articleToUnsave!!
+                        articleToUnsave = null
+                        RagService.unsaveArticle(userId, art.id) { success ->
+                            if (success) {
+                                scope.launch { snackbarHostState.showSnackbar("Removed from library") }
+                                refreshArticles()
+                            }
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEF4444))
+                ) {
+                    Text("Remove", color = Color.White)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { articleToUnsave = null }) {
+                    Text("Cancel", color = Color.Gray)
                 }
             }
         )
@@ -305,6 +354,60 @@ fun LibraryScreen(navController: NavController, drawerState: androidx.compose.ma
                                         )
                                     }
                                 }
+                            }
+                        }
+
+                        // ── 📄 Saved Research Section ──
+                        if (savedArticles.isNotEmpty()) {
+                            item {
+                                Spacer(modifier = Modifier.height(24.dp))
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        "Saved Research",
+                                        color = Color.White,
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Black
+                                    )
+                                    Spacer(modifier = Modifier.width(12.dp))
+                                    Surface(
+                                        color = Color(0xFF38BDF8).copy(alpha = 0.15f),
+                                        shape = RoundedCornerShape(8.dp)
+                                    ) {
+                                        Text(
+                                            "${savedArticles.size}",
+                                            color = Color(0xFF38BDF8),
+                                            fontSize = 12.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
+                                        )
+                                    }
+                                }
+                                Spacer(modifier = Modifier.height(16.dp))
+                            }
+
+                            items(savedArticles, key = { "saved_art_${it.id}" }) { article ->
+                                PremiumArticleCard(
+                                    article = article,
+                                    isSaved = true,
+                                    onSave = { articleToUnsave = article }
+                                ) {
+                                    ArticleState.selectedArticle = article
+                                    navController.navigate("article_detail")
+                                }
+                                Spacer(modifier = Modifier.height(12.dp))
+                            }
+                        } else if (!isArticlesLoading && books.isNotEmpty()) {
+                             item {
+                                Spacer(modifier = Modifier.height(32.dp))
+                                Text(
+                                    "No research papers saved yet. Search in 'Articles' to find more.", 
+                                    color = Color.Gray, 
+                                    fontSize = 12.sp,
+                                    modifier = Modifier.padding(bottom = 32.dp)
+                                )
                             }
                         }
                     }

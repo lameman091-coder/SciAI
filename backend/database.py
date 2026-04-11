@@ -54,6 +54,7 @@ class SavedArticle(Base):
     authors: Mapped[str] = mapped_column(String(255), default="Various Authors")
     journal: Mapped[str] = mapped_column(String(255), default="Nature / PubMed")
     date: Mapped[str] = mapped_column(String(50), default="Unknown Date")
+    tier: Mapped[str] = mapped_column(String(50), default="peer_reviewed")
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     
     owner = relationship("User", back_populates="saved_articles")

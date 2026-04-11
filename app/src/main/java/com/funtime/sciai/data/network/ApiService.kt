@@ -42,8 +42,17 @@ interface ApiService {
     @POST("save-article")
     fun saveArticle(@Body request: SaveArticleRequest): Call<Map<String, String>>
 
+    @POST("generate-questions")
+    fun generateQuestions(@Body request: GenerateQuestionsRequest): Call<GenerateQuestionsResponse>
+
     @GET("saved-articles")
     fun getSavedArticles(@Query("user_id") userId: String): Call<List<Article>>
+
+    @POST("evaluate-answer")
+    fun evaluateAnswer(@Body request: EvaluateAnswerRequest): Call<EvaluateAnswerResponse>
+
+    @DELETE("saved-articles/{user_id}/{article_id}")
+    fun unsaveArticle(@Path("user_id") userId: String, @Path("article_id") articleId: String): Call<Map<String, String>>
 
     @DELETE("books/{book_id}")
     fun deleteBook(@Path("book_id") bookId: String, @Query("user_id") userId: String): Call<Map<String, String>>
