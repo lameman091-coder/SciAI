@@ -2467,3 +2467,52 @@ WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
 2026-04-13 16:28:49 | INFO     | __main__:ask_question:96 - Question: michelis menten equation full derivation  | Hybrid: True | Book: ff965c17-6661-4383-a813-2a22acdeef1c
 2026-04-13 16:28:49 | INFO     | faiss_store:search:202 - FAISS Search: query='michelis menten equation full ...', search_k=19803, ntotal=19803
 2026-04-13 16:28:49 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=ff965c17-6661-4383-a813-2a22acdeef1c: 8500
+2026-04-13 16:44:46 | INFO     | __main__:startup_event:37 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-13 16:45:56 | INFO     | __main__:ask_question:96 - Question: CELL | Hybrid: True | Book: None
+2026-04-13 16:45:56 | INFO     | faiss_store:load:73 - FAISS: Loaded 19803 vectors of type IndexIDMap2.
+2026-04-13 16:45:56 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-13 16:46:02 | INFO     | faiss_store:search:202 - FAISS Search: query='CELL...', search_k=25, ntotal=19803
+2026-04-13 16:46:02 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-13 16:46:02 | INFO     | live_articles:search_articles:244 - Article Search: 'CELL' | Page: 1
+2026-04-13 16:46:03 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'CELL'
+2026-04-13 16:46:03 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'CELL'
+2026-04-13 16:46:03 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'CELL'
+2026-04-13 16:46:03 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'CELL' (retmax=10)
+2026-04-13 16:46:05 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 8942755)
+2026-04-13 16:46:06 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-13 16:46:06 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 8942755)
+2026-04-13 16:46:06 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52370)
+2026-04-13 16:46:06 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-13 16:46:39 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['cancer immunotherapy', 'dark matter detection', 'neuroscience consciousness']
+2026-04-13 16:46:39 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-13 16:46:39 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cancer immunotherapy' (retmax=10)
+2026-04-13 16:46:39 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'dark matter detection' (retmax=10)
+2026-04-13 16:46:39 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'neuroscience consciousness' (retmax=10)
+2026-04-13 16:46:40 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 1041)
+2026-04-13 16:46:40 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 6709)
+2026-04-13 16:46:41 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 224986)
+2026-04-13 16:46:41 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-13 16:46:41 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-13 16:46:43 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-13 16:46:44 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-13 16:46:44 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-13 16:46:44 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-13 16:55:40 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['quantum computing', 'CRISPR gene editing', 'stem cell therapy']
+2026-04-13 16:55:40 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-13 16:55:40 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'quantum computing' (retmax=10)
+2026-04-13 16:55:41 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 51227)
+2026-04-13 16:55:42 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-13 16:55:42 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-13 16:56:57 | INFO     | __main__:ask_question:96 - Question: cell cycle  | Hybrid: True | Book: None
+2026-04-13 16:56:57 | INFO     | faiss_store:search:202 - FAISS Search: query='cell cycle ...', search_k=25, ntotal=19803
+2026-04-13 16:56:57 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 16
+2026-04-13 16:56:57 | INFO     | live_articles:search_articles:244 - Article Search: 'cell cycle ' | Page: 1
+2026-04-13 16:56:57 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell cycle '
+2026-04-13 16:56:57 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell cycle '
+2026-04-13 16:56:57 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell cycle '
+2026-04-13 16:56:57 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell cycle ' (retmax=10)
+2026-04-13 16:56:59 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 601595)
+2026-04-13 16:57:01 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-13 16:57:01 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 601595)
+2026-04-13 16:57:01 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 95661)
+2026-04-13 16:57:01 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
