@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
  * 9 states total — covering the full emotional spectrum of a tiny digital companion.
  */
 enum class EmotionState {
-    HAPPY, IDLE, SAD, ANGRY, EXCITED, SLEEP, LOVE, SHY, CONFUSED, PLAYFUL_EVIL, JUGGLING
+    HAPPY, IDLE, SAD, ANGRY, EXCITED, SLEEP, LOVE, SHY, CONFUSED, PLAYFUL_EVIL, JUGGLING, CONCERNED
 }
 
 /**
@@ -30,7 +30,7 @@ data class EmotionVisuals(
 
 enum class ExpressionType {
     NEUTRAL, SMILE, SAD_FACE, ANGRY_FACE, EXCITED_FACE, SLEEPING,
-    LOVE_FACE, SHY_FACE, CONFUSED_FACE, EVIL_FACE, JUGGLING_FACE
+    LOVE_FACE, SHY_FACE, CONFUSED_FACE, EVIL_FACE, JUGGLING_FACE, CONCERNED_FACE
 }
 
 /**
@@ -195,6 +195,19 @@ object EmotionPalette {
             breathingScale = 0.10f,
             expression = ExpressionType.JUGGLING_FACE,
             kaomoji = "◎‿◎"
+        )
+
+        EmotionState.CONCERNED -> EmotionVisuals(
+            primaryColor = Color(0xFFF59E0B),       // Warm amber
+            secondaryColor = Color(0xFFD97706),     // Darker amber
+            accentColor = Color(0xFFFBBF24),        // Gold
+            tertiaryColor = Color(0xFFB45309),      // Deep amber
+            glowColor = Color(0xFFFDE68A),          // Soft amber glow
+            animationSpeed = 0.7f,                  // Slow, thoughtful
+            glowIntensity = 0.5f,
+            breathingScale = 0.03f,
+            expression = ExpressionType.CONCERNED_FACE,
+            kaomoji = "(._. )"
         )
     }
 }

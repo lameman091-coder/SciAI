@@ -51,6 +51,9 @@ interface ApiService {
     @POST("evaluate-answer")
     fun evaluateAnswer(@Body request: EvaluateAnswerRequest): Call<EvaluateAnswerResponse>
 
+    @POST("evaluate-answer-detailed")
+    fun evaluateAnswerDetailed(@Body request: EvaluateAnswerDetailedRequest): Call<EvaluateAnswerDetailedResponse>
+
     @DELETE("saved-articles/{user_id}/{article_id}")
     fun unsaveArticle(@Path("user_id") userId: String, @Path("article_id") articleId: String): Call<Map<String, String>>
 

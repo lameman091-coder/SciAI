@@ -128,11 +128,9 @@ class SoundEffectManager(private val context: Context) {
             EmotionState.ANGRY -> playEmotionSound(EmotionState.ANGRY, 0.8f)
             EmotionState.SLEEP -> playEmotionSound(EmotionState.SLEEP, 0.3f)
             EmotionState.EXCITED -> playEmotionSound(EmotionState.EXCITED, 0.9f)
-            EmotionState.CONFUSED -> {} // No specific sound for confused
-            EmotionState.IDLE -> {} // Don't play sound for idle
-            // ✅ Add these
             EmotionState.PLAYFUL_EVIL -> playEmotionSound(EmotionState.PLAYFUL_EVIL, volume = 0.7f)
             EmotionState.JUGGLING -> playEmotionSound(EmotionState.JUGGLING, volume = 0.6f)
+            else -> {} // No specific sound for other emotions like IDLE, CONFUSED, CONCERNED
         }
     }
 

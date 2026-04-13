@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -90,6 +91,19 @@ import kotlinx.coroutines.awaitAll
 import androidx.compose.material3.*
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInVertically
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.StrokeCap
 
 import androidx.compose.material3.DrawerState
 import androidx.compose.runtime.MutableState
@@ -141,6 +155,8 @@ fun HomeScreen(navController: NavController, drawerState: androidx.compose.mater
     val activity = context as Activity
     val coroutineScope = rememberCoroutineScope()
     val userManager = UserManager(context)
+    val intelligenceManager = remember { com.funtime.sciai.data.IntelligenceManager(context) }
+    val gamificationManager = remember { com.funtime.sciai.data.GamificationManager(context) }
     val sessionViewModel: SessionViewModel = viewModel()
     val sessionTime = sessionViewModel.sessionTime.value
 
@@ -149,6 +165,20 @@ fun HomeScreen(navController: NavController, drawerState: androidx.compose.mater
     var userName by remember { mutableStateOf<String?>(null) }
     var showDialog by remember { mutableStateOf(false) }
 
+    // Dashboard state
+    var dashboardLoaded by remember { mutableStateOf(false) }
+    var streak by remember { mutableStateOf(0) }
+    var streakEmoji by remember { mutableStateOf("🔥") }
+    var totalXP by remember { mutableStateOf(0) }
+    var todayXP by remember { mutableStateOf(0) }
+    var currentLevel by remember { mutableStateOf(1) }
+    var currentTitle by remember { mutableStateOf("Novice") }
+    var overallAccuracy by remember { mutableStateOf(0f) }
+    var weakTopics by remember { mutableStateOf<List<com.funtime.sciai.data.IntelligenceManager.WeakTopic>>(emptyList()) }
+    var suggestedAction by remember { mutableStateOf<com.funtime.sciai.data.IntelligenceManager.SuggestedAction?>(null) }
+    var dailyMissions by remember { mutableStateOf<List<com.funtime.sciai.data.GamificationManager.Mission>>(emptyList()) }
+    var latestAchievement by remember { mutableStateOf<com.funtime.sciai.data.GamificationManager.Achievement?>(null) }
+
     LaunchedEffect(Unit) {
         delay(100) // let UI render first
         withContext(Dispatchers.IO) {
@@ -156,11 +186,40 @@ fun HomeScreen(navController: NavController, drawerState: androidx.compose.mater
             val total = userManager.getTotal()
             val name = userManager.getName()
 
+            // Record daily activity & update gamification
+            gamificationManager.recordDailyActivity()
+
+            // Load dashboard data
+            val s = gamificationManager.getCurrentStreak()
+            val se = gamificationManager.getStreakEmoji()
+            val txp = gamificationManager.getTotalXP()
+            val dxp = gamificationManager.getTodayXP()
+            val lvl = gamificationManager.getLevel()
+            val ttl = gamificationManager.getTitle()
+            val acc = intelligenceManager.getOverallAccuracy()
+            val wt = intelligenceManager.getWeakTopics()
+            val sa = intelligenceManager.getSuggestedAction()
+            val dm = gamificationManager.getDailyMissions()
+            val la = gamificationManager.getLatestAchievement()
+
             withContext(Dispatchers.Main) {
                 historyList = history
                 totalCount = total
                 userName = name
                 showDialog = name == null
+
+                streak = s
+                streakEmoji = se
+                totalXP = txp
+                todayXP = dxp
+                currentLevel = lvl
+                currentTitle = ttl
+                overallAccuracy = acc
+                weakTopics = wt
+                suggestedAction = sa
+                dailyMissions = dm
+                latestAchievement = la
+                dashboardLoaded = true
             }
         }
     }
@@ -255,52 +314,337 @@ fun HomeScreen(navController: NavController, drawerState: androidx.compose.mater
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
                 .padding(16.dp)
         ) {
-            Text("Welcome, ${userName ?: "Student"}")
-            Spacer(modifier = Modifier.height(8.dp))
+            // ═══════════════════════════════════════════════════════
+            // 🔥 WELCOME + STREAK + QUICK STATS ROW
+            // ═══════════════════════════════════════════════════════
+            AnimatedVisibility(
+                visible = dashboardLoaded,
+                enter = fadeIn() + slideInVertically { -40 }
+            ) {
+                Column {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column {
+                            Text(
+                                "Welcome, ${userName ?: "Student"}",
+                                color = Color.White,
+                                fontSize = 22.sp,
+                                fontWeight = FontWeight.Black
+                            )
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text("Lv.$currentLevel", color = Color(0xFF38BDF8), fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                Text(" · ", color = Color.Gray, fontSize = 12.sp)
+                                Text(currentTitle, color = Color(0xFFFBBF24), fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                            }
+                        }
+                        // Streak badge
+                        Surface(
+                            color = if (streak > 0) Color(0xFFF59E0B).copy(alpha = 0.15f) else Color.White.copy(alpha = 0.05f),
+                            shape = RoundedCornerShape(12.dp),
+                            border = BorderStroke(1.dp, if (streak > 0) Color(0xFFF59E0B).copy(alpha = 0.4f) else Color.Gray.copy(alpha = 0.2f))
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(streakEmoji, fontSize = 18.sp)
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text("$streak", color = Color.White, fontWeight = FontWeight.Black, fontSize = 16.sp)
+                            }
+                        }
+                    }
 
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    // Quick stats row
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        QuickStatChip("⚡ ${todayXP} XP", Color(0xFF38BDF8), Modifier.weight(1f))
+                        QuickStatChip("🎯 ${overallAccuracy.toInt()}%", Color(0xFF22C55E), Modifier.weight(1f))
+                        QuickStatChip("⏱ ${formatSessionTime(sessionTime)}", Color(0xFFFBBF24), Modifier.weight(1f))
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // ═══════════════════════════════════════════════════════
+            // 🎯 AI SUGGESTED ACTION CARD
+            // ═══════════════════════════════════════════════════════
+            if (suggestedAction != null) {
+                AnimatedVisibility(
+                    visible = dashboardLoaded,
+                    enter = fadeIn() + slideInVertically { -20 }
+                ) {
+                    ElevatedCard(
+                        shape = RoundedCornerShape(16.dp),
+                        modifier = Modifier.fillMaxWidth().clickable {
+                            val action = suggestedAction!!
+                            when (action.actionType) {
+                                com.funtime.sciai.data.IntelligenceManager.ActionType.QUIZ -> {
+                                    val topic = action.targetTopic ?: query.ifBlank { "Biology" }
+                                    val encoded = Uri.encode(topic)
+                                    navController.navigate("answer/$encoded/Quiz?hybrid=true")
+                                }
+                                com.funtime.sciai.data.IntelligenceManager.ActionType.TEST -> {
+                                    val topic = action.targetTopic ?: query.ifBlank { "Biology" }
+                                    val encoded = Uri.encode(topic)
+                                    navController.navigate("answer/$encoded/Test?hybrid=true")
+                                }
+                                com.funtime.sciai.data.IntelligenceManager.ActionType.EXPERT -> {
+                                    val topic = action.targetTopic ?: query.ifBlank { "Biology" }
+                                    val encoded = Uri.encode(topic)
+                                    navController.navigate("answer/$encoded/Expert?hybrid=true")
+                                }
+                                com.funtime.sciai.data.IntelligenceManager.ActionType.ARTICLE -> {
+                                    navController.navigate("articles")
+                                }
+                                com.funtime.sciai.data.IntelligenceManager.ActionType.SEARCH -> { }
+                            }
+                        },
+                        colors = CardDefaults.elevatedCardColors(
+                            containerColor = Color(0xFF0F172A)
+                        ),
+                        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    "💡 SUGGESTED",
+                                    color = Color(0xFFFBBF24),
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.Black,
+                                    letterSpacing = 1.5.sp
+                                )
+                                Spacer(modifier = Modifier.height(4.dp))
+                                Text(
+                                    suggestedAction!!.title,
+                                    color = Color.White,
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Text(
+                                    suggestedAction!!.description,
+                                    color = Color(0xFF94A3B8),
+                                    fontSize = 13.sp
+                                )
+                            }
+                            Surface(
+                                color = Color(0xFF38BDF8).copy(alpha = 0.15f),
+                                shape = RoundedCornerShape(10.dp)
+                            ) {
+                                Text(
+                                    "GO →",
+                                    color = Color(0xFF38BDF8),
+                                    fontWeight = FontWeight.Black,
+                                    fontSize = 12.sp,
+                                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
+                                )
+                            }
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+            }
+
+            // ═══════════════════════════════════════════════════════
+            // ⚠️ WEAK TOPICS ALERT
+            // ═══════════════════════════════════════════════════════
+            if (weakTopics.isNotEmpty()) {
+                Text(
+                    "⚠️ WEAK TOPICS",
+                    color = Color(0xFFEF4444),
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Black,
+                    letterSpacing = 1.sp
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    items(weakTopics.size) { idx ->
+                        val wt = weakTopics[idx]
+                        Surface(
+                            color = Color(0xFFEF4444).copy(alpha = 0.1f),
+                            shape = RoundedCornerShape(10.dp),
+                            border = BorderStroke(1.dp, Color(0xFFEF4444).copy(alpha = 0.3f)),
+                            modifier = Modifier.clickable {
+                                val encoded = Uri.encode(wt.topic)
+                                navController.navigate("answer/$encoded/Quiz?hybrid=true")
+                            }
+                        ) {
+                            Column(modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)) {
+                                Text(
+                                    wt.topic.replaceFirstChar { it.uppercase() },
+                                    color = Color.White,
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    maxLines = 1
+                                )
+                                Text(
+                                    "${wt.accuracy.toInt()}% · ${wt.attempts} attempts",
+                                    color = Color(0xFFEF4444),
+                                    fontSize = 10.sp
+                                )
+                            }
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+
+            // ═══════════════════════════════════════════════════════
+            // 📊 PROGRESS CARD (replaces old simple progress card)
+            // ═══════════════════════════════════════════════════════
             ElevatedCard(
                 shape = RoundedCornerShape(16.dp),
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.elevatedCardColors(
                     containerColor = Color(0xFF0F172A)
                 ),
-                elevation = CardDefaults.elevatedCardElevation(
-                    defaultElevation = 6.dp
-                )
+                elevation = CardDefaults.elevatedCardElevation(defaultElevation = 6.dp)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text("🔥 Progress")
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = "⏱ ${formatSessionTime(sessionTime)}",
-                        color = Color(0xFFFFC107)
-                    )
-                    Text("Total: ${userManager.getTotal()}")
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = getBadge(userManager.getTotal()),
-                        color = Color(0xFFFFC107)
-                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("📊 PROGRESS", color = Color(0xFF38BDF8), fontWeight = FontWeight.Black, fontSize = 11.sp, letterSpacing = 1.sp)
+                        Text("${totalXP} XP Total", color = Color(0xFF94A3B8), fontSize = 11.sp)
+                    }
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    // XP Progress bar to next level
+                    val xpInLevel = totalXP % 100
+                    Column {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text("Level $currentLevel → ${currentLevel + 1}", color = Color.White.copy(alpha = 0.7f), fontSize = 12.sp)
+                            Text("$xpInLevel/100 XP", color = Color(0xFF38BDF8), fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                        }
+                        Spacer(modifier = Modifier.height(4.dp))
+                        LinearProgressIndicator(
+                            progress = (xpInLevel / 100f).coerceIn(0f, 1f),
+                            modifier = Modifier.fillMaxWidth().height(6.dp).clip(RoundedCornerShape(3.dp)),
+                            color = Color(0xFF38BDF8),
+                            trackColor = Color(0xFF38BDF8).copy(alpha = 0.15f)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    // Stats row
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        StatItem("Total Qs", "${intelligenceManager.getProgressData().totalQuestions}")
+                        StatItem("Accuracy", "${overallAccuracy.toInt()}%")
+                        StatItem("Sessions", "${intelligenceManager.getProgressData().studySessions}")
+                    }
                 }
             }
 
-            Button(
-                onClick = {
-                    userManager.resetTotal()
-                    totalCount = 0
-                    sessionViewModel.resetTime()
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp)
-            ) {
-                Text("Reset Progress")
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // ═══════════════════════════════════════════════════════
+            // 🎯 DAILY MISSIONS
+            // ═══════════════════════════════════════════════════════
+            if (dailyMissions.isNotEmpty()) {
+                ElevatedCard(
+                    shape = RoundedCornerShape(16.dp),
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.elevatedCardColors(containerColor = Color(0xFF0F172A)),
+                    elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp)
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text("🎯 DAILY MISSIONS", color = Color(0xFFA855F7), fontWeight = FontWeight.Black, fontSize = 11.sp, letterSpacing = 1.sp)
+                            Text(
+                                "${gamificationManager.getCompletedMissionCount()}/${dailyMissions.size}",
+                                color = if (gamificationManager.areAllMissionsCompleted()) Color(0xFF22C55E) else Color(0xFF94A3B8),
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        dailyMissions.forEach { mission ->
+                            Row(
+                                modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(mission.emoji, fontSize = 16.sp)
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Column(modifier = Modifier.weight(1f)) {
+                                    Text(mission.title, color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                                    Text(mission.description, color = Color(0xFF94A3B8), fontSize = 11.sp)
+                                }
+                                if (mission.isCompleted) {
+                                    Text("✅", fontSize = 14.sp)
+                                } else {
+                                    Text(
+                                        "${mission.currentProgress}/${mission.targetProgress}",
+                                        color = Color(0xFFA855F7),
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(12.dp))
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            // ═══════════════════════════════════════════════════════
+            // 🏆 LATEST ACHIEVEMENT
+            // ═══════════════════════════════════════════════════════
+            if (latestAchievement != null) {
+                Surface(
+                    color = Color(0xFFFBBF24).copy(alpha = 0.08f),
+                    shape = RoundedCornerShape(12.dp),
+                    border = BorderStroke(1.dp, Color(0xFFFBBF24).copy(alpha = 0.2f)),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Row(
+                        modifier = Modifier.padding(12.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(latestAchievement!!.emoji, fontSize = 24.sp)
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text("LATEST ACHIEVEMENT", color = Color(0xFFFBBF24), fontSize = 9.sp, fontWeight = FontWeight.Black, letterSpacing = 1.sp)
+                            Text(latestAchievement!!.title, color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+            }
 
+            // ═══════════════════════════════════════════════════════
+            // DOMAIN & MODE SELECTORS (existing feature — preserved)
+            // ═══════════════════════════════════════════════════════
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.fillMaxWidth()
@@ -322,7 +666,7 @@ fun HomeScreen(navController: NavController, drawerState: androidx.compose.mater
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -346,8 +690,11 @@ fun HomeScreen(navController: NavController, drawerState: androidx.compose.mater
                 }
             }
 
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.height(16.dp))
 
+            // ═══════════════════════════════════════════════════════
+            // IMAGE PREVIEWS (existing feature — preserved)
+            // ═══════════════════════════════════════════════════════
             if (imageUris.isNotEmpty()) {
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -391,6 +738,9 @@ fun HomeScreen(navController: NavController, drawerState: androidx.compose.mater
                 }
             }
 
+            // ═══════════════════════════════════════════════════════
+            // SEARCH BAR (existing feature — preserved)
+            // ═══════════════════════════════════════════════════════
             OutlinedTextField(
                 value = query,
                 onValueChange = { query = it },
@@ -434,6 +784,37 @@ fun HomeScreen(navController: NavController, drawerState: androidx.compose.mater
                 }
             )
         }
+    }
+}
+
+// ═══════════════════════════════════════════════════════
+// DASHBOARD HELPER COMPOSABLES
+// ═══════════════════════════════════════════════════════
+
+@Composable
+fun QuickStatChip(text: String, color: Color, modifier: Modifier = Modifier) {
+    Surface(
+        color = color.copy(alpha = 0.1f),
+        shape = RoundedCornerShape(10.dp),
+        border = BorderStroke(1.dp, color.copy(alpha = 0.2f)),
+        modifier = modifier
+    ) {
+        Text(
+            text = text,
+            color = color,
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+            textAlign = TextAlign.Center
+        )
+    }
+}
+
+@Composable
+fun StatItem(label: String, value: String) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(value, color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Black)
+        Text(label, color = Color(0xFF64748B), fontSize = 11.sp)
     }
 }
 
@@ -486,5 +867,3 @@ fun SelectableButton(
         }
     }
 }
-
-

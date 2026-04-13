@@ -21,7 +21,7 @@ data class SphereMessage(
 
 enum class MessageContext {
     IDLE, NAVIGATION, ENCOURAGEMENT, GREETING, PETTING, HELP, TIP, FAREWELL,
-    EMOTION_REACTION
+    EMOTION_REACTION, SMART_SUGGESTION, PERFORMANCE_FEEDBACK, STUDY_REMINDER
 }
 
 object MessageEngine {
@@ -78,6 +78,12 @@ object MessageEngine {
             "Huh? What was that? o_O",
             "I don't understand... o_O",
             "Something feels different? o_O"
+        ),
+        EmotionState.CONCERNED to listOf(
+            "Hmm, that topic needs work... (._. )",
+            "Don't worry, we'll fix this together (._. )",
+            "I believe in you, but let's practice more (._. )",
+            "That was tough... but you'll get better! (._. )"
         )
     )
 
@@ -121,6 +127,11 @@ object MessageEngine {
             "Hmm? o_O",
             "I'm not sure I follow o_O",
             "That's puzzling o_O"
+        ),
+        EmotionState.CONCERNED to listOf(
+            "That area needs attention (._. )",
+            "Let's work on improving this (._. )",
+            "A bit more practice will help (._. )"
         )
     )
 
@@ -149,6 +160,9 @@ object MessageEngine {
         ),
         EmotionState.CONFUSED to listOf(
             "Unexpected input o_O"
+        ),
+        EmotionState.CONCERNED to listOf(
+            "Accuracy below threshold (._. )"
         )
     )
 
@@ -199,6 +213,23 @@ object MessageEngine {
         MessageContext.FAREWELL to listOf(
             SphereMessage("Going so soon? I'll miss you! ;_;", MessageContext.FAREWELL, emotion = EmotionState.SAD),
             SphereMessage("See you later, scientist! 👋 ^_^", MessageContext.FAREWELL, emotion = EmotionState.HAPPY)
+        ),
+        MessageContext.SMART_SUGGESTION to listOf(
+            SphereMessage("I noticed a weak spot — want me to quiz you? 🎯", MessageContext.SMART_SUGGESTION, emotion = EmotionState.CONCERNED),
+            SphereMessage("Your accuracy is climbing! Try Expert mode? 🧠", MessageContext.SMART_SUGGESTION, emotion = EmotionState.EXCITED),
+            SphereMessage("Hey! I've got a study plan for you 📚", MessageContext.SMART_SUGGESTION, emotion = EmotionState.HAPPY),
+            SphereMessage("You've been improving! Ready for a challenge? 💪", MessageContext.SMART_SUGGESTION, emotion = EmotionState.EXCITED)
+        ),
+        MessageContext.PERFORMANCE_FEEDBACK to listOf(
+            SphereMessage("Great quiz! You're getting sharper 🔥", MessageContext.PERFORMANCE_FEEDBACK, emotion = EmotionState.HAPPY),
+            SphereMessage("Hmm, that was tough. Let's review together (._. )", MessageContext.PERFORMANCE_FEEDBACK, emotion = EmotionState.CONCERNED),
+            SphereMessage("PERFECT SCORE?! You're literally a genius ⭐", MessageContext.PERFORMANCE_FEEDBACK, emotion = EmotionState.EXCITED),
+            SphereMessage("Keep pushing! Every attempt makes you better 💪", MessageContext.PERFORMANCE_FEEDBACK, emotion = EmotionState.HAPPY)
+        ),
+        MessageContext.STUDY_REMINDER to listOf(
+            SphereMessage("Hey! You haven't studied today 📖", MessageContext.STUDY_REMINDER, emotion = EmotionState.CONCERNED),
+            SphereMessage("Your streak is at risk! Quick quiz? 🔥", MessageContext.STUDY_REMINDER, emotion = EmotionState.CONCERNED),
+            SphereMessage("Miss me? Let's learn something new! ✨", MessageContext.STUDY_REMINDER, emotion = EmotionState.SHY)
         )
     )
 
@@ -239,6 +270,20 @@ object MessageEngine {
         MessageContext.FAREWELL to listOf(
             SphereMessage("Take care! See you soon ✨", MessageContext.FAREWELL, emotion = EmotionState.HAPPY),
             SphereMessage("Rest well 🌙", MessageContext.FAREWELL, emotion = EmotionState.SLEEP)
+        ),
+        MessageContext.SMART_SUGGESTION to listOf(
+            SphereMessage("I noticed an area to improve — shall we practice? 🌱", MessageContext.SMART_SUGGESTION, emotion = EmotionState.CONCERNED),
+            SphereMessage("You're progressing well. Ready for the next level? ✨", MessageContext.SMART_SUGGESTION, emotion = EmotionState.HAPPY),
+            SphereMessage("A gentle suggestion: review your weak topics 📚", MessageContext.SMART_SUGGESTION, emotion = EmotionState.IDLE)
+        ),
+        MessageContext.PERFORMANCE_FEEDBACK to listOf(
+            SphereMessage("Well done on that quiz ✨", MessageContext.PERFORMANCE_FEEDBACK, emotion = EmotionState.HAPPY),
+            SphereMessage("That was challenging — reviewing will help (._. )", MessageContext.PERFORMANCE_FEEDBACK, emotion = EmotionState.CONCERNED),
+            SphereMessage("Great effort — consistency is key 🌱", MessageContext.PERFORMANCE_FEEDBACK, emotion = EmotionState.HAPPY)
+        ),
+        MessageContext.STUDY_REMINDER to listOf(
+            SphereMessage("It's been a while — shall we study? 📚", MessageContext.STUDY_REMINDER, emotion = EmotionState.IDLE),
+            SphereMessage("A short session today will keep your streak ✨", MessageContext.STUDY_REMINDER, emotion = EmotionState.HAPPY)
         )
     )
 
@@ -291,9 +336,12 @@ object MessageEngine {
         return message.copy(
             priority = when (context) {
                 MessageContext.HELP -> 3
+                MessageContext.SMART_SUGGESTION -> 3
+                MessageContext.PERFORMANCE_FEEDBACK -> 3
                 MessageContext.GREETING -> 2
                 MessageContext.PETTING -> 2
                 MessageContext.EMOTION_REACTION -> 2
+                MessageContext.STUDY_REMINDER -> 2
                 MessageContext.ENCOURAGEMENT -> 1
                 MessageContext.TIP -> 1
                 else -> 0
@@ -375,5 +423,64 @@ object MessageEngine {
         return tip
     }
 
+    /**
+     * Get a performance-specific message based on quiz/test accuracy.
+     * Called by AISphereViewModel after quiz completion.
+     */
+    fun getPerformanceMessage(
+        accuracy: Float,
+        personality: PersonalityMode
+    ): SphereMessage? {
+        if (personality == PersonalityMode.SILENT) return null
+
+        val context = MessageContext.PERFORMANCE_FEEDBACK
+        val pool = when (personality) {
+            PersonalityMode.PLAYFUL -> playfulMessages
+            PersonalityMode.CALM -> calmMessages
+            PersonalityMode.STUDY -> studyMessages
+            PersonalityMode.SILENT -> return null
+        }
+
+        val messages = pool[context] ?: return null
+        if (messages.isEmpty()) return null
+
+        // Select message based on accuracy range
+        val index = when {
+            accuracy >= 90f -> messages.indexOfFirst { it.text.contains("PERFECT") || it.text.contains("genius") || it.text.contains("Well done") }.coerceAtLeast(0)
+            accuracy >= 70f -> messages.indexOfFirst { it.text.contains("Great") || it.text.contains("sharp") }.coerceAtLeast(0)
+            else -> messages.indexOfFirst { it.text.contains("tough") || it.text.contains("challenging") || it.text.contains("effort") }.coerceAtLeast(0)
+        }
+
+        return messages[index.coerceIn(0, messages.lastIndex)]
+    }
+
+    /**
+     * Get a smart suggestion message based on IntelligenceManager data.
+     */
+    fun getSmartSuggestionMessage(
+        personality: PersonalityMode,
+        hasWeakTopics: Boolean,
+        overallAccuracy: Float
+    ): SphereMessage? {
+        if (personality == PersonalityMode.SILENT) return null
+
+        val pool = when (personality) {
+            PersonalityMode.PLAYFUL -> playfulMessages
+            PersonalityMode.CALM -> calmMessages
+            PersonalityMode.STUDY -> studyMessages
+            PersonalityMode.SILENT -> return null
+        }
+
+        val messages = pool[MessageContext.SMART_SUGGESTION] ?: return null
+        if (messages.isEmpty()) return null
+
+        val index = when {
+            hasWeakTopics -> 0 // First message is about weak spots
+            overallAccuracy >= 75f -> 1 // "Ready for next level"
+            else -> messages.size - 1 // Generic suggestion
+        }
+
+        return messages[index.coerceIn(0, messages.lastIndex)]
+    }
 
 }

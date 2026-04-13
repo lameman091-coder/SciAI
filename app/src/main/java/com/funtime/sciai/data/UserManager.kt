@@ -2,7 +2,7 @@ package com.funtime.sciai.data
 
 import android.content.Context
 
-class UserManager(context: Context) {
+class UserManager(private val context: Context) {
 
     private val prefs = context.getSharedPreferences("sciai_prefs", Context.MODE_PRIVATE)
 
@@ -69,5 +69,24 @@ class UserManager(context: Context) {
             10 -> "GOAT"
             else -> "Scholar"
         }
+    }
+
+    // ── Intelligence & Gamification Accessors ──
+
+    private var _intelligenceManager: IntelligenceManager? = null
+    private var _gamificationManager: GamificationManager? = null
+
+    fun getIntelligenceManager(): IntelligenceManager {
+        if (_intelligenceManager == null) {
+            _intelligenceManager = IntelligenceManager(context)
+        }
+        return _intelligenceManager!!
+    }
+
+    fun getGamificationManager(): GamificationManager {
+        if (_gamificationManager == null) {
+            _gamificationManager = GamificationManager(context)
+        }
+        return _gamificationManager!!
     }
 }

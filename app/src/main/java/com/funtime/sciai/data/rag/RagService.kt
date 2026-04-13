@@ -229,6 +229,23 @@ object RagService {
         })
     }
 
+    fun evaluateAnswerDetailed(
+        question: String,
+        userAnswer: String,
+        correctAnswer: String,
+        callback: (EvaluateAnswerDetailedResponse?) -> Unit
+    ) {
+        val request = EvaluateAnswerDetailedRequest(question, userAnswer, correctAnswer)
+        NetworkClient.apiService.evaluateAnswerDetailed(request).enqueue(object : Callback<EvaluateAnswerDetailedResponse> {
+            override fun onResponse(call: Call<EvaluateAnswerDetailedResponse>, response: Response<EvaluateAnswerDetailedResponse>) {
+                callback(if (response.isSuccessful) response.body() else null)
+            }
+            override fun onFailure(call: Call<EvaluateAnswerDetailedResponse>, t: Throwable) {
+                callback(null)
+            }
+        })
+    }
+
     fun unsaveArticle(userId: String, articleId: String, callback: (Boolean) -> Unit) {
         NetworkClient.apiService.unsaveArticle(userId, articleId).enqueue(object : Callback<Map<String, String>> {
             override fun onResponse(call: Call<Map<String, String>>, response: Response<Map<String, String>>) {
