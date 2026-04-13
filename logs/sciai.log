@@ -2403,3 +2403,43 @@ WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
 2026-04-11 16:07:57 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 15965)
 2026-04-11 16:07:59 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
 2026-04-11 16:07:59 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-11 16:17:38 | INFO     | __main__:startup_event:37 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-11 16:21:37 | INFO     | __main__:ask_question:96 - Question: about this pdf  | Hybrid: True | Book: ff965c17-6661-4383-a813-2a22acdeef1c
+2026-04-11 16:21:38 | INFO     | faiss_store:load:73 - FAISS: Loaded 11303 vectors of type IndexIDMap2.
+2026-04-11 16:21:38 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-11 16:21:55 | INFO     | faiss_store:search:202 - FAISS Search: query='about this pdf ...', search_k=11303, ntotal=11303
+2026-04-11 16:21:55 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=ff965c17-6661-4383-a813-2a22acdeef1c: 0
+2026-04-11 16:23:29 | INFO     | __main__:ask_question:96 - Question: what is this book about?? | Hybrid: True | Book: ff965c17-6661-4383-a813-2a22acdeef1c
+2026-04-11 16:23:32 | INFO     | faiss_store:search:202 - FAISS Search: query='what is this book about??...', search_k=11303, ntotal=11303
+2026-04-11 16:23:32 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=ff965c17-6661-4383-a813-2a22acdeef1c: 0
+2026-04-11 16:23:34 | INFO     | __main__:ask_question:96 - Question: what is this book about?? | Hybrid: True | Book: ff965c17-6661-4383-a813-2a22acdeef1c
+2026-04-11 16:24:00 | INFO     | pdf_processor:process_pdf:33 - PDF Extraction: Extracted 4224189 characters from temp/ff965c17-6661-4383-a813-2a22acdeef1c_Lehninger Principles of Biochemistry ( PDFDrive ).pdf
+2026-04-11 16:24:00 | INFO     | pdf_processor:process_pdf:58 - PDF: Processed 8501 chunks from temp/ff965c17-6661-4383-a813-2a22acdeef1c_Lehninger Principles of Biochemistry ( PDFDrive ).pdf
+2026-04-11 16:26:31 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['protein folding', 'dark matter detection', 'quantum computing']
+2026-04-11 16:26:33 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-11 16:26:33 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'dark matter detection' (retmax=10)
+2026-04-11 16:26:34 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 1038)
+2026-04-11 16:26:36 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 16:26:36 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-11 16:26:54 | INFO     | __main__:save_article:256 - DB: Saving article eeceed92642262e637fde992ffc93b7e for user dc074a61-c488-4fca-afff-eaa39ed429a0
+2026-04-11 16:26:54 | INFO     | __main__:save_article:268 - DB: Successfully saved article eeceed92642262e637fde992ffc93b7e
+2026-04-11 16:29:00 | INFO     | __main__:ask_question:96 - Question: CELL CYCLE | Hybrid: True | Book: None
+2026-04-11 16:29:00 | INFO     | faiss_store:search:202 - FAISS Search: query='CELL CYCLE...', search_k=25, ntotal=11303
+2026-04-11 16:29:00 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-11 16:29:00 | INFO     | live_articles:search_articles:244 - Article Search: 'CELL CYCLE' | Page: 1
+2026-04-11 16:29:00 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'CELL CYCLE'
+2026-04-11 16:29:00 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'CELL CYCLE'
+2026-04-11 16:29:00 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'CELL CYCLE'
+2026-04-11 16:29:00 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'CELL CYCLE' (retmax=10)
+2026-04-11 16:29:02 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 601551)
+2026-04-11 16:29:05 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-11 16:29:05 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 601551)
+2026-04-11 16:29:05 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 95631)
+2026-04-11 16:29:05 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-11 16:31:55 | INFO     | __main__:ask_question:96 - Question: ABOUT THE SUMMARY OF THIS PDF | Hybrid: True | Book: edb4c32b-0f48-4640-81db-ab7deb671fb8
+2026-04-11 16:31:55 | INFO     | faiss_store:search:202 - FAISS Search: query='ABOUT THE SUMMARY OF THIS PDF...', search_k=11303, ntotal=11303
+2026-04-11 16:31:56 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=edb4c32b-0f48-4640-81db-ab7deb671fb8: 405
+2026-04-11 16:32:08 | INFO     | __main__:ask_question:96 - Question: ABOUT THE SUMMARY OF THIS PDF | Hybrid: True | Book: edb4c32b-0f48-4640-81db-ab7deb671fb8
+2026-04-11 16:41:12 | INFO     | faiss_store:save:60 - FAISS: Saved 19803 vectors.
+2026-04-11 16:41:12 | INFO     | __main__:process_pdf_background:185 - Book Indexing: Updated preview for ff965c17-6661-4383-a813-2a22acdeef1c with 8500 chunks.
+2026-04-11 16:41:12 | INFO     | __main__:process_pdf_background:191 - Background: Completed ff965c17-6661-4383-a813-2a22acdeef1c processing.
