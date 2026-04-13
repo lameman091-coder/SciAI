@@ -4,16 +4,21 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Assignment
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.Public
+import androidx.compose.material.icons.filled.Tag
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -39,6 +44,13 @@ fun ArticleDetailScreen(
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
+    
+    // Smart Articles States 
+    var isGeneratingKeyPoints by remember { mutableStateOf(false) }
+    var keyPoints by remember { mutableStateOf<List<String>>(emptyList()) }
+    
+    var isGeneratingTopics by remember { mutableStateOf(false) }
+    var relatedTopics by remember { mutableStateOf<List<String>>(emptyList()) }
     
     // ── Data & Logic ──
     val article = ArticleState.selectedArticle
@@ -141,6 +153,140 @@ fun ArticleDetailScreen(
                 }
                 
                 Spacer(modifier = Modifier.height(24.dp))
+                HorizontalDivider(color = Color.Gray.copy(alpha = 0.3f))
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // ── 🔥 SMART ARTICLES (Phase 3) ──
+                Text("🧠 Smart Actions", color = CyanAccent, fontWeight = FontWeight.Black, fontSize = 14.sp, letterSpacing = 1.sp)
+                Spacer(modifier = Modifier.height(12.dp))
+                LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    item {
+                        OutlinedCard(
+                            modifier = Modifier.clickable { 
+                                val encoded = Uri.encode(title)
+                                navController.navigate("answer/$encoded/Exam?hybrid=true")
+                            },
+                            colors = CardDefaults.outlinedCardColors(containerColor = CyanAccent.copy(alpha = 0.15f)),
+                            border = BorderStroke(1.dp, CyanAccent)
+                        ) {
+                            Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+                                Icon(Icons.Default.Assignment, contentDescription = null, tint = CyanAccent, modifier = Modifier.size(18.dp))
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text("Exam Mode", color = CyanAccent, fontWeight = FontWeight.Bold)
+                            }
+                        }
+                    }
+                    item {
+                        OutlinedCard(
+                            modifier = Modifier.clickable { 
+                                if (keyPoints.isEmpty()) {
+                                    isGeneratingKeyPoints = true
+                                    val prompt = "Extract 4 brief key bullet points for the article titled '$title'."
+                                    RagService.ask(prompt, "Concept", "Science", null, false, userId) { res ->
+                                        if (res != null && res.answer.isNotBlank()) {
+                                            keyPoints = res.answer.split("\n").filter { it.isNotBlank() }
+                                        } else {
+                                            scope.launch { snackbarHostState.showSnackbar("Failed to generate key points") }
+                                        }
+                                        isGeneratingKeyPoints = false
+                                    }
+                                }
+                            },
+                            colors = CardDefaults.outlinedCardColors(containerColor = Color(0xFFF59E0B).copy(alpha = 0.15f)),
+                            border = BorderStroke(1.dp, Color(0xFFF59E0B))
+                        ) {
+                            Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+                                if (isGeneratingKeyPoints) CircularProgressIndicator(color = Color(0xFFF59E0B), modifier = Modifier.size(18.dp), strokeWidth = 2.dp)
+                                else Icon(Icons.Default.Lightbulb, contentDescription = null, tint = Color(0xFFF59E0B), modifier = Modifier.size(18.dp))
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text("Key Points", color = Color(0xFFF59E0B), fontWeight = FontWeight.Bold)
+                            }
+                        }
+                    }
+                    item {
+                        OutlinedCard(
+                            modifier = Modifier.clickable { 
+                                if (relatedTopics.isEmpty()) {
+                                    isGeneratingTopics = true
+                                    val prompt = "List 3 related scientific topics to '$title'. Output ONLY comma separated list."
+                                    RagService.ask(prompt, "Concept", "Science", null, false, userId) { res ->
+                                        if (res != null && res.answer.isNotBlank()) {
+                                            relatedTopics = res.answer.split(",").map{ it.trim() }.filter { it.isNotBlank() }
+                                        } else {
+                                            scope.launch { snackbarHostState.showSnackbar("Failed to generate topics") }
+                                        }
+                                        isGeneratingTopics = false
+                                    }
+                                }
+                            },
+                            colors = CardDefaults.outlinedCardColors(containerColor = Color(0xFFA855F7).copy(alpha = 0.15f)),
+                            border = BorderStroke(1.dp, Color(0xFFA855F7))
+                        ) {
+                            Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+                                if (isGeneratingTopics) CircularProgressIndicator(color = Color(0xFFA855F7), modifier = Modifier.size(18.dp), strokeWidth = 2.dp)
+                                else Icon(Icons.Default.Tag, contentDescription = null, tint = Color(0xFFA855F7), modifier = Modifier.size(18.dp))
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text("Related Topics", color = Color(0xFFA855F7), fontWeight = FontWeight.Bold)
+                            }
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Display outputs if generated
+                if (keyPoints.isNotEmpty()) {
+                    Surface(
+                        color = Color(0xFF0F172A),
+                        shape = RoundedCornerShape(12.dp),
+                        border = BorderStroke(1.dp, Color.White.copy(alpha = 0.1f)),
+                        modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
+                    ) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(Icons.Default.Lightbulb, contentDescription = null, tint = Color(0xFFF59E0B), modifier = Modifier.size(16.dp))
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text("Key Points", color = Color.White, fontWeight = FontWeight.Bold)
+                            }
+                            Spacer(modifier = Modifier.height(8.dp))
+                            keyPoints.forEach { pt ->
+                                val cleanPt = pt.trim().removePrefix("-").removePrefix("*").trim()
+                                if (cleanPt.isNotEmpty()) {
+                                    Row(modifier = Modifier.padding(vertical = 4.dp)) {
+                                        Text("•", color = Color(0xFFF59E0B), fontWeight = FontWeight.Bold)
+                                        Spacer(modifier = Modifier.width(8.dp))
+                                        Text(cleanPt, color = Color(0xFFCBD5E1), fontSize = 14.sp, lineHeight = 20.sp)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (relatedTopics.isNotEmpty()) {
+                    Text("Related Topics", color = Color.White, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 8.dp))
+                    @OptIn(ExperimentalLayoutApi::class)
+                    FlowRow(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.padding(bottom = 16.dp)
+                    ) {
+                        relatedTopics.forEach { topic ->
+                            val cleanTopic = topic.trim().removePrefix("-").removePrefix("*").trim()
+                            Surface(
+                                shape = RoundedCornerShape(16.dp),
+                                color = Color(0xFFA855F7).copy(alpha = 0.2f),
+                                border = BorderStroke(1.dp, Color(0xFFA855F7).copy(alpha = 0.5f)),
+                                modifier = Modifier.clickable {
+                                    val encoded = Uri.encode(cleanTopic)
+                                    navController.navigate("answer/$encoded/Concept?hybrid=true")
+                                }
+                            ) {
+                                Text(cleanTopic, color = Color(0xFFA855F7), fontSize = 13.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp))
+                            }
+                        }
+                    }
+                }
+
                 HorizontalDivider(color = Color.Gray.copy(alpha = 0.3f))
                 Spacer(modifier = Modifier.height(24.dp))
                 }
