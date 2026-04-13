@@ -141,6 +141,75 @@ object BehaviorEngine {
         val decayMinutes = (timeSinceLastInteraction - decayStartMs) / 60000f
         return (decayMinutes * 0.001f).coerceAtMost(0.01f)
     }
+
+    // ── Performance-Based Intelligence ──────────────────────────────
+
+    /**
+     * Evaluate emotional response to quiz/test performance.
+     * Called by AISphereViewModel after quiz completion.
+     *
+     * @param accuracy Quiz accuracy percentage (0-100)
+     * @param streakActive Whether the daily streak is currently active
+     * @param affectionLevel Current affection level
+     * @return Appropriate emotion state based on performance
+     */
+    fun evaluatePerformanceEmotion(
+        accuracy: Float,
+        streakActive: Boolean = true,
+        affectionLevel: Float = 0f
+    ): EmotionState = when {
+        accuracy >= 95f -> EmotionState.EXCITED     // Near-perfect → ECSTATIC
+        accuracy >= 80f -> EmotionState.HAPPY       // Good → HAPPY
+        accuracy >= 60f -> if (affectionLevel > 0.5f) EmotionState.HAPPY else EmotionState.IDLE // OK
+        accuracy >= 40f -> EmotionState.CONCERNED   // Below average → CONCERNED
+        accuracy < 40f -> EmotionState.SAD           // Very low → SAD
+        !streakActive -> EmotionState.SAD            // Streak broken → SAD
+        else -> EmotionState.IDLE
+    }
+
+    /**
+     * Check if the AI should trigger a study reminder.
+     * Returns the appropriate message context or null.
+     *
+     * @param hoursSinceLastStudy Hours since the user last studied
+     * @param streakActive Whether the streak is active
+     * @param timeSinceLastMessage Time since last AI message
+     */
+    fun evaluateStudyReminder(
+        hoursSinceLastStudy: Long,
+        streakActive: Boolean,
+        timeSinceLastMessage: Long,
+        isMuted: Boolean
+    ): MessageContext? {
+        if (isMuted) return null
+        if (timeSinceLastMessage < MESSAGE_COOLDOWN_MS * 2) return null // Extra cooldown for reminders
+
+        return when {
+            // User hasn't studied in over 24 hours → urgent reminder
+            hoursSinceLastStudy > 24 && !streakActive -> MessageContext.STUDY_REMINDER
+            // User hasn't studied today but streak is still recoverable
+            hoursSinceLastStudy > 12 && streakActive -> MessageContext.STUDY_REMINDER
+            else -> null
+        }
+    }
+
+    /**
+     * Determine if a smart suggestion should be shown based on intelligence data.
+     * Called periodically from the behavior loop.
+     */
+    fun shouldShowSmartSuggestion(
+        timeSinceLastMessage: Long,
+        hasWeakTopics: Boolean,
+        overallAccuracy: Float,
+        totalQuestions: Int,
+        isMuted: Boolean
+    ): Boolean {
+        if (isMuted) return false
+        if (timeSinceLastMessage < MESSAGE_COOLDOWN_MS * 3) return false // Extra cooldown
+        if (totalQuestions < 5) return false // Need enough data
+
+        return hasWeakTopics || overallAccuracy < 70f
+    }
 }
 
 /**

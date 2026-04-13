@@ -25,6 +25,10 @@ class AISphereViewModel(application: Application) : AndroidViewModel(application
     private val prefs = AISpherePreferences(application)
     val soundManager = SoundEffectManager(application)
 
+    // ── Intelligence & Gamification ──────────────────────────────────
+    private val intelligenceManager = com.funtime.sciai.data.IntelligenceManager(application)
+    private val gamificationManager = com.funtime.sciai.data.GamificationManager(application)
+
     // ── State flows ─────────────────────────────────────────────────
 
     private val _emotionState = MutableStateFlow(EmotionState.IDLE)
@@ -196,6 +200,47 @@ class AISphereViewModel(application: Application) : AndroidViewModel(application
                 if (messageContext != null) {
                     showMessage(messageContext)
                     if (isFirstVisit) visitedScreens.add(currentScreen)
+                }
+
+                // ── Study reminder check (every loop tick) ──────
+                val hoursSinceStudy = intelligenceManager.getHoursSinceLastStudy()
+                if (hoursSinceStudy > 0) {
+                    val reminderContext = BehaviorEngine.evaluateStudyReminder(
+                        hoursSinceLastStudy = hoursSinceStudy,
+                        streakActive = gamificationManager.isStreakActive(),
+                        timeSinceLastMessage = timeSinceMessage,
+                        isMuted = _isMuted.value
+                    )
+                    if (reminderContext != null) {
+                        showMessage(reminderContext)
+                    }
+                }
+
+                // ── Smart suggestion check ──────────────────────
+                val progressData = intelligenceManager.getProgressData()
+                if (BehaviorEngine.shouldShowSmartSuggestion(
+                        timeSinceLastMessage = timeSinceMessage,
+                        hasWeakTopics = intelligenceManager.getWeakTopics().isNotEmpty(),
+                        overallAccuracy = progressData.overallAccuracy,
+                        totalQuestions = progressData.totalQuestions,
+                        isMuted = _isMuted.value
+                    )
+                ) {
+                    val suggestion = MessageEngine.getSmartSuggestionMessage(
+                        personality = _personalityMode.value,
+                        hasWeakTopics = intelligenceManager.getWeakTopics().isNotEmpty(),
+                        overallAccuracy = progressData.overallAccuracy
+                    )
+                    if (suggestion != null) {
+                        _currentMessage.value = suggestion
+                        suggestion.emotion?.let {
+                            overrideEmotion = it
+                            overrideEmotionTime = System.currentTimeMillis()
+                            _emotionState.value = it
+                        }
+                        lastMessageTime = System.currentTimeMillis()
+                        autoCloseMessage()
+                    }
                 }
             }
         }
@@ -515,5 +560,68 @@ class AISphereViewModel(application: Application) : AndroidViewModel(application
     fun completeSetup() {
         _hasCompletedSetup.value = true
         prefs.hasCompletedSetup = true
+    }
+
+    // ── Cognitive Assistant: Performance Events ──────────────────────
+
+    /**
+     * Called after a quiz is completed. Triggers emotional response
+     * and contextual performance feedback message.
+     *
+     * @param accuracy Percentage accuracy (0-100)
+     */
+    fun onQuizCompleted(accuracy: Float) {
+        viewModelScope.launch {
+            // Evaluate emotional response based on performance
+            val performanceEmotion = BehaviorEngine.evaluatePerformanceEmotion(
+                accuracy = accuracy,
+                streakActive = gamificationManager.isStreakActive(),
+                affectionLevel = _affectionLevel.value
+            )
+
+            // Set emotion
+            overrideEmotion = performanceEmotion
+            overrideEmotionTime = System.currentTimeMillis()
+            _emotionState.value = performanceEmotion
+            soundManager.onEmotionChanged(performanceEmotion)
+
+            // Show performance feedback message
+            if (!_isMuted.value) {
+                val message = MessageEngine.getPerformanceMessage(
+                    accuracy = accuracy,
+                    personality = _personalityMode.value
+                )
+                if (message != null) {
+                    _currentMessage.value = message
+                    message.emotion?.let {
+                        overrideEmotion = it
+                        overrideEmotionTime = System.currentTimeMillis()
+                        _emotionState.value = it
+                    }
+                    lastMessageTime = System.currentTimeMillis()
+                    autoCloseMessage()
+                }
+            }
+        }
+    }
+
+    /**
+     * Called after a theory test is submitted.
+     * Triggers emotional response based on the evaluation score.
+     *
+     * @param score The evaluation score (0-100)
+     */
+    fun onTestSubmitted(score: Float) {
+        onQuizCompleted(score) // Same logic, different source
+    }
+
+    /**
+     * Force a study reminder check. Can be called from HomeScreen.
+     */
+    fun checkStudyReminder() {
+        val hoursSinceStudy = intelligenceManager.getHoursSinceLastStudy()
+        if (hoursSinceStudy > 12 && !_isMuted.value) {
+            showMessage(MessageContext.STUDY_REMINDER)
+        }
     }
 }

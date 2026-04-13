@@ -285,6 +285,25 @@ async def evaluate_answer(request: EvaluateAnswerRequest):
         log.error(f"LLM: Evaluation endpoint failed: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+class EvaluateAnswerDetailedRequest(BaseModel):
+    question: str
+    user_answer: str
+    correct_answer: str
+
+@app.post("/evaluate-answer-detailed")
+async def evaluate_answer_detailed(request: EvaluateAnswerDetailedRequest):
+    try:
+        result = await llm_engine.evaluate_theory_answer_detailed(
+            request.question,
+            request.user_answer,
+            request.correct_answer
+        )
+        data = json.loads(result)
+        return data
+    except Exception as e:
+        log.error(f"LLM: Detailed evaluation endpoint failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 @app.get("/saved-articles")
 async def get_saved_articles(user_id: str, db: AsyncSession = Depends(get_db)):
     res = await db.execute(select(SavedArticle).where(SavedArticle.user_id == user_id).order_by(SavedArticle.created_at.desc()))

@@ -449,7 +449,26 @@ private fun DrawScope.drawExpression(
         ExpressionType.CONFUSED_FACE -> drawConfusedFace(center, eyeSpacing, eyeY, mouthY, eyeRadius, blinkValue, color, radius)
         ExpressionType.EVIL_FACE -> drawEvilFace(center, eyeSpacing, eyeY, mouthY, eyeRadius, blinkValue, color, radius, alpha)
         ExpressionType.JUGGLING_FACE -> drawJugglingFace(center, eyeSpacing, eyeY, mouthY, eyeRadius, blinkValue, color, radius, alpha)
+        ExpressionType.CONCERNED_FACE -> drawConcernedFace(center, eyeSpacing, eyeY, mouthY, eyeRadius, blinkValue, color, radius)
     }
+}
+// ── CONCERNED /_\ ───────────────────────────────────────────────────
+private fun DrawScope.drawConcernedFace(
+    center: Offset, eyeSpacing: Float, eyeY: Float, mouthY: Float,
+    eyeRadius: Float, blinkValue: Float, color: Color, radius: Float
+) {
+    val eyeH = eyeRadius * 2f * blinkValue
+    
+    // Slanted eyebrows
+    drawLine(color, Offset(center.x - eyeSpacing - eyeRadius * 1.5f, eyeY - radius * 0.08f), Offset(center.x - eyeSpacing + eyeRadius, eyeY - radius * 0.15f), strokeWidth = radius * 0.035f, cap = StrokeCap.Round)
+    drawLine(color, Offset(center.x + eyeSpacing + eyeRadius * 1.5f, eyeY - radius * 0.08f), Offset(center.x + eyeSpacing - eyeRadius, eyeY - radius * 0.15f), strokeWidth = radius * 0.035f, cap = StrokeCap.Round)
+    
+    // Wide eyes
+    drawOval(color, Offset(center.x - eyeSpacing - eyeRadius * 1.2f, eyeY - eyeH / 2f), Size(eyeRadius * 2.4f, eyeH))
+    drawOval(color, Offset(center.x + eyeSpacing - eyeRadius * 1.2f, eyeY - eyeH / 2f), Size(eyeRadius * 2.4f, eyeH))
+    
+    // Small worried mouth
+    drawArc(color, 180f, 180f, false, Offset(center.x - radius * 0.1f, mouthY), Size(radius * 0.2f, radius * 0.08f), style = Stroke(width = radius * 0.035f, cap = StrokeCap.Round))
 }
 
 // ── NEUTRAL ·_· ─────────────────────────────────────────────────────

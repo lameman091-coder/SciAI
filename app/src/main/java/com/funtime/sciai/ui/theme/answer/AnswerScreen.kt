@@ -295,11 +295,14 @@ fun AnswerScreen(
     
     val userManager = remember { com.funtime.sciai.data.UserManager(context) }
     val userId = remember { userManager.getUserId() }
+    val intelligenceManager = remember { com.funtime.sciai.data.IntelligenceManager(context) }
+    val gamificationManager = remember { com.funtime.sciai.data.GamificationManager(context) }
     
-    var xp by remember { mutableIntStateOf(userManager.getXP()) }
-    var level by remember { mutableIntStateOf(userManager.getLevel()) }
-    var currentTitle by remember { mutableStateOf(userManager.getTitle()) }
+    var xp by remember { mutableIntStateOf(gamificationManager.getTotalXP()) }
+    var level by remember { mutableIntStateOf(gamificationManager.getLevel()) }
+    var currentTitle by remember { mutableStateOf(gamificationManager.getTitle()) }
     var questionCountMultiplier by remember { mutableIntStateOf(1) }
+    var newAchievements by remember { mutableStateOf<List<com.funtime.sciai.data.GamificationManager.Achievement>>(emptyList()) }
 
     val pullRefreshState = rememberPullRefreshState(
         refreshing = isLoading,
@@ -687,11 +690,21 @@ fun AnswerScreen(
                                         // Update definitive state
                                         quizStates = quizStates + (q.id to QuizAnswerState(idx, true, correct))
                                         if (correct) {
-                                            userManager.addXP(15)
-                                            xp = userManager.getXP()
-                                            level = userManager.getLevel()
-                                            currentTitle = userManager.getTitle()
+                                            gamificationManager.onQuizCorrect()
+                                        } else {
+                                            gamificationManager.onQuizWrong()
                                         }
+                                        // Track intelligence
+                                        intelligenceManager.recordQuizResult(
+                                            topic = question,
+                                            correct = if (correct) 1 else 0,
+                                            total = 1
+                                        )
+                                        xp = gamificationManager.getTotalXP()
+                                        level = gamificationManager.getLevel()
+                                        currentTitle = gamificationManager.getTitle()
+                                        // Check achievements
+                                        newAchievements = gamificationManager.checkNewAchievements()
                                         answeredQuizIds = answeredQuizIds + q.id
                                     }
                                 )
@@ -856,6 +869,14 @@ fun AnswerScreen(
                 modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 80.dp)
             )
 
+            // Achievement popup
+            if (newAchievements.isNotEmpty()) {
+                AchievementPopup(
+                    achievement = newAchievements.first(),
+                    onDismiss = { newAchievements = newAchievements.drop(1) }
+                )
+            }
+
             if (activeTheoryQuestion != null) {
                 TheoryWritingDialog(
                     question = activeTheoryQuestion!!,
@@ -863,10 +884,12 @@ fun AnswerScreen(
                     onSubmit = { _ -> 
                         answeredQuizIds = answeredQuizIds + activeTheoryQuestion!!.id
                         activeTheoryQuestion = null
-                        userManager.addXP(25) // +25 XP for theory submission
-                        xp = userManager.getXP()
-                        level = userManager.getLevel()
-                        currentTitle = userManager.getTitle()
+                        gamificationManager.onTestSubmit()
+                        intelligenceManager.recordTestSubmission(question, 70f)
+                        xp = gamificationManager.getTotalXP()
+                        level = gamificationManager.getLevel()
+                        currentTitle = gamificationManager.getTitle()
+                        newAchievements = gamificationManager.checkNewAchievements()
                     }
                 )
             }
@@ -977,17 +1000,19 @@ fun TheoryWritingDialog(
     }
     var timeLeft by remember { mutableIntStateOf(maxSeconds) }
     var isEvaluating by remember { mutableStateOf(false) }
-    var evaluationResult by remember { mutableStateOf<String?>(null) }
+    var detailedResult by remember { mutableStateOf<com.funtime.sciai.data.network.EvaluateAnswerDetailedResponse?>(null) }
+    var fallbackResult by remember { mutableStateOf<String?>(null) }
+    var showModelAnswer by remember { mutableStateOf(false) }
 
     LaunchedEffect(timeLeft) {
-        if (timeLeft > 0 && evaluationResult == null) {
+        if (timeLeft > 0 && detailedResult == null && fallbackResult == null) {
             delay(1000L)
             timeLeft--
-        } else if (timeLeft == 0 && evaluationResult == null) {
+        } else if (timeLeft == 0 && detailedResult == null && fallbackResult == null) {
             if (userAnswer.trim().isNotEmpty()) {
                 onSubmit(userAnswer)
             } else {
-                evaluationResult = "TIME EXPIRED: Don't give up! Every effort brings you closer to being a Legend."
+                fallbackResult = "TIME EXPIRED: Don't give up! Every effort brings you closer to being a Legend."
             }
         }
     }
@@ -1023,11 +1048,12 @@ fun TheoryWritingDialog(
             }
         },
         text = {
-            Column(modifier = Modifier.fillMaxWidth()) {
+            Column(modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState())) {
                 Text(question.question, color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
                 Spacer(modifier = Modifier.height(16.dp))
                 
-                if (evaluationResult == null) {
+                if (detailedResult == null && fallbackResult == null) {
+                    // ── Writing Area ──
                     OutlinedTextField(
                         value = userAnswer,
                         onValueChange = { userAnswer = it },
@@ -1041,39 +1067,212 @@ fun TheoryWritingDialog(
                         ),
                         shape = RoundedCornerShape(12.dp)
                     )
-                } else {
+                } else if (detailedResult != null) {
+                    val result = detailedResult!!
+                    
+                    // ── 📊 Score Gauges ──
+                    Text("📊 ANALYSIS", color = Color(0xFF38BDF8), fontWeight = FontWeight.Black, fontSize = 12.sp, letterSpacing = 1.sp)
+                    Spacer(modifier = Modifier.height(12.dp))
+                    
+                    ScoreGauge("Accuracy", result.accuracy, Color(0xFF22C55E))
+                    Spacer(modifier = Modifier.height(8.dp))
+                    ScoreGauge("Depth", result.depth, Color(0xFF3B82F6))
+                    Spacer(modifier = Modifier.height(8.dp))
+                    ScoreGauge("Structure", result.structure, Color(0xFFA855F7))
+                    
+                    Spacer(modifier = Modifier.height(20.dp))
+                    
+                    // ── 📌 Feedback Points ──
+                    Text("📌 FEEDBACK", color = Color(0xFFFBBF24), fontWeight = FontWeight.Black, fontSize = 12.sp, letterSpacing = 1.sp)
+                    Spacer(modifier = Modifier.height(8.dp))
+                    
+                    // Missing points
+                    if (result.missingPoints.isNotEmpty()) {
+                        result.missingPoints.forEach { point ->
+                            FeedbackChip(text = point, color = Color(0xFFEF4444), emoji = "❌")
+                            Spacer(modifier = Modifier.height(4.dp))
+                        }
+                    }
+                    
+                    // Good points
+                    if (result.goodPoints.isNotEmpty()) {
+                        Spacer(modifier = Modifier.height(4.dp))
+                        result.goodPoints.forEach { point ->
+                            FeedbackChip(text = point, color = Color(0xFF22C55E), emoji = "✅")
+                            Spacer(modifier = Modifier.height(4.dp))
+                        }
+                    }
+                    
+                    // Overall feedback
+                    if (result.overallFeedback.isNotEmpty()) {
+                        Spacer(modifier = Modifier.height(12.dp))
+                        Surface(
+                            color = Color(0xFF38BDF8).copy(alpha = 0.1f),
+                            shape = RoundedCornerShape(10.dp),
+                            border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.3f)),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(
+                                result.overallFeedback,
+                                color = Color.White,
+                                fontSize = 14.sp,
+                                lineHeight = 20.sp,
+                                modifier = Modifier.padding(12.dp)
+                            )
+                        }
+                    }
+                    
+                    // ── 🧠 Model Answer ──
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Surface(
+                        color = Color.White.copy(alpha = 0.03f),
+                        shape = RoundedCornerShape(10.dp),
+                        modifier = Modifier.fillMaxWidth().clickable { showModelAnswer = !showModelAnswer }
+                    ) {
+                        Column(modifier = Modifier.padding(12.dp)) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text("🧠 MODEL ANSWER", color = Color(0xFF38BDF8), fontWeight = FontWeight.Black, fontSize = 12.sp)
+                                Spacer(modifier = Modifier.weight(1f))
+                                Text(if (showModelAnswer) "▲" else "▼", color = Color.Gray, fontSize = 12.sp)
+                            }
+                            if (showModelAnswer && result.modelAnswer.isNotEmpty()) {
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Text(result.modelAnswer, color = Color(0xFF94A3B8), fontSize = 13.sp, lineHeight = 20.sp)
+                            }
+                        }
+                    }
+                } else if (fallbackResult != null) {
                     Surface(
                         color = Color(0xFF1E293B),
                         shape = RoundedCornerShape(12.dp),
-                        modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState())
+                        modifier = Modifier.fillMaxWidth()
                     ) {
                         Column(modifier = Modifier.padding(16.dp)) {
                             Text("AI FEEDBACK", color = Color(0xFF38BDF8), fontWeight = FontWeight.Black, fontSize = 12.sp)
                             Spacer(modifier = Modifier.height(8.dp))
-                            Text(evaluationResult!!, color = Color.White, fontSize = 14.sp, lineHeight = 22.sp)
+                            Text(fallbackResult!!, color = Color.White, fontSize = 14.sp, lineHeight = 22.sp)
                         }
                     }
                 }
             }
         },
         confirmButton = {
-            if (evaluationResult == null) {
+            if (detailedResult == null && fallbackResult == null) {
                 Button(
                     onClick = {
                         isEvaluating = true
-                        RagService.evaluateAnswer(question.question, userAnswer, question.answer) { feedback ->
-                            isEvaluating = false
-                            evaluationResult = feedback ?: "Evaluation failed. Try again."
+                        // Try detailed evaluation first
+                        RagService.evaluateAnswerDetailed(question.question, userAnswer, question.answer) { detailed ->
+                            if (detailed != null && detailed.accuracy > 0) {
+                                detailedResult = detailed
+                                isEvaluating = false
+                            } else {
+                                // Fallback to simple evaluation
+                                RagService.evaluateAnswer(question.question, userAnswer, question.answer) { feedback ->
+                                    isEvaluating = false
+                                    fallbackResult = feedback ?: "Evaluation failed. Try again."
+                                }
+                            }
                         }
                     },
                     enabled = userAnswer.trim().length > 10 && !isEvaluating,
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF38BDF8))
                 ) {
-                    if (isEvaluating) CircularProgressIndicator(modifier = Modifier.size(16.dp), color = Color.Black)
-                    else Text("Submit Answer", color = Color.Black, fontWeight = FontWeight.Bold)
+                    if (isEvaluating) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            CircularProgressIndicator(modifier = Modifier.size(16.dp), color = Color.Black, strokeWidth = 2.dp)
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text("Evaluating...", color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                        }
+                    } else {
+                        Text("Submit Answer", color = Color.Black, fontWeight = FontWeight.Bold)
+                    }
                 }
             } else {
-                Button(onClick = onDismiss) { Text("Close") }
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Button(
+                        onClick = { onSubmit(userAnswer) },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF22C55E))
+                    ) { Text("Done +25 XP", color = Color.Black, fontWeight = FontWeight.Bold) }
+                    TextButton(onClick = onDismiss) { Text("Close", color = Color.Gray) }
+                }
+            }
+        }
+    )
+}
+
+@Composable
+fun ScoreGauge(label: String, score: Int, color: Color) {
+    Column {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(label, color = Color.White.copy(alpha = 0.8f), fontSize = 13.sp, fontWeight = FontWeight.Medium)
+            Text("${score}%", color = color, fontSize = 13.sp, fontWeight = FontWeight.Black)
+        }
+        Spacer(modifier = Modifier.height(4.dp))
+        LinearProgressIndicator(
+            progress = (score / 100f).coerceIn(0f, 1f),
+            modifier = Modifier.fillMaxWidth().height(6.dp).clip(RoundedCornerShape(3.dp)),
+            color = color,
+            trackColor = color.copy(alpha = 0.15f)
+        )
+    }
+}
+
+@Composable
+fun FeedbackChip(text: String, color: Color, emoji: String) {
+    Surface(
+        color = color.copy(alpha = 0.08f),
+        shape = RoundedCornerShape(8.dp),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+            verticalAlignment = Alignment.Top
+        ) {
+            Text(emoji, fontSize = 12.sp)
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(text, color = Color.White.copy(alpha = 0.85f), fontSize = 12.sp, lineHeight = 18.sp)
+        }
+    }
+}
+
+@Composable
+fun AchievementPopup(
+    achievement: com.funtime.sciai.data.GamificationManager.Achievement,
+    onDismiss: () -> Unit
+) {
+    LaunchedEffect(Unit) {
+        delay(3000)
+        onDismiss()
+    }
+    
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        containerColor = Color(0xFF0F172A),
+        shape = RoundedCornerShape(20.dp),
+        title = {
+            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+                Text(achievement.emoji, fontSize = 48.sp)
+                Spacer(modifier = Modifier.height(8.dp))
+                Text("ACHIEVEMENT UNLOCKED!", color = Color(0xFFFBBF24), fontSize = 12.sp, fontWeight = FontWeight.Black, letterSpacing = 2.sp)
+            }
+        },
+        text = {
+            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+                Text(achievement.title, color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Black)
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(achievement.description, color = Color(0xFF94A3B8), fontSize = 14.sp)
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = onDismiss,
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFBBF24))
+            ) {
+                Text("Awesome!", color = Color.Black, fontWeight = FontWeight.Bold)
             }
         }
     )

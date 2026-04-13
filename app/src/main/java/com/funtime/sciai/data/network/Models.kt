@@ -106,3 +106,18 @@ data class EvaluateAnswerResponse(
     val feedback: String
 )
 
+data class EvaluateAnswerDetailedRequest(
+    val question: String,
+    val user_answer: String,
+    val correct_answer: String
+)
+
+data class EvaluateAnswerDetailedResponse(
+    val accuracy: Int = 0,
+    val depth: Int = 0,
+    val structure: Int = 0,
+    @SerializedName("missing_points") val missingPoints: List<String> = emptyList(),
+    @SerializedName("good_points") val goodPoints: List<String> = emptyList(),
+    @SerializedName("model_answer") val modelAnswer: String = "",
+    @SerializedName("overall_feedback") val overallFeedback: String = ""
+)

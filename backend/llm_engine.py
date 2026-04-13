@@ -3,6 +3,7 @@ from groq import AsyncGroq
 from config import settings
 from logger import log
 from typing import Optional, List
+import json
 
 # Initialize encoding for token estimation (using cl100k_base which is standard for most models)
 encoding = tiktoken.get_encoding("cl100k_base")
@@ -219,8 +220,6 @@ Compare with previous_questions:
 
 OUTPUT ONLY JSON. NO EXTRA TEXT. MAKE THE UI/UX PREMIUM"""
 
-    import json
-    
     prompt_parts = [
         f"MODE: {mode}",
         f"TOPIC: {topic}",
@@ -289,3 +288,68 @@ async def evaluate_theory_answer(question: str, user_answer: str, correct_answer
     except Exception as e:
         log.error(f"LLM: Evaluation failed: {e}")
         return f"Could not evaluate answer: {str(e)}"
+
+async def evaluate_theory_answer_detailed(question: str, user_answer: str, correct_answer: str) -> str:
+    """
+    Enhanced evaluation returning structured JSON with:
+    - accuracy, depth, structure scores (0-100)
+    - missing_points, good_points lists
+    - model_answer
+    - overall_feedback
+    """
+    client = get_groq_client()
+    if not client: return json.dumps({"error": "GROQ_API_KEY missing"})
+
+    system = """You are SciAI's Advanced AI Grading Engine — the most precise science answer evaluator.
+
+TASK: Evaluate the user's theoretical answer against the expert answer.
+
+SCORING CRITERIA:
+- accuracy (0-100): How factually correct is the answer? Check key terms, processes, and mechanisms.
+- depth (0-100): How deeply does the answer explore the topic? Check for detail, examples, and nuanced reasoning.
+- structure (0-100): How well-organized is the answer? Check for logical flow, headings, and coherence.
+
+ANALYSIS TASKS:
+1. Identify SPECIFIC missing points (max 3)
+2. Identify SPECIFIC good points the user nailed (max 3)
+3. Generate a concise MODEL ANSWER (max 150 words)
+4. Write a brief encouraging overall_feedback (max 2 sentences)
+
+OUTPUT FORMAT (strict JSON):
+{
+  "accuracy": number,
+  "depth": number,
+  "structure": number,
+  "missing_points": ["point 1", "point 2"],
+  "good_points": ["point 1", "point 2"],
+  "model_answer": "ideal concise answer",
+  "overall_feedback": "encouraging summary"
+}
+
+OUTPUT ONLY JSON. NO EXTRA TEXT."""
+
+    prompt = (
+        f"QUESTION: {question}\n\n"
+        f"EXPERT ANSWER: {correct_answer}\n\n"
+        f"USER ANSWER: {user_answer}\n\n"
+        "Evaluate and return JSON:"
+    )
+
+    try:
+        resp = await client.chat.completions.create(
+            model=MODEL_FAST,
+            messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
+            temperature=0.2, max_tokens=1500,
+            response_format={"type": "json_object"}
+        )
+        return resp.choices[0].message.content.strip()
+    except Exception as e:
+        log.error(f"LLM: Detailed evaluation failed: {e}")
+        return json.dumps({
+            "accuracy": 0, "depth": 0, "structure": 0,
+            "missing_points": ["Evaluation failed"],
+            "good_points": [],
+            "model_answer": correct_answer[:300] if correct_answer else "Not available",
+            "overall_feedback": f"Evaluation error: {str(e)}"
+        })
+
