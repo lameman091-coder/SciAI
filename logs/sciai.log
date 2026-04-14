@@ -2608,3 +2608,63 @@ WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
 2026-04-13 18:38:53 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
 2026-04-13 18:38:53 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
 2026-04-13 18:38:53 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-14 16:22:50 | INFO     | __main__:startup_event:37 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-14 16:23:26 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['dark matter detection', 'nanomaterials', 'cancer immunotherapy']
+2026-04-14 16:23:27 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-14 16:23:27 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'dark matter detection' (retmax=10)
+2026-04-14 16:23:27 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'nanomaterials' (retmax=10)
+2026-04-14 16:23:27 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cancer immunotherapy' (retmax=10)
+2026-04-14 16:23:28 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 225139)
+2026-04-14 16:23:28 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 1043)
+2026-04-14 16:23:28 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 434225)
+2026-04-14 16:23:29 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-14 16:23:29 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-14 16:23:29 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-14 16:23:32 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-14 16:23:32 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-14 16:23:32 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-14 16:23:32 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-14 16:23:58 | INFO     | __main__:ask_question:96 - Question: summary of this pdf | Hybrid: True | Book: edb4c32b-0f48-4640-81db-ab7deb671fb8
+2026-04-14 16:23:58 | INFO     | faiss_store:load:73 - FAISS: Loaded 19803 vectors of type IndexIDMap2.
+2026-04-14 16:23:58 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-14 16:24:04 | INFO     | faiss_store:search:202 - FAISS Search: query='summary of this pdf...', search_k=19803, ntotal=19803
+2026-04-14 16:24:04 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=edb4c32b-0f48-4640-81db-ab7deb671fb8: 405
+2026-04-14 16:24:25 | INFO     | __main__:ask_question:96 - Question: The dual binding of pantoprazole mitigates ceftriaxone-mediated misfolding of human serum albumin. | Hybrid: True | Book: None
+2026-04-14 16:24:25 | INFO     | faiss_store:search:202 - FAISS Search: query='The dual binding of pantoprazo...', search_k=25, ntotal=19803
+2026-04-14 16:24:25 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-14 16:24:25 | INFO     | live_articles:search_articles:244 - Article Search: 'The dual binding of pantoprazole mitigates ceftriaxone-mediated misfolding of human serum albumin.' | Page: 1
+2026-04-14 16:24:25 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'The dual binding of pantoprazole mitigates ceftriaxone-mediated misfolding of human serum albumin.'
+2026-04-14 16:24:25 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'The dual binding of pantoprazole mitigates ceftriaxone-mediated misfolding of human serum albumin.'
+2026-04-14 16:24:25 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'The dual binding of pantoprazole mitigates ceftriaxone-mediated misfolding of human serum albumin.'
+2026-04-14 16:24:25 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'The dual binding of pantoprazole mitigates ceftriaxone-mediated misfolding of human serum albumin.' (retmax=10)
+2026-04-14 16:24:27 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 1 IDs (Total: 1)
+2026-04-14 16:24:28 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 1 articles.
+2026-04-14 16:24:28 | INFO     | live_articles:search_articles:289 - Source 0 returned 1 articles (Total in source: 1)
+2026-04-14 16:24:28 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 264448)
+2026-04-14 16:24:28 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-14 16:25:11 | INFO     | __main__:ask_question:96 - Question: thermodynamics | Hybrid: True | Book: None
+2026-04-14 16:25:11 | INFO     | faiss_store:search:202 - FAISS Search: query='thermodynamics...', search_k=25, ntotal=19803
+2026-04-14 16:25:11 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-14 16:25:11 | INFO     | live_articles:search_articles:244 - Article Search: 'thermodynamics' | Page: 1
+2026-04-14 16:25:11 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'thermodynamics'
+2026-04-14 16:25:11 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'thermodynamics'
+2026-04-14 16:25:11 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'thermodynamics'
+2026-04-14 16:25:11 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'thermodynamics' (retmax=10)
+2026-04-14 16:25:13 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 647360)
+2026-04-14 16:25:14 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-14 16:25:14 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 647360)
+2026-04-14 16:25:14 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 46052)
+2026-04-14 16:25:14 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-14 16:26:22 | INFO     | __main__:ask_question:96 - Question: CELL CYCLE | Hybrid: True | Book: None
+2026-04-14 16:26:22 | INFO     | faiss_store:search:202 - FAISS Search: query='CELL CYCLE...', search_k=25, ntotal=19803
+2026-04-14 16:26:22 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-14 16:26:22 | INFO     | live_articles:search_articles:244 - Article Search: 'CELL CYCLE' | Page: 1
+2026-04-14 16:26:22 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'CELL CYCLE'
+2026-04-14 16:26:22 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'CELL CYCLE'
+2026-04-14 16:26:22 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'CELL CYCLE'
+2026-04-14 16:26:22 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'CELL CYCLE' (retmax=10)
+2026-04-14 16:26:23 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 601705)
+2026-04-14 16:26:24 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-14 16:26:24 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 601705)
+2026-04-14 16:26:24 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 95744)
+2026-04-14 16:26:24 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
