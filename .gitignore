@@ -34,3 +34,7 @@ test*
 # Secrets
 .env
 apikeys.properties
+backend/.env
+
+logs/
+scratch/
