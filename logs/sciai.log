@@ -2516,3 +2516,95 @@ WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
 2026-04-13 16:57:01 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 601595)
 2026-04-13 16:57:01 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 95661)
 2026-04-13 16:57:01 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-13 17:28:24 | INFO     | __main__:startup_event:37 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-13 17:28:37 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['artificial intelligence drug discovery', 'CRISPR gene editing', 'climate change mitigation']
+2026-04-13 17:28:37 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-13 17:28:37 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'artificial intelligence drug discovery' (retmax=10)
+2026-04-13 17:28:37 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'CRISPR gene editing' (retmax=10)
+2026-04-13 17:28:37 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'climate change mitigation' (retmax=10)
+2026-04-13 17:28:39 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 24117)
+2026-04-13 17:28:39 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 15972)
+2026-04-13 17:28:39 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 9686)
+2026-04-13 17:28:39 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-13 17:28:39 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-13 17:28:39 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-13 17:28:42 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-13 17:28:43 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-13 17:28:43 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-13 17:28:43 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 30 articles.
+2026-04-13 17:28:56 | INFO     | live_articles:search_articles:244 - Article Search: 'SCNT' | Page: 1
+2026-04-13 17:28:56 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'SCNT'
+2026-04-13 17:28:56 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'SCNT'
+2026-04-13 17:28:56 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'SCNT'
+2026-04-13 17:28:56 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'SCNT' (retmax=10)
+2026-04-13 17:28:58 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 1866)
+2026-04-13 17:28:59 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-13 17:28:59 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-13 17:28:59 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-13 17:28:59 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-13 17:29:19 | INFO     | __main__:ask_question:96 - Question: Epigenetic manipulation to improve mouse SCNT embryonic development. | Hybrid: True | Book: None
+2026-04-13 17:29:19 | INFO     | faiss_store:load:73 - FAISS: Loaded 19803 vectors of type IndexIDMap2.
+2026-04-13 17:29:19 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-13 17:29:24 | INFO     | faiss_store:search:202 - FAISS Search: query='Epigenetic manipulation to imp...', search_k=25, ntotal=19803
+2026-04-13 17:29:24 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-13 17:29:24 | INFO     | live_articles:search_articles:244 - Article Search: 'Epigenetic manipulation to improve mouse SCNT embryonic development.' | Page: 1
+2026-04-13 17:29:24 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'Epigenetic manipulation to improve mouse SCNT embryonic development.'
+2026-04-13 17:29:24 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'Epigenetic manipulation to improve mouse SCNT embryonic development.'
+2026-04-13 17:29:24 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'Epigenetic manipulation to improve mouse SCNT embryonic development.'
+2026-04-13 17:29:24 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'Epigenetic manipulation to improve mouse SCNT embryonic development.' (retmax=10)
+2026-04-13 17:29:26 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 2 IDs (Total: 2)
+2026-04-13 17:29:27 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 2 articles.
+2026-04-13 17:29:39 | ERROR    | live_articles:fetch_arxiv:238 - arXiv API error: 
+2026-04-13 17:29:39 | INFO     | live_articles:search_articles:289 - Source 0 returned 2 articles (Total in source: 2)
+2026-04-13 17:29:39 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-13 17:29:39 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-13 17:29:59 | INFO     | __main__:ask_question:96 - Question: Extract 4 brief key bullet points for the article titled 'Epigenetic manipulation to improve mouse SCNT embryonic development.'. | Hybrid: False | Book: None
+2026-04-13 17:30:13 | INFO     | __main__:ask_question:96 - Question: List 3 related scientific topics to 'Epigenetic manipulation to improve mouse SCNT embryonic development.'. Output ONLY comma separated list. | Hybrid: False | Book: None
+2026-04-13 17:31:01 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['artificial intelligence drug discovery', 'dark matter detection', 'cancer immunotherapy']
+2026-04-13 17:31:01 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-13 17:31:02 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 40 articles.
+2026-04-13 17:31:17 | INFO     | __main__:ask_question:96 - Question: PhaGCN_Cluster: A Scalable and Robust Framework for Automated Classification and Discovery of Viral Dark Matter from Metagenomes. | Hybrid: True | Book: None
+2026-04-13 17:31:17 | INFO     | faiss_store:search:202 - FAISS Search: query='PhaGCN_Cluster: A Scalable and...', search_k=25, ntotal=19803
+2026-04-13 17:31:17 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 11
+2026-04-13 17:31:17 | INFO     | live_articles:search_articles:244 - Article Search: 'PhaGCN_Cluster: A Scalable and Robust Framework for Automated Classification and Discovery of Viral Dark Matter from Metagenomes.' | Page: 1
+2026-04-13 17:31:17 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'PhaGCN_Cluster: A Scalable and Robust Framework for Automated Classification and Discovery of Viral Dark Matter from Metagenomes.'
+2026-04-13 17:31:17 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'PhaGCN_Cluster: A Scalable and Robust Framework for Automated Classification and Discovery of Viral Dark Matter from Metagenomes.'
+2026-04-13 17:31:17 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'PhaGCN_Cluster: A Scalable and Robust Framework for Automated Classification and Discovery of Viral Dark Matter from Metagenomes.'
+2026-04-13 17:31:17 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'PhaGCN_Cluster: A Scalable and Robust Framework for Automated Classification and Discovery of Viral Dark Matter from Metagenomes.' (retmax=10)
+2026-04-13 17:31:19 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 0 IDs (Total: 0)
+2026-04-13 17:31:19 | INFO     | live_articles:search_articles:289 - Source 0 returned 0 articles (Total in source: 0)
+2026-04-13 17:31:19 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-13 17:31:19 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-13 17:31:33 | INFO     | __main__:ask_question:96 - Question: Extract 4 brief key bullet points for the article titled 'PhaGCN_Cluster: A Scalable and Robust Framework for Automated Classification and Discovery of Viral Dark Matter from Metagenomes.'. | Hybrid: False | Book: None
+2026-04-13 17:31:46 | INFO     | __main__:ask_question:96 - Question: List 3 related scientific topics to 'PhaGCN_Cluster: A Scalable and Robust Framework for Automated Classification and Discovery of Viral Dark Matter from Metagenomes.'. Output ONLY comma separated list. | Hybrid: False | Book: None
+2026-04-13 17:31:51 | INFO     | __main__:ask_question:96 - Question: Metagenomics | Hybrid: True | Book: None
+2026-04-13 17:31:51 | INFO     | faiss_store:search:202 - FAISS Search: query='Metagenomics...', search_k=25, ntotal=19803
+2026-04-13 17:31:51 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 22
+2026-04-13 17:31:51 | INFO     | live_articles:search_articles:244 - Article Search: 'Metagenomics' | Page: 1
+2026-04-13 17:31:51 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'Metagenomics'
+2026-04-13 17:31:51 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'Metagenomics'
+2026-04-13 17:31:51 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'Metagenomics'
+2026-04-13 17:31:51 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'Metagenomics' (retmax=10)
+2026-04-13 17:31:52 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 51291)
+2026-04-13 17:31:54 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-13 17:31:54 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 51291)
+2026-04-13 17:31:54 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-13 17:31:54 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-13 17:32:02 | INFO     | __main__:ask_question:96 - Question: Metagenomics | Hybrid: True | Book: None
+2026-04-13 17:32:03 | INFO     | __main__:ask_question:96 - Question: Metagenomics | Hybrid: True | Book: None
+2026-04-13 18:23:05 | INFO     | __main__:startup_event:37 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-13 18:25:08 | INFO     | __main__:startup_event:37 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-13 18:38:48 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['stem cell therapy', 'climate change mitigation', 'quantum computing']
+2026-04-13 18:38:48 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-13 18:38:48 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'stem cell therapy' (retmax=10)
+2026-04-13 18:38:48 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'climate change mitigation' (retmax=10)
+2026-04-13 18:38:48 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'quantum computing' (retmax=10)
+2026-04-13 18:38:50 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 15972)
+2026-04-13 18:38:50 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 197986)
+2026-04-13 18:38:50 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 51227)
+2026-04-13 18:38:50 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-13 18:38:51 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-13 18:38:51 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-13 18:38:53 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-13 18:38:53 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-13 18:38:53 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
