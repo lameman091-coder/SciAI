@@ -43,6 +43,7 @@ import androidx.compose.ui.zIndex
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.funtime.sciai.data.*
+import coil.compose.AsyncImage
 import kotlinx.coroutines.*
 import java.util.*
 
@@ -375,6 +376,7 @@ fun HomeScreen(navController: NavController, drawerState: DrawerState) {
                     isProcessingImage = isProcessingImage,
                     imageUris = imageUris,
                     onAddImageClick = { galleryLauncher.launch("image/*") },
+                    onRemoveImage = { uri -> imageUris = imageUris.filter { it != uri } },
                     onVoiceClick = {
                         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
                             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
@@ -407,6 +409,7 @@ fun FloatingSmartInterface(
     isProcessingImage: Boolean,
     imageUris: List<Uri>,
     onAddImageClick: () -> Unit,
+    onRemoveImage: (Uri) -> Unit,
     onVoiceClick: () -> Unit,
     onSendClick: () -> Unit,
     focusManager: androidx.compose.ui.focus.FocusManager
@@ -478,9 +481,44 @@ fun FloatingSmartInterface(
                 color = Color(0xFF0F172A).copy(alpha = 0.95f),
                 shape = RoundedCornerShape(32.dp),
                 border = BorderStroke(1.5.dp, if (isSearchFocused) CyanAccent else Color.White.copy(alpha = 0.15f)),
-                modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min).shadow(20.dp, RoundedCornerShape(32.dp))
+                modifier = Modifier.fillMaxWidth().shadow(20.dp, RoundedCornerShape(32.dp))
             ) {
-                OutlinedTextField(
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    // Image Previews (ChatGPT Style)
+                    AnimatedVisibility(visible = imageUris.isNotEmpty()) {
+                        LazyRow(
+                            modifier = Modifier.fillMaxWidth().padding(top = 12.dp, start = 12.dp, end = 12.dp),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            items(imageUris) { uri ->
+                                Box(
+                                    modifier = Modifier
+                                        .size(56.dp)
+                                        .clip(RoundedCornerShape(12.dp))
+                                        .background(Color.White.copy(alpha = 0.05f))
+                                        .border(1.dp, Color.White.copy(alpha = 0.1f), RoundedCornerShape(12.dp))
+                                ) {
+                                    AsyncImage(
+                                        model = uri,
+                                        contentDescription = null,
+                                        modifier = Modifier.fillMaxSize(),
+                                        contentScale = ContentScale.Crop
+                                    )
+                                    // Remove Button
+                                    Surface(
+                                        onClick = { onRemoveImage(uri) },
+                                        color = Color.Black.copy(alpha = 0.6f),
+                                        modifier = Modifier.align(Alignment.TopEnd).padding(4.dp).size(18.dp),
+                                        shape = CircleShape
+                                    ) {
+                                        Icon(Icons.Default.Close, contentDescription = null, tint = Color.White, modifier = Modifier.padding(2.dp))
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    OutlinedTextField(
                     value = query, onValueChange = onQueryChange,
                     placeholder = { Text("Ask SciAI anything...", color = Color.Gray, fontSize = 15.sp) },
                     modifier = Modifier.fillMaxWidth().onFocusChanged { onFocusChange(it.isFocused) },
@@ -502,6 +540,7 @@ fun FloatingSmartInterface(
             }
         }
     }
+}
 }
 
 // ── HELPERS ──────────────────────────────────────────────────────────────────────────────

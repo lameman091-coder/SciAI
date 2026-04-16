@@ -39,24 +39,26 @@ suspend fun safeNavigate(
 ) {
     if (isNavigatingState.value) return
 
-    isNavigatingState.value = true
+    try {
+        isNavigatingState.value = true
+        drawerState.close()
 
-    drawerState.close()
+        // 🔥 simple & reliable instead of snapshotFlow
+        delay(300)
 
-    // 🔥 simple & reliable instead of snapshotFlow
-    delay(250)
-
-    navController.navigate(route) {
-        launchSingleTop = true
-        restoreState = true
-        popUpTo(navController.graph.startDestinationId) {
-            saveState = true
+        navController.navigate(route) {
+            launchSingleTop = true
+            restoreState = true
+            popUpTo(navController.graph.startDestinationId) {
+                saveState = true
+            }
         }
+        
+        // Wait for screen transition
+        delay(200)
+    } finally {
+        isNavigatingState.value = false
     }
-
-    delay(200)
-
-    isNavigatingState.value = false
 }
 
 @Composable
@@ -66,16 +68,21 @@ fun DrawerItem(
     enabled: Boolean = true,
     onClick: () -> Unit = {}
 ) {
-    Text(
-        text = title,
-        color = textColor,
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(enabled = enabled) {
-                onClick()
-            }
-            .padding(16.dp)
-    )
+    Surface(
+        color = Color.Transparent,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Text(
+            text = title,
+            color = textColor,
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(enabled = enabled) { onClick() }
+                .padding(horizontal = 20.dp, vertical = 14.dp),
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Medium
+        )
+    }
 }
 
 @Composable

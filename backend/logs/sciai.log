@@ -818,3 +818,169 @@
 2026-04-03 18:21:12 | INFO     | faiss_store:load:46 - FAISS: Loaded 405 vectors.
 2026-04-03 18:21:12 | INFO     | faiss_store:load:50 - FAISS: Migrating IndexFlatIP to IndexIDMap2...
 2026-04-03 18:21:12 | INFO     | faiss_store:load:59 - FAISS: Migration successful.
+2026-04-15 12:29:13 | INFO     | model_manager:_setup_providers:421 - ModelManager: Configured providers: Groq (1 keys)
+2026-04-15 12:29:45 | INFO     | model_manager:_setup_providers:421 - ModelManager: Configured providers: Groq (1 keys)
+2026-04-15 12:30:26 | INFO     | model_manager:_setup_providers:421 - ModelManager: Configured providers: Groq (1 keys)
+2026-04-15 12:30:26 | INFO     | main:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-15 12:30:26 | INFO     | main:startup_event:41 - ModelManager: 1 providers configured
+2026-04-15 12:32:47 | INFO     | main:ask_question:99 - Question: What is photosynthesis? | Hybrid: False | Book: None
+2026-04-15 12:32:47 | INFO     | model_manager:generate:676 - ModelManager: Auto-classified as 'speed'
+2026-04-15 12:32:47 | INFO     | model_manager:generate:692 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-15 12:32:47 | INFO     | model_manager:generate:719 - ModelManager: ✅ Groq succeeded (183 chars)
+2026-04-15 12:32:47 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via Groq
+2026-04-15 12:35:16 | INFO     | model_manager:_setup_providers:421 - ModelManager: Configured providers: Groq (1 keys)
+2026-04-15 12:35:16 | INFO     | main:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-15 12:35:16 | INFO     | main:startup_event:41 - ModelManager: 1 providers configured
+2026-04-15 12:35:42 | INFO     | main:ask_question:99 - Question: What is DNA? | Hybrid: False | Book: None
+2026-04-15 12:35:42 | INFO     | model_manager:generate:676 - ModelManager: Auto-classified as 'speed'
+2026-04-15 12:35:42 | INFO     | model_manager:generate:692 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-15 12:35:42 | INFO     | model_manager:generate:719 - ModelManager: ✅ Groq succeeded (221 chars)
+2026-04-15 12:35:42 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via Groq
+2026-04-15 13:20:57 | INFO     | model_manager:_setup_providers:421 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (2 keys), OpenRouter Hub (2 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-15 13:20:57 | INFO     | main:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-15 13:20:57 | INFO     | main:startup_event:41 - ModelManager: 11 providers configured
+2026-04-15 13:22:01 | INFO     | main:ask_question:99 - Question: What is DNA? | Hybrid: False | Book: None
+2026-04-15 13:22:01 | INFO     | model_manager:generate:676 - ModelManager: Auto-classified as 'speed'
+2026-04-15 13:22:01 | INFO     | model_manager:generate:692 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-15 13:22:01 | INFO     | model_manager:generate:719 - ModelManager: ✅ Groq succeeded (134 chars)
+2026-04-15 13:22:01 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via Groq
+2026-04-15 13:25:37 | INFO     | main:ask_question:99 - Question: about this pdf | Hybrid: True | Book: 03c42a23-4537-4faf-aa67-0dfeb668b261
+2026-04-15 13:25:37 | INFO     | faiss_store:load:73 - FAISS: Loaded 405 vectors of type IndexFlatIP.
+2026-04-15 13:25:37 | INFO     | faiss_store:load:77 - FAISS: Migrating IndexFlatIP to IndexIDMap2...
+2026-04-15 13:25:37 | INFO     | faiss_store:load:87 - FAISS: Migration successful.
+2026-04-15 13:25:37 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-15 13:25:43 | INFO     | faiss_store:search:202 - FAISS Search: query='about this pdf...', search_k=405, ntotal=405
+2026-04-15 13:25:43 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=03c42a23-4537-4faf-aa67-0dfeb668b261: 405
+2026-04-15 13:25:43 | INFO     | model_manager:generate:692 - ModelManager: Trying Qwen (OpenRouter) (Tier 4) [key …8fb9ad]
+2026-04-15 13:26:10 | INFO     | model_manager:generate:719 - ModelManager: ✅ Qwen (OpenRouter) succeeded (4702 chars)
+2026-04-15 13:26:10 | INFO     | llm_engine:generate_book_answer:92 - LLM: Book generation via Qwen (OpenRouter)
+2026-04-15 13:26:44 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['artificial intelligence drug discovery', 'stem cell therapy', 'climate change mitigation']
+2026-04-15 13:26:45 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-15 13:26:45 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'artificial intelligence drug discovery' (retmax=10)
+2026-04-15 13:26:45 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'stem cell therapy' (retmax=10)
+2026-04-15 13:26:45 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'climate change mitigation' (retmax=10)
+2026-04-15 13:26:46 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 9708)
+2026-04-15 13:26:46 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 198054)
+2026-04-15 13:26:46 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 15995)
+2026-04-15 13:26:47 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-15 13:26:48 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-15 13:26:48 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-15 13:26:54 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-15 13:26:54 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-15 13:26:57 | INFO     | main:ask_question:99 - Question: Extract 4 brief key bullet points for the article titled 'An evaluation of the returns to biotech canola considering health, production and environmental externalities.'. | Hybrid: False | Book: None
+2026-04-15 13:26:57 | INFO     | model_manager:generate:676 - ModelManager: Auto-classified as 'speed'
+2026-04-15 13:26:57 | INFO     | model_manager:generate:692 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-15 13:26:58 | INFO     | model_manager:generate:719 - ModelManager: ✅ Groq succeeded (538 chars)
+2026-04-15 13:26:58 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via Groq
+2026-04-15 13:27:03 | INFO     | main:ask_question:99 - Question: List 3 related scientific topics to 'An evaluation of the returns to biotech canola considering health, production and environmental externalities.'. Output ONLY comma separated list. | Hybrid: False | Book: None
+2026-04-15 13:27:03 | INFO     | model_manager:generate:676 - ModelManager: Auto-classified as 'speed'
+2026-04-15 13:27:03 | INFO     | model_manager:generate:692 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-15 13:27:03 | INFO     | model_manager:generate:719 - ModelManager: ✅ Groq succeeded (83 chars)
+2026-04-15 13:27:03 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via Groq
+2026-04-15 13:27:07 | INFO     | main:ask_question:99 - Question: An evaluation of the returns to biotech canola considering health, production and environmental externalities. | Hybrid: True | Book: None
+2026-04-15 13:27:07 | INFO     | faiss_store:search:202 - FAISS Search: query='An evaluation of the returns t...', search_k=25, ntotal=405
+2026-04-15 13:27:07 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-15 13:27:07 | INFO     | live_articles:search_articles:244 - Article Search: 'An evaluation of the returns to biotech canola considering health, production and environmental externalities.' | Page: 1
+2026-04-15 13:27:07 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'An evaluation of the returns to biotech canola considering health, production and environmental externalities.'
+2026-04-15 13:27:07 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'An evaluation of the returns to biotech canola considering health, production and environmental externalities.'
+2026-04-15 13:27:07 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'An evaluation of the returns to biotech canola considering health, production and environmental externalities.'
+2026-04-15 13:27:07 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'An evaluation of the returns to biotech canola considering health, production and environmental externalities.' (retmax=10)
+2026-04-15 13:27:09 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 1 IDs (Total: 1)
+2026-04-15 13:27:10 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 1 articles.
+2026-04-15 13:27:10 | INFO     | live_articles:search_articles:289 - Source 0 returned 1 articles (Total in source: 1)
+2026-04-15 13:27:10 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 879187)
+2026-04-15 13:27:10 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-15 13:27:10 | INFO     | model_manager:generate:692 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-15 13:27:11 | WARNING  | model_manager:generate:726 - ModelManager: ⚠️ Gemini Flash: Rate limited (429)
+2026-04-15 13:27:11 | INFO     | model_manager:generate:692 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-15 13:27:11 | INFO     | model_manager:generate:719 - ModelManager: ✅ Groq succeeded (1819 chars)
+2026-04-15 13:27:11 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Groq
+2026-04-15 13:38:23 | INFO     | model_manager:_setup_providers:421 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (2 keys), OpenRouter Hub (2 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-15 13:38:24 | INFO     | main:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-15 13:38:24 | INFO     | main:startup_event:41 - ModelManager: 11 providers configured
+2026-04-15 13:38:55 | INFO     | main:ask_question:99 - Question: What is gravity? | Hybrid: False | Book: None
+2026-04-15 13:38:55 | INFO     | model_manager:generate:676 - ModelManager: Auto-classified as 'speed'
+2026-04-15 13:38:55 | INFO     | model_manager:generate:692 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-15 13:38:56 | INFO     | model_manager:generate:719 - ModelManager: ✅ Groq succeeded (211 chars)
+2026-04-15 13:38:56 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via Groq
+2026-04-15 13:40:10 | INFO     | main:ask_question:99 - Question: Genetically engineered M13 phage-mediated H9N2 DNA vaccine with enhanced mucosal and systemic immune responses in mice. | Hybrid: True | Book: None
+2026-04-15 13:40:10 | INFO     | faiss_store:load:73 - FAISS: Loaded 405 vectors of type IndexFlatIP.
+2026-04-15 13:40:10 | INFO     | faiss_store:load:77 - FAISS: Migrating IndexFlatIP to IndexIDMap2...
+2026-04-15 13:40:10 | INFO     | faiss_store:load:87 - FAISS: Migration successful.
+2026-04-15 13:40:10 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-15 13:40:16 | INFO     | faiss_store:search:202 - FAISS Search: query='Genetically engineered M13 pha...', search_k=25, ntotal=405
+2026-04-15 13:40:16 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-15 13:40:16 | INFO     | live_articles:search_articles:244 - Article Search: 'Genetically engineered M13 phage-mediated H9N2 DNA vaccine with enhanced mucosal and systemic immune responses in mice.' | Page: 1
+2026-04-15 13:40:17 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'Genetically engineered M13 phage-mediated H9N2 DNA vaccine with enhanced mucosal and systemic immune responses in mice.'
+2026-04-15 13:40:17 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'Genetically engineered M13 phage-mediated H9N2 DNA vaccine with enhanced mucosal and systemic immune responses in mice.'
+2026-04-15 13:40:17 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'Genetically engineered M13 phage-mediated H9N2 DNA vaccine with enhanced mucosal and systemic immune responses in mice.'
+2026-04-15 13:40:17 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'Genetically engineered M13 phage-mediated H9N2 DNA vaccine with enhanced mucosal and systemic immune responses in mice.' (retmax=10)
+2026-04-15 13:40:19 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 1 IDs (Total: 1)
+2026-04-15 13:40:20 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 1 articles.
+2026-04-15 13:40:20 | INFO     | live_articles:search_articles:289 - Source 0 returned 1 articles (Total in source: 1)
+2026-04-15 13:40:20 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 962112)
+2026-04-15 13:40:20 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-15 13:40:20 | INFO     | model_manager:generate:692 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-15 13:40:20 | WARNING  | model_manager:generate:726 - ModelManager: ⚠️ Gemini Flash: Rate limited (429)
+2026-04-15 13:40:20 | INFO     | model_manager:generate:692 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-15 13:40:21 | INFO     | model_manager:generate:719 - ModelManager: ✅ Groq succeeded (1640 chars)
+2026-04-15 13:40:21 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Groq
+2026-04-15 13:42:46 | INFO     | main:ask_question:99 - Question: Extract 4 brief key bullet points for the article titled 'Genetically engineered M13 phage-mediated H9N2 DNA vaccine with enhanced mucosal and systemic immune responses in mice.'. | Hybrid: False | Book: None
+2026-04-15 13:42:46 | INFO     | model_manager:generate:676 - ModelManager: Auto-classified as 'speed'
+2026-04-15 13:42:46 | INFO     | model_manager:generate:692 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-15 13:42:47 | INFO     | model_manager:generate:719 - ModelManager: ✅ Groq succeeded (641 chars)
+2026-04-15 13:42:47 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via Groq
+2026-04-15 13:43:48 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['graphene applications', 'climate change mitigation', 'stem cell therapy']
+2026-04-15 13:43:48 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-15 13:43:48 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'graphene applications' (retmax=10)
+2026-04-15 13:43:50 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 35096)
+2026-04-15 13:43:51 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-15 13:43:51 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-15 13:43:54 | INFO     | main:ask_question:99 - Question: Extract 4 brief key bullet points for the article titled 'Agricultural and urban land use intensifies riverine GHG emissions across continents.'. | Hybrid: False | Book: None
+2026-04-15 13:43:54 | INFO     | model_manager:generate:676 - ModelManager: Auto-classified as 'speed'
+2026-04-15 13:43:54 | INFO     | model_manager:generate:692 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-15 13:43:54 | INFO     | model_manager:generate:719 - ModelManager: ✅ Groq succeeded (554 chars)
+2026-04-15 13:43:54 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via Groq
+2026-04-15 13:44:02 | INFO     | main:ask_question:99 - Question: List 3 related scientific topics to 'Agricultural and urban land use intensifies riverine GHG emissions across continents.'. Output ONLY comma separated list. | Hybrid: False | Book: None
+2026-04-15 13:44:02 | INFO     | model_manager:generate:676 - ModelManager: Auto-classified as 'speed'
+2026-04-15 13:44:02 | INFO     | model_manager:generate:692 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-04-15 13:44:02 | INFO     | model_manager:generate:719 - ModelManager: ✅ Groq succeeded (64 chars)
+2026-04-15 13:44:02 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via Groq
+2026-04-15 13:44:11 | INFO     | main:ask_question:99 - Question: Agricultural and urban land use intensifies riverine GHG emissions across continents. | Hybrid: True | Book: None
+2026-04-15 13:44:11 | INFO     | faiss_store:search:202 - FAISS Search: query='Agricultural and urban land us...', search_k=25, ntotal=405
+2026-04-15 13:44:11 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-15 13:44:11 | INFO     | live_articles:search_articles:244 - Article Search: 'Agricultural and urban land use intensifies riverine GHG emissions across continents.' | Page: 1
+2026-04-15 13:44:11 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'Agricultural and urban land use intensifies riverine GHG emissions across continents.'
+2026-04-15 13:44:11 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'Agricultural and urban land use intensifies riverine GHG emissions across continents.'
+2026-04-15 13:44:11 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'Agricultural and urban land use intensifies riverine GHG emissions across continents.'
+2026-04-15 13:44:11 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'Agricultural and urban land use intensifies riverine GHG emissions across continents.' (retmax=10)
+2026-04-15 13:44:12 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 0 IDs (Total: 0)
+2026-04-15 13:44:12 | INFO     | live_articles:search_articles:289 - Source 0 returned 0 articles (Total in source: 0)
+2026-04-15 13:44:12 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 1526071)
+2026-04-15 13:44:12 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-15 13:44:12 | INFO     | model_manager:generate:692 - ModelManager: Trying Gemini Flash (Tier 2) [key …nQKpEg]
+2026-04-15 13:44:13 | WARNING  | model_manager:generate:726 - ModelManager: ⚠️ Gemini Flash: Rate limited (429)
+2026-04-15 13:44:13 | INFO     | model_manager:generate:692 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-15 13:44:14 | INFO     | model_manager:generate:719 - ModelManager: ✅ Groq succeeded (2207 chars)
+2026-04-15 13:44:14 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Groq
+2026-04-15 13:45:06 | INFO     | model_manager:generate:692 - ModelManager: Trying Gemini Pro (Tier 3) [key …rBrkTk]
+2026-04-15 13:45:07 | ERROR    | model_manager:generate:732 - ModelManager: ❌ Gemini Pro error: Gemini Pro: HTTP 404 — {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-2.5-pro-preview-03-25 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+2026-04-15 13:45:07 | INFO     | model_manager:generate:692 - ModelManager: Trying OpenRouter Hub (Tier 5) [key …8fb9ad]
+2026-04-15 13:45:54 | INFO     | model_manager:generate:719 - ModelManager: ✅ OpenRouter Hub succeeded (5133 chars)
+2026-04-15 13:45:54 | INFO     | llm_engine:generate_questions:252 - LLM: Question generation via OpenRouter Hub
+2026-04-15 13:49:28 | INFO     | model_manager:generate:692 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-15 13:49:29 | INFO     | model_manager:generate:719 - ModelManager: ✅ Groq succeeded (1029 chars)
+2026-04-15 13:49:29 | INFO     | llm_engine:evaluate_theory_answer_detailed:346 - LLM: Detailed evaluation via Groq
+2026-04-15 13:54:53 | INFO     | main:ask_question:99 - Question: summary of this pdf | Hybrid: True | Book: 03c42a23-4537-4faf-aa67-0dfeb668b261
+2026-04-15 13:54:53 | INFO     | faiss_store:search:202 - FAISS Search: query='summary of this pdf...', search_k=405, ntotal=405
+2026-04-15 13:54:53 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=03c42a23-4537-4faf-aa67-0dfeb668b261: 405
+2026-04-15 13:54:53 | INFO     | model_manager:generate:692 - ModelManager: Trying Qwen (OpenRouter) (Tier 4) [key …8fb9ad]
+2026-04-15 13:55:30 | INFO     | model_manager:generate:719 - ModelManager: ✅ Qwen (OpenRouter) succeeded (6130 chars)
+2026-04-15 13:55:30 | INFO     | llm_engine:generate_book_answer:92 - LLM: Book generation via Qwen (OpenRouter)

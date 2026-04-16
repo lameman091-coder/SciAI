@@ -84,10 +84,11 @@ fun cleanResponse(text: String): String {
     return try {
         text
             .replace("**", "")
-            .replace("##", "")
-            .replace("*", "")
-            .replace("•", "-")
-            .replace(Regex("\\n{2,}"), "\n")
+            // Only replace # if they are decorative (not at start of line)
+            // or we can just leave them and let parseDynamicSections handle it
+            // For now, let's remove single * but keep structure
+            .replace(Regex("(?m)^\\*\\s"), "- ") 
+            .replace(Regex("\\n{2,}"), "\n\n")
             .trim()
     } catch (e: Exception) { text }
 }
@@ -103,20 +104,25 @@ fun parseDynamicSections(text: String): List<Pair<String, String>> {
     for (line in lines) {
 
         val trimmed = line.trim()
+        if (trimmed.isEmpty()) continue
 
-        val isHeading = trimmed.firstOrNull()?.isUpperCase() == true &&
-                trimmed.split(" ").size <= 6 &&
-                !trimmed.endsWith(".") &&
-                !trimmed.contains(":") &&
-                trimmed.isNotEmpty()
+        // Check for Markdown headers: ## Header or # Header or ### Header
+        val markdownHeaderMatch = Regex("^(#{1,3})\\s+(.*)$").find(trimmed)
+        
+        // Check for "Title:" style or all caps short lines as fallback
+        val isTraditionalHeading = trimmed.firstOrNull()?.isUpperCase() == true && 
+                trimmed.split(" ").size <= 6 && 
+                !trimmed.endsWith(".") && 
+                !trimmed.contains(":") && 
+                trimmed.length > 3
 
-        if (isHeading) {
-
+        if (markdownHeaderMatch != null || isTraditionalHeading) {
+            val h = markdownHeaderMatch?.groupValues?.get(2) ?: trimmed
+            
             if (currentContent.toString().trim().isNotEmpty()) {
                 sections.add(currentTitle to currentContent.toString().trim())
             }
-
-            currentTitle = trimmed
+            currentTitle = h.replace(":", "").trim()
             currentContent = StringBuilder()
         } else {
             currentContent.append(line).append("\n")

@@ -14,7 +14,8 @@ def setup_logging():
         "<level>{message}</level>"
     )
     
-    # Console handler
+    # Console handler (force UTF-8 to handle emoji in model_manager logs)
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
     logger.add(sys.stdout, format=log_format, level="INFO")
     
     # File handler for production auditing

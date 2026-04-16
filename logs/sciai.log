@@ -2668,3 +2668,634 @@ WHERE saved_articles.id = ? AND saved_articles.user_id = ?]
 2026-04-14 16:26:24 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 601705)
 2026-04-14 16:26:24 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 95744)
 2026-04-14 16:26:24 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-15 13:09:45 | INFO     | model_manager:_setup_providers:421 - ModelManager: Configured providers: NONE
+2026-04-15 13:09:45 | INFO     | __main__:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-15 13:09:45 | INFO     | __main__:startup_event:41 - ModelManager: 0 providers configured
+2026-04-15 13:11:45 | INFO     | __main__:ask_question:99 - Question: about this pdf | Hybrid: True | Book: edb4c32b-0f48-4640-81db-ab7deb671fb8
+2026-04-15 13:11:45 | INFO     | faiss_store:load:73 - FAISS: Loaded 19803 vectors of type IndexIDMap2.
+2026-04-15 13:11:45 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-15 13:11:51 | INFO     | faiss_store:search:202 - FAISS Search: query='about this pdf...', search_k=19803, ntotal=19803
+2026-04-15 13:11:51 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=edb4c32b-0f48-4640-81db-ab7deb671fb8: 405
+2026-04-15 13:11:51 | CRITICAL | model_manager:generate:741 - ModelManager: 🚨 All AI providers exhausted. Last error: None
+2026-04-15 13:11:51 | INFO     | llm_engine:generate_book_answer:92 - LLM: Book generation via NONE
+2026-04-15 13:12:07 | INFO     | __main__:ask_question:99 - Question: about this pdf | Hybrid: True | Book: edb4c32b-0f48-4640-81db-ab7deb671fb8
+2026-04-15 13:12:09 | INFO     | __main__:ask_question:99 - Question: about this pdf | Hybrid: True | Book: edb4c32b-0f48-4640-81db-ab7deb671fb8
+2026-04-15 13:12:10 | INFO     | __main__:ask_question:99 - Question: about this pdf | Hybrid: True | Book: edb4c32b-0f48-4640-81db-ab7deb671fb8
+2026-04-15 13:12:26 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['CRISPR gene editing', 'dark matter detection', 'artificial intelligence drug discovery']
+2026-04-15 13:12:26 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-15 13:12:26 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'CRISPR gene editing' (retmax=10)
+2026-04-15 13:12:27 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'dark matter detection' (retmax=10)
+2026-04-15 13:12:27 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'artificial intelligence drug discovery' (retmax=10)
+2026-04-15 13:12:28 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 9708)
+2026-04-15 13:12:28 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 24128)
+2026-04-15 13:12:28 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 1043)
+2026-04-15 13:12:29 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-15 13:12:29 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-15 13:12:30 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-15 13:12:32 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-15 13:12:32 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-15 13:12:32 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-15 13:12:36 | INFO     | __main__:ask_question:99 - Question: Extract 4 brief key bullet points for the article titled 'The autophagy-related protein PlAtg26b regulates vegetative growth, reproductive processes, autophagy, and pathogenicity in Peronophythora litchii.'. | Hybrid: False | Book: None
+2026-04-15 13:12:36 | INFO     | model_manager:generate:676 - ModelManager: Auto-classified as 'speed'
+2026-04-15 13:12:36 | CRITICAL | model_manager:generate:741 - ModelManager: 🚨 All AI providers exhausted. Last error: None
+2026-04-15 13:12:36 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via NONE
+2026-04-15 13:12:40 | INFO     | __main__:ask_question:99 - Question: List 3 related scientific topics to 'The autophagy-related protein PlAtg26b regulates vegetative growth, reproductive processes, autophagy, and pathogenicity in Peronophythora litchii.'. Output ONLY comma separated list. | Hybrid: False | Book: None
+2026-04-15 13:12:40 | INFO     | model_manager:generate:676 - ModelManager: Auto-classified as 'speed'
+2026-04-15 13:12:40 | CRITICAL | model_manager:generate:741 - ModelManager: 🚨 All AI providers exhausted. Last error: None
+2026-04-15 13:12:40 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via NONE
+2026-04-15 13:13:21 | INFO     | __main__:ask_question:99 - Question: cell cycle | Hybrid: True | Book: None
+2026-04-15 13:13:21 | INFO     | faiss_store:search:202 - FAISS Search: query='cell cycle...', search_k=25, ntotal=19803
+2026-04-15 13:13:21 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-15 13:13:21 | INFO     | live_articles:search_articles:244 - Article Search: 'cell cycle' | Page: 1
+2026-04-15 13:13:21 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell cycle'
+2026-04-15 13:13:21 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell cycle'
+2026-04-15 13:13:21 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell cycle'
+2026-04-15 13:13:21 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell cycle' (retmax=10)
+2026-04-15 13:13:23 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 601734)
+2026-04-15 13:13:24 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-15 13:13:24 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 601734)
+2026-04-15 13:13:24 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 95786)
+2026-04-15 13:13:24 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-15 13:13:24 | CRITICAL | model_manager:generate:741 - ModelManager: 🚨 All AI providers exhausted. Last error: None
+2026-04-15 13:13:24 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via NONE
+2026-04-15 13:19:06 | INFO     | model_manager:_setup_providers:421 - ModelManager: Configured providers: NONE
+2026-04-15 13:19:06 | INFO     | __main__:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-15 13:19:06 | INFO     | __main__:startup_event:41 - ModelManager: 0 providers configured
+2026-04-15 13:19:44 | INFO     | __main__:ask_question:99 - Question: Extract 4 brief key bullet points for the article titled 'The autophagy-related protein PlAtg26b regulates vegetative growth, reproductive processes, autophagy, and pathogenicity in Peronophythora litchii.'. | Hybrid: False | Book: None
+2026-04-15 13:19:44 | INFO     | model_manager:generate:676 - ModelManager: Auto-classified as 'speed'
+2026-04-15 13:19:44 | CRITICAL | model_manager:generate:741 - ModelManager: 🚨 All AI providers exhausted. Last error: None
+2026-04-15 13:19:44 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via NONE
+2026-04-15 13:19:47 | INFO     | __main__:ask_question:99 - Question: The autophagy-related protein PlAtg26b regulates vegetative growth, reproductive processes, autophagy, and pathogenicity in Peronophythora litchii. | Hybrid: True | Book: None
+2026-04-15 13:19:48 | INFO     | faiss_store:load:73 - FAISS: Loaded 19803 vectors of type IndexIDMap2.
+2026-04-15 13:19:48 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-15 13:19:54 | INFO     | faiss_store:search:202 - FAISS Search: query='The autophagy-related protein ...', search_k=25, ntotal=19803
+2026-04-15 13:19:54 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-15 13:19:54 | INFO     | live_articles:search_articles:244 - Article Search: 'The autophagy-related protein PlAtg26b regulates vegetative growth, reproductive processes, autophagy, and pathogenicity in Peronophythora litchii.' | Page: 1
+2026-04-15 13:19:54 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'The autophagy-related protein PlAtg26b regulates vegetative growth, reproductive processes, autophagy, and pathogenicity in Peronophythora litchii.'
+2026-04-15 13:19:54 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'The autophagy-related protein PlAtg26b regulates vegetative growth, reproductive processes, autophagy, and pathogenicity in Peronophythora litchii.'
+2026-04-15 13:19:54 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'The autophagy-related protein PlAtg26b regulates vegetative growth, reproductive processes, autophagy, and pathogenicity in Peronophythora litchii.'
+2026-04-15 13:19:54 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'The autophagy-related protein PlAtg26b regulates vegetative growth, reproductive processes, autophagy, and pathogenicity in Peronophythora litchii.' (retmax=10)
+2026-04-15 13:19:56 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 1 IDs (Total: 1)
+2026-04-15 13:19:57 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 1 articles.
+2026-04-15 13:19:57 | INFO     | live_articles:search_articles:289 - Source 0 returned 1 articles (Total in source: 1)
+2026-04-15 13:19:57 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 495997)
+2026-04-15 13:19:57 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-15 13:19:57 | CRITICAL | model_manager:generate:741 - ModelManager: 🚨 All AI providers exhausted. Last error: None
+2026-04-15 13:19:57 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via NONE
+2026-04-15 13:24:13 | INFO     | model_manager:_setup_providers:421 - ModelManager: Configured providers: NONE
+2026-04-15 13:24:14 | INFO     | __main__:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-15 13:24:14 | INFO     | __main__:startup_event:41 - ModelManager: 0 providers configured
+2026-04-15 13:24:14 | INFO     | __main__:shutdown_event:45 - SciAI SHUTTING DOWN...
+2026-04-15 13:33:28 | INFO     | model_manager:_setup_providers:421 - ModelManager: Configured providers: NONE
+2026-04-15 13:33:28 | INFO     | __main__:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-15 13:33:28 | INFO     | __main__:startup_event:41 - ModelManager: 0 providers configured
+2026-04-15 13:33:43 | INFO     | live_articles:search_articles:244 - Article Search: 'scnt' | Page: 1
+2026-04-15 13:33:44 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'scnt'
+2026-04-15 13:33:44 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'scnt'
+2026-04-15 13:33:44 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'scnt'
+2026-04-15 13:33:44 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'scnt' (retmax=10)
+2026-04-15 13:33:46 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 1866)
+2026-04-15 13:33:48 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-15 13:33:48 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 1866)
+2026-04-15 13:33:48 | INFO     | live_articles:search_articles:289 - Source 1 returned 1 articles (Total in source: 1)
+2026-04-15 13:33:48 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-15 13:33:54 | INFO     | __main__:ask_question:99 - Question: Extract 4 brief key bullet points for the article titled 'Epigenetic manipulation to improve mouse SCNT embryonic development.'. | Hybrid: False | Book: None
+2026-04-15 13:33:54 | INFO     | model_manager:generate:676 - ModelManager: Auto-classified as 'speed'
+2026-04-15 13:33:54 | CRITICAL | model_manager:generate:741 - ModelManager: 🚨 All AI providers exhausted. Last error: None
+2026-04-15 13:33:54 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via NONE
+2026-04-15 13:33:57 | INFO     | __main__:ask_question:99 - Question: Epigenetic manipulation to improve mouse SCNT embryonic development. | Hybrid: True | Book: None
+2026-04-15 13:33:57 | INFO     | faiss_store:load:73 - FAISS: Loaded 19803 vectors of type IndexIDMap2.
+2026-04-15 13:33:57 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-15 13:34:03 | INFO     | faiss_store:search:202 - FAISS Search: query='Epigenetic manipulation to imp...', search_k=25, ntotal=19803
+2026-04-15 13:34:03 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-15 13:34:03 | INFO     | live_articles:search_articles:244 - Article Search: 'Epigenetic manipulation to improve mouse SCNT embryonic development.' | Page: 1
+2026-04-15 13:34:03 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'Epigenetic manipulation to improve mouse SCNT embryonic development.'
+2026-04-15 13:34:03 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'Epigenetic manipulation to improve mouse SCNT embryonic development.'
+2026-04-15 13:34:03 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'Epigenetic manipulation to improve mouse SCNT embryonic development.'
+2026-04-15 13:34:03 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'Epigenetic manipulation to improve mouse SCNT embryonic development.' (retmax=10)
+2026-04-15 13:34:04 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 2 IDs (Total: 2)
+2026-04-15 13:34:06 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 2 articles.
+2026-04-15 13:34:06 | INFO     | live_articles:search_articles:289 - Source 0 returned 2 articles (Total in source: 2)
+2026-04-15 13:34:06 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 696433)
+2026-04-15 13:34:06 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-15 13:34:06 | CRITICAL | model_manager:generate:741 - ModelManager: 🚨 All AI providers exhausted. Last error: None
+2026-04-15 13:34:06 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via NONE
+2026-04-15 13:34:54 | INFO     | model_manager:_setup_providers:421 - ModelManager: Configured providers: NONE
+2026-04-15 13:34:55 | INFO     | __main__:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-15 13:34:55 | INFO     | __main__:startup_event:41 - ModelManager: 0 providers configured
+2026-04-15 13:35:22 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['mRNA vaccine', 'protein folding', 'nanomaterials']
+2026-04-15 13:35:23 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-15 13:35:23 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'mRNA vaccine' (retmax=10)
+2026-04-15 13:35:23 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'protein folding' (retmax=10)
+2026-04-15 13:35:23 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'nanomaterials' (retmax=10)
+2026-04-15 13:35:24 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 98815)
+2026-04-15 13:35:25 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 21303)
+2026-04-15 13:35:25 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 434262)
+2026-04-15 13:35:25 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-15 13:35:26 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-15 13:35:27 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-15 13:35:28 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-15 13:35:28 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-15 13:35:28 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-15 13:35:31 | INFO     | __main__:ask_question:99 - Question: Extract 4 brief key bullet points for the article titled 'Genetically engineered M13 phage-mediated H9N2 DNA vaccine with enhanced mucosal and systemic immune responses in mice.'. | Hybrid: False | Book: None
+2026-04-15 13:35:31 | INFO     | model_manager:generate:676 - ModelManager: Auto-classified as 'speed'
+2026-04-15 13:35:31 | CRITICAL | model_manager:generate:741 - ModelManager: 🚨 All AI providers exhausted. Last error: None
+2026-04-15 13:35:31 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via NONE
+2026-04-15 13:35:47 | INFO     | __main__:shutdown_event:45 - SciAI SHUTTING DOWN...
+2026-04-15 13:40:58 | INFO     | model_manager:_setup_providers:421 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (2 keys), OpenRouter Hub (2 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-15 13:40:58 | INFO     | __main__:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-15 13:40:58 | INFO     | __main__:startup_event:41 - ModelManager: 11 providers configured
+2026-04-15 13:40:58 | INFO     | __main__:shutdown_event:45 - SciAI SHUTTING DOWN...
+2026-04-15 13:43:30 | INFO     | model_manager:_setup_providers:421 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (2 keys), OpenRouter Hub (2 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-15 13:43:31 | INFO     | __main__:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-15 13:43:31 | INFO     | __main__:startup_event:41 - ModelManager: 11 providers configured
+2026-04-15 13:43:31 | INFO     | __main__:shutdown_event:45 - SciAI SHUTTING DOWN...
+2026-04-15 13:58:45 | INFO     | model_manager:_setup_providers:421 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (2 keys), OpenRouter Hub (2 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-15 13:58:45 | INFO     | __main__:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-15 13:58:45 | INFO     | __main__:startup_event:41 - ModelManager: 11 providers configured
+2026-04-15 13:58:52 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['quantum computing', 'mRNA vaccine', 'dark matter detection']
+2026-04-15 13:58:53 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-15 13:58:53 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'quantum computing' (retmax=10)
+2026-04-15 13:58:54 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 51259)
+2026-04-15 13:58:56 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-15 13:58:56 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-15 13:59:00 | INFO     | __main__:ask_question:99 - Question: Extract 4 brief key bullet points for the article titled 'The full value of mRNA seasonal influenza and endemic-stage COVID-19 combination vaccines: a taxonomy.'. | Hybrid: False | Book: None
+2026-04-15 13:59:00 | INFO     | model_manager:generate:676 - ModelManager: Auto-classified as 'speed'
+2026-04-15 13:59:00 | INFO     | model_manager:generate:692 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-15 13:59:01 | INFO     | model_manager:generate:719 - ModelManager: ✅ Groq succeeded (581 chars)
+2026-04-15 13:59:01 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via Groq
+2026-04-15 13:59:21 | INFO     | __main__:ask_question:99 - Question: RTI | Hybrid: True | Book: edb4c32b-0f48-4640-81db-ab7deb671fb8
+2026-04-15 13:59:21 | INFO     | faiss_store:load:73 - FAISS: Loaded 19803 vectors of type IndexIDMap2.
+2026-04-15 13:59:21 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-15 13:59:27 | INFO     | faiss_store:search:202 - FAISS Search: query='RTI...', search_k=19803, ntotal=19803
+2026-04-15 13:59:27 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=edb4c32b-0f48-4640-81db-ab7deb671fb8: 405
+2026-04-15 13:59:27 | INFO     | model_manager:generate:692 - ModelManager: Trying Qwen (OpenRouter) (Tier 4) [key …8fb9ad]
+2026-04-15 13:59:54 | INFO     | model_manager:generate:719 - ModelManager: ✅ Qwen (OpenRouter) succeeded (5697 chars)
+2026-04-15 13:59:54 | INFO     | llm_engine:generate_book_answer:92 - LLM: Book generation via Qwen (OpenRouter)
+2026-04-15 14:04:27 | INFO     | model_manager:generate:692 - ModelManager: Trying Gemini Pro (Tier 3) [key …rBrkTk]
+2026-04-15 14:04:27 | ERROR    | model_manager:generate:732 - ModelManager: ❌ Gemini Pro error: Gemini Pro: HTTP 404 — {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-2.5-pro-preview-03-25 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+2026-04-15 14:04:27 | INFO     | model_manager:generate:692 - ModelManager: Trying OpenRouter Hub (Tier 5) [key …8fb9ad]
+2026-04-15 14:05:08 | INFO     | model_manager:generate:719 - ModelManager: ✅ OpenRouter Hub succeeded (4045 chars)
+2026-04-15 14:05:08 | INFO     | llm_engine:generate_questions:252 - LLM: Question generation via OpenRouter Hub
+2026-04-15 14:08:51 | INFO     | __main__:ask_question:99 - Question: CELL DEATH
+ | Hybrid: True | Book: None
+2026-04-15 14:08:51 | INFO     | faiss_store:search:202 - FAISS Search: query='CELL DEATH
+...', search_k=25, ntotal=19803
+2026-04-15 14:08:51 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-15 14:08:51 | INFO     | live_articles:search_articles:244 - Article Search: 'CELL DEATH
+' | Page: 1
+2026-04-15 14:08:51 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'CELL DEATH
+'
+2026-04-15 14:08:51 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'CELL DEATH
+'
+2026-04-15 14:08:51 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'CELL DEATH
+'
+2026-04-15 14:08:51 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'CELL DEATH
+' (retmax=10)
+2026-04-15 14:08:51 | ERROR    | live_articles:fetch_arxiv:238 - arXiv API error: Invalid non-printable ASCII character in URL, '\n' at position 61.
+2026-04-15 14:08:51 | ERROR    | live_articles:fetch_pubmed:187 - PubMed final error: InvalidURL: Invalid non-printable ASCII character in URL, '\n' at position 84.
+2026-04-15 14:08:51 | INFO     | live_articles:search_articles:289 - Source 0 returned 0 articles (Total in source: 0)
+2026-04-15 14:08:51 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-15 14:08:51 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-15 14:08:51 | INFO     | model_manager:generate:676 - ModelManager: Auto-classified as 'speed'
+2026-04-15 14:08:51 | INFO     | model_manager:generate:692 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-15 14:08:52 | INFO     | model_manager:generate:719 - ModelManager: ✅ Groq succeeded (429 chars)
+2026-04-15 14:08:52 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via Groq
+2026-04-15 14:09:41 | INFO     | __main__:ask_question:99 - Question: CELL DEATH | Hybrid: True | Book: None
+2026-04-15 14:09:41 | INFO     | faiss_store:search:202 - FAISS Search: query='CELL DEATH...', search_k=25, ntotal=19803
+2026-04-15 14:09:41 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-15 14:09:41 | INFO     | live_articles:search_articles:244 - Article Search: 'CELL DEATH' | Page: 1
+2026-04-15 14:09:41 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'CELL DEATH'
+2026-04-15 14:09:41 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'CELL DEATH'
+2026-04-15 14:09:41 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'CELL DEATH'
+2026-04-15 14:09:41 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'CELL DEATH' (retmax=10)
+2026-04-15 14:09:42 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 692030)
+2026-04-15 14:09:44 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-15 14:09:44 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 692030)
+2026-04-15 14:09:44 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 58586)
+2026-04-15 14:09:44 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-15 14:09:44 | INFO     | model_manager:generate:692 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-15 14:09:45 | WARNING  | model_manager:generate:726 - ModelManager: ⚠️ Gemini Flash: Rate limited (429)
+2026-04-15 14:09:45 | INFO     | model_manager:generate:692 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-15 14:09:46 | INFO     | model_manager:generate:719 - ModelManager: ✅ Groq succeeded (2803 chars)
+2026-04-15 14:09:46 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Groq
+2026-04-15 14:10:19 | INFO     | __main__:ask_question:99 - Question: CELL DEATH | Hybrid: True | Book: None
+2026-04-15 14:11:29 | INFO     | model_manager:generate:692 - ModelManager: Trying Gemini Pro (Tier 3) [key …nQKpEg]
+2026-04-15 14:11:30 | ERROR    | model_manager:generate:732 - ModelManager: ❌ Gemini Pro error: Gemini Pro: HTTP 404 — {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-2.5-pro-preview-03-25 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+2026-04-15 14:11:30 | INFO     | model_manager:generate:692 - ModelManager: Trying OpenRouter Hub (Tier 5) [key …cb12eb]
+2026-04-15 14:12:04 | INFO     | model_manager:generate:719 - ModelManager: ✅ OpenRouter Hub succeeded (2916 chars)
+2026-04-15 14:12:04 | INFO     | llm_engine:generate_questions:252 - LLM: Question generation via OpenRouter Hub
+2026-04-16 15:53:25 | INFO     | model_manager:_setup_providers:421 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (2 keys), OpenRouter Hub (2 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 15:53:26 | INFO     | __main__:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-16 15:53:26 | INFO     | __main__:startup_event:41 - ModelManager: 11 providers configured
+2026-04-16 15:53:47 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['quantum computing', 'dark matter detection', 'stem cell therapy']
+2026-04-16 15:53:47 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-16 15:53:47 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'quantum computing' (retmax=10)
+2026-04-16 15:53:47 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'dark matter detection' (retmax=10)
+2026-04-16 15:53:47 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'stem cell therapy' (retmax=10)
+2026-04-16 15:53:49 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 1043)
+2026-04-16 15:53:49 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 198099)
+2026-04-16 15:53:49 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 51277)
+2026-04-16 15:53:49 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-16 15:53:49 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-16 15:53:51 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-16 15:53:52 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-16 15:53:53 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-16 15:53:53 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-16 15:53:59 | INFO     | __main__:ask_question:99 - Question: Extract 4 brief key bullet points for the article titled 'Synthesis, crystal structure, spectroscopic characterization, theoretical studies and cytotoxicity assays of novel two acylhydrazones and its Cu(II) complexes.'. | Hybrid: False | Book: None
+2026-04-16 15:53:59 | INFO     | model_manager:generate:676 - ModelManager: Auto-classified as 'speed'
+2026-04-16 15:53:59 | INFO     | model_manager:generate:692 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-16 15:54:00 | INFO     | model_manager:generate:719 - ModelManager: ✅ Groq succeeded (528 chars)
+2026-04-16 15:54:00 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via Groq
+2026-04-16 15:54:29 | INFO     | model_manager:generate:692 - ModelManager: Trying Gemini Pro (Tier 3) [key …rBrkTk]
+2026-04-16 15:54:29 | ERROR    | model_manager:generate:732 - ModelManager: ❌ Gemini Pro error: Gemini Pro: HTTP 404 — {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-2.5-pro-preview-03-25 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+2026-04-16 15:54:29 | INFO     | model_manager:generate:692 - ModelManager: Trying OpenRouter Hub (Tier 5) [key …8fb9ad]
+2026-04-16 15:54:59 | INFO     | model_manager:generate:719 - ModelManager: ✅ OpenRouter Hub succeeded (4920 chars)
+2026-04-16 15:54:59 | INFO     | llm_engine:generate_questions:252 - LLM: Question generation via OpenRouter Hub
+2026-04-16 15:57:03 | INFO     | model_manager:_setup_providers:421 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (2 keys), OpenRouter Hub (2 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 16:02:57 | INFO     | model_manager:_setup_providers:424 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (2 keys), OpenRouter Hub (2 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 16:03:53 | INFO     | model_manager:_setup_providers:424 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (2 keys), OpenRouter Hub (2 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 16:03:53 | INFO     | model_manager:_setup_providers:424 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (2 keys), OpenRouter Hub (2 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 16:03:53 | INFO     | model_manager:generate:679 - ModelManager: Auto-classified as 'speed'
+2026-04-16 16:03:53 | CRITICAL | model_manager:generate:744 - ModelManager: 🚨 All AI providers exhausted. Last error: None
+2026-04-16 16:03:53 | INFO     | model_manager:generate:679 - ModelManager: Auto-classified as 'speed'
+2026-04-16 16:03:53 | CRITICAL | model_manager:generate:744 - ModelManager: 🚨 All AI providers exhausted. Last error: None
+2026-04-16 16:04:14 | INFO     | model_manager:_setup_providers:424 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (2 keys), OpenRouter Hub (2 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 16:04:14 | INFO     | model_manager:_setup_providers:424 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (2 keys), OpenRouter Hub (2 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 16:04:14 | INFO     | model_manager:generate:695 - ModelManager: Trying MockProvider (Tier 1) [key …KEY_1]
+2026-04-16 16:04:14 | WARNING  | model_manager:generate:729 - ModelManager: ⚠️ MockProvider: Rate limited (429)
+2026-04-16 16:04:14 | CRITICAL | model_manager:generate:744 - ModelManager: 🚨 All AI providers exhausted. Last error: MockProvider: Rate limited (429)
+2026-04-16 16:04:14 | INFO     | model_manager:generate:695 - ModelManager: Trying MockProvider (Tier 1) [key …KEY_2]
+2026-04-16 16:04:14 | INFO     | model_manager:generate:722 - ModelManager: ✅ MockProvider succeeded (19 chars)
+2026-04-16 16:04:14 | INFO     | model_manager:_setup_providers:424 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (2 keys), OpenRouter Hub (2 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 16:04:14 | INFO     | model_manager:generate:695 - ModelManager: Trying MockProvider (Tier 1) [key …KEY_1]
+2026-04-16 16:04:14 | WARNING  | model_manager:generate:729 - ModelManager: ⚠️ MockProvider: Rate limited (429)
+2026-04-16 16:04:14 | CRITICAL | model_manager:generate:744 - ModelManager: 🚨 All AI providers exhausted. Last error: MockProvider: Rate limited (429)
+2026-04-16 16:04:14 | INFO     | model_manager:generate:695 - ModelManager: Trying MockProvider (Tier 1) [key …KEY_2]
+2026-04-16 16:04:14 | INFO     | model_manager:generate:722 - ModelManager: ✅ MockProvider succeeded (19 chars)
+2026-04-16 16:06:06 | INFO     | model_manager:_setup_providers:424 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (2 keys), OpenRouter Hub (2 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 16:06:07 | INFO     | __main__:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-16 16:06:07 | INFO     | __main__:startup_event:41 - ModelManager: 11 providers configured
+2026-04-16 16:06:51 | INFO     | model_manager:generate:695 - ModelManager: Trying Gemini Pro (Tier 3) [key …rBrkTk]
+2026-04-16 16:06:52 | WARNING  | model_manager:generate:729 - ModelManager: ⚠️ Gemini Pro: Rate limited (429)
+2026-04-16 16:06:52 | INFO     | model_manager:generate:695 - ModelManager: Trying Qwen (OpenRouter) (Tier 4) [key …8fb9ad]
+2026-04-16 16:07:20 | INFO     | model_manager:generate:722 - ModelManager: ✅ Qwen (OpenRouter) succeeded (5007 chars)
+2026-04-16 16:07:20 | INFO     | llm_engine:generate_questions:252 - LLM: Question generation via Qwen (OpenRouter)
+2026-04-16 16:09:32 | INFO     | __main__:ask_question:99 - Question: cell cycle
+ | Hybrid: True | Book: None
+2026-04-16 16:09:32 | INFO     | faiss_store:load:73 - FAISS: Loaded 19803 vectors of type IndexIDMap2.
+2026-04-16 16:09:32 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-16 16:09:38 | INFO     | faiss_store:search:202 - FAISS Search: query='cell cycle
+...', search_k=25, ntotal=19803
+2026-04-16 16:09:38 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-16 16:09:38 | INFO     | live_articles:search_articles:244 - Article Search: 'cell cycle
+' | Page: 1
+2026-04-16 16:09:38 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell cycle
+'
+2026-04-16 16:09:38 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell cycle
+'
+2026-04-16 16:09:38 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell cycle
+'
+2026-04-16 16:09:38 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell cycle
+' (retmax=10)
+2026-04-16 16:09:38 | ERROR    | live_articles:fetch_arxiv:238 - arXiv API error: Invalid non-printable ASCII character in URL, '\n' at position 61.
+2026-04-16 16:09:39 | ERROR    | live_articles:fetch_pubmed:187 - PubMed final error: InvalidURL: Invalid non-printable ASCII character in URL, '\n' at position 84.
+2026-04-16 16:09:39 | INFO     | live_articles:search_articles:289 - Source 0 returned 0 articles (Total in source: 0)
+2026-04-16 16:09:39 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-16 16:09:39 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-16 16:09:39 | INFO     | model_manager:generate:679 - ModelManager: Auto-classified as 'speed'
+2026-04-16 16:09:39 | INFO     | model_manager:generate:695 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-16 16:09:39 | INFO     | model_manager:generate:722 - ModelManager: ✅ Groq succeeded (563 chars)
+2026-04-16 16:09:39 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via Groq
+2026-04-16 16:10:35 | INFO     | __main__:ask_question:99 - Question: cell cycle
+ | Hybrid: True | Book: None
+2026-04-16 16:10:39 | INFO     | __main__:ask_question:99 - Question: cell cycle
+ | Hybrid: True | Book: None
+2026-04-16 16:11:50 | INFO     | __main__:ask_question:99 - Question: cell cycle
+ | Hybrid: True | Book: None
+2026-04-16 16:12:13 | INFO     | __main__:ask_question:99 - Question: cell cycle
+ | Hybrid: True | Book: None
+2026-04-16 16:12:30 | INFO     | __main__:ask_question:99 - Question: cell types | Hybrid: True | Book: None
+2026-04-16 16:12:30 | INFO     | faiss_store:search:202 - FAISS Search: query='cell types...', search_k=25, ntotal=19803
+2026-04-16 16:12:30 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-16 16:12:30 | INFO     | live_articles:search_articles:244 - Article Search: 'cell types' | Page: 1
+2026-04-16 16:12:30 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell types'
+2026-04-16 16:12:30 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell types'
+2026-04-16 16:12:30 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell types'
+2026-04-16 16:12:30 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell types' (retmax=10)
+2026-04-16 16:12:32 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 7075381)
+2026-04-16 16:12:33 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-16 16:12:33 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 7075381)
+2026-04-16 16:12:33 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 354434)
+2026-04-16 16:12:33 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-16 16:12:33 | INFO     | model_manager:generate:695 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-16 16:12:50 | INFO     | model_manager:generate:722 - ModelManager: ✅ Gemini Flash succeeded (3548 chars)
+2026-04-16 16:12:50 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-16 16:13:47 | INFO     | __main__:ask_question:99 - Question: cell types | Hybrid: True | Book: None
+2026-04-16 16:13:57 | INFO     | __main__:ask_question:99 - Question: cell types | Hybrid: True | Book: None
+2026-04-16 16:14:44 | INFO     | model_manager:generate:695 - ModelManager: Trying Gemini Pro (Tier 3) [key …nQKpEg]
+2026-04-16 16:14:45 | WARNING  | model_manager:generate:729 - ModelManager: ⚠️ Gemini Pro: Rate limited (429)
+2026-04-16 16:14:45 | INFO     | model_manager:generate:695 - ModelManager: Trying Qwen (OpenRouter) (Tier 4) [key …cb12eb]
+2026-04-16 16:15:08 | INFO     | model_manager:generate:722 - ModelManager: ✅ Qwen (OpenRouter) succeeded (3125 chars)
+2026-04-16 16:15:08 | INFO     | llm_engine:generate_questions:252 - LLM: Question generation via Qwen (OpenRouter)
+2026-04-16 16:16:10 | INFO     | model_manager:generate:695 - ModelManager: Trying Gemini Pro (Tier 3) [key …2bZEmY]
+2026-04-16 16:16:10 | WARNING  | model_manager:generate:729 - ModelManager: ⚠️ Gemini Pro: Rate limited (429)
+2026-04-16 16:16:10 | INFO     | model_manager:generate:695 - ModelManager: Trying Qwen (OpenRouter) (Tier 4) [key …8fb9ad]
+2026-04-16 16:16:36 | INFO     | model_manager:generate:722 - ModelManager: ✅ Qwen (OpenRouter) succeeded (3063 chars)
+2026-04-16 16:16:36 | INFO     | llm_engine:generate_questions:252 - LLM: Question generation via Qwen (OpenRouter)
+2026-04-16 16:27:32 | INFO     | model_manager:_setup_providers:434 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (2 keys), OpenRouter Hub (2 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 16:28:54 | INFO     | model_manager:_setup_providers:434 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (2 keys), OpenRouter Hub (2 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 16:28:55 | INFO     | __main__:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-16 16:28:55 | INFO     | __main__:startup_event:41 - ModelManager: 11 providers configured
+2026-04-16 16:39:09 | INFO     | __main__:ask_question:99 - Question: The image depicts a high-quality, fantasy-themed digital illustration featuring a female character with long pink hair and purple eyes. She is dressed in an intricate black outfit and is surrounded by swirling, ethereal blue light effects and cosmic or celestial structures that resemble armillary spheres or planetary models. In her hand, she holds a complex, futuristic-looking staff or scepter that emits a bright, iridescent glow. In the top right corner, there is text in Chinese and English that reads Gray Raven, identifying this as official artwork from the video game Punishing: Gray Raven.
+
+The image does not contain a scientific question. | Hybrid: True | Book: None
+2026-04-16 16:39:10 | INFO     | faiss_store:load:73 - FAISS: Loaded 19803 vectors of type IndexIDMap2.
+2026-04-16 16:39:10 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-16 16:39:15 | INFO     | faiss_store:search:202 - FAISS Search: query='The image depicts a high-quali...', search_k=25, ntotal=19803
+2026-04-16 16:39:15 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-16 16:39:15 | INFO     | live_articles:search_articles:244 - Article Search: 'The image depicts a high-quality, fantasy-themed digital illustration featuring a female character with long pink hair and purple eyes. She is dressed in an intricate black outfit and is surrounded by swirling, ethereal blue light effects and cosmic or celestial structures that resemble armillary spheres or planetary models. In her hand, she holds a complex, futuristic-looking staff or scepter that emits a bright, iridescent glow. In the top right corner, there is text in Chinese and English that reads Gray Raven, identifying this as official artwork from the video game Punishing: Gray Raven.
+
+The image does not contain a scientific question.' | Page: 1
+2026-04-16 16:39:16 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'The image depicts a high-quality, fantasy-themed digital illustration featuring a female character with long pink hair and purple eyes. She is dressed in an intricate black outfit and is surrounded by swirling, ethereal blue light effects and cosmic or celestial structures that resemble armillary spheres or planetary models. In her hand, she holds a complex, futuristic-looking staff or scepter that emits a bright, iridescent glow. In the top right corner, there is text in Chinese and English that reads Gray Raven, identifying this as official artwork from the video game Punishing: Gray Raven.
+
+The image does not contain a scientific question.'
+2026-04-16 16:39:16 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'The image depicts a high-quality, fantasy-themed digital illustration featuring a female character with long pink hair and purple eyes. She is dressed in an intricate black outfit and is surrounded by swirling, ethereal blue light effects and cosmic or celestial structures that resemble armillary spheres or planetary models. In her hand, she holds a complex, futuristic-looking staff or scepter that emits a bright, iridescent glow. In the top right corner, there is text in Chinese and English that reads Gray Raven, identifying this as official artwork from the video game Punishing: Gray Raven.
+
+The image does not contain a scientific question.'
+2026-04-16 16:39:16 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'The image depicts a high-quality, fantasy-themed digital illustration featuring a female character with long pink hair and purple eyes. She is dressed in an intricate black outfit and is surrounded by swirling, ethereal blue light effects and cosmic or celestial structures that resemble armillary spheres or planetary models. In her hand, she holds a complex, futuristic-looking staff or scepter that emits a bright, iridescent glow. In the top right corner, there is text in Chinese and English that reads Gray Raven, identifying this as official artwork from the video game Punishing: Gray Raven.
+
+The image does not contain a scientific question.'
+2026-04-16 16:39:16 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'The image depicts a high-quality, fantasy-themed digital illustration featuring a female character with long pink hair and purple eyes. She is dressed in an intricate black outfit and is surrounded by swirling, ethereal blue light effects and cosmic or celestial structures that resemble armillary spheres or planetary models. In her hand, she holds a complex, futuristic-looking staff or scepter that emits a bright, iridescent glow. In the top right corner, there is text in Chinese and English that reads Gray Raven, identifying this as official artwork from the video game Punishing: Gray Raven.
+
+The image does not contain a scientific question.' (retmax=10)
+2026-04-16 16:39:16 | ERROR    | live_articles:fetch_arxiv:238 - arXiv API error: Invalid non-printable ASCII character in URL, '\n' at position 650.
+2026-04-16 16:39:16 | ERROR    | live_articles:fetch_pubmed:187 - PubMed final error: InvalidURL: Invalid non-printable ASCII character in URL, '\n' at position 673.
+2026-04-16 16:39:16 | INFO     | live_articles:search_articles:289 - Source 0 returned 0 articles (Total in source: 0)
+2026-04-16 16:39:16 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-16 16:39:16 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-16 16:39:16 | INFO     | model_manager:generate:689 - ModelManager: Auto-classified as 'scale'
+2026-04-16 16:39:16 | INFO     | model_manager:generate:705 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-16 16:39:19 | INFO     | model_manager:generate:732 - ModelManager: ✅ Gemini Flash succeeded (243 chars)
+2026-04-16 16:39:19 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via Gemini Flash
+2026-04-16 18:23:52 | INFO     | __main__:ask_question:99 - Question: Error: Unexpected Response:
+{
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+ kotlinx.serialization.MissingFieldException: Field 'details' is required for type with serial name 'com.google.ai.client.generativeai.common.server.GRpcError', but it was missing at path: $.error | Hybrid: True | Book: None
+2026-04-16 18:23:52 | INFO     | faiss_store:search:202 - FAISS Search: query='Error: Unexpected Response:
+{
+...', search_k=25, ntotal=19803
+2026-04-16 18:23:52 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-16 18:23:52 | INFO     | live_articles:search_articles:244 - Article Search: 'Error: Unexpected Response:
+{
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+ kotlinx.serialization.MissingFieldException: Field 'details' is required for type with serial name 'com.google.ai.client.generativeai.common.server.GRpcError', but it was missing at path: $.error' | Page: 1
+2026-04-16 18:23:52 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'Error: Unexpected Response:
+{
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+ kotlinx.serialization.MissingFieldException: Field 'details' is required for type with serial name 'com.google.ai.client.generativeai.common.server.GRpcError', but it was missing at path: $.error'
+2026-04-16 18:23:52 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'Error: Unexpected Response:
+{
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+ kotlinx.serialization.MissingFieldException: Field 'details' is required for type with serial name 'com.google.ai.client.generativeai.common.server.GRpcError', but it was missing at path: $.error'
+2026-04-16 18:23:52 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'Error: Unexpected Response:
+{
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+ kotlinx.serialization.MissingFieldException: Field 'details' is required for type with serial name 'com.google.ai.client.generativeai.common.server.GRpcError', but it was missing at path: $.error'
+2026-04-16 18:23:52 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'Error: Unexpected Response:
+{
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+ kotlinx.serialization.MissingFieldException: Field 'details' is required for type with serial name 'com.google.ai.client.generativeai.common.server.GRpcError', but it was missing at path: $.error' (retmax=10)
+2026-04-16 18:23:52 | ERROR    | live_articles:fetch_arxiv:238 - arXiv API error: Invalid non-printable ASCII character in URL, '\n' at position 78.
+2026-04-16 18:23:52 | ERROR    | live_articles:fetch_pubmed:187 - PubMed final error: InvalidURL: Invalid non-printable ASCII character in URL, '\n' at position 101.
+2026-04-16 18:23:53 | INFO     | live_articles:search_articles:289 - Source 0 returned 0 articles (Total in source: 0)
+2026-04-16 18:23:53 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-16 18:23:53 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-16 18:23:53 | INFO     | model_manager:generate:689 - ModelManager: Auto-classified as 'scale'
+2026-04-16 18:23:53 | INFO     | model_manager:generate:705 - ModelManager: Trying Gemini Flash (Tier 2) [key …nQKpEg]
+2026-04-16 18:23:58 | INFO     | model_manager:generate:732 - ModelManager: ✅ Gemini Flash succeeded (388 chars)
+2026-04-16 18:23:58 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via Gemini Flash
+2026-04-16 18:25:02 | INFO     | model_manager:generate:705 - ModelManager: Trying Gemini Pro (Tier 3) [key …rBrkTk]
+2026-04-16 18:25:02 | WARNING  | model_manager:generate:739 - ModelManager: ⚠️ Gemini Pro: Rate limited (429)
+2026-04-16 18:25:02 | INFO     | model_manager:generate:705 - ModelManager: Trying Qwen (OpenRouter) (Tier 4) [key …8fb9ad]
+2026-04-16 18:25:27 | INFO     | model_manager:generate:732 - ModelManager: ✅ Qwen (OpenRouter) succeeded (3768 chars)
+2026-04-16 18:25:27 | INFO     | llm_engine:generate_questions:252 - LLM: Question generation via Qwen (OpenRouter)
+2026-04-16 18:26:49 | INFO     | __main__:shutdown_event:45 - SciAI SHUTTING DOWN...
+2026-04-16 18:26:49 | INFO     | faiss_store:save:60 - FAISS: Saved 19803 vectors.
+2026-04-16 18:27:41 | INFO     | model_manager:_setup_providers:434 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (10 keys), Gemini Pro (10 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 18:27:41 | INFO     | __main__:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-16 18:27:41 | INFO     | __main__:startup_event:41 - ModelManager: 11 providers configured
+2026-04-16 18:30:54 | INFO     | model_manager:_setup_providers:434 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (10 keys), Gemini Pro (10 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 18:37:44 | INFO     | model_manager:_setup_providers:434 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (10 keys), Gemini Pro (10 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 18:39:44 | INFO     | model_manager:_setup_providers:434 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (10 keys), Gemini Pro (10 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 18:39:45 | INFO     | __main__:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-16 18:39:45 | INFO     | __main__:startup_event:41 - ModelManager: 11 providers configured
+2026-04-16 18:40:40 | INFO     | __main__:ask_question:99 - Question: thermal capacity | Hybrid: True | Book: None
+2026-04-16 18:40:41 | INFO     | faiss_store:load:73 - FAISS: Loaded 19803 vectors of type IndexIDMap2.
+2026-04-16 18:40:41 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-16 18:40:47 | INFO     | faiss_store:search:202 - FAISS Search: query='thermal capacity...', search_k=25, ntotal=19803
+2026-04-16 18:40:47 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-16 18:40:47 | INFO     | live_articles:search_articles:244 - Article Search: 'thermal capacity' | Page: 1
+2026-04-16 18:40:47 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'thermal capacity'
+2026-04-16 18:40:47 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'thermal capacity'
+2026-04-16 18:40:47 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'thermal capacity'
+2026-04-16 18:40:47 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'thermal capacity' (retmax=10)
+2026-04-16 18:40:49 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 20821)
+2026-04-16 18:40:50 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-16 18:40:50 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 20821)
+2026-04-16 18:40:50 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 130178)
+2026-04-16 18:40:50 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-16 18:40:50 | INFO     | model_manager:generate:705 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-16 18:41:12 | INFO     | model_manager:generate:732 - ModelManager: ✅ Gemini Flash succeeded (3571 chars)
+2026-04-16 18:41:12 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-16 18:43:54 | INFO     | __main__:ask_question:99 - Question: cellular processes | Hybrid: True | Book: None
+2026-04-16 18:43:54 | INFO     | faiss_store:search:202 - FAISS Search: query='cellular processes...', search_k=25, ntotal=19803
+2026-04-16 18:43:54 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-16 18:43:54 | INFO     | live_articles:search_articles:244 - Article Search: 'cellular processes' | Page: 1
+2026-04-16 18:43:54 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cellular processes'
+2026-04-16 18:43:54 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cellular processes'
+2026-04-16 18:43:54 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cellular processes'
+2026-04-16 18:43:54 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cellular processes' (retmax=10)
+2026-04-16 18:43:56 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 1055805)
+2026-04-16 18:43:58 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-16 18:43:58 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 1055805)
+2026-04-16 18:43:58 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 419344)
+2026-04-16 18:43:58 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-16 18:43:58 | INFO     | model_manager:generate:705 - ModelManager: Trying Gemini Flash (Tier 2) [key …nQKpEg]
+2026-04-16 18:44:21 | INFO     | model_manager:generate:732 - ModelManager: ✅ Gemini Flash succeeded (3371 chars)
+2026-04-16 18:44:21 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-16 18:45:24 | INFO     | model_manager:generate:705 - ModelManager: Trying Gemini Pro (Tier 3) [key …rBrkTk]
+2026-04-16 18:45:24 | WARNING  | model_manager:generate:739 - ModelManager: ⚠️ Gemini Pro: Rate limited (429)
+2026-04-16 18:45:24 | INFO     | model_manager:generate:705 - ModelManager: Trying Qwen (OpenRouter) (Tier 4) [key …8fb9ad]
+2026-04-16 18:45:58 | INFO     | model_manager:generate:732 - ModelManager: ✅ Qwen (OpenRouter) succeeded (5715 chars)
+2026-04-16 18:45:58 | INFO     | llm_engine:generate_questions:252 - LLM: Question generation via Qwen (OpenRouter)
+2026-04-16 18:47:09 | INFO     | __main__:ask_question:99 - Question: plasma membrane | Hybrid: True | Book: None
+2026-04-16 18:47:09 | INFO     | faiss_store:search:202 - FAISS Search: query='plasma membrane...', search_k=25, ntotal=19803
+2026-04-16 18:47:09 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-16 18:47:09 | INFO     | live_articles:search_articles:244 - Article Search: 'plasma membrane' | Page: 1
+2026-04-16 18:47:09 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'plasma membrane'
+2026-04-16 18:47:09 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'plasma membrane'
+2026-04-16 18:47:09 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'plasma membrane'
+2026-04-16 18:47:09 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'plasma membrane' (retmax=10)
+2026-04-16 18:47:10 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 1018505)
+2026-04-16 18:47:12 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-16 18:47:12 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 1018505)
+2026-04-16 18:47:12 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 55433)
+2026-04-16 18:47:12 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-16 18:47:12 | INFO     | model_manager:generate:705 - ModelManager: Trying Gemini Flash (Tier 2) [key …2bZEmY]
+2026-04-16 18:48:15 | INFO     | __main__:ask_question:99 - Question: plasma membrane | Hybrid: True | Book: None
+2026-04-16 18:48:15 | INFO     | faiss_store:search:202 - FAISS Search: query='plasma membrane...', search_k=25, ntotal=19803
+2026-04-16 18:48:16 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-16 18:48:16 | INFO     | live_articles:search_articles:244 - Article Search: 'plasma membrane' | Page: 1
+2026-04-16 18:48:16 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'plasma membrane'
+2026-04-16 18:48:16 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'plasma membrane'
+2026-04-16 18:48:16 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'plasma membrane'
+2026-04-16 18:48:16 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 1018505)
+2026-04-16 18:48:16 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 55433)
+2026-04-16 18:48:16 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-16 18:48:16 | INFO     | model_manager:generate:705 - ModelManager: Trying Gemini Flash (Tier 2) [key …DJCG-Y]
+2026-04-16 18:48:43 | INFO     | model_manager:generate:732 - ModelManager: ✅ Gemini Flash succeeded (3207 chars)
+2026-04-16 18:48:43 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-16 18:58:42 | INFO     | model_manager:_setup_providers:434 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (10 keys), Gemini Pro (10 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 19:00:09 | INFO     | __main__:ask_question:99 - Question: cell cycle | Hybrid: True | Book: None
+2026-04-16 19:00:09 | INFO     | faiss_store:search:202 - FAISS Search: query='cell cycle...', search_k=25, ntotal=19803
+2026-04-16 19:00:09 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-16 19:00:09 | INFO     | live_articles:search_articles:244 - Article Search: 'cell cycle' | Page: 1
+2026-04-16 19:00:09 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell cycle'
+2026-04-16 19:00:09 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell cycle'
+2026-04-16 19:00:09 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell cycle'
+2026-04-16 19:00:09 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell cycle' (retmax=10)
+2026-04-16 19:00:11 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 601807)
+2026-04-16 19:00:12 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-16 19:00:12 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 601807)
+2026-04-16 19:00:12 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 95832)
+2026-04-16 19:00:12 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-16 19:00:12 | INFO     | model_manager:generate:705 - ModelManager: Trying Gemini Flash (Tier 2) [key …VRY0zw]
+2026-04-16 19:00:30 | INFO     | model_manager:generate:732 - ModelManager: ✅ Gemini Flash succeeded (3351 chars)
+2026-04-16 19:00:30 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-16 19:02:00 | INFO     | model_manager:generate:705 - ModelManager: Trying Gemini Pro (Tier 3) [key …nQKpEg]
+2026-04-16 19:02:01 | WARNING  | model_manager:generate:739 - ModelManager: ⚠️ Gemini Pro: Rate limited (429)
+2026-04-16 19:02:01 | INFO     | model_manager:generate:705 - ModelManager: Trying Qwen (OpenRouter) (Tier 4) [key …cb12eb]
+2026-04-16 19:02:25 | INFO     | model_manager:generate:732 - ModelManager: ✅ Qwen (OpenRouter) succeeded (4811 chars)
+2026-04-16 19:02:25 | INFO     | llm_engine:generate_questions:252 - LLM: Question generation via Qwen (OpenRouter)
+2026-04-16 19:02:57 | INFO     | model_manager:_setup_providers:434 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (10 keys), Gemini Pro (10 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 19:02:58 | INFO     | __main__:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-16 19:02:58 | INFO     | __main__:startup_event:41 - ModelManager: 11 providers configured
+2026-04-16 19:03:31 | INFO     | model_manager:generate:705 - ModelManager: Trying Gemini Pro (Tier 3) [key …rBrkTk]
+2026-04-16 19:03:32 | WARNING  | model_manager:generate:739 - ModelManager: ⚠️ Gemini Pro: Rate limited (429)
+2026-04-16 19:03:32 | INFO     | model_manager:generate:705 - ModelManager: Trying Qwen (OpenRouter) (Tier 4) [key …8fb9ad]
+2026-04-16 19:03:48 | INFO     | model_manager:generate:732 - ModelManager: ✅ Qwen (OpenRouter) succeeded (2578 chars)
+2026-04-16 19:03:48 | INFO     | llm_engine:generate_questions:252 - LLM: Question generation via Qwen (OpenRouter)
+2026-04-16 19:08:53 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 19:09:54 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 19:09:54 | INFO     | __main__:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-16 19:09:54 | INFO     | __main__:startup_event:41 - ModelManager: 11 providers configured
+2026-04-16 19:10:14 | INFO     | model_manager:generate:706 - ModelManager: Trying Gemini Pro (Tier 3) [key …e__Wvw]
+2026-04-16 19:10:15 | WARNING  | model_manager:generate:740 - ModelManager: ⚠️ Gemini Pro: Rate limited (429)
+2026-04-16 19:10:15 | INFO     | model_manager:generate:706 - ModelManager: Trying Qwen (OpenRouter) (Tier 4) [key …8fb9ad]
+2026-04-16 19:10:40 | INFO     | model_manager:generate:733 - ModelManager: ✅ Qwen (OpenRouter) succeeded (4342 chars)
+2026-04-16 19:10:40 | INFO     | llm_engine:generate_questions:252 - LLM: Question generation via Qwen (OpenRouter)
+2026-04-16 19:15:55 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 19:17:17 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-16 19:17:17 | INFO     | __main__:startup_event:38 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-16 19:17:17 | INFO     | __main__:startup_event:41 - ModelManager: 11 providers configured
+2026-04-16 19:17:31 | INFO     | __main__:ask_question:99 - Question: lysis cell
+ | Hybrid: True | Book: None
+2026-04-16 19:17:31 | INFO     | faiss_store:load:73 - FAISS: Loaded 19803 vectors of type IndexIDMap2.
+2026-04-16 19:17:31 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-16 19:17:37 | INFO     | faiss_store:search:202 - FAISS Search: query='lysis cell
+...', search_k=25, ntotal=19803
+2026-04-16 19:17:37 | INFO     | faiss_store:search:230 - FAISS Search: Matches for book_id=None: 0
+2026-04-16 19:17:37 | INFO     | live_articles:search_articles:244 - Article Search: 'lysis cell
+' | Page: 1
+2026-04-16 19:17:37 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'lysis cell
+'
+2026-04-16 19:17:37 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'lysis cell
+'
+2026-04-16 19:17:37 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'lysis cell
+'
+2026-04-16 19:17:37 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'lysis cell
+' (retmax=10)
+2026-04-16 19:17:37 | ERROR    | live_articles:fetch_arxiv:238 - arXiv API error: Invalid non-printable ASCII character in URL, '\n' at position 61.
+2026-04-16 19:17:37 | ERROR    | live_articles:fetch_pubmed:187 - PubMed final error: InvalidURL: Invalid non-printable ASCII character in URL, '\n' at position 84.
+2026-04-16 19:17:38 | INFO     | live_articles:search_articles:289 - Source 0 returned 0 articles (Total in source: 0)
+2026-04-16 19:17:38 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-16 19:17:38 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-16 19:17:38 | INFO     | model_manager:generate:690 - ModelManager: Auto-classified as 'speed'
+2026-04-16 19:17:38 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-16 19:17:38 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (123 chars)
+2026-04-16 19:17:38 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via Groq
+2026-04-16 19:18:08 | INFO     | model_manager:generate:714 - ModelManager: Trying Qwen (OpenRouter) (Tier 3) [key …8fb9ad]
+2026-04-16 19:18:33 | INFO     | model_manager:generate:741 - ModelManager: ✅ Qwen (OpenRouter) succeeded (5129 chars)
+2026-04-16 19:18:33 | INFO     | llm_engine:generate_questions:252 - LLM: Question generation via Qwen (OpenRouter)
+2026-04-16 19:18:54 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-16 19:18:55 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (821 chars)
+2026-04-16 19:18:55 | INFO     | llm_engine:evaluate_theory_answer_detailed:346 - LLM: Detailed evaluation via Groq
+2026-04-16 19:18:55 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-16 19:18:56 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (845 chars)
+2026-04-16 19:18:56 | INFO     | llm_engine:evaluate_theory_answer:287 - LLM: Evaluation via Groq
+2026-04-16 19:28:46 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['neuroscience consciousness', 'mRNA vaccine', 'quantum computing']
+2026-04-16 19:28:46 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-16 19:28:46 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'neuroscience consciousness' (retmax=10)
+2026-04-16 19:28:46 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'mRNA vaccine' (retmax=10)
+2026-04-16 19:28:46 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'quantum computing' (retmax=10)
+2026-04-16 19:28:47 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 21311)
+2026-04-16 19:28:47 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 6713)
+2026-04-16 19:28:47 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 51279)
+2026-04-16 19:28:48 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-16 19:28:48 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-16 19:28:49 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-16 19:28:51 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-16 19:28:51 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-16 19:28:51 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.

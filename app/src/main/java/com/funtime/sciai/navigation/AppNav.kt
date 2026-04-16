@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -42,7 +43,9 @@ fun AppNav() {
     // ✅ Refresh history when drawer opens or screen change
     LaunchedEffect(drawerState.isOpen) {
         if (drawerState.isOpen) {
-            historyList = com.funtime.sciai.data.HistoryManager.getHistory(context)
+            val freshHistory = com.funtime.sciai.data.HistoryManager.getHistory(context)
+            // Ensure no duplicates in state to prevent LazyColumn crashes
+            historyList = freshHistory.distinctBy { "${it.timestamp}_${it.query}" }
         }
     }
 
@@ -106,10 +109,10 @@ fun AppNav() {
                 )
 
                 LazyColumn(modifier = Modifier.weight(1f)) {
-                    items(
+                    itemsIndexed(
                         items = historyList, 
-                        key = { "hist_${it.timestamp}_${it.query.hashCode()}" }
-                    ) { item ->
+                        key = { index, item -> "hist_${item.timestamp}_${item.query.hashCode()}_$index" }
+                    ) { index, item ->
                         HistoryDrawerItem(item = item) {
                             scope.launch {
                                 drawerState.close()

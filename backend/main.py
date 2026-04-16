@@ -14,6 +14,7 @@ from pdf_processor import process_pdf
 from faiss_store import add_document, search, remove_document, load_store, save_store
 import llm_engine
 import live_articles
+from model_manager import manager as model_manager
 import time
 import asyncio
 
@@ -37,11 +38,13 @@ async def startup_event():
     log.info("SciAI PRODUCTION ENGINE STARTING...")
     await init_db()
     # load_store() is now lazy-loaded on demand
+    log.info(f"ModelManager: {len([p for p in model_manager.providers.values() if p.is_configured])} providers configured")
 
 @app.on_event("shutdown")
 async def shutdown_event():
     log.info("SciAI SHUTTING DOWN...")
     save_store()
+    await model_manager.close()
 
 # ── REQUEST MODELS ──
 class AskRequest(BaseModel):
@@ -351,7 +354,12 @@ async def delete_book(book_id: str, user_id: str, background_tasks: BackgroundTa
 @app.get("/health")
 async def health_check():
     """Lightweight zero-downtime healthcheck."""
-    return {"status": "ok", "version": "3.1.0"}
+    return {"status": "ok", "version": "4.0.0"}
+
+@app.get("/provider-status")
+async def provider_status():
+    """Real-time status of all AI providers — keys, usage, cooldowns."""
+    return model_manager.get_status()
 
 if __name__ == "__main__":
     import uvicorn

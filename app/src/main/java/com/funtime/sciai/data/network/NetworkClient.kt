@@ -6,8 +6,8 @@ import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
 object NetworkClient {
-    // Replace with your current LAN IP
-    private const val BASE_URL = "http://129.154.227.59:8000/"
+    // Local testing — physical device on same WiFi
+    private const val BASE_URL = "http://192.168.1.104:8000/"
 
     private val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS)

@@ -1,6 +1,5 @@
 import tiktoken
-from groq import AsyncGroq
-from config import settings
+from model_manager import manager
 from logger import log
 from typing import Optional, List
 import json
@@ -8,14 +7,9 @@ import json
 # Initialize encoding for token estimation (using cl100k_base which is standard for most models)
 encoding = tiktoken.get_encoding("cl100k_base")
 
-# Model selection
+# Model references (actual model is selected by ModelManager based on routing)
 MODEL_FAST = "llama-3.1-8b-instant"      # Book RAG + hybrid
 MODEL_SMART = "llama-3.3-70b-versatile"   # Pure LLM
-
-def get_groq_client():
-    if not settings.GROQ_API_KEY or settings.GROQ_API_KEY == "your_key_here":
-        return None
-    return AsyncGroq(api_key=settings.GROQ_API_KEY)
 
 def count_tokens(text: str) -> int:
     return len(encoding.encode(text))
@@ -32,25 +26,24 @@ def trim_context(context: str, max_tokens: int = 4000) -> str:
     return result
 
 async def generate_llm_only(question: str, mode: str, domain: str) -> str:
-    client = get_groq_client()
-    if not client: return "Error: GROQ_API_KEY missing."
-    
     system = f"You are SciAI, an expert research assistant for {domain}. Answer concisely."
-    try:
-        resp = await client.chat.completions.create(
-            model=MODEL_SMART,
-            messages=[{"role": "system", "content": system}, {"role": "user", "content": question}],
-            temperature=0.7, max_tokens=1024
-        )
-        return resp.choices[0].message.content.strip()
-    except Exception as e:
-        log.error(f"LLM: Pure generation failed: {e}")
-        return f"Communication error: {str(e)}"
+    messages = [
+        {"role": "system", "content": system},
+        {"role": "user", "content": question},
+    ]
+    
+    result, provider = await manager.generate(
+        messages=messages,
+        query_type="auto",
+        query_text=question,
+        max_tokens=1024,
+        temperature=0.7,
+        use_smart_model=True,
+    )
+    log.info(f"LLM: Pure generation via {provider}")
+    return result
 
 async def generate_hybrid_answer(question: str, context: str, mode: str, domain: str) -> str:
-    client = get_groq_client()
-    if not client: return "Error: GROQ_API_KEY missing."
-    
     system = (
         f"You are SciAI, an expert research assistant specialized in {domain}.\n"
         f"Synthesize the provided context into a refined summary. Do not just quote.\n"
@@ -58,22 +51,23 @@ async def generate_hybrid_answer(question: str, context: str, mode: str, domain:
     )
     trimmed = trim_context(context, 4000)
     prompt = f"CONTEXT:\n{trimmed}\n\nQUESTION: {question}\n\nSynthesized Answer:"
+    messages = [
+        {"role": "system", "content": system},
+        {"role": "user", "content": prompt},
+    ]
     
-    try:
-        resp = await client.chat.completions.create(
-            model=MODEL_FAST,
-            messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
-            temperature=0.15, max_tokens=1500
-        )
-        return resp.choices[0].message.content.strip()
-    except Exception as e:
-        log.error(f"LLM: Hybrid generation failed: {e}")
-        return f"Error: {str(e)}"
+    result, provider = await manager.generate(
+        messages=messages,
+        query_type="scale",
+        query_text=question,
+        max_tokens=1500,
+        temperature=0.15,
+        has_context=True,
+    )
+    log.info(f"LLM: Hybrid generation via {provider}")
+    return result
 
 async def generate_book_answer(question: str, context: str, mode: str, domain: str) -> str:
-    client = get_groq_client()
-    if not client: return "Error: GROQ_API_KEY missing."
-
     system = (
         f"You are SciAI, a precision precision assistant analyzing a user's document.\n"
         f"Rules: Only use the provided excerpts. No outside knowledge. If missing, say so.\n"
@@ -82,26 +76,27 @@ async def generate_book_answer(question: str, context: str, mode: str, domain: s
     )
     trimmed = trim_context(context, 5000)
     prompt = f"EXCERPTS:\n{trimmed}\n\nUSER QUESTION: {question}\n\nPrecision Analysis:"
+    messages = [
+        {"role": "system", "content": system},
+        {"role": "user", "content": prompt},
+    ]
     
-    try:
-        resp = await client.chat.completions.create(
-            model=MODEL_FAST,
-            messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
-            temperature=0.1, max_tokens=2000
-        )
-        return resp.choices[0].message.content.strip()
-    except Exception as e:
-        log.error(f"LLM: Book generation failed: {e}")
-        return f"Selection error: {str(e)}"
+    result, provider = await manager.generate(
+        messages=messages,
+        query_type="long_context",
+        query_text=question,
+        max_tokens=2000,
+        temperature=0.1,
+        is_book=True,
+    )
+    log.info(f"LLM: Book generation via {provider}")
+    return result
 
 async def generate_questions(
     mode: str, topic: str, domain: str, level: int, count: int = 4,
     context_chunks: List[str] = None, previous_questions: List[dict] = None
 ) -> str:
-    client = get_groq_client()
-    if not client: return '{"error": "GROQ_API_KEY missing"}'
-
-    system = """You are SciAI’s intelligent question generation engine.
+    system = """You are SciAI's intelligent question generation engine.
 You generate HIGH-QUALITY, NON-REPETITIVE, DOMAIN-AWARE scientific questions.
 
 STRICT RULES:
@@ -241,27 +236,27 @@ OUTPUT ONLY JSON. NO EXTRA TEXT. MAKE THE UI/UX PREMIUM"""
             pass
             
     prompt = "\n\n".join(prompt_parts) + "\n\nGenerate strictly valid JSON."
+    messages = [
+        {"role": "system", "content": system},
+        {"role": "user", "content": prompt},
+    ]
 
-    try:
-        resp = await client.chat.completions.create(
-            model=MODEL_FAST,
-            messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
-            temperature=0.7, max_tokens=3000,
-            response_format={"type": "json_object"}
-        )
-        return resp.choices[0].message.content.strip()
-    except Exception as e:
-        log.error(f"LLM: Question generation failed: {e}")
-        return json.dumps({"error": str(e)})
+    result, provider = await manager.generate(
+        messages=messages,
+        query_type="deep",
+        query_text=topic,
+        max_tokens=3000,
+        temperature=0.7,
+        json_mode=True,
+    )
+    log.info(f"LLM: Question generation via {provider}")
+    return result
 
 async def evaluate_theory_answer(question: str, user_answer: str, correct_answer: str) -> str:
     """
     Evaluates a user's theoretical answer against the expert answer.
     Provides conceptual corrections and improvement suggestions.
     """
-    client = get_groq_client()
-    if not client: return "Error: API Key missing."
-
     system = (
         "You are SciAI's Grading Engine. Analyze the user's theoretical answer.\n"
         "1. Compare it with the expert answer.\n"
@@ -277,17 +272,20 @@ async def evaluate_theory_answer(question: str, user_answer: str, correct_answer
         f"USER ANSWER: {user_answer}\n\n"
         "Analyze and provide feedback:"
     )
+    messages = [
+        {"role": "system", "content": system},
+        {"role": "user", "content": prompt},
+    ]
 
-    try:
-        resp = await client.chat.completions.create(
-            model=MODEL_FAST,
-            messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
-            temperature=0.3, max_tokens=1000
-        )
-        return resp.choices[0].message.content.strip()
-    except Exception as e:
-        log.error(f"LLM: Evaluation failed: {e}")
-        return f"Could not evaluate answer: {str(e)}"
+    result, provider = await manager.generate(
+        messages=messages,
+        query_type="speed",
+        query_text=question,
+        max_tokens=1000,
+        temperature=0.3,
+    )
+    log.info(f"LLM: Evaluation via {provider}")
+    return result
 
 async def evaluate_theory_answer_detailed(question: str, user_answer: str, correct_answer: str) -> str:
     """
@@ -297,9 +295,6 @@ async def evaluate_theory_answer_detailed(question: str, user_answer: str, corre
     - model_answer
     - overall_feedback
     """
-    client = get_groq_client()
-    if not client: return json.dumps({"error": "GROQ_API_KEY missing"})
-
     system = """You are SciAI's Advanced AI Grading Engine — the most precise science answer evaluator.
 
 TASK: Evaluate the user's theoretical answer against the expert answer.
@@ -327,22 +322,29 @@ OUTPUT FORMAT (strict JSON):
 }
 
 OUTPUT ONLY JSON. NO EXTRA TEXT."""
-
+    
     prompt = (
         f"QUESTION: {question}\n\n"
         f"EXPERT ANSWER: {correct_answer}\n\n"
         f"USER ANSWER: {user_answer}\n\n"
         "Evaluate and return JSON:"
     )
+    messages = [
+        {"role": "system", "content": system},
+        {"role": "user", "content": prompt},
+    ]
 
     try:
-        resp = await client.chat.completions.create(
-            model=MODEL_FAST,
-            messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
-            temperature=0.2, max_tokens=1500,
-            response_format={"type": "json_object"}
+        result, provider = await manager.generate(
+            messages=messages,
+            query_type="speed",
+            query_text=question,
+            max_tokens=1500,
+            temperature=0.2,
+            json_mode=True,
         )
-        return resp.choices[0].message.content.strip()
+        log.info(f"LLM: Detailed evaluation via {provider}")
+        return result
     except Exception as e:
         log.error(f"LLM: Detailed evaluation failed: {e}")
         return json.dumps({
@@ -352,4 +354,3 @@ OUTPUT ONLY JSON. NO EXTRA TEXT."""
             "model_answer": correct_answer[:300] if correct_answer else "Not available",
             "overall_feedback": f"Evaluation error: {str(e)}"
         })
-
