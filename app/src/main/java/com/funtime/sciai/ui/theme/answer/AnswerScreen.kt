@@ -467,6 +467,7 @@ fun AnswerScreen(
 
     AppScaffold(
         title = mode,
+        subtitle = "$selectedDomain • ${if (hybridMode) "Hybrid Research" else "LLM Generative"}",
         navController = navController,
         showBack = true
     ) { padding ->
@@ -488,9 +489,9 @@ fun AnswerScreen(
                             .fillMaxWidth()
                             .padding(bottom = 16.dp)
                             .clickable { hybridMode = !hybridMode },
-                        color = Color(0xFF1E293B),
+                        color = com.funtime.sciai.ui.theme.SciAISurfaceAlt,
                         shape = RoundedCornerShape(12.dp),
-                        border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.3f))
+                        border = BorderStroke(1.dp, com.funtime.sciai.ui.theme.SciAICyan.copy(alpha = 0.3f))
                     ) {
                         Row(
                             modifier = Modifier.padding(16.dp),
@@ -514,10 +515,10 @@ fun AnswerScreen(
                                 checked = hybridMode,
                                 onCheckedChange = { hybridMode = it },
                                 colors = SwitchDefaults.colors(
-                                    checkedThumbColor = Color(0xFF38BDF8),
-                                    checkedTrackColor = Color(0xFF0F172A),
+                                    checkedThumbColor = com.funtime.sciai.ui.theme.SciAICyan,
+                                    checkedTrackColor = com.funtime.sciai.ui.theme.SciAISurface,
                                     uncheckedThumbColor = Color.Gray,
-                                    uncheckedTrackColor = Color(0xFF0F172A)
+                                    uncheckedTrackColor = com.funtime.sciai.ui.theme.SciAISurface
                                 )
                             )
                         }

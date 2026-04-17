@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.funtime.sciai.R
+import com.funtime.sciai.ui.theme.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.funtime.sciai.data.UserManager
@@ -96,7 +97,7 @@ fun SplashScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF0A0A0A)), // True dark UI
+            .background(SciAIDark),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -133,7 +134,7 @@ fun SplashScreen(navController: NavController) {
 
             Text(
                 text = if (userName != null) "Welcome back, $userName" else "Seriously Smart. Surprisingly Fun.",
-                color = Color(0xFFA1A1AA), // Zinc-400 equivalent for clean look
+                color = SciAISubtext,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Normal,
                 letterSpacing = 0.5.sp,

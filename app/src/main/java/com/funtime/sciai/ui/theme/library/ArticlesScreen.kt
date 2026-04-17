@@ -40,7 +40,11 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
-fun ArticlesScreen(navController: NavController, drawerState: androidx.compose.material3.DrawerState) {
+fun ArticlesScreen(
+    navController: NavController, 
+    drawerState: androidx.compose.material3.DrawerState,
+    initialQuery: String? = null
+) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -107,6 +111,7 @@ fun ArticlesScreen(navController: NavController, drawerState: androidx.compose.m
                 isTrendingLoading = false
             }
         }
+
     }
 
     // ── Search Function ──
@@ -148,6 +153,14 @@ fun ArticlesScreen(navController: NavController, drawerState: androidx.compose.m
             }
             isLoading = false
             isInfiniteLoading = false
+        }
+    }
+
+    // ── Handle Initial Butler Query ──
+    LaunchedEffect(Unit) {
+        if (!initialQuery.isNullOrBlank() && initialQuery != state.lastSearchQuery) {
+            searchQuery = initialQuery
+            performSearch(true)
         }
     }
 

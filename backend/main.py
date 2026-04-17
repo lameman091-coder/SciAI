@@ -14,6 +14,8 @@ from pdf_processor import process_pdf
 from faiss_store import add_document, search, remove_document, load_store, save_store
 import llm_engine
 import live_articles
+import controller_prompt
+import companion_engine
 from model_manager import manager as model_manager
 import time
 import asyncio
@@ -21,7 +23,7 @@ import asyncio
 query_cache = {}
 MAX_CACHE_SIZE = 200
 
-app = FastAPI(title="SciAI Core Backend", version="3.1.0")
+app = FastAPI(title="SciAI Core Backend", version="4.1.0")
 
 # CORS Setup
 app.add_middleware(
@@ -93,6 +95,36 @@ async def get_or_create_user(db: AsyncSession, user_id: str) -> User:
     return user
 
 # ── ENDPOINTS ──
+
+class RouteQueryRequest(BaseModel):
+    query: str
+
+@app.post("/route")
+async def route_query(request: RouteQueryRequest):
+    """Controller Decision Engine — classify query into mode + domain."""
+    try:
+        result = await controller_prompt.classify(request.query)
+        return result
+    except Exception as e:
+        log.error(f"Controller: Route endpoint failed: {e}")
+        return {
+            "mode": "Concept",
+            "domain": "General",
+            "companion_message": "Processing your request.",
+            "confidence": 0.0
+        }
+
+# ── COMPANION / CHAT MODELS ──
+
+class CompanionChatRequest(BaseModel):
+    user_id: str
+    query: str
+
+@app.post("/companion/chat")
+async def companion_chat(request: CompanionChatRequest):
+    """AI Companion Chat — uses the Butler skill for app management."""
+    result = await companion_engine.engine.chat(request.user_id, request.query)
+    return result
 
 @app.post("/ask")
 async def ask_question(request: AskRequest):

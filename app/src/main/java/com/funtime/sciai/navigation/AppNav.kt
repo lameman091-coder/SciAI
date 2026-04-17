@@ -20,10 +20,12 @@ import com.funtime.sciai.ui.theme.home.HomeScreen
 import com.funtime.sciai.ui.theme.answer.AnswerScreen
 import com.funtime.sciai.ui.theme.splash.SplashScreen
 import com.funtime.sciai.ui.theme.library.*
+import com.funtime.sciai.ui.theme.*
 import com.funtime.sciai.aisphere.*
 import com.funtime.sciai.data.HistoryItem
 import com.funtime.sciai.data.HistoryManager
 import com.funtime.sciai.data.UserManager
+import com.funtime.sciai.data.GamificationManager
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,77 +38,80 @@ fun AppNav() {
     val scope = rememberCoroutineScope()
     val isNavigatingState = remember { mutableStateOf(false) }
 
-    // ── History State ──
-    val userManager = remember { com.funtime.sciai.data.UserManager(context) }
-    var historyList by remember { mutableStateOf<List<com.funtime.sciai.data.HistoryItem>>(emptyList()) }
+    // ── History & User State ──
+    val userManager = remember { UserManager(context) }
+    val gamificationManager = remember { GamificationManager(context) }
+    var historyList by remember { mutableStateOf<List<HistoryItem>>(emptyList()) }
+    var userName by remember { mutableStateOf<String?>(null) }
+    var userLevel by remember { mutableIntStateOf(1) }
+    var userTitle by remember { mutableStateOf("Novice") }
 
-    // ✅ Refresh history when drawer opens or screen change
+    // ✅ Refresh history + user data when drawer opens
     LaunchedEffect(drawerState.isOpen) {
         if (drawerState.isOpen) {
-            val freshHistory = com.funtime.sciai.data.HistoryManager.getHistory(context)
-            // Ensure no duplicates in state to prevent LazyColumn crashes
+            val freshHistory = HistoryManager.getHistory(context)
             historyList = freshHistory.distinctBy { "${it.timestamp}_${it.query}" }
+            userName = userManager.getName()
+            userLevel = gamificationManager.getLevel()
+            userTitle = gamificationManager.getTitle()
         }
     }
 
     // ✅ Safe navigation tracking
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = currentBackStackEntry?.destination?.route ?: ""
 
     LaunchedEffect(currentBackStackEntry) {
-        aiSphereViewModel.onScreenChanged(
-            currentBackStackEntry?.destination?.route ?: ""
-        )
+        aiSphereViewModel.onScreenChanged(currentRoute)
     }
 
     ModalNavigationDrawer(
         drawerState = drawerState,
-        gesturesEnabled = !isNavigatingState.value, // Disable gestures during transition
+        gesturesEnabled = !isNavigatingState.value,
         drawerContent = {
             ModalDrawerSheet(
-                drawerContainerColor = Color(0xFF1E293B) // Premium Dark Slate
+                drawerContainerColor = SciAISurfaceAlt
             ) {
-                Text(
-                    text = "SciAI Navigation",
-                    modifier = Modifier.padding(16.dp),
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
+                // ── Drawer Header ──
+                DrawerHeader(
+                    userName = userName,
+                    level = userLevel,
+                    title = userTitle
                 )
 
-                HorizontalDivider(color = Color.DarkGray)
+                HorizontalDivider(color = SciAIBorder)
 
-                DrawerItem("Home", Color.White, enabled = !isNavigatingState.value) {
+                // ── Navigation Section ──
+                DrawerSectionLabel("NAVIGATION")
+
+                DrawerItem("Home", emoji = "🏠", enabled = !isNavigatingState.value, isActive = currentRoute == "home") {
                     scope.launch {
                         safeNavigate(navController, drawerState, "home", isNavigatingState)
                     }
                 }
-                DrawerItem("Library", Color.White, enabled = !isNavigatingState.value) {
+                DrawerItem("Library", emoji = "📚", enabled = !isNavigatingState.value, isActive = currentRoute == "library") {
                     scope.launch {
                         safeNavigate(navController, drawerState, "library", isNavigatingState)
                     }
                 }
-                DrawerItem("Articles", Color.White, enabled = !isNavigatingState.value) {
+                DrawerItem("Articles", emoji = "📰", enabled = !isNavigatingState.value, isActive = currentRoute == "articles") {
                     scope.launch {
                         safeNavigate(navController, drawerState, "articles", isNavigatingState)
                     }
                 }
-                DrawerItem("Premium", Color(0xFFFFC107)) {
+                DrawerItem("Premium", emoji = "⭐", textColor = SciAIAmber) {
                     scope.launch { drawerState.close() }
                 }
-                DrawerItem("AI Companion ✨", Color(0xFF38BDF8), enabled = !isNavigatingState.value) {
+                DrawerItem("AI Companion", emoji = "✨", textColor = SciAICyan, enabled = !isNavigatingState.value, isActive = currentRoute == "sphere_settings") {
                     scope.launch {
                         safeNavigate(navController, drawerState, "sphere_settings", isNavigatingState)
                     }
                 }
 
-                HorizontalDivider(color = Color.DarkGray)
+                HorizontalDivider(color = SciAIBorder, modifier = Modifier.padding(top = 8.dp))
 
-                Text(
-                    text = "Recent Searches",
-                    modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 8.dp),
-                    color = Color(0xFF38BDF8),
-                    fontWeight = FontWeight.Medium
-                )
+                // ── History Section ──
+                DrawerSectionLabel("RECENT SEARCHES")
 
                 LazyColumn(modifier = Modifier.weight(1f)) {
                     itemsIndexed(
@@ -154,8 +159,9 @@ fun AppNav() {
                     HomeScreen(navController, drawerState)
                 }
 
-                composable("library") {
-                    LibraryScreen(navController, drawerState)
+                composable("library?q={q}") { backStackEntry ->
+                    val query = backStackEntry.arguments?.getString("q")
+                    LibraryScreen(navController, drawerState, query)
                 }
 
                 composable("libraryDetail/{bookId}") { backStackEntry ->
@@ -163,8 +169,9 @@ fun AppNav() {
                     LibraryDetailScreen(bookId, navController)
                 }
 
-                composable("articles") {
-                    ArticlesScreen(navController, drawerState)
+                composable("articles?q={q}") { backStackEntry ->
+                    val query = backStackEntry.arguments?.getString("q")
+                    ArticlesScreen(navController, drawerState, query)
                 }
 
                 composable("answer/{question}/{mode}?bookId={bookId}&hybrid={hybrid}") { backStackEntry ->

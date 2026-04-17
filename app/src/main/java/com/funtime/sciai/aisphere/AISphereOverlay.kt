@@ -2,17 +2,24 @@ package com.funtime.sciai.aisphere
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Chat
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.BlurEffect
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
@@ -53,6 +60,10 @@ fun AISphereOverlay(
     val showQuickActions by viewModel.showQuickActions.collectAsState()
     val reduceAnimations by viewModel.reduceAnimations.collectAsState()
     val companionProfile by viewModel.companionProfile.collectAsState()
+    val isChatVisible by viewModel.isChatVisible.collectAsState()
+    val chatMessages by viewModel.chatMessages.collectAsState()
+    val isChatLoading by viewModel.isChatLoading.collectAsState()
+    val isMessageIconVisible by viewModel.isMessageIconVisible.collectAsState()
 
     // Screen dimensions for clamping
     var screenWidth by remember { mutableFloatStateOf(0f) }
@@ -114,6 +125,21 @@ fun AISphereOverlay(
         }
     }
 
+    // Handle Navigation Events from AI
+    LaunchedEffect(Unit) {
+        viewModel.navigationEvent.collect { event ->
+            if (event.isNotBlank()) {
+                if (event.startsWith("search:")) {
+                    val query = event.removePrefix("search:")
+                    navController.navigate("answer/$query")
+                } else {
+                    navController.navigate(event)
+                }
+            }
+            viewModel.toggleChat(false) // Close chat after navigation
+        }
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -154,22 +180,29 @@ fun AISphereOverlay(
                     .pointerInput(Unit) {
                         detectTapGestures(
                             onTap = {
-                                viewModel.onTap()
+                                viewModel.onSphereTap()
                                 // Trigger bounce
                                 scope.launch {
                                     bounceAnim.animateTo(
-                                        targetValue = 1.25f,
-                                        animationSpec = spring(
-                                            dampingRatio = 0.4f,
-                                            stiffness = 800f
-                                        )
+                                        targetValue = 1.15f,
+                                        animationSpec = spring(dampingRatio = 0.5f, stiffness = 1000f)
                                     )
                                     bounceAnim.animateTo(
                                         targetValue = 1f,
-                                        animationSpec = spring(
-                                            dampingRatio = 0.5f,
-                                            stiffness = 400f
-                                        )
+                                        animationSpec = spring(dampingRatio = 0.6f, stiffness = 500f)
+                                    )
+                                }
+                            },
+                            onDoubleTap = {
+                                viewModel.onSphereDoubleTap()
+                                scope.launch {
+                                    bounceAnim.animateTo(
+                                        targetValue = 1.3f,
+                                        animationSpec = spring(dampingRatio = 0.3f, stiffness = 1200f)
+                                    )
+                                    bounceAnim.animateTo(
+                                        targetValue = 1f,
+                                        animationSpec = spring(dampingRatio = 0.4f, stiffness = 600f)
                                     )
                                 }
                             },
@@ -236,6 +269,48 @@ fun AISphereOverlay(
                 )
             }
 
+            // ── Small Message Icon (Below Sphere) ──────────────────
+            AnimatedVisibility(
+                visible = isMessageIconVisible,
+                enter = fadeIn() + scaleIn(initialScale = 0.8f) + slideInVertically { it / 2 },
+                exit = fadeOut() + scaleOut() + slideOutVertically { it / 2 },
+                modifier = Modifier
+                    .offset {
+                        IntOffset(
+                            (spherePosition.x + sphereSizePx / 2 - 24.dp.toPx()).roundToInt(),
+                            (spherePosition.y + sphereSizePx + 8.dp.toPx()).roundToInt()
+                        )
+                    }
+            ) {
+                Surface(
+                    onClick = { viewModel.onSphereDoubleTap() },
+                    color = Color.White.copy(alpha = 0.15f),
+                    shape = CircleShape,
+                    border = BorderStroke(1.dp, Color.White.copy(alpha = 0.25f)),
+                    modifier = Modifier.size(48.dp),
+                    shadowElevation = 8.dp
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .blur(8.dp)
+                            .background(
+                                Brush.radialGradient(
+                                    colors = listOf(Color.White.copy(alpha = 0.1f), Color.Transparent)
+                                )
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Chat,
+                            contentDescription = "Chat",
+                            tint = Color.White,
+                            modifier = Modifier.size(24.dp)
+                        )
+                    }
+                }
+            }
+
             // ── Quick actions menu ──────────────────────────────
             QuickActionsMenu(
                 visible = showQuickActions,
@@ -256,6 +331,16 @@ fun AISphereOverlay(
                 onOpenSettings = {
                     onOpenSettings()
                 }
+            )
+
+            // ── AI Companion Chat Overlay (Top Layer) ──────────────────
+            CompanionChatOverlay(
+                visible = isChatVisible,
+                messages = chatMessages,
+                isLoading = isChatLoading,
+                companionProfile = companionProfile,
+                onDismiss = { viewModel.toggleChat(false) },
+                onSendMessage = { viewModel.sendChatMessage(it) }
             )
         }
     }

@@ -9,11 +9,23 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import com.funtime.sciai.data.rag.RagService
+import com.funtime.sciai.data.network.CompanionChatResponse
+import java.util.UUID
+
+data class ChatMessage(
+    val id: String = UUID.randomUUID().toString(),
+    val text: String,
+    val isUser: Boolean,
+    val timestamp: Long = System.currentTimeMillis(),
+    val emotion: EmotionState? = null
+)
 
 /**
  * Central state holder for the AI Sphere Companion.
@@ -77,6 +89,21 @@ class AISphereViewModel(application: Application) : AndroidViewModel(application
     private val _hasCompletedSetup = MutableStateFlow(prefs.hasCompletedSetup)
     val hasCompletedSetup: StateFlow<Boolean> = _hasCompletedSetup.asStateFlow()
 
+    // ── Chat State ──────────────────────────────────────────────────
+    private val _isChatVisible = MutableStateFlow(false)
+    val isChatVisible: StateFlow<Boolean> = _isChatVisible.asStateFlow()
+
+    private val _chatMessages = MutableStateFlow<List<ChatMessage>>(emptyList())
+    val chatMessages: StateFlow<List<ChatMessage>> = _chatMessages.asStateFlow()
+
+    private val _isChatLoading = MutableStateFlow(false)
+    val isChatLoading: StateFlow<Boolean> = _isChatLoading.asStateFlow()
+
+    private val _isMessageIconVisible = MutableStateFlow(false)
+    val isMessageIconVisible: StateFlow<Boolean> = _isMessageIconVisible.asStateFlow()
+
+    private val userId = prefs.userId ?: UUID.randomUUID().toString().also { prefs.userId = it }
+
     // ── Internal state ──────────────────────────────────────────────
 
     private var lastGesture = GestureType.NONE
@@ -100,28 +127,31 @@ class AISphereViewModel(application: Application) : AndroidViewModel(application
     private var previousEmotionForSound: EmotionState = EmotionState.IDLE
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            soundManager.initialize()
-            soundManager.setSoundEnabled(prefs.isSoundEnabled)
-            
-            withContext(Dispatchers.Main) {
-                startBehaviorLoop()
-
-                // Show greeting on first launch
-                if (prefs.isFirstLaunch) {
-                    delay(1500)
-                    showMessage(MessageContext.GREETING)
-                    prefs.isFirstLaunch = false
-                }
-
-                // Check if user hasn't visited in a while → mood memory message
-                val timeSinceLastVisit = System.currentTimeMillis() - prefs.lastVisitTime
-                if (timeSinceLastVisit > 24 * 60 * 60 * 1000L && !prefs.isFirstLaunch) {
-                    delay(2000)
-                    showMessage(MessageContext.IDLE)
-                }
-                prefs.lastVisitTime = System.currentTimeMillis()
+        viewModelScope.launch {
+            // Background initialization
+            withContext(Dispatchers.IO) {
+                soundManager.initialize()
+                soundManager.setSoundEnabled(prefs.isSoundEnabled)
             }
+            
+            // UI initialization
+            startBehaviorLoop()
+
+            // Show greeting on first launch
+            if (prefs.isFirstLaunch) {
+                delay(1500)
+                showMessage(MessageContext.GREETING)
+                prefs.isFirstLaunch = false
+            }
+
+            // Check if user hasn't visited in a while → mood memory message
+            val lastVisit = prefs.lastVisitTime
+            val now = System.currentTimeMillis()
+            if (now - lastVisit > 24 * 60 * 60 * 1000L && !prefs.isFirstLaunch) {
+                delay(2000)
+                showMessage(MessageContext.IDLE)
+            }
+            prefs.lastVisitTime = now
         }
     }
 
@@ -240,6 +270,20 @@ class AISphereViewModel(application: Application) : AndroidViewModel(application
                         }
                         lastMessageTime = System.currentTimeMillis()
                         autoCloseMessage()
+                    }
+                }
+
+                // ── Smarter Auto-Open (Manager Logic) ───────────
+                if (!_isChatVisible.value && !_isMuted.value && timeSinceMessage > 60000L) {
+                    val progress = intelligenceManager.getProgressData()
+                    val shouldProactivelyHelp = (timeSinceInteraction > 120000L && currentScreen != "home") || 
+                                              (progress.totalQuestions > 5 && progress.overallAccuracy < 0.4f)
+                    
+                    if (shouldProactivelyHelp) {
+                        // Avoid spamming — only once per session or with long interval
+                        toggleChat(true)
+                        addCompanionMessage("Scientist, I noticed you might need a hand with this. How can I assist your research?", EmotionState.CONCERNED)
+                        lastMessageTime = System.currentTimeMillis()
                     }
                 }
             }
@@ -522,6 +566,117 @@ class AISphereViewModel(application: Application) : AndroidViewModel(application
         _personalityMode.value = mode
         prefs.personalityMode = mode
     }
+
+    // ── Chat & Action Management ────────────────────────────────────
+
+    fun toggleChat(visible: Boolean? = null) {
+        val nextValue = visible ?: !_isChatVisible.value
+        _isChatVisible.value = nextValue
+        if (nextValue) {
+            _showQuickActions.value = false
+            _isMessageIconVisible.value = false // Hide small icon when full chat is open
+            // If empty, add a greeting
+            if (_chatMessages.value.isEmpty()) {
+                addCompanionMessage("Hello! How can I assist your research today, Scientist?", EmotionState.HAPPY)
+            }
+        }
+    }
+
+    /**
+     * Called on single tap. Toggles the small message icon button.
+     */
+    fun onSphereTap() {
+        if (!_isChatVisible.value) {
+            _isMessageIconVisible.value = !_isMessageIconVisible.value
+        }
+    }
+
+    /**
+     * Called on double tap. Opens the full chat immediately.
+     */
+    fun onSphereDoubleTap() {
+        toggleChat(true)
+    }
+
+    fun sendChatMessage(query: String) {
+        if (query.isBlank() || _isChatLoading.value) return
+
+        // 1. Add User Message
+        val userMsg = ChatMessage(text = query, isUser = true)
+        _chatMessages.value = _chatMessages.value + userMsg
+        _isChatLoading.value = true
+
+        // 2. Call Backend
+        RagService.companionChat(userId, query) { response ->
+            _isChatLoading.value = false
+            if (response != null) {
+                // 3. Handle AI Response
+                val emotionStr = response.emotion ?: "HAPPY"
+                val emotion = try { EmotionState.valueOf(emotionStr) } catch (e: Exception) { EmotionState.HAPPY }
+                val responseText = response.text ?: "Navigating now..."
+                addCompanionMessage(responseText, emotion)
+                
+                // 4. Process Action
+                val action = response.action ?: "NONE"
+                if (action != "NONE") {
+                    val target = response.target ?: ""
+                    val mode = response.mode ?: "NORMAL"
+                    val rQuery = response.query ?: ""
+                    processAction(action, target, mode, rQuery)
+                }
+            } else {
+                addCompanionMessage("I'm having trouble connecting to my core brain. Please try again later.", EmotionState.SAD)
+            }
+        }
+    }
+
+    private fun addCompanionMessage(text: String, emotion: EmotionState) {
+        val companionMsg = ChatMessage(text = text, isUser = false, emotion = emotion)
+        _chatMessages.value = _chatMessages.value + companionMsg
+        
+        // Update sphere emotion
+        overrideEmotion = emotion
+        overrideEmotionTime = System.currentTimeMillis()
+        _emotionState.value = emotion
+        if (!_isMuted.value) {
+            soundManager.onEmotionChanged(emotion)
+        }
+    }
+
+    private fun processAction(action: String, target: String, mode: String = "NORMAL", query: String = "") {
+        viewModelScope.launch {
+            when (action.uppercase()) {
+                "NAVIGATE" -> {
+                    _navigationEvent.tryEmit(target)
+                }
+                "SEARCH" -> {
+                    _navigationEvent.tryEmit("search:$target")
+                }
+                "ROUTE" -> {
+                    val encodedQuery = android.net.Uri.encode(query)
+                    val route = when (mode.uppercase()) {
+                        "CONCEPT" -> "answer/$encodedQuery/Concept?hybrid=true"
+                        "EXAM" -> "answer/$encodedQuery/Exam?hybrid=true"
+                        "EXPERT" -> "answer/$encodedQuery/Expert?hybrid=true"
+                        "QUIZ" -> "answer/$encodedQuery/Quiz?hybrid=true"
+                        "ARTICLES" -> if (encodedQuery.isNotBlank()) "articles?q=$encodedQuery" else "articles"
+                        "LIBRARY" -> if (encodedQuery.isNotBlank()) "library?q=$encodedQuery" else "library"
+                        else -> "home"
+                    }
+                    _navigationEvent.tryEmit(route)
+                    toggleChat(false) // Auto-close chat after routing
+                }
+            }
+        }
+    }
+
+    // Navigation events for the UI to observe (one-time events)
+    private val _navigationEvent = MutableSharedFlow<String>(
+        extraBufferCapacity = 1,
+        onBufferOverflow = kotlinx.coroutines.channels.BufferOverflow.DROP_OLDEST
+    )
+    val navigationEvent: SharedFlow<String> = _navigationEvent.asSharedFlow()
+
 
     // ── Position ────────────────────────────────────────────────────
 

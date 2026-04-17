@@ -38,6 +38,7 @@ class AISpherePreferences(context: Context) {
         private const val KEY_COMPANION_ACCESSORY = "companion_accessory"
         private const val KEY_COMPANION_GLOW = "companion_glow"
         private const val KEY_SETUP_COMPLETED = "companion_setup_completed"
+        private const val KEY_USER_ID = "companion_user_id"
     }
 
     // ── Master toggles ──────────────────────────────────────────────
@@ -213,4 +214,8 @@ class AISpherePreferences(context: Context) {
         companionAccessory = profile.accessory
         companionHasGlow = profile.hasGlow
     }
+
+    var userId: String?
+        get() = prefs.getString(KEY_USER_ID, null)
+        set(value) = prefs.edit().putString(KEY_USER_ID, value).apply()
 }

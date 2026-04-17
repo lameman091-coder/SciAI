@@ -59,4 +59,11 @@ interface ApiService {
 
     @DELETE("books/{book_id}")
     fun deleteBook(@Path("book_id") bookId: String, @Query("user_id") userId: String): Call<Map<String, String>>
+
+    // ── Controller / Companion Route ─────────────────────────────────────────
+    @POST("route")
+    fun routeQuery(@Body request: RouteRequest): Call<RouteResponse>
+
+    @POST("companion/chat")
+    fun companionChat(@Body request: CompanionChatRequest): Call<CompanionChatResponse>
 }

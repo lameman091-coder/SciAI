@@ -256,4 +256,31 @@ object RagService {
             }
         })
     }
+
+    // ── Controller / Companion Route ─────────────────────────────────────────
+    fun routeQuery(query: String, callback: (RouteResponse?) -> Unit) {
+        val request = RouteRequest(query)
+        NetworkClient.apiService.routeQuery(request).enqueue(object : Callback<RouteResponse> {
+            override fun onResponse(call: Call<RouteResponse>, response: Response<RouteResponse>) {
+                callback(if (response.isSuccessful) response.body() else null)
+            }
+            override fun onFailure(call: Call<RouteResponse>, t: Throwable) {
+                println("[SciAI] routeQuery error: ${t.message}")
+                callback(null)
+            }
+        })
+    }
+
+    fun companionChat(userId: String, query: String, callback: (CompanionChatResponse?) -> Unit) {
+        val request = CompanionChatRequest(userId, query)
+        NetworkClient.apiService.companionChat(request).enqueue(object : Callback<CompanionChatResponse> {
+            override fun onResponse(call: Call<CompanionChatResponse>, response: Response<CompanionChatResponse>) {
+                callback(if (response.isSuccessful) response.body() else null)
+            }
+            override fun onFailure(call: Call<CompanionChatResponse>, t: Throwable) {
+                println("[SciAI] companionChat error: ${t.message}")
+                callback(null)
+            }
+        })
+    }
 }

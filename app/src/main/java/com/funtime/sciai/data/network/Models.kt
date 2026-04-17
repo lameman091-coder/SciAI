@@ -121,3 +121,28 @@ data class EvaluateAnswerDetailedResponse(
     @SerializedName("model_answer") val modelAnswer: String = "",
     @SerializedName("overall_feedback") val overallFeedback: String = ""
 )
+
+// ── Controller / Companion Route Models ──────────────────────────────────────
+data class RouteRequest(val query: String)
+
+data class RouteResponse(
+    val mode: String = "Concept",
+    val domain: String = "General",
+    @SerializedName("companion_message") val companionMessage: String = "",
+    val confidence: Float = 0f
+)
+
+// ── AI Companion Chat Models ────────────────────────────────────────────────
+data class CompanionChatRequest(
+    val user_id: String,
+    val query: String
+)
+
+data class CompanionChatResponse(
+    val text: String?,
+    val action: String? = "NONE",
+    val mode: String? = "NORMAL",
+    val query: String? = "",
+    val target: String? = "",
+    val emotion: String? = "HAPPY"
+)

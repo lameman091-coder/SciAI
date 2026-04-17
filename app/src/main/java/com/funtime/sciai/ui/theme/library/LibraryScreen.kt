@@ -36,7 +36,11 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
-fun LibraryScreen(navController: NavController, drawerState: androidx.compose.material3.DrawerState) {
+fun LibraryScreen(
+    navController: NavController, 
+    drawerState: androidx.compose.material3.DrawerState,
+    initialQuery: String? = null
+) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val userManager = remember { UserManager(context) }
@@ -114,6 +118,13 @@ fun LibraryScreen(navController: NavController, drawerState: androidx.compose.ma
     LaunchedEffect(Unit) {
         refreshBooks()
         refreshArticles()
+        
+        // If an initial query was passed (e.g. from Butler), handle it
+        if (!initialQuery.isNullOrBlank()) {
+            // For Library, we could filter local results or just show a snackbar
+            // If the library was a searchable cloud database, we'd trigger that.
+            // For now, we'll just show the library and maybe filter the books list
+        }
     }
 
     // Delete Confirmation Dialog

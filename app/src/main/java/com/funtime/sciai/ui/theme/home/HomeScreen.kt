@@ -43,16 +43,18 @@ import androidx.compose.ui.zIndex
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.funtime.sciai.data.*
+import com.funtime.sciai.data.rag.RagService
+import com.funtime.sciai.ui.theme.*
 import coil.compose.AsyncImage
 import kotlinx.coroutines.*
 import java.util.*
 
-// ── CONSTANTS & MODELS ───────────────────────────────────────────────────────────────────
-val CyanAccent = Color(0xFF38BDF8)
+// ── CONSTANTS & MODELS ───────────────────────────────────────────────────────
+val CyanAccent = SciAICyan
 data class PredictedContext(val domain: String?, val mode: String?)
 
-// ── INTELLIGENCE LOGIC ───────────────────────────────────────────────────────────────────
-fun predictSearchContext(query: String): PredictedContext {
+// ── CLIENT-SIDE FALLBACK (used when backend /route is unreachable) ────────────
+fun predictSearchContextFallback(query: String): PredictedContext {
     val q = query.lowercase()
     val domain = when {
         q.contains("cell") || q.contains("dna") || q.contains("biology") || q.contains("plant") || 
@@ -74,7 +76,7 @@ fun predictSearchContext(query: String): PredictedContext {
     return PredictedContext(domain, mode)
 }
 
-// ── MAIN SCREEN ──────────────────────────────────────────────────────────────────────────
+// ── MAIN SCREEN ──────────────────────────────────────────────────────────────
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController, drawerState: DrawerState) {
@@ -99,6 +101,12 @@ fun HomeScreen(navController: NavController, drawerState: DrawerState) {
     var isProcessingImage by remember { mutableStateOf(false) }
     var lastPredictedContext by remember { mutableStateOf<PredictedContext?>(null) }
     var imageUris by remember { mutableStateOf<List<Uri>>(emptyList()) }
+
+    // ── Companion State ──────────────────────────────────────────────────────
+    var companionMessage by remember { mutableStateOf("") }
+    var isAiDetected by remember { mutableStateOf(false) }
+    var companionConfidence by remember { mutableStateOf(0f) }
+    var routeDebounceJob by remember { mutableStateOf<Job?>(null) }
 
     // Dashboard Data
     var dashboardLoaded by remember { mutableStateOf(false) }
@@ -129,18 +137,49 @@ fun HomeScreen(navController: NavController, drawerState: DrawerState) {
         }
     }
 
-    // Intelligence Effect
+    // ── Intelligence Effect (Backend Controller /route) ──────────────────────
     LaunchedEffect(query) {
         if (query.length > 5 && isSearchFocused) {
-            val prediction = predictSearchContext(query)
-            if (prediction.domain != null || prediction.mode != null) {
-                if (prediction != lastPredictedContext) {
-                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                    prediction.domain?.let { selectedDomain = it }
-                    prediction.mode?.let { selectedMode = it }
-                    lastPredictedContext = prediction
+            // Cancel previous debounce
+            routeDebounceJob?.cancel()
+            routeDebounceJob = coroutineScope.launch {
+                delay(800) // Debounce — wait 800ms after user stops typing
+                
+                // Call backend Controller
+                RagService.routeQuery(query) { routeResponse ->
+                    if (routeResponse != null && routeResponse.confidence > 0.3f) {
+                        // AI detection succeeded
+                        selectedDomain = routeResponse.domain
+                        selectedMode = routeResponse.mode
+                        companionMessage = routeResponse.companionMessage
+                        companionConfidence = routeResponse.confidence
+                        isAiDetected = true
+                        lastPredictedContext = PredictedContext(routeResponse.domain, routeResponse.mode)
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                    } else {
+                        // Fallback to client-side prediction
+                        val prediction = predictSearchContextFallback(query)
+                        if (prediction.domain != null || prediction.mode != null) {
+                            prediction.domain?.let { selectedDomain = it }
+                            prediction.mode?.let { selectedMode = it }
+                            lastPredictedContext = prediction
+                            isAiDetected = false
+                            companionMessage = ""
+                        }
+                    }
                 }
             }
+        } else if (query.length <= 5) {
+            companionMessage = ""
+            isAiDetected = false
+        }
+    }
+
+    // Auto-dismiss companion message after 4 seconds
+    LaunchedEffect(companionMessage) {
+        if (companionMessage.isNotBlank()) {
+            delay(4000)
+            companionMessage = ""
         }
     }
 
@@ -209,10 +248,40 @@ fun HomeScreen(navController: NavController, drawerState: DrawerState) {
 
     if (showDialog) {
         var input by remember { mutableStateOf("") }
-        AlertDialog(onDismissRequest = {}, 
-            confirmButton = { Button(onClick = { if (input.isNotBlank()) { userManager.saveName(input); userName = input; showDialog = false } }) { Text("Start") } },
-            title = { Text("Welcome") }, 
-            text = { OutlinedTextField(value = input, onValueChange = { input = it }, label = { Text("Enter your name") }) }
+        AlertDialog(
+            onDismissRequest = {},
+            containerColor = SciAISurface,
+            shape = RoundedCornerShape(24.dp),
+            confirmButton = { 
+                Button(
+                    onClick = { if (input.isNotBlank()) { userManager.saveName(input); userName = input; showDialog = false } },
+                    colors = ButtonDefaults.buttonColors(containerColor = SciAICyan)
+                ) { Text("Start Learning", color = Color.Black, fontWeight = FontWeight.Bold) } 
+            },
+            title = { 
+                Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+                    Text("🧬", fontSize = 40.sp)
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text("Welcome to SciAI", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                    Text("Your intelligent science companion", color = SciAISubtext, fontSize = 13.sp)
+                }
+            }, 
+            text = { 
+                OutlinedTextField(
+                    value = input, 
+                    onValueChange = { input = it }, 
+                    label = { Text("What should I call you?", color = SciAISubtext) },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = SciAICyan,
+                        unfocusedBorderColor = SciAIBorder,
+                        focusedTextColor = Color.White,
+                        unfocusedTextColor = SciAIText,
+                        cursorColor = SciAICyan
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) 
+            }
         )
     }
 
@@ -236,9 +305,9 @@ fun HomeScreen(navController: NavController, drawerState: DrawerState) {
                                     Column {
                                         Text("Welcome, ${userName ?: "Student"}", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Black)
                                         Row(verticalAlignment = Alignment.CenterVertically) {
-                                            Text("Lv.$currentLevel", color = CyanAccent, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                            Text("Lv.$currentLevel", color = SciAICyan, fontSize = 12.sp, fontWeight = FontWeight.Bold)
                                             Text(" · ", color = Color.Gray, fontSize = 12.sp)
-                                            Text(currentTitle, color = Color(0xFFFBBF24), fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                            Text(currentTitle, color = SciAIAmber, fontSize = 12.sp, fontWeight = FontWeight.Bold)
                                         }
                                     }
                                     Surface(color = if (streak > 0) Color(0xFFF59E0B).copy(alpha = 0.15f) else Color.White.copy(alpha = 0.05f),
@@ -253,9 +322,9 @@ fun HomeScreen(navController: NavController, drawerState: DrawerState) {
                                 }
                                 Spacer(modifier = Modifier.height(12.dp))
                                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                    QuickStatChip("⚡ ${todayXP} XP", CyanAccent, Modifier.weight(1f))
-                                    QuickStatChip("🎯 ${overallAccuracy.toInt()}%", Color(0xFF22C55E), Modifier.weight(1f))
-                                    QuickStatChip("⏰ ${formatSessionTime(sessionTime)}", Color(0xFFFBBF24), Modifier.weight(1f))
+                                    QuickStatChip("⚡ ${todayXP} XP", SciAICyan, Modifier.weight(1f))
+                                    QuickStatChip("🎯 ${overallAccuracy.toInt()}%", SciAIGreen, Modifier.weight(1f))
+                                    QuickStatChip("⏰ ${formatSessionTime(sessionTime)}", SciAIAmber, Modifier.weight(1f))
                                 }
                             }
                         }
@@ -278,18 +347,18 @@ fun HomeScreen(navController: NavController, drawerState: DrawerState) {
                                     }
                                     route?.let { navController.navigate(it) }
                                 },
-                                colors = CardDefaults.cardColors(containerColor = Color(0xFF0F172A).copy(alpha = 0.65f)),
-                                border = BorderStroke(1.dp, Color.White.copy(alpha = 0.1f))
+                                colors = CardDefaults.cardColors(containerColor = SciAISurface.copy(alpha = 0.65f)),
+                                border = BorderStroke(1.dp, SciAIBorderLight)
                             ) {
                                 Row(modifier = Modifier.fillMaxWidth().padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
                                     Column(modifier = Modifier.weight(1f)) {
-                                        Text("💡 SUGGESTED", color = Color(0xFFFBBF24), fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.5.sp)
+                                        Text("💡 SUGGESTED", color = SciAIAmber, fontSize = 10.sp, fontWeight = FontWeight.Black, letterSpacing = 1.5.sp)
                                         Spacer(modifier = Modifier.height(4.dp))
                                         Text(suggestedAction!!.title, color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                                        Text(suggestedAction!!.description, color = Color(0xFF94A3B8), fontSize = 13.sp)
+                                        Text(suggestedAction!!.description, color = SciAISubtext, fontSize = 13.sp)
                                     }
-                                    Surface(color = CyanAccent.copy(alpha = 0.15f), shape = RoundedCornerShape(10.dp)) {
-                                        Text("GO →", color = CyanAccent, fontWeight = FontWeight.Black, fontSize = 12.sp, modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp))
+                                    Surface(color = SciAICyan.copy(alpha = 0.15f), shape = RoundedCornerShape(10.dp)) {
+                                        Text("GO →", color = SciAICyan, fontWeight = FontWeight.Black, fontSize = 12.sp, modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp))
                                     }
                                 }
                             }
@@ -300,20 +369,20 @@ fun HomeScreen(navController: NavController, drawerState: DrawerState) {
                         Card(
                             shape = RoundedCornerShape(16.dp),
                             modifier = Modifier.fillMaxWidth(),
-                            colors = CardDefaults.cardColors(containerColor = Color(0xFF0F172A).copy(alpha = 0.65f)),
-                            border = BorderStroke(1.dp, Color.White.copy(alpha = 0.1f))
+                            colors = CardDefaults.cardColors(containerColor = SciAISurface.copy(alpha = 0.65f)),
+                            border = BorderStroke(1.dp, SciAIBorderLight)
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
                                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                                    Text("📊 PROGRESS", color = CyanAccent, fontWeight = FontWeight.Black, fontSize = 11.sp)
-                                    Text("${totalXP} XP Total", color = Color(0xFF94A3B8), fontSize = 11.sp)
+                                    Text("📊 PROGRESS", color = SciAICyan, fontWeight = FontWeight.Black, fontSize = 11.sp)
+                                    Text("${totalXP} XP Total", color = SciAISubtext, fontSize = 11.sp)
                                 }
                                 Spacer(modifier = Modifier.height(12.dp))
                                 val xpInLevel = totalXP % 100
                                 LinearProgressIndicator(
                                     progress = (xpInLevel / 100f).coerceIn(0f, 1f),
                                     modifier = Modifier.fillMaxWidth().height(6.dp).clip(RoundedCornerShape(3.dp)),
-                                    color = CyanAccent, trackColor = CyanAccent.copy(alpha = 0.15f)
+                                    color = SciAICyan, trackColor = SciAICyan.copy(alpha = 0.15f)
                                 )
                                 Spacer(modifier = Modifier.height(12.dp))
                                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
@@ -331,11 +400,11 @@ fun HomeScreen(navController: NavController, drawerState: DrawerState) {
                             Card(
                                 shape = RoundedCornerShape(16.dp),
                                 modifier = Modifier.fillMaxWidth(),
-                                colors = CardDefaults.cardColors(containerColor = Color(0xFF0F172A).copy(alpha = 0.65f)),
-                                border = BorderStroke(1.dp, Color.White.copy(alpha = 0.1f))
+                                colors = CardDefaults.cardColors(containerColor = SciAISurface.copy(alpha = 0.65f)),
+                                border = BorderStroke(1.dp, SciAIBorderLight)
                             ) {
                                 Column(modifier = Modifier.padding(16.dp)) {
-                                    Text("🎯 DAILY MISSIONS", color = Color(0xFFA855F7), fontWeight = FontWeight.Black, fontSize = 11.sp)
+                                    Text("🎯 DAILY MISSIONS", color = SciAIPurple, fontWeight = FontWeight.Black, fontSize = 11.sp)
                                     Spacer(modifier = Modifier.height(12.dp))
                                     dailyMissions.forEach { mission ->
                                         Row(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -343,10 +412,10 @@ fun HomeScreen(navController: NavController, drawerState: DrawerState) {
                                             Spacer(modifier = Modifier.width(8.dp))
                                             Column(modifier = Modifier.weight(1f)) {
                                                 Text(mission.title, color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
-                                                Text(mission.description, color = Color(0xFF94A3B8), fontSize = 11.sp)
+                                                Text(mission.description, color = SciAISubtext, fontSize = 11.sp)
                                             }
                                             if (mission.isCompleted) Text("✅", fontSize = 14.sp)
-                                            else Text("${mission.currentProgress}/${mission.targetProgress}", color = Color(0xFFA855F7), fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                            else Text("${mission.currentProgress}/${mission.targetProgress}", color = SciAIPurple, fontSize = 12.sp, fontWeight = FontWeight.Bold)
                                         }
                                     }
                                 }
@@ -369,9 +438,9 @@ fun HomeScreen(navController: NavController, drawerState: DrawerState) {
                     isSearchFocused = isSearchFocused,
                     onFocusChange = { isSearchFocused = it },
                     selectedDomain = selectedDomain,
-                    onDomainSelect = { selectedDomain = it },
+                    onDomainSelect = { selectedDomain = it; isAiDetected = false },
                     selectedMode = selectedMode,
-                    onModeSelect = { selectedMode = it },
+                    onModeSelect = { selectedMode = it; isAiDetected = false },
                     lastPredictedContext = lastPredictedContext,
                     isProcessingImage = isProcessingImage,
                     imageUris = imageUris,
@@ -386,14 +455,16 @@ fun HomeScreen(navController: NavController, drawerState: DrawerState) {
                         speechLauncher.launch(intent)
                     },
                     onSendClick = { executeSearch() },
-                    focusManager = focusManager
+                    focusManager = focusManager,
+                    companionMessage = companionMessage,
+                    isAiDetected = isAiDetected
                 )
             }
         }
     }
 }
 
-// ── FLOATING SMART INTERFACE COMPONENT ───────────────────────────────────────────────────
+// ── FLOATING SMART INTERFACE COMPONENT ───────────────────────────────────────
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun FloatingSmartInterface(
@@ -412,26 +483,101 @@ fun FloatingSmartInterface(
     onRemoveImage: (Uri) -> Unit,
     onVoiceClick: () -> Unit,
     onSendClick: () -> Unit,
-    focusManager: androidx.compose.ui.focus.FocusManager
+    focusManager: androidx.compose.ui.focus.FocusManager,
+    companionMessage: String = "",
+    isAiDetected: Boolean = false
 ) {
+    // Glow animation for AI detection
+    val glowAlpha by animateFloatAsState(
+        targetValue = if (isAiDetected && companionMessage.isNotBlank()) 0.6f else 0f,
+        animationSpec = tween(600),
+        label = "glowAlpha"
+    )
+
     Box(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp).padding(bottom = 24.dp).zIndex(10f)) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            
+            // ── Companion Message Bar ────────────────────────────────────────
+            AnimatedVisibility(
+                visible = companionMessage.isNotBlank(),
+                enter = fadeIn(tween(300)) + slideInVertically(tween(300)) { it / 2 },
+                exit = fadeOut(tween(200)) + slideOutVertically(tween(200)) { it / 2 }
+            ) {
+                Surface(
+                    color = SciAICyan.copy(alpha = 0.12f),
+                    shape = RoundedCornerShape(16.dp),
+                    border = BorderStroke(1.dp, SciAICyan.copy(alpha = 0.3f)),
+                    modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("🧠", fontSize = 16.sp)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            companionMessage,
+                            color = SciAICyan,
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            modifier = Modifier.weight(1f)
+                        )
+                        if (isAiDetected) {
+                            Surface(
+                                color = SciAICyan.copy(alpha = 0.2f),
+                                shape = RoundedCornerShape(6.dp)
+                            ) {
+                                Text(
+                                    "AI",
+                                    color = SciAICyan,
+                                    fontSize = 9.sp,
+                                    fontWeight = FontWeight.Black,
+                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
             // Morphing Context Bar
             Surface(
-                color = Color(0xFF1E293B).copy(alpha = 0.95f),
+                color = SciAISurfaceAlt.copy(alpha = 0.95f),
                 shape = RoundedCornerShape(24.dp),
-                border = BorderStroke(1.dp, Color.White.copy(alpha = 0.1f)),
+                border = BorderStroke(1.dp, SciAIBorderLight),
                 modifier = Modifier.fillMaxWidth().animateContentSize().padding(bottom = 12.dp).shadow(12.dp, RoundedCornerShape(24.dp))
             ) {
                 Column(modifier = Modifier.padding(8.dp)) {
                     if (isSearchFocused) {
-                        Text("SELECT DOMAIN", color = CyanAccent, fontSize = 10.sp, fontWeight = FontWeight.Black, modifier = Modifier.padding(start = 12.dp, bottom = 8.dp))
+                        // Domain header with AI detection badge
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(start = 12.dp, bottom = 8.dp, end = 12.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text("SELECT DOMAIN", color = SciAICyan, fontSize = 10.sp, fontWeight = FontWeight.Black)
+                            if (isAiDetected) {
+                                Surface(
+                                    color = SciAIGreen.copy(alpha = 0.15f),
+                                    shape = RoundedCornerShape(8.dp),
+                                    border = BorderStroke(0.5.dp, SciAIGreen.copy(alpha = 0.3f))
+                                ) {
+                                    Text(
+                                        "🧠 AI Detected",
+                                        color = SciAIGreen,
+                                        fontSize = 9.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
+                                    )
+                                }
+                            }
+                        }
                         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(horizontal = 8.dp)) {
                             listOf("Biology", "Physics", "Chemistry", "Science").forEach { domain ->
                                 val i = selectedDomain == domain
                                 Surface(onClick = { onDomainSelect(domain) }, shape = RoundedCornerShape(12.dp),
-                                    color = if (i) CyanAccent.copy(alpha = 0.15f) else Color.Transparent,
-                                    border = BorderStroke(1.dp, if (i) CyanAccent else Color.White.copy(alpha = 0.1f))) {
+                                    color = if (i) SciAICyan.copy(alpha = 0.15f) else Color.Transparent,
+                                    border = BorderStroke(1.dp, if (i) SciAICyan else SciAIBorderLight)) {
                                     Row(modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                                         Text(when(domain){ "Biology"->"🦠"; "Physics"->"⚛"; "Chemistry"->"🧪"; else->"🌍" }, fontSize = 14.sp)
                                         Spacer(modifier = Modifier.width(6.dp)); Text(domain, color = if (i) Color.White else Color.Gray, fontSize = 12.sp, fontWeight = FontWeight.Bold)
@@ -440,13 +586,13 @@ fun FloatingSmartInterface(
                             }
                         }
                         Spacer(modifier = Modifier.height(16.dp))
-                        Text("SELECT MODE", color = Color(0xFFFBBF24), fontSize = 10.sp, fontWeight = FontWeight.Black, modifier = Modifier.padding(start = 12.dp, bottom = 8.dp))
+                        Text("SELECT MODE", color = SciAIAmber, fontSize = 10.sp, fontWeight = FontWeight.Black, modifier = Modifier.padding(start = 12.dp, bottom = 8.dp))
                         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(horizontal = 8.dp)) {
                             listOf("Exam", "Concept", "Expert", "Quiz", "Test").forEach { mode ->
                                 val i = selectedMode == mode
                                 Surface(onClick = { onModeSelect(mode) }, shape = RoundedCornerShape(12.dp),
-                                    color = if (i) Color(0xFFFBBF24).copy(alpha = 0.15f) else Color.Transparent,
-                                    border = BorderStroke(1.dp, if (i) Color(0xFFFBBF24) else Color.White.copy(alpha = 0.1f))) {
+                                    color = if (i) SciAIAmber.copy(alpha = 0.15f) else Color.Transparent,
+                                    border = BorderStroke(1.dp, if (i) SciAIAmber else SciAIBorderLight)) {
                                     Row(modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                                         Text(when(mode){ "Exam"->"📘"; "Concept"->"🧠"; "Expert"->"🔬"; "Quiz"->"🎯"; else->"📝" }, fontSize = 14.sp)
                                         Spacer(modifier = Modifier.width(6.dp)); Text(mode, color = if (i) Color.White else Color.Gray, fontSize = 12.sp, fontWeight = FontWeight.Bold)
@@ -457,8 +603,12 @@ fun FloatingSmartInterface(
                         lastPredictedContext?.let {
                             Spacer(modifier = Modifier.height(12.dp))
                             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                                Surface(color = CyanAccent.copy(alpha = 0.15f), shape = RoundedCornerShape(12.dp), border = BorderStroke(1.dp, CyanAccent.copy(alpha = 0.3f))) {
-                                    Text("Detected: ${it.domain ?: selectedDomain} • ${it.mode ?: selectedMode}", color = CyanAccent, fontSize = 11.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp))
+                                Surface(color = SciAICyan.copy(alpha = 0.15f), shape = RoundedCornerShape(12.dp), border = BorderStroke(1.dp, SciAICyan.copy(alpha = 0.3f))) {
+                                    Text(
+                                        "${if (isAiDetected) "🧠 " else ""}${it.domain ?: selectedDomain} • ${it.mode ?: selectedMode}",
+                                        color = SciAICyan, fontSize = 11.sp, fontWeight = FontWeight.Bold,
+                                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                                    )
                                 }
                             }
                         }
@@ -466,9 +616,20 @@ fun FloatingSmartInterface(
                         LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp), modifier = Modifier.padding(6.dp)) {
                             item {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Text("🦠 $selectedDomain", color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                                    Text(when(selectedDomain){ "Biology"->"🦠"; "Physics"->"⚛"; "Chemistry"->"🧪"; else->"🌍" }, fontSize = 14.sp)
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                    Text(selectedDomain, color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold)
                                     Spacer(modifier = Modifier.width(12.dp))
-                                    Text("📘 $selectedMode", color = Color(0xFFFBBF24), fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                                    Text(when(selectedMode){ "Exam"->"📘"; "Concept"->"🧠"; "Expert"->"🔬"; "Quiz"->"🎯"; else->"📝" }, fontSize = 14.sp)
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                    Text(selectedMode, color = SciAIAmber, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                                    if (isAiDetected) {
+                                        Spacer(modifier = Modifier.width(8.dp))
+                                        Surface(color = SciAIGreen.copy(alpha = 0.15f), shape = RoundedCornerShape(6.dp)) {
+                                            Text("AI", color = SciAIGreen, fontSize = 9.sp, fontWeight = FontWeight.Black,
+                                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp))
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -478,9 +639,14 @@ fun FloatingSmartInterface(
 
             // Search Pill
             Surface(
-                color = Color(0xFF0F172A).copy(alpha = 0.95f),
+                color = SciAIDark.copy(alpha = 0.95f),
                 shape = RoundedCornerShape(32.dp),
-                border = BorderStroke(1.5.dp, if (isSearchFocused) CyanAccent else Color.White.copy(alpha = 0.15f)),
+                border = BorderStroke(
+                    1.5.dp, 
+                    if (isAiDetected && glowAlpha > 0) SciAICyan.copy(alpha = glowAlpha) 
+                    else if (isSearchFocused) SciAICyan 
+                    else SciAIBorderLight
+                ),
                 modifier = Modifier.fillMaxWidth().shadow(20.dp, RoundedCornerShape(32.dp))
             ) {
                 Column(modifier = Modifier.fillMaxWidth()) {
@@ -496,7 +662,7 @@ fun FloatingSmartInterface(
                                         .size(56.dp)
                                         .clip(RoundedCornerShape(12.dp))
                                         .background(Color.White.copy(alpha = 0.05f))
-                                        .border(1.dp, Color.White.copy(alpha = 0.1f), RoundedCornerShape(12.dp))
+                                        .border(1.dp, SciAIBorderLight, RoundedCornerShape(12.dp))
                                 ) {
                                     AsyncImage(
                                         model = uri,
@@ -525,12 +691,12 @@ fun FloatingSmartInterface(
                     singleLine = false, maxLines = 4, enabled = !isProcessingImage,
                     keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Send),
                     keyboardActions = KeyboardActions(onSend = { onSendClick(); onFocusChange(false); focusManager.clearFocus() }),
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color.Transparent, unfocusedBorderColor = Color.Transparent, cursorColor = CyanAccent, focusedContainerColor = Color.Transparent, unfocusedContainerColor = Color.Transparent),
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color.Transparent, unfocusedBorderColor = Color.Transparent, cursorColor = SciAICyan, focusedContainerColor = Color.Transparent, unfocusedContainerColor = Color.Transparent),
                     leadingIcon = { IconButton(onClick = onAddImageClick) { Icon(Icons.Default.Add, contentDescription = null, tint = Color.Gray) } },
                     trailingIcon = {
                         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(end = 8.dp)) {
                             if (query.isNotBlank() || imageUris.isNotEmpty()) {
-                                IconButton(onClick = { onSendClick(); onFocusChange(false); focusManager.clearFocus() }) { Icon(Icons.AutoMirrored.Filled.Send, contentDescription = null, tint = CyanAccent) }
+                                IconButton(onClick = { onSendClick(); onFocusChange(false); focusManager.clearFocus() }) { Icon(Icons.AutoMirrored.Filled.Send, contentDescription = null, tint = SciAICyan) }
                             } else {
                                 IconButton(onClick = onVoiceClick) { Icon(Icons.Default.Mic, contentDescription = null, tint = Color.Gray) }
                             }
@@ -540,10 +706,10 @@ fun FloatingSmartInterface(
             }
         }
     }
-}
+    }
 }
 
-// ── HELPERS ──────────────────────────────────────────────────────────────────────────────
+// ── HELPERS ──────────────────────────────────────────────────────────────────
 @Composable
 fun QuickStatChip(text: String, color: Color, modifier: Modifier = Modifier) {
     Surface(color = color.copy(alpha = 0.1f), shape = RoundedCornerShape(10.dp), border = BorderStroke(1.dp, color.copy(alpha = 0.2f)), modifier = modifier) {
@@ -555,7 +721,7 @@ fun QuickStatChip(text: String, color: Color, modifier: Modifier = Modifier) {
 fun StatItem(label: String, value: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(value, color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Black)
-        Text(label, color = Color(0xFF64748B), fontSize = 11.sp)
+        Text(label, color = SciAIMuted, fontSize = 11.sp)
     }
 }
 
