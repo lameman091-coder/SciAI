@@ -39,11 +39,22 @@ class VectorStore:
         self.doc_metadata = []
         self.lock = threading.Lock()
         self._loaded = False
+        self.last_mtime = 0
 
     def ensure_loaded(self):
-        if not self._loaded:
-            self.load()
-            self._loaded = True
+        """Checks if the index needs to be loaded or reloaded from disk."""
+        if not os.path.exists(settings.FAISS_INDEX_PATH):
+            return
+
+        try:
+            mtime = os.path.getmtime(settings.FAISS_INDEX_PATH)
+            if not self._loaded or mtime > self.last_mtime:
+                log.info(f"FAISS: {'Reloading' if self._loaded else 'Loading'} index from disk (mtime changed)...")
+                self.load()
+                self.last_mtime = mtime
+                self._loaded = True
+        except Exception as e:
+            log.error(f"FAISS: ensure_loaded check failed: {e}")
 
     def embed_text(self, text: str) -> np.ndarray:
         embedding = get_embeddings([text])[0]
@@ -57,6 +68,9 @@ class VectorStore:
                     faiss.write_index(self.index, settings.FAISS_INDEX_PATH)
                     with open(settings.CHUNK_STORE_PATH, "w", encoding="utf-8") as f:
                         json.dump({"chunks": self.chunk_store, "metadata": self.doc_metadata}, f)
+                    
+                    # Update mtime after saving
+                    self.last_mtime = os.path.getmtime(settings.FAISS_INDEX_PATH)
                     log.info(f"FAISS: Saved {self.index.ntotal} vectors.")
             except Exception as e:
                 log.error(f"FAISS: Save error: {e}")
@@ -71,6 +85,9 @@ class VectorStore:
                         self.chunk_store = data.get("chunks", [])
                         self.doc_metadata = data.get("metadata", [])
                     log.info(f"FAISS: Loaded {self.index.ntotal} vectors of type {type(self.index).__name__}.")
+
+                    # Update mtime
+                    self.last_mtime = os.path.getmtime(settings.FAISS_INDEX_PATH)
 
                     # Migrate IndexFlatIP/L2 to IndexIDMap2 to support add_with_ids
                     if type(self.index).__name__ in ["IndexFlatIP", "IndexFlatL2", "IndexFlat"]:
@@ -127,26 +144,6 @@ class VectorStore:
             
             if removed_count == 0: return 0
             
-            # Remove from FAISS index using IDs
-            # IDs in IDMap2 correspond to our list indices
-            if self.index:
-                ids_to_remove = np.array(indices_to_remove).astype('int64')
-                self.index.remove_ids(ids_to_remove)
-                
-            # Update memory stores (must maintain index parity)
-            # Since we removed from index, we have a problem: higher indices shifted?
-            # NO, IndexIDMap2 doesn't shift internal IDs, but our list DOES shift.
-            # CRITICAL: If we remove from list, all subsequent indices in FAISS will be wrong.
-            
-            # BETTER APPROACH for Flat Index:
-            # Rebuild the IndexIDMap2 from the remaining vectors in the index!
-            # But FAISS doesn't allow easy "move" of vectors.
-            
-            # Actually, the most robust way for Flat index without re-encoding is:
-            # 1. Get all remaining vectors from index: self.index.reconstruct_n(0, ntotal)
-            # 2. Rebuild list and metadata
-            # 3. Create fresh index and add vectors
-            
             all_indices = list(range(len(self.doc_metadata)))
             indices_to_keep = [i for i in all_indices if i not in indices_to_remove]
             
@@ -177,7 +174,7 @@ class VectorStore:
         log.info(f"FAISS: Removed {removed_count} chunks for book_id={book_id} (Fast Rebuild)")
         return removed_count
 
-    def search(self, query: str, top_k=5, threshold=0.3, book_id=None, user_id="guest") -> list:
+    def search(self, query: str, top_k=5, threshold=0.2, book_id=None, user_id="guest") -> list:
         self.ensure_loaded()
         if self.index is None or self.index.ntotal == 0: return []
         

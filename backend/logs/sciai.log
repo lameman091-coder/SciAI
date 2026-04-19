@@ -984,3 +984,61 @@
 2026-04-15 13:54:53 | INFO     | model_manager:generate:692 - ModelManager: Trying Qwen (OpenRouter) (Tier 4) [key …8fb9ad]
 2026-04-15 13:55:30 | INFO     | model_manager:generate:719 - ModelManager: ✅ Qwen (OpenRouter) succeeded (6130 chars)
 2026-04-15 13:55:30 | INFO     | llm_engine:generate_book_answer:92 - LLM: Book generation via Qwen (OpenRouter)
+2026-04-17 17:32:45 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-17 17:43:39 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-17 17:44:28 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-17 17:54:43 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-17 18:16:54 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-17 18:16:54 | INFO     | main:startup_event:89 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-17 18:17:09 | WARNING  | cache_service:connect:28 - Redis unavailable, using in-memory fallback: Timeout connecting to server
+2026-04-17 18:17:09 | INFO     | main:startup_event:92 - ModelManager: 11 providers configured
+2026-04-17 18:27:38 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-17 18:27:38 | INFO     | main:startup_event:89 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-17 18:27:50 | WARNING  | cache_service:connect:28 - Redis unavailable, using in-memory fallback: Timeout connecting to server
+2026-04-17 18:27:50 | INFO     | main:startup_event:92 - ModelManager: 11 providers configured
+2026-04-18 20:53:23 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-18 21:43:37 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-18 21:43:37 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-18 21:43:37 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-18 21:43:40 | ERROR    | model_manager:generate:754 - ModelManager: ❌ Gemini Flash error: Gemini Flash: HTTP 404 — {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-1.5-flash-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+2026-04-18 21:43:40 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-18 21:43:40 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (14 chars)
+2026-04-18 21:43:56 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-18 21:43:56 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-18 21:43:56 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-18 21:43:59 | INFO     | model_manager:generate:741 - ModelManager: ✅ Gemini Flash succeeded (3 chars)
+2026-04-18 21:44:39 | INFO     | celery_config:process_pdf_async:34 - Celery: Starting PDF processing for 972bb542-3dc0-4c66-8cf8-7d89695789f3
+2026-04-18 21:44:39 | ERROR    | pdf_processor:extract_sync:23 - PDF Extraction failed: [Errno 2] No such file or directory: 'temp/972bb542-3dc0-4c66-8cf8-7d89695789f3_document'
+2026-04-18 21:44:39 | WARNING  | pdf_processor:process_pdf:30 - PDF Extraction: No text found in temp/972bb542-3dc0-4c66-8cf8-7d89695789f3_document
+2026-04-18 22:03:35 | INFO     | celery_config:process_pdf_async:36 - Celery: Starting PDF processing for dbf7999d-7b19-4ab1-baf9-4797114247f5
+2026-04-18 22:03:35 | ERROR    | pdf_processor:extract_sync:23 - PDF Extraction failed: [Errno 2] No such file or directory: 'temp/dbf7999d-7b19-4ab1-baf9-4797114247f5.pdf'
+2026-04-18 22:03:35 | WARNING  | pdf_processor:process_pdf:30 - PDF Extraction: No text found in temp/dbf7999d-7b19-4ab1-baf9-4797114247f5.pdf
+2026-04-18 22:05:00 | INFO     | celery_config:process_pdf_async:36 - Celery: Starting PDF processing for 27374754-5897-40a3-b1cd-d72ab4fef21f
+2026-04-18 22:05:00 | ERROR    | pdf_processor:extract_sync:23 - PDF Extraction failed: [Errno 2] No such file or directory: 'temp/27374754-5897-40a3-b1cd-d72ab4fef21f.pdf'
+2026-04-18 22:05:00 | WARNING  | pdf_processor:process_pdf:30 - PDF Extraction: No text found in temp/27374754-5897-40a3-b1cd-d72ab4fef21f.pdf
+2026-04-18 22:07:27 | INFO     | celery_config:process_pdf_async:36 - Celery: Starting PDF processing for e0208db6-7fd8-4c2d-bfe5-580b1161ebc9
+2026-04-18 22:07:27 | ERROR    | pdf_processor:extract_sync:23 - PDF Extraction failed: [Errno 2] No such file or directory: 'temp/e0208db6-7fd8-4c2d-bfe5-580b1161ebc9.pdf'
+2026-04-18 22:07:27 | WARNING  | pdf_processor:process_pdf:30 - PDF Extraction: No text found in temp/e0208db6-7fd8-4c2d-bfe5-580b1161ebc9.pdf
+2026-04-18 22:13:52 | INFO     | celery_config:process_pdf_async:36 - Celery: Starting PDF processing for a7e81afc-7b96-4645-97c1-065cb84c3583
+2026-04-18 22:14:02 | INFO     | pdf_processor:process_pdf:33 - PDF Extraction: Extracted 274933 characters from C:\Users\HP\AndroidStudioProjects\SciAI\backend\temp\a7e81afc-7b96-4645-97c1-065cb84c3583.pdf
+2026-04-18 22:14:02 | INFO     | pdf_processor:process_pdf:58 - PDF: Processed 528 chunks from C:\Users\HP\AndroidStudioProjects\SciAI\backend\temp\a7e81afc-7b96-4645-97c1-065cb84c3583.pdf
+2026-04-18 22:14:02 | INFO     | faiss_store:load:73 - FAISS: Loaded 405 vectors of type IndexFlatIP.
+2026-04-18 22:14:02 | INFO     | faiss_store:load:77 - FAISS: Migrating IndexFlatIP to IndexIDMap2...
+2026-04-18 22:14:02 | INFO     | faiss_store:load:87 - FAISS: Migration successful.
+2026-04-18 22:14:02 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-18 22:14:25 | INFO     | faiss_store:save:60 - FAISS: Saved 933 vectors.
+2026-04-18 22:14:25 | INFO     | celery_config:process_pdf_async:52 - Celery: Indexed 528 chunks for a7e81afc-7b96-4645-97c1-065cb84c3583
+2026-04-18 22:14:25 | INFO     | celery_config:update_db:63 - Celery: Updated database preview for a7e81afc-7b96-4645-97c1-065cb84c3583
+2026-04-18 22:14:25 | INFO     | celery_config:process_pdf_async:36 - Celery: Starting PDF processing for 52bbd332-4fd1-4e19-aa16-da5b197cf893
+2026-04-18 22:14:35 | INFO     | pdf_processor:process_pdf:33 - PDF Extraction: Extracted 274933 characters from C:\Users\HP\AndroidStudioProjects\SciAI\backend\temp\52bbd332-4fd1-4e19-aa16-da5b197cf893.pdf
+2026-04-18 22:14:35 | INFO     | pdf_processor:process_pdf:58 - PDF: Processed 528 chunks from C:\Users\HP\AndroidStudioProjects\SciAI\backend\temp\52bbd332-4fd1-4e19-aa16-da5b197cf893.pdf
+2026-04-18 22:14:53 | INFO     | faiss_store:save:60 - FAISS: Saved 1461 vectors.
+2026-04-18 22:14:53 | INFO     | celery_config:process_pdf_async:52 - Celery: Indexed 528 chunks for 52bbd332-4fd1-4e19-aa16-da5b197cf893
+2026-04-18 22:14:53 | INFO     | celery_config:update_db:63 - Celery: Updated database preview for 52bbd332-4fd1-4e19-aa16-da5b197cf893

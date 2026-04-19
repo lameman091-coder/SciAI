@@ -30,7 +30,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppNav() {
+fun AppNav(themeViewModel: ThemeViewModel) {
     val context = LocalContext.current
     val navController = rememberNavController()
     val aiSphereViewModel: AISphereViewModel = viewModel()
@@ -156,7 +156,7 @@ fun AppNav() {
                 }
 
                 composable("home") {
-                    HomeScreen(navController, drawerState)
+                    HomeScreen(navController, drawerState, themeViewModel)
                 }
 
                 composable("library?q={q}") { backStackEntry ->

@@ -39,6 +39,17 @@ class UserManager(private val context: Context) {
         prefs.edit().putInt("total", 0).apply()
     }
 
+    // ── Theme Persistence ──
+
+    fun setDarkMode(isDark: Boolean) {
+        prefs.edit().putBoolean("THEME_DARK", isDark).apply()
+    }
+
+    fun isDarkMode(): Boolean {
+        // Default to true (Dark Mode) for premium feel if not set
+        return prefs.getBoolean("THEME_DARK", true)
+    }
+
     // ── Gaming / Progress Persistence ──
 
     fun getXP(): Int = prefs.getInt("XP", 0)

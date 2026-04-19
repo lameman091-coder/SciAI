@@ -17,3 +17,11 @@ tiktoken
 diskcache
 beautifulsoup4
 lxml
+redis
+sentry-sdk
+slowapi
+celery
+pytest
+pytest-asyncio
+httpx
+prometheus-client

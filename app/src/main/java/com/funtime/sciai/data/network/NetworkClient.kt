@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit
 
 object NetworkClient {
     // Local testing — physical device on same WiFi
-    private const val BASE_URL = "http://192.168.1.104:8000/"
+    const val BASE_URL = "http://192.168.1.104:8000/api/v1/"
 
     private val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS)

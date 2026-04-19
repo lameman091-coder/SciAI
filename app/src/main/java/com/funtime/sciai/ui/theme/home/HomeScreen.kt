@@ -79,7 +79,7 @@ fun predictSearchContextFallback(query: String): PredictedContext {
 // ── MAIN SCREEN ──────────────────────────────────────────────────────────────
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavController, drawerState: DrawerState) {
+fun HomeScreen(navController: NavController, drawerState: DrawerState, themeViewModel: ThemeViewModel) {
     val context = LocalContext.current
     val activity = context as Activity
     val coroutineScope = rememberCoroutineScope()
@@ -288,7 +288,19 @@ fun HomeScreen(navController: NavController, drawerState: DrawerState) {
     com.funtime.sciai.components.AppScaffold(
         title = "SciAI",
         navController = navController,
-        onMenuClick = { coroutineScope.launch { drawerState.open() } }
+        onMenuClick = { coroutineScope.launch { drawerState.open() } },
+        actions = {
+            val isDark = themeViewModel.isDarkMode.value
+            IconButton(onClick = { themeViewModel.toggleTheme() }) {
+                Crossfade(targetState = isDark, label = "themeIcon") { dark ->
+                    Icon(
+                        imageVector = if (dark) Icons.Default.WbSunny else Icons.Default.NightsStay,
+                        contentDescription = "Toggle Theme",
+                        tint = if (dark) Color(0xFFFBBF24) else Color(0xFF334155)
+                    )
+                }
+            }
+        }
     ) { padding ->
         Box(modifier = Modifier.fillMaxSize().padding(padding)) {
             // Dashboard
@@ -365,13 +377,13 @@ fun HomeScreen(navController: NavController, drawerState: DrawerState) {
                             Spacer(modifier = Modifier.height(12.dp))
                         }
 
-                        // Progress Card (Glassmorphic)
-                        Card(
-                            shape = RoundedCornerShape(16.dp),
-                            modifier = Modifier.fillMaxWidth(),
-                            colors = CardDefaults.cardColors(containerColor = SciAISurface.copy(alpha = 0.65f)),
-                            border = BorderStroke(1.dp, SciAIBorderLight)
-                        ) {
+                                // Progress Card (Premium)
+                                Card(
+                                    shape = RoundedCornerShape(20.dp),
+                                    modifier = Modifier.fillMaxWidth().shadow(4.dp, RoundedCornerShape(20.dp)),
+                                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
+                                ) {
                             Column(modifier = Modifier.padding(16.dp)) {
                                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                                     Text("📊 PROGRESS", color = SciAICyan, fontWeight = FontWeight.Black, fontSize = 11.sp)
@@ -395,13 +407,13 @@ fun HomeScreen(navController: NavController, drawerState: DrawerState) {
                         
                         Spacer(modifier = Modifier.height(16.dp))
                         
-                        // Missions
+                        // Missions (Premium)
                         if (dailyMissions.isNotEmpty()) {
                             Card(
-                                shape = RoundedCornerShape(16.dp),
-                                modifier = Modifier.fillMaxWidth(),
-                                colors = CardDefaults.cardColors(containerColor = SciAISurface.copy(alpha = 0.65f)),
-                                border = BorderStroke(1.dp, SciAIBorderLight)
+                                shape = RoundedCornerShape(20.dp),
+                                modifier = Modifier.fillMaxWidth().shadow(4.dp, RoundedCornerShape(20.dp)),
+                                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
                             ) {
                                 Column(modifier = Modifier.padding(16.dp)) {
                                     Text("🎯 DAILY MISSIONS", color = SciAIPurple, fontWeight = FontWeight.Black, fontSize = 11.sp)

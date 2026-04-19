@@ -1,11 +1,21 @@
-from fastapi import FastAPI, HTTPException, UploadFile, File, Form, Depends, BackgroundTasks
+from fastapi import FastAPI, HTTPException, UploadFile, File, Form, Depends, BackgroundTasks, Request
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, delete
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+from typing import Optional
 import os
 import uuid
 import json
+import sentry_sdk
+from sentry_sdk.integrations.fastapi import FastApiIntegration
+from slowapi import Limiter
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
+from fastapi.responses import JSONResponse
+from slowapi.middleware import SlowAPIMiddleware
+from metrics import setup_metrics
+from fastapi.exceptions import RequestValidationError
 
 from config import settings
 from logger import log
@@ -17,13 +27,39 @@ import live_articles
 import controller_prompt
 import companion_engine
 from model_manager import manager as model_manager
+from cache_service import cache_service
 import time
 import asyncio
 
-query_cache = {}
+# Rate Limiter
+limiter = Limiter(key_func=get_remote_address)
+
 MAX_CACHE_SIZE = 200
 
-app = FastAPI(title="SciAI Core Backend", version="4.1.0")
+# API Version
+API_V1_PREFIX = "/api/v1"
+
+# Sentry Setup
+if settings.SENTRY_DSN:
+    sentry_sdk.init(
+        dsn=settings.SENTRY_DSN,
+        integrations=[FastApiIntegration()],
+        traces_sample_rate=0.1,
+        environment="production"
+    )
+    log.info("Sentry monitoring enabled")
+
+app = FastAPI(
+    title="SciAI Core Backend",
+    version="4.2.0",
+    docs_url=f"{API_V1_PREFIX}/docs",
+    redoc_url=f"{API_V1_PREFIX}/redoc"
+)
+
+# Include versioned API routes
+from fastapi import APIRouter
+
+api_router = APIRouter(prefix=API_V1_PREFIX)
 
 # CORS Setup
 app.add_middleware(
@@ -34,55 +70,103 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.exception_handler(RateLimitExceeded)
+async def rate_limit_handler(request: Request, exc: RateLimitExceeded):
+    return JSONResponse(
+        status_code=429,
+        content={"detail": "Rate limit exceeded. Please try again later."}
+    )
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    """Detailed logging for 422 Unprocessable Content errors."""
+    log.error(f"422 Validation Error at {request.url.path}: {exc.errors()}")
+    log.error(f"Body: {await request.body()}")
+    return JSONResponse(
+        status_code=422,
+        content={"detail": exc.errors(), "body": str(await request.body())}
+    )
+
+# Standard Middlewares initialization
+app.add_middleware(SlowAPIMiddleware)
+app.state.limiter = limiter
+
+# Initialize Metrics
+setup_metrics(app)
+
 @app.on_event("startup")
 async def startup_event():
     print("Starting SciAI backend...")
     log.info("SciAI PRODUCTION ENGINE STARTING...")
     await init_db()
-    # load_store() is now lazy-loaded on demand
+    await cache_service.connect()
     log.info(f"ModelManager: {len([p for p in model_manager.providers.values() if p.is_configured])} providers configured")
 
 @app.on_event("shutdown")
 async def shutdown_event():
     log.info("SciAI SHUTTING DOWN...")
     save_store()
+    await cache_service.close()
     await model_manager.close()
 
 # ── REQUEST MODELS ──
 class AskRequest(BaseModel):
-    question: str
-    mode: str
-    domain: str
-    book_id: str = None
+    question: str = Field(..., min_length=1, max_length=2000)
+    mode: str = Field(..., pattern="^(Concept|Exam|Expert|Quiz|Library)$")
+    domain: str = Field(..., min_length=1, max_length=100)
+    book_id: Optional[str] = None
     hybrid: bool = False
-    user_id: str = "guest"
+    user_id: str = Field(default="guest", max_length=100)
 
 class SavedArticleRequest(BaseModel):
-    user_id: str
-    id: str
-    title: str
-    summary: str
-    source: str
-    link: str
-    score: float = 0.0
-    authors: str = "Various Authors"
-    journal: str = "Research Journal"
-    date: str = "Unknown Date"
-    tier: str = "peer_reviewed"
+    user_id: str = Field(..., max_length=100)
+    id: str = Field(..., max_length=100)
+    title: str = Field(..., min_length=1, max_length=500)
+    summary: str = Field(..., max_length=2000)
+    source: str = Field(..., max_length=100)
+    link: str = Field(..., max_length=1000)
+    score: float = Field(default=0.0, ge=0.0, le=1.0)
+    authors: str = Field(default="Various Authors", max_length=200)
+    journal: str = Field(default="Research Journal", max_length=200)
+    date: str = Field(default="Unknown Date", max_length=50)
+    tier: str = Field(default="peer_reviewed", pattern="^(peer_reviewed|preprint|blog|news)$")
 
 class GenerateQuestionsRequest(BaseModel):
-    mode: str
-    topic: str
-    domain: str
-    level: int
-    count: int = 4
-    context_chunks: list[str] = []
-    previous_questions: list[dict] = []
+    mode: str = Field(..., pattern="^(Concept|Exam|Expert|Quiz|Library)$")
+    topic: str = Field(..., min_length=1, max_length=500)
+    domain: str = Field(..., min_length=1, max_length=100)
+    level: int = Field(..., ge=1, le=5)
+    count: int = Field(default=4, ge=1, le=20)
+    context_chunks: list[str] = Field(default_factory=list)
+    previous_questions: list[dict] = Field(default_factory=list)
 
 class EvaluateAnswerRequest(BaseModel):
-    question: str
-    user_answer: str
-    correct_answer: str
+    question: str = Field(..., min_length=1, max_length=1000)
+    user_answer: str = Field(..., min_length=1, max_length=5000)
+    correct_answer: str = Field(..., min_length=1, max_length=5000)
+
+class RouteQueryRequest(BaseModel):
+    query: str = Field(..., min_length=1, max_length=1000)
+
+@api_router.post("/route")
+@limiter.limit("30/minute")
+async def route_query(request: Request, request_body: RouteQueryRequest):
+    """Controller Decision Engine — classify query into mode + domain."""
+    try:
+        result = await controller_prompt.classify(request_body.query)
+        return result
+    except Exception as e:
+        log.error(f"Controller: Route endpoint failed: {e}")
+        return {
+            "mode": "Concept",
+            "domain": "General",
+            "companion_message": "Processing your request.",
+            "confidence": 0.0
+        }
+
+class CompanionChatRequest(BaseModel):
+    user_id: str = Field(..., max_length=100)
+    query: str = Field(..., min_length=1, max_length=2000)
 
 # ── UTILITIES ──
 async def get_or_create_user(db: AsyncSession, user_id: str) -> User:
@@ -96,67 +180,44 @@ async def get_or_create_user(db: AsyncSession, user_id: str) -> User:
 
 # ── ENDPOINTS ──
 
-class RouteQueryRequest(BaseModel):
-    query: str
-
-@app.post("/route")
-async def route_query(request: RouteQueryRequest):
-    """Controller Decision Engine — classify query into mode + domain."""
-    try:
-        result = await controller_prompt.classify(request.query)
-        return result
-    except Exception as e:
-        log.error(f"Controller: Route endpoint failed: {e}")
-        return {
-            "mode": "Concept",
-            "domain": "General",
-            "companion_message": "Processing your request.",
-            "confidence": 0.0
-        }
-
-# ── COMPANION / CHAT MODELS ──
-
-class CompanionChatRequest(BaseModel):
-    user_id: str
-    query: str
-
-@app.post("/companion/chat")
-async def companion_chat(request: CompanionChatRequest):
+@api_router.post("/companion/chat")
+@limiter.limit("20/minute")
+async def companion_chat(request: Request, request_body: CompanionChatRequest):
     """AI Companion Chat — uses the Butler skill for app management."""
-    result = await companion_engine.engine.chat(request.user_id, request.query)
+    result = await companion_engine.engine.chat(request_body.user_id, request_body.query)
     return result
 
-@app.post("/ask")
-async def ask_question(request: AskRequest):
-    log.info(f"Question: {request.question} | Hybrid: {request.hybrid} | Book: {request.book_id}")
+@api_router.post("/ask")
+@limiter.limit("30/minute")
+async def ask_question(request: Request, request_body: AskRequest):
+    log.info(f"Question: {request_body.question} | Hybrid: {request_body.hybrid} | Book: {request_body.book_id}")
     
     # Check Cache
-    cache_key = f"{request.question}_{request.book_id}_{request.domain}_{request.hybrid}_{request.user_id}"
-    if cache_key in query_cache:
-        cached_res, timestamp = query_cache[cache_key]
-        if time.time() - timestamp < 300:
-            return cached_res
+    cache_key = f"ask:{request_body.question}_{request_body.book_id}_{request_body.domain}_{request_body.hybrid}_{request_body.user_id}"
+    cached = await cache_service.get(cache_key)
+    if cached:
+        return cached
             
     async def _process_ask():
         # 1. PURE LLM
-        if not request.hybrid:
-            answer = await llm_engine.generate_llm_only(request.question, request.mode, request.domain)
+        if not request_body.hybrid:
+            answer = await llm_engine.generate_llm_only(request_body.question, request_body.mode, request_body.domain)
             return {"answer": answer, "type": "LLM_ONLY", "sources": []}
         
         # 2. SMART RAG
         # Local Context (FAISS) - offloaded to non-blocking thread
-        faiss_results = await asyncio.to_thread(search, query=request.question, top_k=10 if request.book_id else 5, book_id=request.book_id, user_id=request.user_id)
+        faiss_results = await asyncio.to_thread(search, query=request_body.question, top_k=10 if request_body.book_id else 5, book_id=request_body.book_id, user_id=request_body.user_id)
         
         # External Context (Live)
         external_articles = []
-        if not request.book_id:
-            res = await live_articles.search_articles(request.question)
+        if not request_body.book_id:
+            res = await live_articles.search_articles(request_body.question)
             external_articles = res.get("articles", [])
         
         if not faiss_results and not external_articles:
-            if request.book_id:
+            if request_body.book_id:
                 return {"answer": "No indexed content found for this document.", "type": "LLM_FALLBACK", "sources": []}
-            answer = await llm_engine.generate_llm_only(request.question, request.mode, request.domain)
+            answer = await llm_engine.generate_llm_only(request_body.question, request_body.mode, request_body.domain)
             return {"answer": answer, "type": "LLM_FALLBACK", "sources": []}
         
         # Synthesis
@@ -164,28 +225,25 @@ async def ask_question(request: AskRequest):
         context_parts.extend([f"({a['source']}) - {a['title']}: {a['summary']}" for a in external_articles[:3]])
         context_text = "\n\n".join(context_parts)
         
-        is_book_query = request.book_id is not None
+        is_book_query = request_body.book_id is not None
         if is_book_query:
-            answer = await llm_engine.generate_book_answer(request.question, context_text, request.mode, request.domain)
+            answer = await llm_engine.generate_book_answer(request_body.question, context_text, request_body.mode, request_body.domain)
         else:
-            answer = await llm_engine.generate_hybrid_answer(request.question, context_text, request.mode, request.domain)
+            answer = await llm_engine.generate_hybrid_answer(request_body.question, context_text, request_body.mode, request_body.domain)
         
         sources = list(set([r['metadata']['source_type'] for r in faiss_results] + [a['source'] for a in external_articles[:3]]))
-        return {"answer": answer, "type": "HYBRID", "sources": sources}
+        return {"answer": answer, "type": "SCIAI_RAG", "sources": sources}
 
     try:
         final_result = await asyncio.wait_for(_process_ask(), timeout=45)
     except asyncio.TimeoutError:
         return {"answer": "Request timeout: The query took too long to process.", "type": "ERROR", "sources": []}
         
-    # Set Cache
-    if len(query_cache) > MAX_CACHE_SIZE:
-        query_cache.clear()
-        
-    query_cache[cache_key] = (final_result, time.time())
+    # Set Cache (300 seconds TTL)
+    await cache_service.set(cache_key, final_result, ttl=300)
     return final_result
 
-@app.post("/generate-questions")
+@api_router.post("/generate-questions")
 async def generate_questions_endpoint(request: GenerateQuestionsRequest):
     result = await llm_engine.generate_questions(
         mode=request.mode,
@@ -230,19 +288,22 @@ async def process_pdf_background(temp_path: str, book_id: str, domain: str, sour
         if os.path.exists(temp_path):
             os.remove(temp_path)
 
-@app.post("/upload-book")
+@api_router.post("/upload-book")
 async def upload_book(
-    background_tasks: BackgroundTasks,
     file: UploadFile = File(...), 
     domain: str = Form("General"), 
     source_type: str = Form("PDF"),
     user_id: str = Form(...),
     db: AsyncSession = Depends(get_db)
 ):
+    from celery_config import process_pdf_async
     await get_or_create_user(db, user_id)
     
     book_id = str(uuid.uuid4())
-    temp_path = f"temp/{book_id}_{file.filename}"
+    temp_path = os.path.join(settings.TEMP_DIR, f"{book_id}.pdf")
+    
+    # ensure temp dir exists
+    os.makedirs(settings.TEMP_DIR, exist_ok=True)
     
     # Fast Stream to Disk
     total_bytes = 0
@@ -257,16 +318,16 @@ async def upload_book(
             buffer.write(chunk)
     
     # Save metadata to DB
-    new_book = Book(id=book_id, user_id=user_id, title=file.filename, domain=domain)
+    new_book = Book(id=book_id, user_id=user_id, title=file.filename, domain=domain, preview="Processing...")
     db.add(new_book)
     await db.commit()
     
-    # Offload processing
-    background_tasks.add_task(process_pdf_background, temp_path, book_id, domain, source_type, user_id)
+    # Offload processing to Celery
+    process_pdf_async.delay(book_id, domain, source_type, user_id)
     
-    return {"status": "success", "book_id": book_id, "message": "Processing started in background."}
+    return {"status": "success", "book_id": book_id, "message": "Processing started via Celery."}
 
-@app.get("/articles")
+@api_router.get("/articles")
 async def get_articles(
     query: str = None, page: int = 1, limit: int = 10,
     source: str = "all", domain: str = "all",
@@ -281,11 +342,11 @@ async def get_articles(
             sort=sort
         )
 
-@app.get("/articles/trending")
+@api_router.get("/articles/trending")
 async def get_trending(limit: int = 20):
     return await live_articles.fetch_trending(limit=limit)
 
-@app.post("/save-article")
+@api_router.post("/save-article")
 async def save_article(request: SavedArticleRequest, db: AsyncSession = Depends(get_db)):
     try:
         log.info(f"DB: Saving article {request.id} for user {request.user_id}")
@@ -307,7 +368,7 @@ async def save_article(request: SavedArticleRequest, db: AsyncSession = Depends(
         await db.rollback()
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.post("/evaluate-answer")
+@api_router.post("/evaluate-answer")
 async def evaluate_answer(request: EvaluateAnswerRequest):
     try:
         feedback = await llm_engine.evaluate_theory_answer(
@@ -325,7 +386,7 @@ class EvaluateAnswerDetailedRequest(BaseModel):
     user_answer: str
     correct_answer: str
 
-@app.post("/evaluate-answer-detailed")
+@api_router.post("/evaluate-answer-detailed")
 async def evaluate_answer_detailed(request: EvaluateAnswerDetailedRequest):
     try:
         result = await llm_engine.evaluate_theory_answer_detailed(
@@ -339,12 +400,12 @@ async def evaluate_answer_detailed(request: EvaluateAnswerDetailedRequest):
         log.error(f"LLM: Detailed evaluation endpoint failed: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/saved-articles")
+@api_router.get("/saved-articles")
 async def get_saved_articles(user_id: str, db: AsyncSession = Depends(get_db)):
     res = await db.execute(select(SavedArticle).where(SavedArticle.user_id == user_id).order_by(SavedArticle.created_at.desc()))
     return res.scalars().all()
 
-@app.delete("/saved-articles/{user_id}/{article_id}")
+@api_router.delete("/saved-articles/{user_id}/{article_id}")
 async def unsave_article(user_id: str, article_id: str, db: AsyncSession = Depends(get_db)):
     try:
         res = await db.execute(select(SavedArticle).where(SavedArticle.id == article_id, SavedArticle.user_id == user_id))
@@ -361,12 +422,12 @@ async def unsave_article(user_id: str, article_id: str, db: AsyncSession = Depen
         await db.rollback()
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/books")
+@api_router.get("/books")
 async def get_books(user_id: str, db: AsyncSession = Depends(get_db)):
     res = await db.execute(select(Book).where(Book.user_id == user_id))
     return res.scalars().all()
 
-@app.delete("/books/{book_id}")
+@api_router.delete("/books/{book_id}")
 async def delete_book(book_id: str, user_id: str, background_tasks: BackgroundTasks, db: AsyncSession = Depends(get_db)):
     # Ownership Check
     res = await db.execute(select(Book).where(Book.id == book_id, Book.user_id == user_id))
@@ -383,15 +444,18 @@ async def delete_book(book_id: str, user_id: str, background_tasks: BackgroundTa
     
     return {"status": "success", "message": "Book deletion scheduled."}
 
-@app.get("/health")
+@api_router.get("/health")
 async def health_check():
     """Lightweight zero-downtime healthcheck."""
-    return {"status": "ok", "version": "4.0.0"}
+    return {"status": "ok", "version": "4.2.0"}
 
-@app.get("/provider-status")
+@api_router.get("/provider-status")
 async def provider_status():
     """Real-time status of all AI providers — keys, usage, cooldowns."""
     return model_manager.get_status()
+
+# Mount Versioned Router
+app.include_router(api_router)
 
 if __name__ == "__main__":
     import uvicorn

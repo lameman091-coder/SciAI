@@ -3,10 +3,23 @@ from typing import Optional
 from pathlib import Path
 import os
 
-# Resolve .env path relative to THIS file, not the working directory
-_ENV_FILE = str(Path(__file__).resolve().parent / ".env")
+# Resolve absolute base directory (the 'backend' folder)
+BASE_DIR = Path(__file__).resolve().parent
+_ENV_FILE = str(BASE_DIR / ".env")
 
 class Settings(BaseSettings):
+    # ── Redis Cache ──
+    REDIS_HOST: str = "127.0.0.1"
+    REDIS_PORT: int = 6379
+    REDIS_DB: int = 0
+    REDIS_PASSWORD: Optional[str] = None
+    
+    # ── Rate Limiting ──
+    RATE_LIMIT_PER_MINUTE: int = 30
+    
+    # ── Sentry Monitoring ──
+    SENTRY_DSN: Optional[str] = None
+    
     # ── TIER 1: Groq (Speed) — 5 keys ──
     GROQ_API_KEY: str = ""
     GROQ_API_KEY_2: str = ""
@@ -54,14 +67,15 @@ class Settings(BaseSettings):
     USE_HF: bool = False
     
     # Database
-    DATABASE_URL: str = "sqlite+aiosqlite:///./sciai.db"
+    DATABASE_URL: str = f"sqlite+aiosqlite:///{BASE_DIR}/sciai.db"
     
     # Vector Store
-    FAISS_INDEX_PATH: str = "faiss_index.bin"
-    CHUNK_STORE_PATH: str = "faiss_chunks.json"
+    FAISS_INDEX_PATH: str = str(BASE_DIR / "faiss_index.bin")
+    CHUNK_STORE_PATH: str = str(BASE_DIR / "faiss_chunks.json")
     
-    # Cache
-    CACHE_DIR: str = "./cache"
+    # Cache & Temp
+    CACHE_DIR: str = str(BASE_DIR / "cache")
+    TEMP_DIR: str = str(BASE_DIR / "temp")
     
     # App Settings
     MAX_UPLOAD_SIZE_MB: int = 100
@@ -72,5 +86,5 @@ class Settings(BaseSettings):
 settings = Settings()
 
 # Ensure directories exist
-os.makedirs("temp", exist_ok=True)
+os.makedirs(settings.TEMP_DIR, exist_ok=True)
 os.makedirs(settings.CACHE_DIR, exist_ok=True)

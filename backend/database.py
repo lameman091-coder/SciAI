@@ -4,11 +4,18 @@ from sqlalchemy import String, Float, ForeignKey, Text, DateTime
 from datetime import datetime
 from typing import List, Optional
 import uuid
-
 from config import settings
+from logger import log
 
-# Create async engine for SQLite (using aiosqlite)
-engine = create_async_engine(settings.DATABASE_URL, echo=False)
+# Create async engine with connection pooling
+engine = create_async_engine(
+    settings.DATABASE_URL,
+    echo=False,
+    pool_size=10,
+    max_overflow=20,
+    pool_pre_ping=True,
+    pool_recycle=3600
+)
 
 # Async session factory
 AsyncSessionLocal = async_sessionmaker(
