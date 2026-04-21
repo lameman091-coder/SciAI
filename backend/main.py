@@ -122,7 +122,7 @@ async def shutdown_event():
 # ── REQUEST MODELS ──
 class AskRequest(BaseModel):
     question: str = Field(..., min_length=1, max_length=2000)
-    mode: str = Field(..., pattern="^(Concept|Exam|Expert|Quiz|Library)$")
+    mode: str = Field(..., pattern="^(Concept|Exam|Expert|Quiz|Library|Test)$")
     domain: str = Field(..., min_length=1, max_length=100)
     level: str = Field(default="Academic", max_length=50)
     book_id: Optional[str] = None
@@ -147,10 +147,10 @@ class SavedArticleRequest(BaseModel):
     tier: str = Field(default="peer_reviewed", pattern="^(peer_reviewed|preprint|blog|news)$")
 
 class GenerateQuestionsRequest(BaseModel):
-    mode: str = Field(..., pattern="^(Concept|Exam|Expert|Quiz|Library)$")
+    mode: str = Field(..., pattern="^(Concept|Exam|Expert|Quiz|Library|Test)$")
     topic: str = Field(..., min_length=1, max_length=500)
     domain: str = Field(..., min_length=1, max_length=100)
-    level: int = Field(..., ge=1, le=5)
+    level: int = Field(..., ge=1, le=1000)
     count: int = Field(default=4, ge=1, le=20)
     context_chunks: list[str] = Field(default_factory=list)
     previous_questions: list[dict] = Field(default_factory=list)
@@ -166,7 +166,7 @@ class RouteQueryRequest(BaseModel):
 class TTSRequest(BaseModel):
     text: str = Field(..., min_length=1, max_length=5000)
     voice_style: str = Field(default="professor", pattern="^(professor|energetic|storyteller)$")
-    mode: str = Field(default="Concept", pattern="^(Concept|Exam|Expert|Quiz|Library|Articles)$")
+    mode: str = Field(default="Concept", pattern="^(Concept|Exam|Expert|Quiz|Library|Articles|Test)$")
     speed: float = Field(default=1.0, ge=0.5, le=2.0)
     use_ssml: bool = False
 
@@ -254,9 +254,9 @@ async def ask_question(request: Request, request_body: AskRequest):
         
         is_book_query = request_body.book_id is not None
         if is_book_query:
-            answer = await llm_engine.generate_book_answer(request_body.question, context_text, request_body.mode, request_body.domain)
+            answer = await llm_engine.generate_book_answer(request_body.question, context_text, request_body.mode, request_body.domain, request_body.level)
         else:
-            answer = await llm_engine.generate_hybrid_answer(request_body.question, context_text, request_body.mode, request_body.domain)
+            answer = await llm_engine.generate_hybrid_answer(request_body.question, context_text, request_body.mode, request_body.domain, request_body.level)
         
         sources = list(set([r['metadata']['source_type'] for r in faiss_results] + [a['source'] for a in external_articles[:3]]))
         return {"answer": answer, "type": "SCIAI_RAG", "sources": sources}

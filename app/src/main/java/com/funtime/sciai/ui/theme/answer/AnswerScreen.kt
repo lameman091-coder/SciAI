@@ -284,6 +284,7 @@ fun AnswerScreen(
     mode: String,
     bookId: String? = null,
     hybrid: Boolean = false,
+    level: String = "Academic",
     navController: NavController
 ) {
     val context = LocalContext.current
@@ -293,9 +294,9 @@ fun AnswerScreen(
     var displayedText by remember { mutableStateOf("") }
     var isTyping by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(true) }
-    var expertLevel by remember { mutableStateOf("Academic") }
+    var expertLevel by remember { mutableStateOf(level) }
     var selectedDomain by remember { mutableStateOf("Biology") }
-    var hybridMode by remember { mutableStateOf(hybrid) } // Initialize from nav param (true when coming from Library)
+    var hybridMode by remember { mutableStateOf(hybrid) } 
     var refreshTrigger by remember { mutableStateOf(0) }
     var quizQuestions by remember {
         mutableStateOf<List<com.funtime.sciai.data.network.Question>>(
@@ -665,80 +666,6 @@ fun AnswerScreen(
                                 }
                             }
                         )
-                    }
-
-                    item {
-                        // Hybrid Toggle for enhanced search
-                        Surface(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 16.dp)
-                                .clickable { hybridMode = !hybridMode },
-                            color = com.funtime.sciai.ui.theme.SciAISurfaceAlt,
-                            shape = RoundedCornerShape(12.dp),
-                            border = BorderStroke(
-                                1.dp,
-                                com.funtime.sciai.ui.theme.SciAICyan.copy(alpha = 0.3f)
-                            )
-                        ) {
-                            Row(
-                                modifier = Modifier.padding(16.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
-                                Column {
-                                    Text(
-                                        text = "Hybrid Research Mode",
-                                        color = Color.White,
-                                        fontSize = 15.sp,
-                                        fontWeight = FontWeight.SemiBold
-                                    )
-                                    Text(
-                                        text = if (hybridMode) "Synthesizing Local + Live data" else "Pure LLM response",
-                                        color = Color.Gray,
-                                        fontSize = 11.sp
-                                    )
-                                }
-                                Switch(
-                                    checked = hybridMode,
-                                    onCheckedChange = { hybridMode = it },
-                                    colors = SwitchDefaults.colors(
-                                        checkedThumbColor = com.funtime.sciai.ui.theme.SciAICyan,
-                                        checkedTrackColor = com.funtime.sciai.ui.theme.SciAISurface,
-                                        uncheckedThumbColor = Color.Gray,
-                                        uncheckedTrackColor = com.funtime.sciai.ui.theme.SciAISurface
-                                    )
-                                )
-                            }
-                        }
-                    }
-
-                    if (mode == "Expert") {
-                        item {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceEvenly
-                            ) {
-                                listOf("Beginner", "Academic", "Research").forEach { level ->
-                                    val isSelected = expertLevel == level
-                                    Text(
-                                        text = level,
-                                        color = if (isSelected) Color.White else Color.Gray,
-                                        modifier = Modifier
-                                            .border(
-                                                1.dp,
-                                                if (isSelected) Color(0xFF9C27B0) else Color.Gray,
-                                                RoundedCornerShape(8.dp)
-                                            )
-                                            .clickable {
-                                                expertLevel = level
-                                            }
-                                            .padding(8.dp)
-                                    )
-                                }
-                            }
-                            Spacer(modifier = Modifier.height(12.dp))
-                        }
                     }
 
                     // --- PREMIUM ORBIT LEVEL SELECTOR (1-10) ---

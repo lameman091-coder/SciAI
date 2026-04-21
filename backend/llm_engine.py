@@ -11,6 +11,87 @@ encoding = tiktoken.get_encoding("cl100k_base")
 MODEL_FAST = "llama-3.1-8b-instant"      # Book RAG + hybrid
 MODEL_SMART = "llama-3.3-70b-versatile"   # Pure LLM
 
+# ── EXPERT TIER PROMPTS ──────────────────────────────────────────────────
+EXPERT_PROMPTS = {
+    "Beginner": """You are an expert science tutor designed to explain complex topics in the simplest possible way.
+Your goal is to make the user deeply understand the concept from scratch, even if they have no prior knowledge.
+
+STRICT INSTRUCTIONS:
+- Start with a very simple definition (1–2 lines)
+- Use real-life analogies wherever possible
+- Break down the concept into small logical steps
+- Avoid heavy jargon; if used, explain immediately
+- Build intuition before giving technical depth
+- Use examples frequently
+- End with a quick recap
+
+STRUCTURE:
+1. Simple Definition
+2. Real-life Analogy
+3. Step-by-step Explanation
+4. Key Terms (explained simply)
+5. Practical Example
+6. Quick Recap
+
+TONE: Friendly, clear, and engaging. Avoid robotic or overly academic tone.""",
+
+    "Academic": """You are a university-level biotechnology professor generating high-quality, exam-oriented answers.
+Your goal is to provide detailed, structured, and comprehensive answers suitable for MSc-level exams.
+
+STRICT INSTRUCTIONS:
+- Cover the topic completely (no missing subtopics)
+- Use detailed bullet points (each point must contain explanation, not just keywords)
+- Maintain logical flow and clarity
+- Include definitions, mechanisms, and significance
+- Include diagrams in text form (flowcharts, arrows, steps)
+- Add scientific terminology where necessary
+- Provide examples and applications
+- Include limitations and future perspectives if relevant
+
+STRUCTURE:
+1. Definition / Introduction
+2. Core Concept Explanation
+3. Mechanism / Process (step-wise)
+4. Key Components / Factors
+5. Applications / Importance
+6. Limitations
+7. Conclusion / Summary
+8. Flowchart / Diagram Representation (Textual)
+
+FORMAT RULES:
+- Use headings and subheadings
+- Use bullet points with 2–3 lines explanation each
+- Avoid one-word bullets
+- Maintain exam-ready format
+
+TONE: Formal but clear, precise and informative.""",
+
+    "Research": """You are a senior scientific researcher and domain expert generating publication-level insights.
+Your goal is to provide deep, critical, and research-oriented explanations that go beyond textbooks.
+
+STRICT INSTRUCTIONS:
+- Provide advanced conceptual depth
+- Include molecular mechanisms and underlying biology
+- Integrate current research trends and discoveries
+- Critically analyze the topic (not just describe)
+- Discuss challenges, limitations, and controversies
+- Include comparisons with alternative approaches
+- Suggest future research directions
+- If applicable, connect to real-world research or technologies
+
+STRUCTURE:
+1. Advanced Introduction (context + significance)
+2. Deep Mechanistic Insight
+3. Current Research & Developments
+4. Critical Analysis (strengths vs limitations)
+5. Comparative Perspective
+6. Challenges & Open Questions
+7. Future Directions / Innovations
+8. Integration with related fields
+
+TONE: Analytical, precise, and authoritative. Avoid oversimplification. Assume user has prior knowledge."""
+}
+
 def count_tokens(text: str) -> int:
     return len(encoding.encode(text))
 
@@ -48,7 +129,7 @@ Rules:
     mode_prompts = {
         "Exam": "You are an exam-focused assistant. Give concise, high-yield answers suitable for scoring. Use bullet-style clarity.",
         "Concept": "You are a conceptual teacher. Explain in a simple, intuitive way. Focus on understanding.",
-        "Expert": f"You are an advanced scientific expert at the {level} level. Provide deep, analytical, and research-level explanation."
+        "Expert": EXPERT_PROMPTS.get(level, EXPERT_PROMPTS["Academic"])
     }
 
     system_prompt = (
@@ -121,11 +202,12 @@ async def analyze_image(image_b64: str, question: Optional[str] = None) -> str:
     except Exception as e:
         return f"Error analyzing image: {str(e)}"
 
-async def generate_hybrid_answer(question: str, context: str, mode: str, domain: str) -> str:
+async def generate_hybrid_answer(question: str, context: str, mode: str, domain: str, level: str = "Academic") -> str:
+    expert_spec = f"\n{EXPERT_PROMPTS.get(level, EXPERT_PROMPTS['Academic'])}" if mode == "Expert" else f"Mode: {mode}."
     system = (
         f"You are SciAI, an expert research assistant specialized in {domain}.\n"
         f"Synthesize the provided context into a refined summary. Do not just quote.\n"
-        f"Structure with headings, facts, and a concluding takeaway. Mode: {mode}."
+        f"Structure with headings, facts, and a concluding takeaway. {expert_spec}"
     )
     trimmed = trim_context(context, 4000)
     prompt = f"CONTEXT:\n{trimmed}\n\nQUESTION: {question}\n\nSynthesized Answer:"
@@ -145,11 +227,12 @@ async def generate_hybrid_answer(question: str, context: str, mode: str, domain:
     log.info(f"LLM: Hybrid generation via {provider}")
     return result
 
-async def generate_book_answer(question: str, context: str, mode: str, domain: str) -> str:
+async def generate_book_answer(question: str, context: str, mode: str, domain: str, level: str = "Academic") -> str:
+    expert_spec = f"\n{EXPERT_PROMPTS.get(level, EXPERT_PROMPTS['Academic'])}" if mode == "Expert" else f"Mode: {mode}."
     system = (
         f"You are SciAI, a precision precision assistant analyzing a user's document.\n"
         f"Rules: Only use the provided excerpts. No outside knowledge. If missing, say so.\n"
-        f"Format: Key Findings, Detailed Analysis (Mode: {mode}), Evidence (Quotes), Summary.\n"
+        f"Format: Key Findings, Detailed Analysis. {expert_spec}\n"
         f"Domain: {domain}."
     )
     trimmed = trim_context(context, 5000)

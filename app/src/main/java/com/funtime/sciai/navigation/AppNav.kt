@@ -244,13 +244,14 @@ fun AppNav(themeViewModel: ThemeViewModel) {
                     ArticlesScreen(navController, drawerState, query)
                 }
 
-                composable("answer/{question}/{mode}?bookId={bookId}&hybrid={hybrid}") { backStackEntry ->
+                composable("answer/{question}/{mode}?bookId={bookId}&hybrid={hybrid}&level={level}") { backStackEntry ->
                     val question = backStackEntry.arguments?.getString("question") ?: ""
                     val mode = backStackEntry.arguments?.getString("mode") ?: "Exam"
                     val bookId = backStackEntry.arguments?.getString("bookId")
                     val hybrid = backStackEntry.arguments?.getString("hybrid")?.toBoolean() ?: false
+                    val level = backStackEntry.arguments?.getString("level") ?: "Academic"
 
-                    AnswerScreen(question, mode, bookId, hybrid, navController)
+                    AnswerScreen(question, mode, bookId, hybrid, level, navController)
                 }
 
                 composable("article_detail") {

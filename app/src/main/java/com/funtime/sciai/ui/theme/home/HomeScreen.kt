@@ -23,6 +23,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Brush
@@ -97,6 +98,8 @@ fun HomeScreen(navController: NavController, drawerState: DrawerState, themeView
     var query by remember { mutableStateOf("") }
     var selectedDomain by remember { mutableStateOf("Biology") }
     var selectedMode by remember { mutableStateOf("Exam") }
+    var isHybrid by remember { mutableStateOf(userManager.isHybridDefault()) }
+    var selectedTier by remember { mutableStateOf("Academic") }
     var isSearchFocused by remember { mutableStateOf(false) }
     var isProcessingImage by remember { mutableStateOf(false) }
     var lastPredictedContext by remember { mutableStateOf<PredictedContext?>(null) }
@@ -225,7 +228,7 @@ fun HomeScreen(navController: NavController, drawerState: DrawerState, themeView
         }
     }
 
-    val executeSearch = {
+    val executeSearch: () -> Unit = {
         coroutineScope.launch {
             if (imageUris.isNotEmpty()) {
                 isProcessingImage = true
@@ -236,11 +239,11 @@ fun HomeScreen(navController: NavController, drawerState: DrawerState, themeView
                 isProcessingImage = false
                 userManager.incrementTotal()
                 val finalQuery = if (query.isNotBlank()) "$query\n\nImage Info:\n$info" else info
-                navController.navigate("answer/${Uri.encode(finalQuery)}/$selectedMode?hybrid=true")
+                navController.navigate("answer/${Uri.encode(finalQuery)}/$selectedMode?hybrid=$isHybrid&level=$selectedTier")
                 imageUris = emptyList(); query = ""
             } else if (query.isNotBlank()) {
                 userManager.incrementTotal()
-                navController.navigate("answer/${Uri.encode(query)}/$selectedMode?hybrid=true")
+                navController.navigate("answer/${Uri.encode(query)}/$selectedMode?hybrid=$isHybrid&level=$selectedTier")
                 query = ""
             }
         }
@@ -466,8 +469,12 @@ fun HomeScreen(navController: NavController, drawerState: DrawerState, themeView
                         }
                         speechLauncher.launch(intent)
                     },
-                    onSendClick = { executeSearch() },
+                    onSendClick = executeSearch,
                     focusManager = focusManager,
+                    isHybrid = isHybrid,
+                    onHybridToggle = { isHybrid = it },
+                    selectedTier = selectedTier,
+                    onTierSelect = { selectedTier = it },
                     companionMessage = companionMessage,
                     isAiDetected = isAiDetected
                 )
@@ -496,6 +503,10 @@ fun FloatingSmartInterface(
     onVoiceClick: () -> Unit,
     onSendClick: () -> Unit,
     focusManager: androidx.compose.ui.focus.FocusManager,
+    isHybrid: Boolean,
+    onHybridToggle: (Boolean) -> Unit,
+    selectedTier: String,
+    onTierSelect: (String) -> Unit,
     companionMessage: String = "",
     isAiDetected: Boolean = false
 ) {
@@ -506,9 +517,12 @@ fun FloatingSmartInterface(
         label = "glowAlpha"
     )
 
-    Box(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp).padding(bottom = 24.dp).zIndex(10f)) {
+    Box(
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp).padding(bottom = 24.dp)
+            .zIndex(10f)
+    ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            
+
             // ── Companion Message Bar ────────────────────────────────────────
             AnimatedVisibility(
                 visible = companionMessage.isNotBlank(),
@@ -557,17 +571,24 @@ fun FloatingSmartInterface(
                 color = SciAISurfaceAlt.copy(alpha = 0.95f),
                 shape = RoundedCornerShape(24.dp),
                 border = BorderStroke(1.dp, SciAIBorderLight),
-                modifier = Modifier.fillMaxWidth().animateContentSize().padding(bottom = 12.dp).shadow(12.dp, RoundedCornerShape(24.dp))
+                modifier = Modifier.fillMaxWidth().animateContentSize().padding(bottom = 12.dp)
+                    .shadow(12.dp, RoundedCornerShape(24.dp))
             ) {
                 Column(modifier = Modifier.padding(8.dp)) {
                     if (isSearchFocused) {
                         // Domain header with AI detection badge
                         Row(
-                            modifier = Modifier.fillMaxWidth().padding(start = 12.dp, bottom = 8.dp, end = 12.dp),
+                            modifier = Modifier.fillMaxWidth()
+                                .padding(start = 12.dp, bottom = 8.dp, end = 12.dp),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text("SELECT DOMAIN", color = SciAICyan, fontSize = 10.sp, fontWeight = FontWeight.Black)
+                            Text(
+                                "SELECT DOMAIN",
+                                color = SciAICyan,
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Black
+                            )
                             if (isAiDetected) {
                                 Surface(
                                     color = SciAIGreen.copy(alpha = 0.15f),
@@ -579,67 +600,253 @@ fun FloatingSmartInterface(
                                         color = SciAIGreen,
                                         fontSize = 9.sp,
                                         fontWeight = FontWeight.Bold,
-                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
+                                        modifier = Modifier.padding(
+                                            horizontal = 8.dp,
+                                            vertical = 3.dp
+                                        )
                                     )
                                 }
                             }
                         }
-                        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(horizontal = 8.dp)) {
+                        FlowRow(
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp),
+                            modifier = Modifier.padding(horizontal = 8.dp)
+                        ) {
                             listOf("Biology", "Physics", "Chemistry", "Science").forEach { domain ->
                                 val i = selectedDomain == domain
-                                Surface(onClick = { onDomainSelect(domain) }, shape = RoundedCornerShape(12.dp),
+                                Surface(
+                                    onClick = { onDomainSelect(domain) },
+                                    shape = RoundedCornerShape(12.dp),
                                     color = if (i) SciAICyan.copy(alpha = 0.15f) else Color.Transparent,
-                                    border = BorderStroke(1.dp, if (i) SciAICyan else SciAIBorderLight)) {
-                                    Row(modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                                        Text(when(domain){ "Biology"->"🦠"; "Physics"->"⚛"; "Chemistry"->"🧪"; else->"🌍" }, fontSize = 14.sp)
-                                        Spacer(modifier = Modifier.width(6.dp)); Text(domain, color = if (i) Color.White else Color.Gray, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                    border = BorderStroke(
+                                        1.dp,
+                                        if (i) SciAICyan else SciAIBorderLight
+                                    )
+                                ) {
+                                    Row(
+                                        modifier = Modifier.padding(
+                                            horizontal = 12.dp,
+                                            vertical = 8.dp
+                                        ), verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Text(
+                                            when (domain) {
+                                                "Biology" -> "🦠"; "Physics" -> "⚛"; "Chemistry" -> "🧪"; else -> "🌍"
+                                            }, fontSize = 14.sp
+                                        )
+                                        Spacer(modifier = Modifier.width(6.dp)); Text(
+                                        domain,
+                                        color = if (i) Color.White else Color.Gray,
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
                                     }
                                 }
                             }
                         }
                         Spacer(modifier = Modifier.height(16.dp))
-                        Text("SELECT MODE", color = SciAIAmber, fontSize = 10.sp, fontWeight = FontWeight.Black, modifier = Modifier.padding(start = 12.dp, bottom = 8.dp))
-                        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(horizontal = 8.dp)) {
+                        Text(
+                            "SELECT MODE",
+                            color = SciAIAmber,
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Black,
+                            modifier = Modifier.padding(start = 12.dp, bottom = 8.dp)
+                        )
+                        FlowRow(
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp),
+                            modifier = Modifier.padding(horizontal = 8.dp)
+                        ) {
                             listOf("Exam", "Concept", "Expert", "Quiz", "Test").forEach { mode ->
                                 val i = selectedMode == mode
-                                Surface(onClick = { onModeSelect(mode) }, shape = RoundedCornerShape(12.dp),
+                                Surface(
+                                    onClick = { onModeSelect(mode) },
+                                    shape = RoundedCornerShape(12.dp),
                                     color = if (i) SciAIAmber.copy(alpha = 0.15f) else Color.Transparent,
-                                    border = BorderStroke(1.dp, if (i) SciAIAmber else SciAIBorderLight)) {
-                                    Row(modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                                        Text(when(mode){ "Exam"->"📘"; "Concept"->"🧠"; "Expert"->"🔬"; "Quiz"->"🎯"; else->"📝" }, fontSize = 14.sp)
-                                        Spacer(modifier = Modifier.width(6.dp)); Text(mode, color = if (i) Color.White else Color.Gray, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                    border = BorderStroke(
+                                        1.dp,
+                                        if (i) SciAIAmber else SciAIBorderLight
+                                    )
+                                ) {
+                                    Row(
+                                        modifier = Modifier.padding(
+                                            horizontal = 12.dp,
+                                            vertical = 8.dp
+                                        ), verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Text(
+                                            when (mode) {
+                                                "Exam" -> "📘"; "Concept" -> "🧠"; "Expert" -> "🔬"; "Quiz" -> "🎯"; else -> "📝"
+                                            }, fontSize = 14.sp
+                                        )
+                                        Spacer(modifier = Modifier.width(6.dp)); Text(
+                                        mode,
+                                        color = if (i) Color.White else Color.Gray,
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
                                     }
                                 }
                             }
                         }
+
+                        // Hybrid Search Toggle Bar
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    Icons.Default.Hub,
+                                    contentDescription = null,
+                                    tint = SciAICyan,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    "HYBRID RESEARCH",
+                                    color = Color.White,
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                            Switch(
+                                checked = isHybrid,
+                                onCheckedChange = onHybridToggle,
+                                colors = SwitchDefaults.colors(
+                                    checkedThumbColor = SciAICyan,
+                                    checkedTrackColor = SciAICyan.copy(alpha = 0.3f),
+                                    uncheckedThumbColor = Color.Gray,
+                                    uncheckedTrackColor = Color.White.copy(alpha = 0.1f)
+                                ),
+                                modifier = Modifier.scale(0.7f)
+                            )
+                        }
+
+                        // Expert Tier Selector (Only if mode is Expert)
+                        if (selectedMode == "Expert") {
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Text(
+                                "SELECT TIER",
+                                color = Color(0xFF9C27B0),
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Black,
+                                modifier = Modifier.padding(start = 12.dp, bottom = 8.dp)
+                            )
+                            FlowRow(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalArrangement = Arrangement.spacedBy(8.dp),
+                                modifier = Modifier.padding(horizontal = 8.dp)
+                            ) {
+                                listOf("Beginner", "Academic", "Research").forEach { tier ->
+                                    val i = selectedTier == tier
+                                    Surface(
+                                        onClick = { onTierSelect(tier) },
+                                        shape = RoundedCornerShape(12.dp),
+                                        color = if (i) Color(0xFF9C27B0).copy(alpha = 0.15f) else Color.Transparent,
+                                        border = BorderStroke(
+                                            1.dp,
+                                            if (i) Color(0xFF9C27B0) else SciAIBorderLight
+                                        )
+                                    ) {
+                                        Row(
+                                            modifier = Modifier.padding(
+                                                horizontal = 12.dp,
+                                                vertical = 8.dp
+                                            ), verticalAlignment = Alignment.CenterVertically
+                                        ) {
+                                            Text(
+                                                when (tier) {
+                                                    "Beginner" -> "🌱"; "Academic" -> "🎓"; else -> "🔬"
+                                                }, fontSize = 14.sp
+                                            )
+                                            Spacer(modifier = Modifier.width(6.dp)); Text(
+                                            tier,
+                                            color = if (i) Color.White else Color.Gray,
+                                            fontSize = 12.sp,
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
                         lastPredictedContext?.let {
                             Spacer(modifier = Modifier.height(12.dp))
-                            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                                Surface(color = SciAICyan.copy(alpha = 0.15f), shape = RoundedCornerShape(12.dp), border = BorderStroke(1.dp, SciAICyan.copy(alpha = 0.3f))) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+                                Surface(
+                                    color = SciAICyan.copy(alpha = 0.15f),
+                                    shape = RoundedCornerShape(12.dp),
+                                    border = BorderStroke(1.dp, SciAICyan.copy(alpha = 0.3f))
+                                ) {
                                     Text(
                                         "${if (isAiDetected) "🧠 " else ""}${it.domain ?: selectedDomain} • ${it.mode ?: selectedMode}",
-                                        color = SciAICyan, fontSize = 11.sp, fontWeight = FontWeight.Bold,
-                                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                                        color = SciAICyan,
+                                        fontSize = 11.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        modifier = Modifier.padding(
+                                            horizontal = 12.dp,
+                                            vertical = 6.dp
+                                        )
                                     )
                                 }
                             }
                         }
                     } else {
-                        LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp), modifier = Modifier.padding(6.dp)) {
+                        LazyRow(
+                            horizontalArrangement = Arrangement.spacedBy(16.dp),
+                            modifier = Modifier.padding(6.dp)
+                        ) {
                             item {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Text(when(selectedDomain){ "Biology"->"🦠"; "Physics"->"⚛"; "Chemistry"->"🧪"; else->"🌍" }, fontSize = 14.sp)
+                                    Text(
+                                        when (selectedDomain) {
+                                            "Biology" -> "🦠"; "Physics" -> "⚛"; "Chemistry" -> "🧪"; else -> "🌍"
+                                        }, fontSize = 14.sp
+                                    )
                                     Spacer(modifier = Modifier.width(4.dp))
-                                    Text(selectedDomain, color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                                    Text(
+                                        selectedDomain,
+                                        color = Color.White,
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
                                     Spacer(modifier = Modifier.width(12.dp))
-                                    Text(when(selectedMode){ "Exam"->"📘"; "Concept"->"🧠"; "Expert"->"🔬"; "Quiz"->"🎯"; else->"📝" }, fontSize = 14.sp)
+                                    Text(
+                                        when (selectedMode) {
+                                            "Exam" -> "📘"; "Concept" -> "🧠"; "Expert" -> "🔬"; "Quiz" -> "🎯"; else -> "📝"
+                                        }, fontSize = 14.sp
+                                    )
                                     Spacer(modifier = Modifier.width(4.dp))
-                                    Text(selectedMode, color = SciAIAmber, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                                    Text(
+                                        selectedMode,
+                                        color = SciAIAmber,
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
                                     if (isAiDetected) {
                                         Spacer(modifier = Modifier.width(8.dp))
-                                        Surface(color = SciAIGreen.copy(alpha = 0.15f), shape = RoundedCornerShape(6.dp)) {
-                                            Text("AI", color = SciAIGreen, fontSize = 9.sp, fontWeight = FontWeight.Black,
-                                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp))
+                                        Surface(
+                                            color = SciAIGreen.copy(alpha = 0.15f),
+                                            shape = RoundedCornerShape(6.dp)
+                                        ) {
+                                            Text(
+                                                "AI",
+                                                color = SciAIGreen,
+                                                fontSize = 9.sp,
+                                                fontWeight = FontWeight.Black,
+                                                modifier = Modifier.padding(
+                                                    horizontal = 5.dp,
+                                                    vertical = 2.dp
+                                                )
+                                            )
                                         }
                                     }
                                 }
@@ -654,9 +861,9 @@ fun FloatingSmartInterface(
                 color = SciAIDark.copy(alpha = 0.95f),
                 shape = RoundedCornerShape(32.dp),
                 border = BorderStroke(
-                    1.5.dp, 
-                    if (isAiDetected && glowAlpha > 0) SciAICyan.copy(alpha = glowAlpha) 
-                    else if (isSearchFocused) SciAICyan 
+                    1.5.dp,
+                    if (isAiDetected && glowAlpha > 0) SciAICyan.copy(alpha = glowAlpha)
+                    else if (isSearchFocused) SciAICyan
                     else SciAIBorderLight
                 ),
                 modifier = Modifier.fillMaxWidth().shadow(20.dp, RoundedCornerShape(32.dp))
@@ -665,7 +872,8 @@ fun FloatingSmartInterface(
                     // Image Previews (ChatGPT Style)
                     AnimatedVisibility(visible = imageUris.isNotEmpty()) {
                         LazyRow(
-                            modifier = Modifier.fillMaxWidth().padding(top = 12.dp, start = 12.dp, end = 12.dp),
+                            modifier = Modifier.fillMaxWidth()
+                                .padding(top = 12.dp, start = 12.dp, end = 12.dp),
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             items(imageUris) { uri ->
@@ -686,10 +894,16 @@ fun FloatingSmartInterface(
                                     Surface(
                                         onClick = { onRemoveImage(uri) },
                                         color = Color.Black.copy(alpha = 0.6f),
-                                        modifier = Modifier.align(Alignment.TopEnd).padding(4.dp).size(18.dp),
+                                        modifier = Modifier.align(Alignment.TopEnd).padding(4.dp)
+                                            .size(18.dp),
                                         shape = CircleShape
                                     ) {
-                                        Icon(Icons.Default.Close, contentDescription = null, tint = Color.White, modifier = Modifier.padding(2.dp))
+                                        Icon(
+                                            Icons.Default.Close,
+                                            contentDescription = null,
+                                            tint = Color.White,
+                                            modifier = Modifier.padding(2.dp)
+                                        )
                                     }
                                 }
                             }
@@ -697,35 +911,91 @@ fun FloatingSmartInterface(
                     }
 
                     OutlinedTextField(
-                    value = query, onValueChange = onQueryChange,
-                    placeholder = { Text("Ask SciAI anything...", color = Color.Gray, fontSize = 15.sp) },
-                    modifier = Modifier.fillMaxWidth().onFocusChanged { onFocusChange(it.isFocused) },
-                    singleLine = false, maxLines = 4, enabled = !isProcessingImage,
-                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Send),
-                    keyboardActions = KeyboardActions(onSend = { onSendClick(); onFocusChange(false); focusManager.clearFocus() }),
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color.Transparent, unfocusedBorderColor = Color.Transparent, cursorColor = SciAICyan, focusedContainerColor = Color.Transparent, unfocusedContainerColor = Color.Transparent),
-                    leadingIcon = { IconButton(onClick = onAddImageClick) { Icon(Icons.Default.Add, contentDescription = null, tint = Color.Gray) } },
-                    trailingIcon = {
-                        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(end = 8.dp)) {
-                            if (query.isNotBlank() || imageUris.isNotEmpty()) {
-                                IconButton(onClick = { onSendClick(); onFocusChange(false); focusManager.clearFocus() }) { Icon(Icons.AutoMirrored.Filled.Send, contentDescription = null, tint = SciAICyan) }
-                            } else {
-                                IconButton(onClick = onVoiceClick) { Icon(Icons.Default.Mic, contentDescription = null, tint = Color.Gray) }
+                        value = query, onValueChange = onQueryChange,
+                        placeholder = {
+                            Text(
+                                "Ask SciAI anything...",
+                                color = Color.Gray,
+                                fontSize = 15.sp
+                            )
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                            .onFocusChanged { onFocusChange(it.isFocused) },
+                        singleLine = false, maxLines = 4, enabled = !isProcessingImage,
+                        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Send),
+                        keyboardActions = KeyboardActions(onSend = {
+                            onSendClick(); onFocusChange(
+                            false
+                        ); focusManager.clearFocus()
+                        }),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = Color.Transparent,
+                            unfocusedBorderColor = Color.Transparent,
+                            cursorColor = SciAICyan,
+                            focusedContainerColor = Color.Transparent,
+                            unfocusedContainerColor = Color.Transparent
+                        ),
+                        leadingIcon = {
+                            IconButton(onClick = onAddImageClick) {
+                                Icon(
+                                    Icons.Default.Add,
+                                    contentDescription = null,
+                                    tint = Color.Gray
+                                )
+                            }
+                        },
+                        trailingIcon = {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.padding(end = 8.dp)
+                            ) {
+                                if (query.isNotBlank() || imageUris.isNotEmpty()) {
+                                    IconButton(onClick = { 
+                                        onSendClick()
+                                        onFocusChange(false)
+                                        focusManager.clearFocus() 
+                                    }) {
+                                        Icon(
+                                            Icons.AutoMirrored.Filled.Send,
+                                            contentDescription = null,
+                                            tint = SciAICyan
+                                        )
+                                    }
+                                } else {
+                                    IconButton(onClick = onVoiceClick) {
+                                        Icon(
+                                            Icons.Default.Mic,
+                                            contentDescription = null,
+                                            tint = Color.Gray
+                                        )
+                                    }
+                                }
                             }
                         }
-                    }
-                )
+                    )
+                }
             }
         }
-    }
     }
 }
 
 // ── HELPERS ──────────────────────────────────────────────────────────────────
 @Composable
 fun QuickStatChip(text: String, color: Color, modifier: Modifier = Modifier) {
-    Surface(color = color.copy(alpha = 0.1f), shape = RoundedCornerShape(10.dp), border = BorderStroke(1.dp, color.copy(alpha = 0.2f)), modifier = modifier) {
-        Text(text = text, color = color, fontSize = 12.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(8.dp), textAlign = TextAlign.Center)
+    Surface(
+        color = color.copy(alpha = 0.1f),
+        shape = RoundedCornerShape(10.dp),
+        border = BorderStroke(1.dp, color.copy(alpha = 0.2f)),
+        modifier = modifier
+    ) {
+        Text(
+            text = text,
+            color = color,
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(8.dp),
+            textAlign = TextAlign.Center
+        )
     }
 }
 
@@ -738,6 +1008,7 @@ fun StatItem(label: String, value: String) {
 }
 
 fun formatSessionTime(seconds: Long): String {
-    val h = seconds / 3600; val m = (seconds % 3600) / 60
+    val h = seconds / 3600
+    val m = (seconds % 3600) / 60
     return if (h > 0) "${h}h ${m}m" else if (m > 0) "${m}m" else "0m"
 }

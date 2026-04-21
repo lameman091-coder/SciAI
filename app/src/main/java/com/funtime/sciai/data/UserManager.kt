@@ -162,6 +162,11 @@ class UserManager(private val context: Context) {
     }
     fun isPrivacyMode(): Boolean = prefs.getBoolean("PRIVACY_MODE", false)
 
+    fun setHybridDefault(enabled: Boolean) {
+        prefs.edit().putBoolean("HYBRID_DEFAULT", enabled).apply()
+    }
+    fun isHybridDefault(): Boolean = prefs.getBoolean("HYBRID_DEFAULT", false)
+
     fun setThemeSelection(theme: String) { // "system", "dark", "light"
         prefs.edit().putString("THEME_SELECTION", theme).apply()
     }
