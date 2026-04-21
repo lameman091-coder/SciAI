@@ -2,13 +2,18 @@ package com.funtime.sciai.data.network
 
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
+import com.funtime.sciai.data.tts.TTSRequest
 
 interface ApiService {
 
     @POST("ask")
     fun ask(@Body request: AskRequest): Call<AskResponse>
+
+    @POST("analyze-image")
+    fun analyzeImage(@Body request: ImageAnalysisRequest): Call<ImageAnalysisResponse>
 
     @GET("books")
     fun getBooks(@Query("user_id") userId: String): Call<List<Book>>
@@ -66,4 +71,9 @@ interface ApiService {
 
     @POST("companion/chat")
     fun companionChat(@Body request: CompanionChatRequest): Call<CompanionChatResponse>
+
+    // ── TTS (Text-to-Speech) ─────────────────────────────────────────────────
+    @Streaming
+    @POST("tts")
+    fun textToSpeech(@Body request: TTSRequest): Call<ResponseBody>
 }

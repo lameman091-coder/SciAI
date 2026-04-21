@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Assignment
 import androidx.compose.material.icons.filled.Description
@@ -182,7 +183,12 @@ fun ArticleDetailScreen(
                                 if (keyPoints.isEmpty()) {
                                     isGeneratingKeyPoints = true
                                     val prompt = "Extract 4 brief key bullet points for the article titled '$title'."
-                                    RagService.ask(prompt, "Concept", "Science", null, false, userId) { res ->
+                                    RagService.ask(
+                                        question = prompt,
+                                        mode = "Concept",
+                                        domain = "Science",
+                                        userId = userId
+                                    ) { res ->
                                         if (res != null && res.answer.isNotBlank()) {
                                             keyPoints = res.answer.split("\n").filter { it.isNotBlank() }
                                         } else {
@@ -209,7 +215,12 @@ fun ArticleDetailScreen(
                                 if (relatedTopics.isEmpty()) {
                                     isGeneratingTopics = true
                                     val prompt = "List 3 related scientific topics to '$title'. Output ONLY comma separated list."
-                                    RagService.ask(prompt, "Concept", "Science", null, false, userId) { res ->
+                                    RagService.ask(
+                                        question = prompt,
+                                        mode = "Concept",
+                                        domain = "Science",
+                                        userId = userId
+                                    ) { res ->
                                         if (res != null && res.answer.isNotBlank()) {
                                             relatedTopics = res.answer.split(",").map{ it.trim() }.filter { it.isNotBlank() }
                                         } else {

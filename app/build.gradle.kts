@@ -88,7 +88,14 @@ dependencies {
     // Data Persistence
     implementation(libs.androidx.datastore)
     
+    // Media Playback (ExoPlayer)
+    implementation("androidx.media3:media3-exoplayer:1.2.1")
+    implementation("androidx.media3:media3-ui:1.2.1")
+    implementation("androidx.media3:media3-common:1.2.1")
+    implementation("androidx.media3:media3-datasource-okhttp:1.2.1")
+    
     // Testing
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

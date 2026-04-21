@@ -25,3 +25,9 @@ pytest
 pytest-asyncio
 httpx
 prometheus-client
+pocket-tts
+transformers
+torch
+scipy
+soundfile
+datasets

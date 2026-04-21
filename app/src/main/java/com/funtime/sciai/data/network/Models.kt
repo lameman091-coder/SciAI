@@ -6,6 +6,7 @@ data class AskRequest(
     val question: String,
     val mode: String,
     val domain: String,
+    val level: String = "Academic",
     @SerializedName("book_id") val bookId: String? = null,
     val hybrid: Boolean = false,
     @SerializedName("user_id") val userId: String = "guest"
@@ -145,4 +146,13 @@ data class CompanionChatResponse(
     val query: String? = "",
     val target: String? = "",
     val emotion: String? = "HAPPY"
+)
+
+data class ImageAnalysisRequest(
+    @SerializedName("image_b64") val imageB64: String,
+    val question: String? = null
+)
+
+data class ImageAnalysisResponse(
+    val answer: String
 )

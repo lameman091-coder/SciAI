@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, UploadFile, File, Form, Depends, BackgroundTasks, Request
+from fastapi.responses import StreamingResponse as FastAPIStreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, delete
@@ -13,6 +14,7 @@ from slowapi import Limiter
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from fastapi.responses import JSONResponse
+import io
 from slowapi.middleware import SlowAPIMiddleware
 from metrics import setup_metrics
 from fastapi.exceptions import RequestValidationError
@@ -26,6 +28,8 @@ import llm_engine
 import live_articles
 import controller_prompt
 import companion_engine
+from tts_engine import tts_engine
+from tts_text_processor import tts_processor
 from model_manager import manager as model_manager
 from cache_service import cache_service
 import time
@@ -101,6 +105,12 @@ async def startup_event():
     await init_db()
     await cache_service.connect()
     log.info(f"ModelManager: {len([p for p in model_manager.providers.values() if p.is_configured])} providers configured")
+    # Initialize TTS engine (non-blocking, lazy-loads models)
+    try:
+        await tts_engine.initialize()
+        log.info("TTS Engine: Initialized")
+    except Exception as e:
+        log.warning(f"TTS Engine: Init deferred — {e}")
 
 @app.on_event("shutdown")
 async def shutdown_event():
@@ -114,9 +124,14 @@ class AskRequest(BaseModel):
     question: str = Field(..., min_length=1, max_length=2000)
     mode: str = Field(..., pattern="^(Concept|Exam|Expert|Quiz|Library)$")
     domain: str = Field(..., min_length=1, max_length=100)
+    level: str = Field(default="Academic", max_length=50)
     book_id: Optional[str] = None
     hybrid: bool = False
     user_id: str = Field(default="guest", max_length=100)
+
+class ImageAnalysisRequest(BaseModel):
+    image_b64: str
+    question: Optional[str] = None
 
 class SavedArticleRequest(BaseModel):
     user_id: str = Field(..., max_length=100)
@@ -147,6 +162,13 @@ class EvaluateAnswerRequest(BaseModel):
 
 class RouteQueryRequest(BaseModel):
     query: str = Field(..., min_length=1, max_length=1000)
+
+class TTSRequest(BaseModel):
+    text: str = Field(..., min_length=1, max_length=5000)
+    voice_style: str = Field(default="professor", pattern="^(professor|energetic|storyteller)$")
+    mode: str = Field(default="Concept", pattern="^(Concept|Exam|Expert|Quiz|Library|Articles)$")
+    speed: float = Field(default=1.0, ge=0.5, le=2.0)
+    use_ssml: bool = False
 
 @api_router.post("/route")
 @limiter.limit("30/minute")
@@ -201,7 +223,12 @@ async def ask_question(request: Request, request_body: AskRequest):
     async def _process_ask():
         # 1. PURE LLM
         if not request_body.hybrid:
-            answer = await llm_engine.generate_llm_only(request_body.question, request_body.mode, request_body.domain)
+            answer = await llm_engine.generate_llm_only(
+                request_body.question, 
+                request_body.mode, 
+                request_body.domain,
+                request_body.level
+            )
             return {"answer": answer, "type": "LLM_ONLY", "sources": []}
         
         # 2. SMART RAG
@@ -444,10 +471,71 @@ async def delete_book(book_id: str, user_id: str, background_tasks: BackgroundTa
     
     return {"status": "success", "message": "Book deletion scheduled."}
 
+# ── TTS ENDPOINTS ──────────────────────────────────────────────────────────────
+
+@api_router.post("/tts")
+@limiter.limit("15/minute")
+async def text_to_speech(request: Request, request_body: TTSRequest):
+    """Generate speech audio from text using tiered TTS engines.
+    
+    Pipeline: raw text → LLM speech optimization → Kyutai/HF audio generation → WAV stream
+    Falls back gracefully: Kyutai → HuggingFace → error (client uses Android TTS)
+    """
+    try:
+        # Step 1: Preprocess text with LLM for natural speech
+        log.info(f"TTS: Processing {len(request_body.text)} chars, style={request_body.voice_style}, mode={request_body.mode}")
+        
+        optimized_text = await tts_processor.optimize_for_speech(
+            text=request_body.text,
+            voice_style=request_body.voice_style,
+            mode=request_body.mode,
+            use_ssml=request_body.use_ssml
+        )
+        
+        if not optimized_text:
+            raise HTTPException(status_code=400, detail="Text optimization produced empty result")
+        
+        # Step 2: Return as StreamingResponse for real-time playback
+        return FastAPIStreamingResponse(
+            content=tts_engine.generate_stream(
+                text=optimized_text,
+                voice_style=request_body.voice_style,
+                speed=request_body.speed
+            ),
+            media_type="audio/wav",
+            headers={
+                "Content-Disposition": "inline; filename=tts_output.wav",
+                "X-TTS-Engine": "kyutai" if tts_engine.get_status()["kyutai"]["loaded"] else "huggingface"
+                # Content-Length is omitted for streaming
+            }
+        )
+
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        log.error(f"TTS: Endpoint failed: {e}")
+        raise HTTPException(status_code=500, detail=f"TTS generation failed: {str(e)}")
+
+@api_router.get("/tts/status")
+async def tts_status():
+    """Real-time status of TTS engines."""
+    return tts_engine.get_status()
+
+@api_router.post("/analyze-image")
+async def analyze_image_endpoint(request: ImageAnalysisRequest):
+    """Analyze a scientific image / question."""
+    try:
+        answer = await llm_engine.analyze_image(request.image_b64, request.question)
+        return {"answer": answer}
+    except Exception as e:
+        log.error(f"API: Image analysis error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 @api_router.get("/health")
 async def health_check():
     """Lightweight zero-downtime healthcheck."""
-    return {"status": "ok", "version": "4.2.0"}
+    return {"status": "ok", "version": "4.3.0"}
 
 @api_router.get("/provider-status")
 async def provider_status():

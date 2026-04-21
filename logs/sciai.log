@@ -4281,3 +4281,1119 @@ There is no scientific question present in this image.' (retmax=10)
 2026-04-18 22:56:05 | INFO     | model_manager:generate:714 - ModelManager: Trying Qwen (OpenRouter) (Tier 3) [key …8fb9ad]
 2026-04-18 22:56:24 | INFO     | model_manager:generate:741 - ModelManager: ✅ Qwen (OpenRouter) succeeded (3675 chars)
 2026-04-18 22:56:24 | INFO     | llm_engine:generate_book_answer:92 - LLM: Book generation via Qwen (OpenRouter)
+2026-04-19 21:09:38 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-19 21:09:39 | INFO     | __main__:startup_event:100 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-19 21:09:39 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-19 21:09:39 | INFO     | __main__:startup_event:103 - ModelManager: 11 providers configured
+2026-04-19 21:10:18 | INFO     | __main__:ask_question:193 - Question: The image provided does not contain a specific scientific question. It is promotional artwork for the video game Punishing: Gray Raven, featuring the character Lamia.
+
+Description:
+The image depicts a female character with long pink hair and purple eyes, wearing a black, ornate outfit. She is positioned centrally, reaching out with her left hand while holding a complex, futuristic staff or mechanical device in her right hand. The background is a cosmic or space-themed scene filled with swirling energy, ethereal light, celestial spheres, and metallic structures. The overall aesthetic is science fiction fantasy, characterized by a cool color palette of purples, blues, and blacks with sharp, glowing highlights. In the top right corner, the game logo for Punishing: Gray Raven is visible. | Hybrid: True | Book: None
+2026-04-19 21:10:18 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-04-19 21:10:18 | INFO     | faiss_store:load:87 - FAISS: Loaded 1461 vectors of type IndexIDMap2.
+2026-04-19 21:10:18 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-19 21:10:25 | INFO     | faiss_store:search:199 - FAISS Search: query='The image provided does not co...', search_k=25, ntotal=1461
+2026-04-19 21:10:25 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 0
+2026-04-19 21:10:25 | INFO     | live_articles:search_articles:244 - Article Search: 'The image provided does not contain a specific scientific question. It is promotional artwork for the video game Punishing: Gray Raven, featuring the character Lamia.
+
+Description:
+The image depicts a female character with long pink hair and purple eyes, wearing a black, ornate outfit. She is positioned centrally, reaching out with her left hand while holding a complex, futuristic staff or mechanical device in her right hand. The background is a cosmic or space-themed scene filled with swirling energy, ethereal light, celestial spheres, and metallic structures. The overall aesthetic is science fiction fantasy, characterized by a cool color palette of purples, blues, and blacks with sharp, glowing highlights. In the top right corner, the game logo for Punishing: Gray Raven is visible.' | Page: 1
+2026-04-19 21:10:25 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'The image provided does not contain a specific scientific question. It is promotional artwork for the video game Punishing: Gray Raven, featuring the character Lamia.
+
+Description:
+The image depicts a female character with long pink hair and purple eyes, wearing a black, ornate outfit. She is positioned centrally, reaching out with her left hand while holding a complex, futuristic staff or mechanical device in her right hand. The background is a cosmic or space-themed scene filled with swirling energy, ethereal light, celestial spheres, and metallic structures. The overall aesthetic is science fiction fantasy, characterized by a cool color palette of purples, blues, and blacks with sharp, glowing highlights. In the top right corner, the game logo for Punishing: Gray Raven is visible.'
+2026-04-19 21:10:25 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'The image provided does not contain a specific scientific question. It is promotional artwork for the video game Punishing: Gray Raven, featuring the character Lamia.
+
+Description:
+The image depicts a female character with long pink hair and purple eyes, wearing a black, ornate outfit. She is positioned centrally, reaching out with her left hand while holding a complex, futuristic staff or mechanical device in her right hand. The background is a cosmic or space-themed scene filled with swirling energy, ethereal light, celestial spheres, and metallic structures. The overall aesthetic is science fiction fantasy, characterized by a cool color palette of purples, blues, and blacks with sharp, glowing highlights. In the top right corner, the game logo for Punishing: Gray Raven is visible.'
+2026-04-19 21:10:25 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'The image provided does not contain a specific scientific question. It is promotional artwork for the video game Punishing: Gray Raven, featuring the character Lamia.
+
+Description:
+The image depicts a female character with long pink hair and purple eyes, wearing a black, ornate outfit. She is positioned centrally, reaching out with her left hand while holding a complex, futuristic staff or mechanical device in her right hand. The background is a cosmic or space-themed scene filled with swirling energy, ethereal light, celestial spheres, and metallic structures. The overall aesthetic is science fiction fantasy, characterized by a cool color palette of purples, blues, and blacks with sharp, glowing highlights. In the top right corner, the game logo for Punishing: Gray Raven is visible.'
+2026-04-19 21:10:25 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'The image provided does not contain a specific scientific question. It is promotional artwork for the video game Punishing: Gray Raven, featuring the character Lamia.
+
+Description:
+The image depicts a female character with long pink hair and purple eyes, wearing a black, ornate outfit. She is positioned centrally, reaching out with her left hand while holding a complex, futuristic staff or mechanical device in her right hand. The background is a cosmic or space-themed scene filled with swirling energy, ethereal light, celestial spheres, and metallic structures. The overall aesthetic is science fiction fantasy, characterized by a cool color palette of purples, blues, and blacks with sharp, glowing highlights. In the top right corner, the game logo for Punishing: Gray Raven is visible.' (retmax=10)
+2026-04-19 21:10:25 | ERROR    | live_articles:fetch_arxiv:238 - arXiv API error: Invalid non-printable ASCII character in URL, '\n' at position 217.
+2026-04-19 21:10:26 | ERROR    | live_articles:fetch_pubmed:187 - PubMed final error: InvalidURL: Invalid non-printable ASCII character in URL, '\n' at position 240.
+2026-04-19 21:10:26 | INFO     | live_articles:search_articles:289 - Source 0 returned 0 articles (Total in source: 0)
+2026-04-19 21:10:26 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-19 21:10:26 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-19 21:10:26 | INFO     | model_manager:generate:690 - ModelManager: Auto-classified as 'scale'
+2026-04-19 21:10:26 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-19 21:10:35 | INFO     | model_manager:generate:741 - ModelManager: ✅ Gemini Flash succeeded (805 chars)
+2026-04-19 21:10:35 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via Gemini Flash
+2026-04-19 21:17:10 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-19 21:17:11 | INFO     | __main__:startup_event:100 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-19 21:17:11 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-19 21:17:11 | INFO     | __main__:startup_event:103 - ModelManager: 11 providers configured
+2026-04-19 22:09:29 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-19 22:09:29 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-19 22:09:29 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-19 22:09:29 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-19 22:09:29 | INFO     | tts_engine:initialize:316 - TTS Engine: Initializing...
+2026-04-19 22:09:29 | WARNING  | tts_engine:_init_kyutai:188 - TTS: pocket-tts not installed — Kyutai unavailable
+2026-04-19 22:09:29 | WARNING  | tts_engine:initialize:322 - TTS Engine: Kyutai unavailable, will use HuggingFace fallback
+2026-04-19 22:09:30 | WARNING  | tts_engine:_init_hf:258 - TTS: transformers/datasets not installed — HF unavailable (No module named 'datasets')
+2026-04-19 22:09:30 | WARNING  | tts_engine:initialize:327 - TTS Engine: No TTS backend available — client must use Android TTS
+2026-04-19 22:09:30 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-19 22:11:11 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-19 22:11:12 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-19 22:11:12 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-19 22:11:12 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-19 22:11:12 | INFO     | tts_engine:initialize:316 - TTS Engine: Initializing...
+2026-04-19 22:11:12 | WARNING  | tts_engine:_init_kyutai:188 - TTS: pocket-tts not installed — Kyutai unavailable
+2026-04-19 22:11:12 | WARNING  | tts_engine:initialize:322 - TTS Engine: Kyutai unavailable, will use HuggingFace fallback
+2026-04-19 22:11:12 | WARNING  | tts_engine:_init_hf:258 - TTS: transformers/datasets not installed — HF unavailable (No module named 'datasets')
+2026-04-19 22:11:12 | WARNING  | tts_engine:initialize:327 - TTS Engine: No TTS backend available — client must use Android TTS
+2026-04-19 22:11:12 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-19 22:14:18 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-19 22:14:19 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-19 22:14:19 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-19 22:14:19 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-19 22:14:19 | INFO     | tts_engine:initialize:316 - TTS Engine: Initializing...
+2026-04-19 22:14:20 | INFO     | tts_engine:_init_kyutai:173 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-19 22:14:39 | INFO     | tts_engine:_init_kyutai:175 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-19 22:14:39 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'professor': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:14:39 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'energetic': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:14:39 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'storyteller': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:14:39 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'formal_male': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:14:39 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'casual_female': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:14:39 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'deep_male': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:14:39 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'warm_female': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:14:39 | WARNING  | tts_engine:initialize:322 - TTS Engine: Kyutai unavailable, will use HuggingFace fallback
+2026-04-19 22:14:39 | INFO     | tts_engine:_init_hf:239 - TTS: Loading HuggingFace SpeechT5 model...
+2026-04-19 22:15:51 | ERROR    | tts_engine:_init_hf:261 - TTS: HuggingFace initialization failed: Dataset scripts are no longer supported, but found cmu-arctic-xvectors.py
+2026-04-19 22:15:51 | WARNING  | tts_engine:initialize:327 - TTS Engine: No TTS backend available — client must use Android TTS
+2026-04-19 22:15:51 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-19 22:40:55 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-19 22:40:56 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-19 22:40:56 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-19 22:40:56 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-19 22:40:56 | INFO     | tts_engine:initialize:316 - TTS Engine: Initializing...
+2026-04-19 22:40:56 | INFO     | tts_engine:_init_kyutai:173 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-19 22:40:58 | INFO     | tts_engine:_init_kyutai:175 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-19 22:40:58 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'professor': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:40:58 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'energetic': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:40:58 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'storyteller': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:40:58 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'formal_male': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:40:58 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'casual_female': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:40:58 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'deep_male': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:40:58 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'warm_female': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:40:58 | WARNING  | tts_engine:initialize:322 - TTS Engine: Kyutai unavailable, will use HuggingFace fallback
+2026-04-19 22:40:58 | INFO     | tts_engine:_init_hf:239 - TTS: Loading HuggingFace SpeechT5 model...
+2026-04-19 22:41:07 | ERROR    | tts_engine:_init_hf:261 - TTS: HuggingFace initialization failed: Dataset scripts are no longer supported, but found cmu-arctic-xvectors.py
+2026-04-19 22:41:07 | WARNING  | tts_engine:initialize:327 - TTS Engine: No TTS backend available — client must use Android TTS
+2026-04-19 22:41:07 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-19 22:45:32 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-19 22:45:32 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-19 22:45:32 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-19 22:45:32 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-19 22:45:32 | INFO     | tts_engine:initialize:316 - TTS Engine: Initializing...
+2026-04-19 22:45:32 | INFO     | tts_engine:_init_kyutai:173 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-19 22:45:33 | INFO     | tts_engine:_init_kyutai:175 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-19 22:45:33 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'professor': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:45:34 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'energetic': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:45:34 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'storyteller': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:45:34 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'formal_male': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:45:34 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'casual_female': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:45:34 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'deep_male': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:45:34 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'warm_female': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:45:34 | WARNING  | tts_engine:initialize:322 - TTS Engine: Kyutai unavailable, will use HuggingFace fallback
+2026-04-19 22:45:34 | INFO     | tts_engine:_init_hf:239 - TTS: Loading HuggingFace SpeechT5 model...
+2026-04-19 22:45:41 | ERROR    | tts_engine:_init_hf:261 - TTS: HuggingFace initialization failed: Dataset scripts are no longer supported, but found cmu-arctic-xvectors.py
+2026-04-19 22:45:41 | WARNING  | tts_engine:initialize:327 - TTS Engine: No TTS backend available — client must use Android TTS
+2026-04-19 22:45:42 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-19 22:52:11 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-19 22:52:12 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-19 22:52:12 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-19 22:52:12 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-19 22:52:12 | INFO     | tts_engine:initialize:316 - TTS Engine: Initializing...
+2026-04-19 22:52:12 | INFO     | tts_engine:_init_kyutai:173 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-19 22:52:13 | INFO     | tts_engine:_init_kyutai:175 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-19 22:52:13 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'professor': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:52:13 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'energetic': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:52:13 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'storyteller': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:52:13 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'formal_male': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:52:13 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'casual_female': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:52:13 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'deep_male': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:52:13 | WARNING  | tts_engine:_init_kyutai:183 - TTS: Failed to load Kyutai voice 'warm_female': We could not download the weights for the model with voice cloning, but you're trying to use voice cloning. Without voice cloning, you can use our catalog of voices ['alba', 'marius', 'javert', 'jean', 'fantine', 'cosette', 'eponine', 'azelma']. If you want access to the model with voice cloning, go to https://huggingface.co/kyutai/pocket-tts and accept the terms, then make sure you're logged in locally with `uvx hf auth login`.
+2026-04-19 22:52:13 | WARNING  | tts_engine:initialize:322 - TTS Engine: Kyutai unavailable, will use HuggingFace fallback
+2026-04-19 22:52:13 | INFO     | tts_engine:_init_hf:239 - TTS: Loading HuggingFace SpeechT5 model...
+2026-04-19 22:52:21 | ERROR    | tts_engine:_init_hf:261 - TTS: HuggingFace initialization failed: Dataset scripts are no longer supported, but found cmu-arctic-xvectors.py
+2026-04-19 22:52:21 | WARNING  | tts_engine:initialize:327 - TTS Engine: No TTS backend available — client must use Android TTS
+2026-04-19 22:52:21 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-19 23:00:41 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-19 23:00:42 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-19 23:00:42 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-19 23:00:42 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-19 23:00:42 | INFO     | tts_engine:initialize:324 - TTS Engine: Initializing...
+2026-04-19 23:00:42 | INFO     | tts_engine:_init_kyutai:173 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-19 23:00:43 | INFO     | tts_engine:_init_kyutai:175 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-19 23:00:43 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'professor' (alba)
+2026-04-19 23:00:46 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'energetic' (cosette)
+2026-04-19 23:00:47 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'storyteller' (fantine)
+2026-04-19 23:00:49 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'formal_male' (marius)
+2026-04-19 23:00:50 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'casual_female' (eponine)
+2026-04-19 23:00:52 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'deep_male' (javert)
+2026-04-19 23:00:53 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'warm_female' (azelma)
+2026-04-19 23:00:53 | INFO     | tts_engine:initialize:328 - TTS Engine: Kyutai Pocket-TTS ready (Tier 1)
+2026-04-19 23:00:53 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-19 23:03:03 | INFO     | __main__:ask_question:210 - Question: cell | Hybrid: True | Book: None
+2026-04-19 23:03:03 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-04-19 23:03:03 | INFO     | faiss_store:load:87 - FAISS: Loaded 1461 vectors of type IndexIDMap2.
+2026-04-19 23:03:03 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-19 23:03:11 | INFO     | faiss_store:search:199 - FAISS Search: query='cell...', search_k=25, ntotal=1461
+2026-04-19 23:03:11 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 6
+2026-04-19 23:03:11 | INFO     | live_articles:search_articles:244 - Article Search: 'cell' | Page: 1
+2026-04-19 23:03:12 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell'
+2026-04-19 23:03:12 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell'
+2026-04-19 23:03:12 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell'
+2026-04-19 23:03:12 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell' (retmax=10)
+2026-04-19 23:03:14 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 8949086)
+2026-04-19 23:03:15 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-19 23:03:15 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 8949086)
+2026-04-19 23:03:15 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52480)
+2026-04-19 23:03:15 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-19 23:03:15 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-19 23:03:19 | ERROR    | model_manager:generate:754 - ModelManager: ❌ Gemini Flash error: Gemini Flash: HTTP 503 — {
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+2026-04-19 23:03:19 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-19 23:03:23 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (3365 chars)
+2026-04-19 23:03:23 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Groq
+2026-04-19 23:03:25 | INFO     | __main__:text_to_speech:476 - TTS: Processing 3289 chars, style=professor, mode=Expert
+2026-04-19 23:03:25 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-19 23:03:26 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (3490 chars)
+2026-04-19 23:03:26 | INFO     | tts_text_processor:optimize_for_speech:279 - TTS: Text optimized via Groq (3289 → 3490 chars)
+2026-04-19 23:03:26 | INFO     | tts_engine:generate:361 - TTS: Processing 8 chunks
+2026-04-19 23:03:34 | INFO     | __main__:text_to_speech:476 - TTS: Processing 3289 chars, style=professor, mode=Expert
+2026-04-19 23:03:34 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-19 23:03:34 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (3275 chars)
+2026-04-19 23:03:34 | INFO     | tts_text_processor:optimize_for_speech:279 - TTS: Text optimized via Groq (3289 → 3275 chars)
+2026-04-19 23:03:34 | INFO     | tts_engine:generate:361 - TTS: Processing 8 chunks
+2026-04-19 23:04:06 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1251884 bytes (professor)
+2026-04-19 23:04:14 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1309484 bytes (professor)
+2026-04-19 23:04:34 | INFO     | __main__:text_to_speech:476 - TTS: Processing 3289 chars, style=professor, mode=Expert
+2026-04-19 23:04:34 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-19 23:04:36 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (3465 chars)
+2026-04-19 23:04:36 | INFO     | tts_text_processor:optimize_for_speech:279 - TTS: Text optimized via Groq (3289 → 3465 chars)
+2026-04-19 23:04:36 | INFO     | tts_engine:generate:361 - TTS: Processing 8 chunks
+2026-04-19 23:04:49 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1355564 bytes (professor)
+2026-04-19 23:04:55 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1201964 bytes (professor)
+2026-04-19 23:05:13 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1056044 bytes (professor)
+2026-04-19 23:05:26 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 986924 bytes (professor)
+2026-04-19 23:05:31 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1313324 bytes (professor)
+2026-04-19 23:06:04 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1489964 bytes (professor)
+2026-04-19 23:06:13 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1286444 bytes (professor)
+2026-04-19 23:06:25 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1455404 bytes (professor)
+2026-04-19 23:06:57 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1478444 bytes (professor)
+2026-04-19 23:07:00 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1305644 bytes (professor)
+2026-04-19 23:07:06 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1105964 bytes (professor)
+2026-04-19 23:07:43 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 963884 bytes (professor)
+2026-04-19 23:07:51 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1086764 bytes (professor)
+2026-04-19 23:08:00 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1489964 bytes (professor)
+2026-04-19 23:08:28 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1205804 bytes (professor)
+2026-04-19 23:08:42 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1347884 bytes (professor)
+2026-04-19 23:08:48 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1294124 bytes (professor)
+2026-04-19 23:08:55 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 771884 bytes (professor)
+2026-04-19 23:09:32 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-19 23:09:33 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-19 23:09:33 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-19 23:09:33 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-19 23:09:33 | INFO     | tts_engine:initialize:328 - TTS Engine: Initializing...
+2026-04-19 23:09:34 | INFO     | tts_engine:_init_kyutai:173 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-19 23:09:35 | INFO     | tts_engine:_init_kyutai:175 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-19 23:09:35 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'professor' (alba)
+2026-04-19 23:09:35 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'energetic' (cosette)
+2026-04-19 23:09:35 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'storyteller' (fantine)
+2026-04-19 23:09:35 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'formal_male' (marius)
+2026-04-19 23:09:35 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'casual_female' (eponine)
+2026-04-19 23:09:35 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'deep_male' (javert)
+2026-04-19 23:09:35 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'warm_female' (azelma)
+2026-04-19 23:09:35 | INFO     | tts_engine:initialize:332 - TTS Engine: Kyutai Pocket-TTS ready (Tier 1)
+2026-04-19 23:09:35 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-19 23:09:50 | INFO     | __main__:ask_question:210 - Question: cell | Hybrid: True | Book: None
+2026-04-19 23:09:50 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-04-19 23:09:50 | INFO     | faiss_store:load:87 - FAISS: Loaded 1461 vectors of type IndexIDMap2.
+2026-04-19 23:09:50 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-19 23:09:56 | INFO     | faiss_store:search:199 - FAISS Search: query='cell...', search_k=25, ntotal=1461
+2026-04-19 23:09:56 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 6
+2026-04-19 23:09:56 | INFO     | live_articles:search_articles:244 - Article Search: 'cell' | Page: 1
+2026-04-19 23:09:56 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell'
+2026-04-19 23:09:56 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell'
+2026-04-19 23:09:56 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell'
+2026-04-19 23:09:57 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 8949086)
+2026-04-19 23:09:57 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52480)
+2026-04-19 23:09:57 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-19 23:09:57 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-19 23:10:08 | INFO     | model_manager:generate:741 - ModelManager: ✅ Gemini Flash succeeded (3648 chars)
+2026-04-19 23:10:08 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-19 23:10:17 | INFO     | __main__:text_to_speech:476 - TTS: Processing 3576 chars, style=professor, mode=Exam
+2026-04-19 23:10:17 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-19 23:10:18 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (3396 chars)
+2026-04-19 23:10:18 | INFO     | tts_text_processor:optimize_for_speech:279 - TTS: Text optimized via Groq (3522 → 3396 chars)
+2026-04-19 23:10:18 | INFO     | tts_engine:generate:365 - TTS: Processing 8 chunks in parallel (max 4)
+2026-04-19 23:10:18 | INFO     | __main__:text_to_speech:476 - TTS: Processing 3576 chars, style=professor, mode=Exam
+2026-04-19 23:10:18 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-19 23:10:19 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (3142 chars)
+2026-04-19 23:10:19 | INFO     | tts_text_processor:optimize_for_speech:279 - TTS: Text optimized via Groq (3522 → 3142 chars)
+2026-04-19 23:10:19 | INFO     | tts_engine:generate:365 - TTS: Processing 8 chunks in parallel (max 4)
+2026-04-19 23:11:24 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1136684 bytes (professor)
+2026-04-19 23:11:25 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1140524 bytes (professor)
+2026-04-19 23:11:38 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1432364 bytes (professor)
+2026-04-19 23:11:41 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1459244 bytes (professor)
+2026-04-19 23:11:55 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 288044 bytes (professor)
+2026-04-19 23:12:22 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1263404 bytes (professor)
+2026-04-19 23:12:24 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1274924 bytes (professor)
+2026-04-19 23:12:37 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1294124 bytes (professor)
+2026-04-19 23:12:50 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1228844 bytes (professor)
+2026-04-19 23:13:12 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1044524 bytes (professor)
+2026-04-19 23:13:14 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1113644 bytes (professor)
+2026-04-19 23:13:28 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1113644 bytes (professor)
+2026-04-19 23:15:13 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-19 23:15:13 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-19 23:15:13 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-19 23:15:13 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-19 23:15:13 | INFO     | tts_engine:initialize:328 - TTS Engine: Initializing...
+2026-04-19 23:15:14 | INFO     | tts_engine:_init_kyutai:173 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-19 23:15:15 | INFO     | tts_engine:_init_kyutai:175 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-19 23:15:15 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'professor' (alba)
+2026-04-19 23:15:15 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'energetic' (cosette)
+2026-04-19 23:15:15 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'storyteller' (fantine)
+2026-04-19 23:15:15 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'formal_male' (marius)
+2026-04-19 23:15:15 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'casual_female' (eponine)
+2026-04-19 23:15:15 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'deep_male' (javert)
+2026-04-19 23:15:15 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'warm_female' (azelma)
+2026-04-19 23:15:15 | INFO     | tts_engine:initialize:332 - TTS Engine: Kyutai Pocket-TTS ready (Tier 1)
+2026-04-19 23:15:15 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-19 23:15:46 | INFO     | __main__:ask_question:210 - Question: cell | Hybrid: True | Book: None
+2026-04-19 23:15:46 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-04-19 23:15:46 | INFO     | faiss_store:load:87 - FAISS: Loaded 1461 vectors of type IndexIDMap2.
+2026-04-19 23:15:46 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-19 23:15:51 | INFO     | faiss_store:search:199 - FAISS Search: query='cell...', search_k=25, ntotal=1461
+2026-04-19 23:15:51 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 6
+2026-04-19 23:15:51 | INFO     | live_articles:search_articles:244 - Article Search: 'cell' | Page: 1
+2026-04-19 23:15:51 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell'
+2026-04-19 23:15:51 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell'
+2026-04-19 23:15:51 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell'
+2026-04-19 23:15:52 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 8949086)
+2026-04-19 23:15:52 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52480)
+2026-04-19 23:15:52 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-19 23:15:52 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-19 23:15:57 | INFO     | __main__:text_to_speech:476 - TTS: Processing 1983 chars, style=professor, mode=Exam
+2026-04-19 23:15:57 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-19 23:15:58 | INFO     | __main__:ask_question:210 - Question: cell | Hybrid: True | Book: None
+2026-04-19 23:15:58 | INFO     | faiss_store:search:199 - FAISS Search: query='cell...', search_k=25, ntotal=1461
+2026-04-19 23:15:58 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 6
+2026-04-19 23:15:58 | INFO     | live_articles:search_articles:244 - Article Search: 'cell' | Page: 1
+2026-04-19 23:15:58 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell'
+2026-04-19 23:15:58 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell'
+2026-04-19 23:15:58 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell'
+2026-04-19 23:15:59 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 8949086)
+2026-04-19 23:15:59 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52480)
+2026-04-19 23:15:59 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-19 23:15:59 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …nQKpEg]
+2026-04-19 23:16:00 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (3065 chars)
+2026-04-19 23:16:00 | INFO     | tts_text_processor:optimize_for_speech:279 - TTS: Text optimized via Groq (1934 → 3065 chars)
+2026-04-19 23:16:00 | INFO     | tts_engine:generate:367 - TTS: Capping long text (7 chunks) to 4 chunks for responsiveness
+2026-04-19 23:16:00 | INFO     | tts_engine:generate:382 - TTS: Generating 4 chunks...
+2026-04-19 23:16:07 | INFO     | model_manager:generate:741 - ModelManager: ✅ Gemini Flash succeeded (3609 chars)
+2026-04-19 23:16:07 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-19 23:16:10 | INFO     | model_manager:generate:741 - ModelManager: ✅ Gemini Flash succeeded (3913 chars)
+2026-04-19 23:16:10 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-19 23:17:15 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-19 23:17:15 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-19 23:17:15 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-19 23:17:15 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-19 23:17:15 | INFO     | tts_engine:initialize:328 - TTS Engine: Initializing...
+2026-04-19 23:17:15 | INFO     | tts_engine:_init_kyutai:173 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-19 23:17:17 | INFO     | tts_engine:_init_kyutai:175 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-19 23:17:17 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'professor' (alba)
+2026-04-19 23:17:17 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'energetic' (cosette)
+2026-04-19 23:17:17 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'storyteller' (fantine)
+2026-04-19 23:17:17 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'formal_male' (marius)
+2026-04-19 23:17:17 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'casual_female' (eponine)
+2026-04-19 23:17:17 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'deep_male' (javert)
+2026-04-19 23:17:17 | INFO     | tts_engine:_init_kyutai:182 - TTS: Loaded Kyutai catalog voice 'warm_female' (azelma)
+2026-04-19 23:17:17 | INFO     | tts_engine:initialize:332 - TTS Engine: Kyutai Pocket-TTS ready (Tier 1)
+2026-04-19 23:17:17 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-19 23:17:34 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-19 23:17:35 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (146 chars)
+2026-04-19 23:17:35 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-19 23:17:40 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-19 23:17:41 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (141 chars)
+2026-04-19 23:17:41 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-19 23:17:44 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-19 23:17:44 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (147 chars)
+2026-04-19 23:17:44 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-19 23:17:45 | INFO     | __main__:ask_question:210 - Question: cell membrane modifications
+ | Hybrid: True | Book: None
+2026-04-19 23:17:45 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-04-19 23:17:45 | INFO     | faiss_store:load:87 - FAISS: Loaded 1461 vectors of type IndexIDMap2.
+2026-04-19 23:17:45 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-19 23:17:50 | INFO     | faiss_store:search:199 - FAISS Search: query='cell membrane modifications
+...', search_k=25, ntotal=1461
+2026-04-19 23:17:50 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 0
+2026-04-19 23:17:50 | INFO     | live_articles:search_articles:244 - Article Search: 'cell membrane modifications
+' | Page: 1
+2026-04-19 23:17:51 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell membrane modifications
+'
+2026-04-19 23:17:51 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell membrane modifications
+'
+2026-04-19 23:17:51 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell membrane modifications
+'
+2026-04-19 23:17:51 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell membrane modifications
+' (retmax=10)
+2026-04-19 23:17:51 | ERROR    | live_articles:fetch_arxiv:238 - arXiv API error: Invalid non-printable ASCII character in URL, '\n' at position 78.
+2026-04-19 23:17:51 | ERROR    | live_articles:fetch_pubmed:187 - PubMed final error: InvalidURL: Invalid non-printable ASCII character in URL, '\n' at position 101.
+2026-04-19 23:17:51 | INFO     | live_articles:search_articles:289 - Source 0 returned 0 articles (Total in source: 0)
+2026-04-19 23:17:51 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-19 23:17:51 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-19 23:17:51 | INFO     | model_manager:generate:690 - ModelManager: Auto-classified as 'speed'
+2026-04-19 23:17:51 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-19 23:17:52 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (473 chars)
+2026-04-19 23:17:52 | INFO     | llm_engine:generate_llm_only:43 - LLM: Pure generation via Groq
+2026-04-19 23:17:54 | INFO     | __main__:text_to_speech:476 - TTS: Processing 453 chars, style=professor, mode=Concept
+2026-04-19 23:17:54 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-04-19 23:17:57 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (1214 chars)
+2026-04-19 23:17:57 | INFO     | tts_text_processor:optimize_for_speech:279 - TTS: Text optimized via Groq (453 → 1214 chars)
+2026-04-19 23:17:57 | INFO     | tts_engine:generate:382 - TTS: Generating 3 chunks...
+2026-04-19 23:18:21 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 629804 bytes (professor)
+2026-04-19 23:18:50 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1382444 bytes (professor)
+2026-04-19 23:18:51 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1428524 bytes (professor)
+2026-04-19 23:19:00 | INFO     | __main__:text_to_speech:476 - TTS: Processing 453 chars, style=professor, mode=Concept
+2026-04-19 23:19:00 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-19 23:19:01 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (1428 chars)
+2026-04-19 23:19:01 | INFO     | tts_text_processor:optimize_for_speech:279 - TTS: Text optimized via Groq (453 → 1428 chars)
+2026-04-19 23:19:01 | INFO     | tts_engine:generate:382 - TTS: Generating 4 chunks...
+2026-04-19 23:19:09 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 176684 bytes (professor)
+2026-04-19 23:19:45 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1232684 bytes (professor)
+2026-04-19 23:19:45 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1236524 bytes (professor)
+2026-04-19 23:19:45 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1251884 bytes (professor)
+2026-04-19 23:20:09 | INFO     | __main__:text_to_speech:476 - TTS: Processing 453 chars, style=professor, mode=Concept
+2026-04-19 23:20:09 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-19 23:20:10 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (1059 chars)
+2026-04-19 23:20:10 | INFO     | tts_text_processor:optimize_for_speech:279 - TTS: Text optimized via Groq (453 → 1059 chars)
+2026-04-19 23:20:10 | INFO     | tts_engine:generate:382 - TTS: Generating 3 chunks...
+2026-04-19 23:20:23 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 372524 bytes (professor)
+2026-04-19 23:20:47 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1198124 bytes (professor)
+2026-04-19 23:20:50 | INFO     | tts_engine:_kyutai_generate:217 - TTS: Kyutai generated 1363244 bytes (professor)
+2026-04-19 23:26:24 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-19 23:26:24 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-19 23:26:24 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-19 23:26:24 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-19 23:26:24 | INFO     | tts_engine:initialize:324 - TTS Engine: Initializing...
+2026-04-19 23:26:26 | INFO     | tts_engine:_init_kyutai:169 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-19 23:26:29 | INFO     | tts_engine:_init_kyutai:171 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-19 23:26:29 | INFO     | tts_engine:_init_kyutai:178 - TTS: Loaded Kyutai catalog voice 'professor' (alba)
+2026-04-19 23:26:29 | INFO     | tts_engine:_init_kyutai:178 - TTS: Loaded Kyutai catalog voice 'energetic' (cosette)
+2026-04-19 23:26:29 | INFO     | tts_engine:_init_kyutai:178 - TTS: Loaded Kyutai catalog voice 'storyteller' (fantine)
+2026-04-19 23:26:29 | INFO     | tts_engine:_init_kyutai:178 - TTS: Loaded Kyutai catalog voice 'formal_male' (marius)
+2026-04-19 23:26:29 | INFO     | tts_engine:_init_kyutai:178 - TTS: Loaded Kyutai catalog voice 'casual_female' (eponine)
+2026-04-19 23:26:29 | INFO     | tts_engine:_init_kyutai:178 - TTS: Loaded Kyutai catalog voice 'deep_male' (javert)
+2026-04-19 23:26:29 | INFO     | tts_engine:_init_kyutai:178 - TTS: Loaded Kyutai catalog voice 'warm_female' (azelma)
+2026-04-19 23:26:29 | INFO     | tts_engine:initialize:328 - TTS Engine: Kyutai Pocket-TTS ready (Tier 1)
+2026-04-19 23:26:29 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-19 23:31:05 | INFO     | __main__:ask_question:210 - Question: cell | Hybrid: True | Book: None
+2026-04-19 23:31:05 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-04-19 23:31:05 | INFO     | faiss_store:load:87 - FAISS: Loaded 1461 vectors of type IndexIDMap2.
+2026-04-19 23:31:05 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-19 23:31:10 | INFO     | faiss_store:search:199 - FAISS Search: query='cell...', search_k=25, ntotal=1461
+2026-04-19 23:31:10 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 0
+2026-04-19 23:31:10 | INFO     | live_articles:search_articles:244 - Article Search: 'cell' | Page: 1
+2026-04-19 23:31:10 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell'
+2026-04-19 23:31:10 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell'
+2026-04-19 23:31:10 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell'
+2026-04-19 23:31:11 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 8949086)
+2026-04-19 23:31:11 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52480)
+2026-04-19 23:31:11 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-19 23:31:11 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-19 23:31:14 | ERROR    | model_manager:generate:754 - ModelManager: ❌ Gemini Flash error: Gemini Flash: HTTP 503 — {
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+2026-04-19 23:31:14 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-19 23:31:15 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (2401 chars)
+2026-04-19 23:31:15 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Groq
+2026-04-19 23:31:25 | INFO     | __main__:text_to_speech:476 - TTS: Processing 2381 chars, style=professor, mode=Concept
+2026-04-19 23:31:25 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-19 23:31:28 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (3260 chars)
+2026-04-19 23:31:28 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (2381 → 3260 chars)
+2026-04-19 23:31:28 | INFO     | tts_engine:generate:363 - TTS: Capping long text (8 chunks) to 4 chunks for responsiveness
+2026-04-19 23:31:28 | INFO     | tts_engine:generate:378 - TTS: Generating 4 chunks...
+2026-04-19 23:32:11 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 921644 bytes (professor)
+2026-04-19 23:32:20 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1274924 bytes (professor)
+2026-04-19 23:32:20 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1294124 bytes (professor)
+2026-04-19 23:32:21 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1313324 bytes (professor)
+2026-04-19 23:38:35 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-19 23:38:36 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-19 23:38:36 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-19 23:38:36 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-19 23:38:36 | INFO     | tts_engine:initialize:324 - TTS Engine: Initializing...
+2026-04-19 23:38:36 | INFO     | tts_engine:_init_kyutai:169 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-19 23:38:37 | INFO     | tts_engine:_init_kyutai:171 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-19 23:38:37 | INFO     | tts_engine:_init_kyutai:178 - TTS: Loaded Kyutai catalog voice 'professor' (alba)
+2026-04-19 23:38:37 | INFO     | tts_engine:_init_kyutai:178 - TTS: Loaded Kyutai catalog voice 'energetic' (cosette)
+2026-04-19 23:38:37 | INFO     | tts_engine:_init_kyutai:178 - TTS: Loaded Kyutai catalog voice 'storyteller' (fantine)
+2026-04-19 23:38:37 | INFO     | tts_engine:_init_kyutai:178 - TTS: Loaded Kyutai catalog voice 'formal_male' (marius)
+2026-04-19 23:38:37 | INFO     | tts_engine:_init_kyutai:178 - TTS: Loaded Kyutai catalog voice 'casual_female' (eponine)
+2026-04-19 23:38:37 | INFO     | tts_engine:_init_kyutai:178 - TTS: Loaded Kyutai catalog voice 'deep_male' (javert)
+2026-04-19 23:38:37 | INFO     | tts_engine:_init_kyutai:178 - TTS: Loaded Kyutai catalog voice 'warm_female' (azelma)
+2026-04-19 23:38:37 | INFO     | tts_engine:initialize:328 - TTS Engine: Kyutai Pocket-TTS ready (Tier 1)
+2026-04-19 23:38:37 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-19 23:38:57 | INFO     | __main__:ask_question:210 - Question: cell | Hybrid: True | Book: None
+2026-04-19 23:38:57 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-04-19 23:38:57 | INFO     | faiss_store:load:87 - FAISS: Loaded 1461 vectors of type IndexIDMap2.
+2026-04-19 23:38:57 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-19 23:39:02 | INFO     | faiss_store:search:199 - FAISS Search: query='cell...', search_k=25, ntotal=1461
+2026-04-19 23:39:02 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 6
+2026-04-19 23:39:02 | INFO     | live_articles:search_articles:244 - Article Search: 'cell' | Page: 1
+2026-04-19 23:39:03 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell'
+2026-04-19 23:39:03 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell'
+2026-04-19 23:39:03 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell'
+2026-04-19 23:39:03 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 8949086)
+2026-04-19 23:39:03 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52480)
+2026-04-19 23:39:03 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-19 23:39:03 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-19 23:39:14 | INFO     | model_manager:generate:741 - ModelManager: ✅ Gemini Flash succeeded (3777 chars)
+2026-04-19 23:39:14 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-19 23:39:25 | INFO     | __main__:text_to_speech:476 - TTS: Processing 3723 chars, style=professor, mode=Concept
+2026-04-19 23:39:25 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-19 23:39:26 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (3271 chars)
+2026-04-19 23:39:26 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (3687 → 3271 chars)
+2026-04-19 23:39:26 | INFO     | tts_engine:generate:363 - TTS: Capping long text (8 chunks) to 4 chunks for responsiveness
+2026-04-19 23:39:26 | INFO     | tts_engine:generate:378 - TTS: Generating 4 chunks...
+2026-04-19 23:40:13 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 975404 bytes (professor)
+2026-04-19 23:40:16 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1071404 bytes (professor)
+2026-04-19 23:40:26 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1317164 bytes (professor)
+2026-04-19 23:40:27 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1390124 bytes (professor)
+2026-04-19 23:45:12 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-19 23:45:12 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (141 chars)
+2026-04-19 23:45:13 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-19 23:45:14 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-19 23:45:14 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (143 chars)
+2026-04-19 23:45:14 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-19 23:45:15 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-19 23:45:15 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (137 chars)
+2026-04-19 23:45:15 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-19 23:45:16 | INFO     | __main__:ask_question:210 - Question: cell cycle | Hybrid: True | Book: None
+2026-04-19 23:45:16 | INFO     | faiss_store:search:199 - FAISS Search: query='cell cycle...', search_k=25, ntotal=1461
+2026-04-19 23:45:16 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 6
+2026-04-19 23:45:16 | INFO     | live_articles:search_articles:244 - Article Search: 'cell cycle' | Page: 1
+2026-04-19 23:45:16 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell cycle'
+2026-04-19 23:45:16 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell cycle'
+2026-04-19 23:45:16 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell cycle'
+2026-04-19 23:45:16 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell cycle' (retmax=10)
+2026-04-19 23:45:17 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 601938)
+2026-04-19 23:45:19 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-19 23:45:19 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 601938)
+2026-04-19 23:45:19 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 95887)
+2026-04-19 23:45:19 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-19 23:45:19 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …nQKpEg]
+2026-04-19 23:45:28 | INFO     | model_manager:generate:741 - ModelManager: ✅ Gemini Flash succeeded (3294 chars)
+2026-04-19 23:45:28 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-19 23:45:39 | INFO     | __main__:text_to_speech:476 - TTS: Processing 3254 chars, style=professor, mode=Concept
+2026-04-19 23:45:39 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-04-19 23:45:40 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (2622 chars)
+2026-04-19 23:45:40 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (3223 → 2622 chars)
+2026-04-19 23:45:40 | INFO     | tts_engine:generate:363 - TTS: Capping long text (6 chunks) to 4 chunks for responsiveness
+2026-04-19 23:45:40 | INFO     | tts_engine:generate:378 - TTS: Generating 4 chunks...
+2026-04-19 23:46:30 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1113644 bytes (professor)
+2026-04-19 23:46:32 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1090604 bytes (professor)
+2026-04-19 23:46:40 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1417004 bytes (professor)
+2026-04-19 23:46:41 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1486124 bytes (professor)
+2026-04-19 23:49:55 | INFO     | __main__:text_to_speech:476 - TTS: Processing 2552 chars, style=professor, mode=Concept
+2026-04-19 23:49:55 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-19 23:49:57 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (2712 chars)
+2026-04-19 23:49:57 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (2536 → 2712 chars)
+2026-04-19 23:49:57 | INFO     | tts_engine:generate:363 - TTS: Capping long text (6 chunks) to 4 chunks for responsiveness
+2026-04-19 23:49:57 | INFO     | tts_engine:generate:378 - TTS: Generating 4 chunks...
+2026-04-19 23:51:01 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1370924 bytes (professor)
+2026-04-19 23:51:03 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1436204 bytes (professor)
+2026-04-19 23:51:04 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1509164 bytes (professor)
+2026-04-19 23:51:05 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1516844 bytes (professor)
+2026-04-19 23:53:47 | INFO     | __main__:text_to_speech:476 - TTS: Processing 2552 chars, style=professor, mode=Concept
+2026-04-19 23:53:47 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-19 23:53:48 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (2445 chars)
+2026-04-19 23:53:48 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (2536 → 2445 chars)
+2026-04-19 23:53:48 | INFO     | tts_engine:generate:363 - TTS: Capping long text (6 chunks) to 4 chunks for responsiveness
+2026-04-19 23:53:48 | INFO     | tts_engine:generate:378 - TTS: Generating 4 chunks...
+2026-04-19 23:54:13 | INFO     | __main__:text_to_speech:476 - TTS: Processing 2552 chars, style=professor, mode=Concept
+2026-04-19 23:54:13 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-19 23:54:14 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (2709 chars)
+2026-04-19 23:54:14 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (2536 → 2709 chars)
+2026-04-19 23:54:14 | INFO     | tts_engine:generate:363 - TTS: Capping long text (6 chunks) to 4 chunks for responsiveness
+2026-04-19 23:54:14 | INFO     | tts_engine:generate:378 - TTS: Generating 4 chunks...
+2026-04-19 23:54:47 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1278764 bytes (professor)
+2026-04-19 23:54:52 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1294124 bytes (professor)
+2026-04-19 23:54:55 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1367084 bytes (professor)
+2026-04-19 23:55:00 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1520684 bytes (professor)
+2026-04-19 23:55:40 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1432364 bytes (professor)
+2026-04-19 23:55:42 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1290284 bytes (professor)
+2026-04-19 23:55:48 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1601324 bytes (professor)
+2026-04-19 23:56:50 | INFO     | __main__:text_to_speech:476 - TTS: Processing 2552 chars, style=professor, mode=Concept
+2026-04-19 23:56:50 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-19 23:56:51 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (2562 chars)
+2026-04-19 23:56:51 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (2536 → 2562 chars)
+2026-04-19 23:56:51 | INFO     | tts_engine:generate:363 - TTS: Capping long text (6 chunks) to 4 chunks for responsiveness
+2026-04-19 23:56:51 | INFO     | tts_engine:generate:378 - TTS: Generating 4 chunks...
+2026-04-19 23:57:42 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1155884 bytes (professor)
+2026-04-19 23:57:54 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1474604 bytes (professor)
+2026-04-19 23:57:55 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1528364 bytes (professor)
+2026-04-19 23:57:56 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 1582124 bytes (professor)
+2026-04-20 00:33:42 | INFO     | __main__:text_to_speech:476 - TTS: Processing 95 chars, style=professor, mode=Concept
+2026-04-20 00:33:42 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-04-20 00:33:43 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (182 chars)
+2026-04-20 00:33:43 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (95 → 182 chars)
+2026-04-20 00:33:43 | INFO     | tts_engine:generate:378 - TTS: Generating 1 chunks...
+2026-04-20 00:33:55 | INFO     | tts_engine:_kyutai_generate:213 - TTS: Kyutai generated 526124 bytes (professor)
+2026-04-20 00:47:00 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-20 00:47:00 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-20 00:47:00 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-20 00:47:00 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-20 00:47:00 | INFO     | tts_engine:initialize:333 - TTS Engine: Initializing...
+2026-04-20 00:47:01 | INFO     | tts_engine:_init_kyutai:176 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-20 00:47:02 | INFO     | tts_engine:_init_kyutai:178 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-20 00:47:02 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'professor' (alba)
+2026-04-20 00:47:02 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'energetic' (cosette)
+2026-04-20 00:47:02 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'storyteller' (fantine)
+2026-04-20 00:47:03 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'formal_male' (marius)
+2026-04-20 00:47:03 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'casual_female' (eponine)
+2026-04-20 00:47:03 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'deep_male' (javert)
+2026-04-20 00:47:03 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'warm_female' (azelma)
+2026-04-20 00:47:03 | INFO     | tts_engine:initialize:337 - TTS Engine: Kyutai Pocket-TTS ready (Tier 1)
+2026-04-20 00:47:03 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-20 01:11:07 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-20 01:11:09 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (140 chars)
+2026-04-20 01:11:09 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-20 01:11:12 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-20 01:11:12 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (139 chars)
+2026-04-20 01:11:12 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-20 01:11:17 | INFO     | __main__:ask_question:210 - Question: cellular metabolism | Hybrid: True | Book: None
+2026-04-20 01:11:17 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-04-20 01:11:17 | INFO     | faiss_store:load:87 - FAISS: Loaded 1461 vectors of type IndexIDMap2.
+2026-04-20 01:11:17 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-20 01:11:24 | INFO     | faiss_store:search:199 - FAISS Search: query='cellular metabolism...', search_k=25, ntotal=1461
+2026-04-20 01:11:24 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 4
+2026-04-20 01:11:24 | INFO     | live_articles:search_articles:244 - Article Search: 'cellular metabolism' | Page: 1
+2026-04-20 01:11:25 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cellular metabolism'
+2026-04-20 01:11:25 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cellular metabolism'
+2026-04-20 01:11:25 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cellular metabolism'
+2026-04-20 01:11:25 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cellular metabolism' (retmax=10)
+2026-04-20 01:11:27 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 4391765)
+2026-04-20 01:11:29 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-20 01:11:29 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 4391765)
+2026-04-20 01:11:29 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 16948)
+2026-04-20 01:11:29 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-20 01:11:29 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-20 01:11:42 | INFO     | model_manager:generate:741 - ModelManager: ✅ Gemini Flash succeeded (4072 chars)
+2026-04-20 01:11:42 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-20 01:11:55 | INFO     | __main__:text_to_speech:476 - TTS: Processing 4008 chars, style=professor, mode=Concept
+2026-04-20 01:11:55 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-20 01:11:56 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (2963 chars)
+2026-04-20 01:11:56 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (3960 → 2963 chars)
+2026-04-20 01:11:56 | INFO     | tts_engine:generate_stream:447 - TTS: Streaming 4 chunks...
+2026-04-20 01:12:35 | INFO     | __main__:text_to_speech:476 - TTS: Processing 4008 chars, style=professor, mode=Concept
+2026-04-20 01:12:35 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-20 01:12:37 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (3036 chars)
+2026-04-20 01:12:37 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (3960 → 3036 chars)
+2026-04-20 01:12:37 | INFO     | tts_engine:generate_stream:447 - TTS: Streaming 4 chunks...
+2026-04-20 01:13:08 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1159724 bytes (professor)
+2026-04-20 01:13:10 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1255724 bytes (professor)
+2026-04-20 01:13:18 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1236524 bytes (professor)
+2026-04-20 01:13:22 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1297964 bytes (professor)
+2026-04-20 01:13:57 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1205804 bytes (professor)
+2026-04-20 01:14:14 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1324844 bytes (professor)
+2026-04-20 01:14:24 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1497644 bytes (professor)
+2026-04-20 01:14:25 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1390124 bytes (professor)
+2026-04-20 01:23:22 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-04-20 01:23:22 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (150 chars)
+2026-04-20 01:23:22 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-20 01:23:23 | INFO     | controller_prompt:classify:129 - Controller: Cache hit for 'cell metabolism...'
+2026-04-20 01:23:24 | INFO     | __main__:ask_question:210 - Question: cell metabolism
+ | Hybrid: True | Book: None
+2026-04-20 01:23:24 | INFO     | faiss_store:search:199 - FAISS Search: query='cell metabolism
+...', search_k=25, ntotal=1461
+2026-04-20 01:23:24 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 4
+2026-04-20 01:23:24 | INFO     | live_articles:search_articles:244 - Article Search: 'cell metabolism
+' | Page: 1
+2026-04-20 01:23:24 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell metabolism
+'
+2026-04-20 01:23:24 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell metabolism
+'
+2026-04-20 01:23:24 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell metabolism
+'
+2026-04-20 01:23:24 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell metabolism
+' (retmax=10)
+2026-04-20 01:23:24 | ERROR    | live_articles:fetch_arxiv:238 - arXiv API error: Invalid non-printable ASCII character in URL, '\n' at position 66.
+2026-04-20 01:23:24 | ERROR    | live_articles:fetch_pubmed:187 - PubMed final error: InvalidURL: Invalid non-printable ASCII character in URL, '\n' at position 89.
+2026-04-20 01:23:25 | INFO     | live_articles:search_articles:289 - Source 0 returned 0 articles (Total in source: 0)
+2026-04-20 01:23:25 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-20 01:23:25 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-20 01:23:25 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …nQKpEg]
+2026-04-20 01:23:33 | ERROR    | model_manager:generate:754 - ModelManager: ❌ Gemini Flash error: Gemini Flash: HTTP 503 — {
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+2026-04-20 01:23:33 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-20 01:23:34 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (1873 chars)
+2026-04-20 01:23:34 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Groq
+2026-04-20 01:23:40 | INFO     | __main__:text_to_speech:476 - TTS: Processing 1853 chars, style=professor, mode=Concept
+2026-04-20 01:23:40 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-20 01:23:41 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (1646 chars)
+2026-04-20 01:23:41 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (1853 → 1646 chars)
+2026-04-20 01:23:41 | INFO     | tts_engine:generate_stream:447 - TTS: Streaming 4 chunks...
+2026-04-20 01:24:25 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 841004 bytes (professor)
+2026-04-20 01:24:40 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1186604 bytes (professor)
+2026-04-20 01:24:43 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1344044 bytes (professor)
+2026-04-20 01:24:43 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1259564 bytes (professor)
+2026-04-20 01:25:00 | INFO     | __main__:text_to_speech:476 - TTS: Processing 1853 chars, style=professor, mode=Concept
+2026-04-20 01:25:00 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-20 01:25:01 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (1694 chars)
+2026-04-20 01:25:01 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (1853 → 1694 chars)
+2026-04-20 01:25:01 | INFO     | tts_engine:generate_stream:447 - TTS: Streaming 4 chunks...
+2026-04-20 01:25:46 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1036844 bytes (professor)
+2026-04-20 01:25:48 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1067564 bytes (professor)
+2026-04-20 01:25:50 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1152044 bytes (professor)
+2026-04-20 01:25:56 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1463084 bytes (professor)
+2026-04-20 01:33:45 | INFO     | __main__:ask_question:210 - Question: cell | Hybrid: True | Book: None
+2026-04-20 01:33:45 | INFO     | faiss_store:search:199 - FAISS Search: query='cell...', search_k=25, ntotal=1461
+2026-04-20 01:33:45 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 6
+2026-04-20 01:33:45 | INFO     | live_articles:search_articles:244 - Article Search: 'cell' | Page: 1
+2026-04-20 01:33:45 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell'
+2026-04-20 01:33:45 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell'
+2026-04-20 01:33:45 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell'
+2026-04-20 01:33:45 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell' (retmax=10)
+2026-04-20 01:33:47 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 8949086)
+2026-04-20 01:33:48 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-20 01:33:48 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 8949086)
+2026-04-20 01:33:48 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52480)
+2026-04-20 01:33:48 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-20 01:33:48 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …2bZEmY]
+2026-04-20 01:34:04 | INFO     | model_manager:generate:741 - ModelManager: ✅ Gemini Flash succeeded (3583 chars)
+2026-04-20 01:34:04 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-20 01:34:14 | INFO     | __main__:text_to_speech:476 - TTS: Processing 3531 chars, style=professor, mode=Concept
+2026-04-20 01:34:14 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-20 01:34:15 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (3055 chars)
+2026-04-20 01:34:15 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (3477 → 3055 chars)
+2026-04-20 01:34:15 | INFO     | tts_engine:generate_stream:447 - TTS: Streaming 4 chunks...
+2026-04-20 01:35:16 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1301804 bytes (professor)
+2026-04-20 01:35:18 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1347884 bytes (professor)
+2026-04-20 01:35:20 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1397804 bytes (professor)
+2026-04-20 01:35:21 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1455404 bytes (professor)
+2026-04-20 01:42:18 | INFO     | __main__:ask_question:210 - Question: cell | Hybrid: True | Book: None
+2026-04-20 01:42:18 | INFO     | faiss_store:search:199 - FAISS Search: query='cell...', search_k=25, ntotal=1461
+2026-04-20 01:42:18 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 6
+2026-04-20 01:42:18 | INFO     | live_articles:search_articles:244 - Article Search: 'cell' | Page: 1
+2026-04-20 01:42:18 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell'
+2026-04-20 01:42:18 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell'
+2026-04-20 01:42:18 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell'
+2026-04-20 01:42:19 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 8949086)
+2026-04-20 01:42:19 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52480)
+2026-04-20 01:42:19 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-20 01:42:19 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …DJCG-Y]
+2026-04-20 01:42:30 | INFO     | model_manager:generate:741 - ModelManager: ✅ Gemini Flash succeeded (3430 chars)
+2026-04-20 01:42:30 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-20 01:42:41 | INFO     | __main__:text_to_speech:476 - TTS: Processing 3396 chars, style=professor, mode=Concept
+2026-04-20 01:42:41 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-04-20 01:42:42 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (3221 chars)
+2026-04-20 01:42:42 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (3360 → 3221 chars)
+2026-04-20 01:42:42 | INFO     | tts_engine:generate_stream:447 - TTS: Streaming 4 chunks...
+2026-04-20 01:43:46 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1171244 bytes (professor)
+2026-04-20 01:43:47 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1221164 bytes (professor)
+2026-04-20 01:43:49 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1271084 bytes (professor)
+2026-04-20 01:43:50 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1248044 bytes (professor)
+2026-04-20 01:47:46 | INFO     | __main__:ask_question:210 - Question: cell  | Hybrid: True | Book: None
+2026-04-20 01:47:46 | INFO     | faiss_store:search:199 - FAISS Search: query='cell ...', search_k=25, ntotal=1461
+2026-04-20 01:47:46 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 0
+2026-04-20 01:47:46 | INFO     | live_articles:search_articles:244 - Article Search: 'cell ' | Page: 1
+2026-04-20 01:47:46 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell '
+2026-04-20 01:47:46 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell '
+2026-04-20 01:47:46 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell '
+2026-04-20 01:47:46 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell ' (retmax=10)
+2026-04-20 01:47:48 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 8949086)
+2026-04-20 01:47:49 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-20 01:47:49 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 8949086)
+2026-04-20 01:47:49 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52480)
+2026-04-20 01:47:49 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-20 01:47:49 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …VRY0zw]
+2026-04-20 01:47:59 | INFO     | model_manager:generate:741 - ModelManager: ✅ Gemini Flash succeeded (3214 chars)
+2026-04-20 01:47:59 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-20 01:48:11 | INFO     | __main__:text_to_speech:476 - TTS: Processing 3154 chars, style=professor, mode=Concept
+2026-04-20 01:48:11 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-20 01:48:12 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (2632 chars)
+2026-04-20 01:48:12 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (3119 → 2632 chars)
+2026-04-20 01:48:12 | INFO     | tts_engine:generate_stream:447 - TTS: Streaming 4 chunks...
+2026-04-20 01:49:17 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1125164 bytes (professor)
+2026-04-20 01:49:31 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1344044 bytes (professor)
+2026-04-20 01:49:33 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1390124 bytes (professor)
+2026-04-20 01:49:34 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 1374764 bytes (professor)
+2026-04-20 02:00:36 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-20 02:00:37 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-20 02:00:37 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-20 02:00:37 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-20 02:00:37 | INFO     | tts_engine:initialize:333 - TTS Engine: Initializing...
+2026-04-20 02:00:38 | INFO     | tts_engine:_init_kyutai:176 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-20 02:00:40 | INFO     | tts_engine:_init_kyutai:178 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-20 02:00:40 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'professor' (alba)
+2026-04-20 02:00:40 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'energetic' (cosette)
+2026-04-20 02:00:40 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'storyteller' (fantine)
+2026-04-20 02:00:40 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'formal_male' (marius)
+2026-04-20 02:00:40 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'casual_female' (eponine)
+2026-04-20 02:00:40 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'deep_male' (javert)
+2026-04-20 02:00:40 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'warm_female' (azelma)
+2026-04-20 02:00:40 | INFO     | tts_engine:initialize:337 - TTS Engine: Kyutai Pocket-TTS ready (Tier 1)
+2026-04-20 02:00:40 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-20 02:01:53 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-20 02:01:54 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (149 chars)
+2026-04-20 02:01:54 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-20 02:01:54 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-20 02:01:55 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (135 chars)
+2026-04-20 02:01:55 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-20 02:01:56 | INFO     | controller_prompt:classify:129 - Controller: Cache hit for 'cell metabolism...'
+2026-04-20 02:01:59 | INFO     | __main__:ask_question:210 - Question: cell metabolism  | Hybrid: True | Book: None
+2026-04-20 02:01:59 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-04-20 02:01:59 | INFO     | faiss_store:load:87 - FAISS: Loaded 1461 vectors of type IndexIDMap2.
+2026-04-20 02:01:59 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-20 02:02:04 | INFO     | faiss_store:search:199 - FAISS Search: query='cell metabolism ...', search_k=25, ntotal=1461
+2026-04-20 02:02:04 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 0
+2026-04-20 02:02:04 | INFO     | live_articles:search_articles:244 - Article Search: 'cell metabolism ' | Page: 1
+2026-04-20 02:02:04 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell metabolism '
+2026-04-20 02:02:04 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell metabolism '
+2026-04-20 02:02:04 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell metabolism '
+2026-04-20 02:02:04 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell metabolism ' (retmax=10)
+2026-04-20 02:02:05 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 2932022)
+2026-04-20 02:02:07 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-20 02:02:07 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 2932022)
+2026-04-20 02:02:07 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 54153)
+2026-04-20 02:02:07 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-20 02:02:07 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-20 02:02:21 | INFO     | model_manager:generate:741 - ModelManager: ✅ Gemini Flash succeeded (3122 chars)
+2026-04-20 02:02:21 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-20 02:02:34 | INFO     | __main__:text_to_speech:476 - TTS: Processing 3082 chars, style=professor, mode=Concept
+2026-04-20 02:02:34 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-20 02:02:35 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (2522 chars)
+2026-04-20 02:02:35 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (3048 → 2522 chars)
+2026-04-20 02:02:35 | INFO     | tts_engine:generate_stream:447 - TTS: Streaming 4 chunks...
+2026-04-20 02:02:47 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 314924 bytes (professor)
+2026-04-20 02:02:47 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 318764 bytes (professor)
+2026-04-20 02:02:51 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 506924 bytes (professor)
+2026-04-20 02:02:52 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 560684 bytes (professor)
+2026-04-20 02:07:53 | INFO     | __main__:ask_question:210 - Question: cell types | Hybrid: True | Book: None
+2026-04-20 02:07:53 | ERROR    | __main__:validation_exception_handler:87 - 422 Validation Error at /api/v1/route: [{'type': 'string_too_short', 'loc': ('body', 'query'), 'msg': 'String should have at least 1 character', 'input': '', 'ctx': {'min_length': 1}}]
+2026-04-20 02:07:53 | ERROR    | __main__:validation_exception_handler:88 - Body: b'{"query":""}'
+2026-04-20 02:07:53 | INFO     | faiss_store:search:199 - FAISS Search: query='cell types...', search_k=25, ntotal=1461
+2026-04-20 02:07:53 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 0
+2026-04-20 02:07:53 | INFO     | live_articles:search_articles:244 - Article Search: 'cell types' | Page: 1
+2026-04-20 02:07:53 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell types'
+2026-04-20 02:07:53 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell types'
+2026-04-20 02:07:53 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell types'
+2026-04-20 02:07:53 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell types' (retmax=10)
+2026-04-20 02:07:54 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 7077335)
+2026-04-20 02:07:56 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-20 02:07:56 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 7077335)
+2026-04-20 02:07:56 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 354572)
+2026-04-20 02:07:56 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-20 02:07:56 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …nQKpEg]
+2026-04-20 02:08:05 | INFO     | model_manager:generate:741 - ModelManager: ✅ Gemini Flash succeeded (3108 chars)
+2026-04-20 02:08:05 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-20 02:08:17 | INFO     | __main__:text_to_speech:476 - TTS: Processing 3040 chars, style=professor, mode=Exam
+2026-04-20 02:08:17 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-20 02:08:18 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (2531 chars)
+2026-04-20 02:08:18 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (2996 → 2531 chars)
+2026-04-20 02:08:18 | INFO     | tts_engine:generate_stream:447 - TTS: Streaming 4 chunks...
+2026-04-20 02:08:34 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 422444 bytes (professor)
+2026-04-20 02:08:35 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 445484 bytes (professor)
+2026-04-20 02:08:37 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 510764 bytes (professor)
+2026-04-20 02:08:37 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 545324 bytes (professor)
+2026-04-20 02:11:05 | INFO     | __main__:ask_question:210 - Question: cell | Hybrid: True | Book: None
+2026-04-20 02:11:05 | INFO     | faiss_store:search:199 - FAISS Search: query='cell...', search_k=25, ntotal=1461
+2026-04-20 02:11:05 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 6
+2026-04-20 02:11:05 | INFO     | live_articles:search_articles:244 - Article Search: 'cell' | Page: 1
+2026-04-20 02:11:05 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell'
+2026-04-20 02:11:05 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell'
+2026-04-20 02:11:05 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell'
+2026-04-20 02:11:05 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 8949086)
+2026-04-20 02:11:05 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52480)
+2026-04-20 02:11:05 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-20 02:11:05 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …2bZEmY]
+2026-04-20 02:11:14 | INFO     | model_manager:generate:741 - ModelManager: ✅ Gemini Flash succeeded (3315 chars)
+2026-04-20 02:11:14 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-20 02:13:13 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-20 02:13:14 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-20 02:13:14 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-20 02:13:14 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-20 02:13:14 | INFO     | tts_engine:initialize:333 - TTS Engine: Initializing...
+2026-04-20 02:13:15 | INFO     | tts_engine:_init_kyutai:176 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-20 02:13:16 | INFO     | tts_engine:_init_kyutai:178 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-20 02:13:16 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'professor' (alba)
+2026-04-20 02:13:16 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'energetic' (cosette)
+2026-04-20 02:13:16 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'storyteller' (fantine)
+2026-04-20 02:13:16 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'formal_male' (marius)
+2026-04-20 02:13:16 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'casual_female' (eponine)
+2026-04-20 02:13:16 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'deep_male' (javert)
+2026-04-20 02:13:16 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'warm_female' (azelma)
+2026-04-20 02:13:16 | INFO     | tts_engine:initialize:337 - TTS Engine: Kyutai Pocket-TTS ready (Tier 1)
+2026-04-20 02:13:16 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-20 02:13:42 | INFO     | __main__:ask_question:210 - Question: cell  | Hybrid: True | Book: None
+2026-04-20 02:13:42 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-04-20 02:13:42 | INFO     | faiss_store:load:87 - FAISS: Loaded 1461 vectors of type IndexIDMap2.
+2026-04-20 02:13:42 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-20 02:13:47 | INFO     | faiss_store:search:199 - FAISS Search: query='cell ...', search_k=25, ntotal=1461
+2026-04-20 02:13:47 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 0
+2026-04-20 02:13:47 | INFO     | live_articles:search_articles:244 - Article Search: 'cell ' | Page: 1
+2026-04-20 02:13:47 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell '
+2026-04-20 02:13:47 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell '
+2026-04-20 02:13:47 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell '
+2026-04-20 02:13:48 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 8949086)
+2026-04-20 02:13:48 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52480)
+2026-04-20 02:13:48 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-20 02:13:48 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-20 02:13:58 | INFO     | model_manager:generate:741 - ModelManager: ✅ Gemini Flash succeeded (3483 chars)
+2026-04-20 02:13:58 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-20 02:15:59 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-20 02:16:00 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (143 chars)
+2026-04-20 02:16:00 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-20 02:16:00 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-20 02:16:00 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (154 chars)
+2026-04-20 02:16:00 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-20 02:16:03 | INFO     | __main__:ask_question:210 - Question: immunology  | Hybrid: True | Book: None
+2026-04-20 02:16:03 | INFO     | faiss_store:search:199 - FAISS Search: query='immunology ...', search_k=25, ntotal=1461
+2026-04-20 02:16:03 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 0
+2026-04-20 02:16:03 | INFO     | live_articles:search_articles:244 - Article Search: 'immunology ' | Page: 1
+2026-04-20 02:16:03 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'immunology '
+2026-04-20 02:16:03 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'immunology '
+2026-04-20 02:16:03 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'immunology '
+2026-04-20 02:16:03 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'immunology ' (retmax=10)
+2026-04-20 02:16:05 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 2219088)
+2026-04-20 02:16:07 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-20 02:16:07 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 2219088)
+2026-04-20 02:16:07 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 266)
+2026-04-20 02:16:07 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-20 02:16:07 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …nQKpEg]
+2026-04-20 02:16:15 | INFO     | model_manager:generate:741 - ModelManager: ✅ Gemini Flash succeeded (3150 chars)
+2026-04-20 02:16:15 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-20 02:16:26 | INFO     | __main__:text_to_speech:476 - TTS: Processing 3102 chars, style=professor, mode=Concept
+2026-04-20 02:16:26 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-20 02:16:27 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (2646 chars)
+2026-04-20 02:16:27 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (3077 → 2646 chars)
+2026-04-20 02:16:27 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 18 chunks...
+2026-04-20 02:16:38 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 276524 bytes (professor)
+2026-04-20 02:16:43 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 399404 bytes (professor)
+2026-04-20 02:16:49 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 529964 bytes (professor)
+2026-04-20 02:16:52 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 599084 bytes (professor)
+2026-04-20 02:16:57 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 326444 bytes (professor)
+2026-04-20 02:16:59 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 487724 bytes (professor)
+2026-04-20 02:17:02 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 318764 bytes (professor)
+2026-04-20 02:17:06 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 149804 bytes (professor)
+2026-04-20 02:17:12 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 480044 bytes (professor)
+2026-04-20 02:17:16 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 441644 bytes (professor)
+2026-04-20 02:17:22 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 430124 bytes (professor)
+2026-04-20 02:17:32 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 568364 bytes (professor)
+2026-04-20 02:17:37 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 418604 bytes (professor)
+2026-04-20 02:17:38 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 337964 bytes (professor)
+2026-04-20 02:17:44 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 687404 bytes (professor)
+2026-04-20 02:17:50 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 410924 bytes (professor)
+2026-04-20 02:17:54 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 441644 bytes (professor)
+2026-04-20 02:17:55 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 445484 bytes (professor)
+2026-04-20 02:20:27 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-20 02:20:28 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (130 chars)
+2026-04-20 02:20:28 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-20 02:20:31 | INFO     | __main__:ask_question:210 - Question: cell cycle  | Hybrid: True | Book: None
+2026-04-20 02:20:31 | INFO     | faiss_store:search:199 - FAISS Search: query='cell cycle ...', search_k=25, ntotal=1461
+2026-04-20 02:20:31 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 0
+2026-04-20 02:20:31 | INFO     | live_articles:search_articles:244 - Article Search: 'cell cycle ' | Page: 1
+2026-04-20 02:20:31 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell cycle '
+2026-04-20 02:20:31 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell cycle '
+2026-04-20 02:20:31 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell cycle '
+2026-04-20 02:20:31 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell cycle ' (retmax=10)
+2026-04-20 02:20:33 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 601938)
+2026-04-20 02:20:34 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-20 02:20:34 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 601938)
+2026-04-20 02:20:34 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 95887)
+2026-04-20 02:20:34 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-20 02:20:34 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …2bZEmY]
+2026-04-20 02:20:40 | ERROR    | model_manager:generate:754 - ModelManager: ❌ Gemini Flash error: Gemini Flash: HTTP 503 — {
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+2026-04-20 02:20:40 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-04-20 02:20:41 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (2457 chars)
+2026-04-20 02:20:41 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Groq
+2026-04-20 02:20:49 | INFO     | __main__:text_to_speech:476 - TTS: Processing 2413 chars, style=energetic, mode=Concept
+2026-04-20 02:20:49 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-20 02:20:50 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (2336 chars)
+2026-04-20 02:20:50 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (2413 → 2336 chars)
+2026-04-20 02:20:50 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 14 chunks...
+2026-04-20 02:21:06 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 418604 bytes (energetic)
+2026-04-20 02:21:11 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 529964 bytes (energetic)
+2026-04-20 02:21:12 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 560684 bytes (energetic)
+2026-04-20 02:21:14 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 614444 bytes (energetic)
+2026-04-20 02:21:26 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 268844 bytes (energetic)
+2026-04-20 02:21:29 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 510764 bytes (energetic)
+2026-04-20 02:21:30 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 430124 bytes (energetic)
+2026-04-20 02:21:39 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 599084 bytes (energetic)
+2026-04-20 02:21:52 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 506924 bytes (energetic)
+2026-04-20 02:21:53 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 576044 bytes (energetic)
+2026-04-20 02:21:54 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 499244 bytes (energetic)
+2026-04-20 02:21:58 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 422444 bytes (energetic)
+2026-04-20 02:22:02 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 272684 bytes (energetic)
+2026-04-20 02:22:03 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 384044 bytes (energetic)
+2026-04-20 02:23:59 | INFO     | __main__:ask_question:210 - Question: cell cycle  | Hybrid: True | Book: None
+2026-04-20 02:26:05 | INFO     | __main__:ask_question:210 - Question: cell | Hybrid: True | Book: None
+2026-04-20 02:26:05 | INFO     | faiss_store:search:199 - FAISS Search: query='cell...', search_k=25, ntotal=1461
+2026-04-20 02:26:05 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 0
+2026-04-20 02:26:05 | INFO     | live_articles:search_articles:244 - Article Search: 'cell' | Page: 1
+2026-04-20 02:26:05 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell'
+2026-04-20 02:26:05 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell'
+2026-04-20 02:26:05 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell'
+2026-04-20 02:26:05 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 8949086)
+2026-04-20 02:26:05 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52480)
+2026-04-20 02:26:05 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-20 02:26:05 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …DJCG-Y]
+2026-04-20 02:26:22 | INFO     | model_manager:generate:741 - ModelManager: ✅ Gemini Flash succeeded (3301 chars)
+2026-04-20 02:26:22 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-20 02:26:33 | INFO     | __main__:text_to_speech:476 - TTS: Processing 3257 chars, style=energetic, mode=Concept
+2026-04-20 02:26:33 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-20 02:26:34 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (2215 chars)
+2026-04-20 02:26:34 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (3218 → 2215 chars)
+2026-04-20 02:26:34 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 15 chunks...
+2026-04-20 02:26:50 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 395564 bytes (energetic)
+2026-04-20 02:26:53 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 449324 bytes (energetic)
+2026-04-20 02:26:56 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 518444 bytes (energetic)
+2026-04-20 02:26:58 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 576044 bytes (energetic)
+2026-04-20 02:27:08 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 426284 bytes (energetic)
+2026-04-20 02:27:08 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 376364 bytes (energetic)
+2026-04-20 02:27:09 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 322604 bytes (energetic)
+2026-04-20 02:27:11 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 303404 bytes (energetic)
+2026-04-20 02:27:24 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 295724 bytes (energetic)
+2026-04-20 02:27:28 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 387884 bytes (energetic)
+2026-04-20 02:27:29 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 384044 bytes (energetic)
+2026-04-20 02:27:29 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 426284 bytes (energetic)
+2026-04-20 02:27:38 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 257324 bytes (energetic)
+2026-04-20 02:27:41 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 349484 bytes (energetic)
+2026-04-20 02:27:43 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 533804 bytes (energetic)
+2026-04-20 02:29:25 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-20 02:29:25 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (147 chars)
+2026-04-20 02:29:25 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-20 02:29:29 | INFO     | __main__:ask_question:210 - Question: cell lysis | Hybrid: True | Book: None
+2026-04-20 02:29:29 | INFO     | faiss_store:search:199 - FAISS Search: query='cell lysis...', search_k=25, ntotal=1461
+2026-04-20 02:29:29 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 0
+2026-04-20 02:29:29 | INFO     | live_articles:search_articles:244 - Article Search: 'cell lysis' | Page: 1
+2026-04-20 02:29:29 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell lysis'
+2026-04-20 02:29:29 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell lysis'
+2026-04-20 02:29:29 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell lysis'
+2026-04-20 02:29:29 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell lysis' (retmax=10)
+2026-04-20 02:29:30 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 39537)
+2026-04-20 02:29:32 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-20 02:29:32 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 39537)
+2026-04-20 02:29:32 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52506)
+2026-04-20 02:29:32 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-20 02:29:32 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …VRY0zw]
+2026-04-20 02:29:44 | INFO     | model_manager:generate:741 - ModelManager: ✅ Gemini Flash succeeded (3706 chars)
+2026-04-20 02:29:44 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-20 02:29:56 | INFO     | __main__:text_to_speech:476 - TTS: Processing 3666 chars, style=storyteller, mode=Expert
+2026-04-20 02:29:56 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-20 02:29:56 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (2571 chars)
+2026-04-20 02:29:56 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (3640 → 2571 chars)
+2026-04-20 02:29:56 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 18 chunks...
+2026-04-20 02:30:09 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 314924 bytes (storyteller)
+2026-04-20 02:30:11 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 368684 bytes (storyteller)
+2026-04-20 02:30:18 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 556844 bytes (storyteller)
+2026-04-20 02:30:20 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 602924 bytes (storyteller)
+2026-04-20 02:30:21 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 307244 bytes (storyteller)
+2026-04-20 02:30:35 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 541484 bytes (storyteller)
+2026-04-20 02:30:35 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 361004 bytes (storyteller)
+2026-04-20 02:30:42 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 422444 bytes (storyteller)
+2026-04-20 02:30:44 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 499244 bytes (storyteller)
+2026-04-20 02:30:48 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 295724 bytes (storyteller)
+2026-04-20 02:31:00 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 341804 bytes (storyteller)
+2026-04-20 02:31:01 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 399404 bytes (storyteller)
+2026-04-20 02:31:03 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 583724 bytes (storyteller)
+2026-04-20 02:31:11 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 499244 bytes (storyteller)
+2026-04-20 02:31:19 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 380204 bytes (storyteller)
+2026-04-20 02:31:19 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 387884 bytes (storyteller)
+2026-04-20 02:31:20 | INFO     | __main__:ask_question:210 - Question: cell lysis | Hybrid: True | Book: None
+2026-04-20 02:31:20 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 391724 bytes (storyteller)
+2026-04-20 02:31:23 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 330284 bytes (storyteller)
+2026-04-21 15:27:30 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-21 15:27:32 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-21 15:27:32 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-21 15:27:32 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-21 15:27:32 | INFO     | tts_engine:initialize:333 - TTS Engine: Initializing...
+2026-04-21 15:27:33 | INFO     | tts_engine:_init_kyutai:176 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-21 15:27:36 | INFO     | tts_engine:_init_kyutai:178 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-21 15:27:36 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'professor' (alba)
+2026-04-21 15:27:36 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'energetic' (cosette)
+2026-04-21 15:27:36 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'storyteller' (fantine)
+2026-04-21 15:27:36 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'formal_male' (marius)
+2026-04-21 15:27:36 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'casual_female' (eponine)
+2026-04-21 15:27:36 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'deep_male' (javert)
+2026-04-21 15:27:36 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'warm_female' (azelma)
+2026-04-21 15:27:36 | INFO     | tts_engine:initialize:337 - TTS Engine: Kyutai Pocket-TTS ready (Tier 1)
+2026-04-21 15:27:36 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-21 15:28:13 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-21 15:28:14 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (146 chars)
+2026-04-21 15:28:14 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-21 15:28:16 | INFO     | controller_prompt:classify:129 - Controller: Cache hit for 'cell membrane...'
+2026-04-21 15:28:17 | INFO     | __main__:ask_question:210 - Question: cell membrane
+ | Hybrid: True | Book: None
+2026-04-21 15:28:17 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-04-21 15:28:17 | INFO     | faiss_store:load:87 - FAISS: Loaded 1461 vectors of type IndexIDMap2.
+2026-04-21 15:28:17 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-21 15:28:22 | INFO     | faiss_store:search:199 - FAISS Search: query='cell membrane
+...', search_k=25, ntotal=1461
+2026-04-21 15:28:22 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 2
+2026-04-21 15:28:22 | INFO     | live_articles:search_articles:244 - Article Search: 'cell membrane
+' | Page: 1
+2026-04-21 15:28:23 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell membrane
+'
+2026-04-21 15:28:23 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell membrane
+'
+2026-04-21 15:28:23 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell membrane
+'
+2026-04-21 15:28:23 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell membrane
+' (retmax=10)
+2026-04-21 15:28:23 | ERROR    | live_articles:fetch_arxiv:238 - arXiv API error: Invalid non-printable ASCII character in URL, '\n' at position 64.
+2026-04-21 15:28:23 | ERROR    | live_articles:fetch_pubmed:187 - PubMed final error: InvalidURL: Invalid non-printable ASCII character in URL, '\n' at position 87.
+2026-04-21 15:28:23 | INFO     | live_articles:search_articles:289 - Source 0 returned 0 articles (Total in source: 0)
+2026-04-21 15:28:23 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-21 15:28:23 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-21 15:28:23 | INFO     | model_manager:generate:714 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-21 15:28:31 | INFO     | model_manager:generate:741 - ModelManager: ✅ Gemini Flash succeeded (2253 chars)
+2026-04-21 15:28:31 | INFO     | llm_engine:generate_hybrid_answer:67 - LLM: Hybrid generation via Gemini Flash
+2026-04-21 15:28:38 | INFO     | __main__:text_to_speech:476 - TTS: Processing 2215 chars, style=professor, mode=Concept
+2026-04-21 15:28:38 | INFO     | model_manager:generate:714 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-21 15:28:39 | INFO     | model_manager:generate:741 - ModelManager: ✅ Groq succeeded (1786 chars)
+2026-04-21 15:28:39 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (2191 → 1786 chars)
+2026-04-21 15:28:39 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 12 chunks...
+2026-04-21 15:28:59 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 276524 bytes (professor)
+2026-04-21 15:29:02 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 326444 bytes (professor)
+2026-04-21 15:29:08 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 433964 bytes (professor)
+2026-04-21 15:29:20 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 249644 bytes (professor)
+2026-04-21 15:29:22 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 318764 bytes (professor)
+2026-04-21 15:29:27 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 622124 bytes (professor)
+2026-04-21 15:29:34 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 330284 bytes (professor)
+2026-04-21 15:29:54 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 483884 bytes (professor)
+2026-04-21 15:30:01 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 399404 bytes (professor)
+2026-04-21 15:30:06 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 403244 bytes (professor)
+2026-04-21 15:30:07 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 579884 bytes (professor)
+2026-04-21 15:30:20 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 595244 bytes (professor)

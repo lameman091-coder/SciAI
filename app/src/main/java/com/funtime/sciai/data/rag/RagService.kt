@@ -76,12 +76,13 @@ object RagService {
         question: String,
         mode: String,
         domain: String,
+        level: String = "Academic",
         bookId: String? = null,
         hybrid: Boolean = false,
         userId: String = "guest",
         callback: (AskResponse?) -> Unit
     ) {
-        val request = AskRequest(question, mode, domain, bookId, hybrid, userId)
+        val request = AskRequest(question, mode, domain, level, bookId, hybrid, userId)
         NetworkClient.apiService.ask(request).enqueue(object : Callback<AskResponse> {
             override fun onResponse(call: Call<AskResponse>, response: Response<AskResponse>) {
                 println("API Response [/ask]: ${response.code()} body: ${response.body()}")
@@ -163,6 +164,7 @@ object RagService {
             }
         })
     }
+
 
     fun deleteBook(bookId: String, userId: String, callback: (Boolean, String) -> Unit) {
         NetworkClient.apiService.deleteBook(bookId, userId).enqueue(object : Callback<Map<String, String>> {

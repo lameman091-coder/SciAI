@@ -66,6 +66,13 @@ class Settings(BaseSettings):
     HF_API_KEY: str = ""
     USE_HF: bool = False
     
+    # ── TTS Configuration ──
+    HF_TTS_API_KEY: str = ""           # Separate HF key for TTS fallback
+    TTS_CACHE_DIR: str = str(BASE_DIR / "cache" / "tts")
+    TTS_DEFAULT_VOICE: str = "professor"
+    TTS_MAX_TEXT_LENGTH: int = 5000
+    TTS_CHUNK_SIZE: int = 200           # Max chars per TTS chunk
+    
     # Database
     DATABASE_URL: str = f"sqlite+aiosqlite:///{BASE_DIR}/sciai.db"
     
@@ -88,3 +95,4 @@ settings = Settings()
 # Ensure directories exist
 os.makedirs(settings.TEMP_DIR, exist_ok=True)
 os.makedirs(settings.CACHE_DIR, exist_ok=True)
+os.makedirs(settings.TTS_CACHE_DIR, exist_ok=True)

@@ -25,10 +25,42 @@ def trim_context(context: str, max_tokens: int = 4000) -> str:
     log.info(f"LLM: Context trimmed from {len(tokens)} to {max_tokens} tokens.")
     return result
 
-async def generate_llm_only(question: str, mode: str, domain: str) -> str:
-    system = f"You are SciAI, an expert research assistant for {domain}. Answer concisely."
+async def generate_llm_only(question: str, mode: str, domain: str, level: str = "Academic") -> str:
+    structure_rules = """
+Structure the answer into clear sections.
+
+Rules:
+- Each section must start with a short heading (concise, 3–6 words)
+- Followed by explanation
+- Do NOT use markdown symbols like ### or ** for emphasis (keep it clean)
+- Do NOT include <think> or hidden reasoning
+- Write equations in readable plain format (NO LaTeX, no \\frac, $$, \\, etc.)
+- Example Correct: K = ([C]^c × [D]^d) / ([A]^a × [B]^b)
+"""
+
+    domain_prompts = {
+        "Biology": "Focus on biological processes, flow, and real-life examples. Use clear terminology.",
+        "Physics": "Include formulas, variables, units, and real-world applications. Explain each variable clearly.",
+        "Chemistry": "Include chemical equations, reaction mechanisms, and symbolic representation.",
+        "Science": "Focus on interdisciplinary connections and fundamental principles."
+    }
+
+    mode_prompts = {
+        "Exam": "You are an exam-focused assistant. Give concise, high-yield answers suitable for scoring. Use bullet-style clarity.",
+        "Concept": "You are a conceptual teacher. Explain in a simple, intuitive way. Focus on understanding.",
+        "Expert": f"You are an advanced scientific expert at the {level} level. Provide deep, analytical, and research-level explanation."
+    }
+
+    system_prompt = (
+        f"You are SciAI, the world's most advanced scientific research assistant.\n"
+        f"{mode_prompts.get(mode, 'Provide an expert response.')}\n"
+        f"Domain: {domain}. {domain_prompts.get(domain, '')}\n"
+        f"{structure_rules}\n"
+        "Ensure the response is PREMIUM, professional, and scientifically accurate."
+    )
+
     messages = [
-        {"role": "system", "content": system},
+        {"role": "system", "content": system_prompt},
         {"role": "user", "content": question},
     ]
     
@@ -36,12 +68,58 @@ async def generate_llm_only(question: str, mode: str, domain: str) -> str:
         messages=messages,
         query_type="auto",
         query_text=question,
-        max_tokens=1024,
+        max_tokens=1500,
         temperature=0.7,
         use_smart_model=True,
     )
     log.info(f"LLM: Pure generation via {provider}")
     return result
+
+async def analyze_image(image_b64: str, question: Optional[str] = None) -> str:
+    """Analyze a scientific image using Gemini Flash."""
+    prompt = (
+        "Analyze this scientific image carefully.\n"
+        "If it contains a scientific question or diagram:\n"
+        "- Extract and solve the problem\n"
+        "- Format with clear headings (No symbols like ### or **)\n"
+        "- No LaTeX formatting (use plain readable text)\n"
+        "Structure: Observation, Analysis, Conclusion."
+    )
+    if question:
+        prompt += f"\n\nUser Question: {question}"
+
+    # Use the model manager to find a gemini provider
+    gemini_provider = manager.providers.get("gemini_flash")
+    if not gemini_provider:
+        return "Error: Gemini Flash provider not configured on backend."
+    
+    key = gemini_provider.get_next_key()
+    if not key:
+        return "Error: All Gemini keys are in cooldown."
+
+    await manager._ensure_client()
+    url = f"{gemini_provider.base_url}/models/gemini-1.5-flash:generateContent?key={key.key}"
+    
+    body = {
+        "contents": [{
+            "parts": [
+                {"text": prompt},
+                {"inlineData": {"mimeType": "image/jpeg", "data": image_b64}}
+            ]
+        }],
+        "generationConfig": {"temperature": 0.4, "maxOutputTokens": 1024}
+    }
+
+    try:
+        resp = await manager.client.post(url, json=body)
+        if resp.status_code != 200:
+            return f"Error: Gemini API failure ({resp.status_code})"
+        
+        data = resp.json()
+        content = data["candidates"][0]["content"]["parts"][0]["text"]
+        return content.strip()
+    except Exception as e:
+        return f"Error analyzing image: {str(e)}"
 
 async def generate_hybrid_answer(question: str, context: str, mode: str, domain: str) -> str:
     system = (

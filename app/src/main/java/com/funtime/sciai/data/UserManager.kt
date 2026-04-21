@@ -100,4 +100,70 @@ class UserManager(private val context: Context) {
         }
         return _gamificationManager!!
     }
+
+    // ── TTS Preferences ──
+
+    fun setTTSEnabled(enabled: Boolean) {
+        prefs.edit().putBoolean("TTS_ENABLED", enabled).apply()
+    }
+
+    fun isTTSEnabled(): Boolean {
+        return prefs.getBoolean("TTS_ENABLED", false)
+    }
+
+    fun setTTSVoiceStyle(style: String) {
+        prefs.edit().putString("TTS_VOICE_STYLE", style).apply()
+    }
+
+    fun getTTSVoiceStyle(): String {
+        return prefs.getString("TTS_VOICE_STYLE", "professor") ?: "professor"
+    }
+
+    fun setTTSSpeed(speed: Float) {
+        prefs.edit().putFloat("TTS_SPEED", speed).apply()
+    }
+
+    fun getTTSSpeed(): Float {
+        return prefs.getFloat("TTS_SPEED", 1.0f)
+    }
+
+    fun setTTSAutoPlay(autoPlay: Boolean) {
+        prefs.edit().putBoolean("TTS_AUTO_PLAY", autoPlay).apply()
+    }
+
+    fun isTTSAutoPlay(): Boolean {
+        return prefs.getBoolean("TTS_AUTO_PLAY", false)
+    }
+
+    // ── Premium App Settings ──
+
+    fun setAutoDomainDetection(enabled: Boolean) {
+        prefs.edit().putBoolean("AUTO_DOMAIN", enabled).apply()
+    }
+    fun isAutoDomainDetection(): Boolean = prefs.getBoolean("AUTO_DOMAIN", true)
+
+    fun setSaveHistory(enabled: Boolean) {
+        prefs.edit().putBoolean("SAVE_HISTORY", enabled).apply()
+    }
+    fun isSaveHistory(): Boolean = prefs.getBoolean("SAVE_HISTORY", true)
+
+    fun setFastMode(enabled: Boolean) {
+        prefs.edit().putBoolean("FAST_MODE", enabled).apply()
+    }
+    fun isFastMode(): Boolean = prefs.getBoolean("FAST_MODE", false)
+
+    fun setExpertModeDefault(enabled: Boolean) {
+        prefs.edit().putBoolean("EXPERT_DEFAULT", enabled).apply()
+    }
+    fun isExpertModeDefault(): Boolean = prefs.getBoolean("EXPERT_DEFAULT", false)
+
+    fun setPrivacyMode(enabled: Boolean) {
+        prefs.edit().putBoolean("PRIVACY_MODE", enabled).apply()
+    }
+    fun isPrivacyMode(): Boolean = prefs.getBoolean("PRIVACY_MODE", false)
+
+    fun setThemeSelection(theme: String) { // "system", "dark", "light"
+        prefs.edit().putString("THEME_SELECTION", theme).apply()
+    }
+    fun getThemeSelection(): String = prefs.getString("THEME_SELECTION", "system") ?: "system"
 }

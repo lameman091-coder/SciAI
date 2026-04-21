@@ -101,10 +101,11 @@ fun DrawerItem(
 }
 
 @Composable
-fun DrawerHeader(userName: String?, level: Int, title: String) {
+fun DrawerHeader(userName: String?, level: Int, title: String, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable { onClick() }
             .background(
                 brush = androidx.compose.ui.graphics.Brush.verticalGradient(
                     colors = listOf(SciAISurface, SciAISurfaceAlt)

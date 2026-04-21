@@ -20,8 +20,10 @@ import com.funtime.sciai.ui.theme.home.HomeScreen
 import com.funtime.sciai.ui.theme.answer.AnswerScreen
 import com.funtime.sciai.ui.theme.splash.SplashScreen
 import com.funtime.sciai.ui.theme.library.*
+import com.funtime.sciai.ui.theme.playlist.PlaylistScreen
 import com.funtime.sciai.ui.theme.*
 import com.funtime.sciai.aisphere.*
+import com.funtime.sciai.ui.components.PremiumSettingsBottomSheet
 import com.funtime.sciai.data.HistoryItem
 import com.funtime.sciai.data.HistoryManager
 import com.funtime.sciai.data.UserManager
@@ -37,6 +39,7 @@ fun AppNav(themeViewModel: ThemeViewModel) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val isNavigatingState = remember { mutableStateOf(false) }
+    var showSettingsSheet by remember { mutableStateOf(false) }
 
     // ── History & User State ──
     val userManager = remember { UserManager(context) }
@@ -72,57 +75,124 @@ fun AppNav(themeViewModel: ThemeViewModel) {
             ModalDrawerSheet(
                 drawerContainerColor = SciAISurfaceAlt
             ) {
-                // ── Drawer Header ──
-                DrawerHeader(
-                    userName = userName,
-                    level = userLevel,
-                    title = userTitle
-                )
-
-                HorizontalDivider(color = SciAIBorder)
-
-                // ── Navigation Section ──
-                DrawerSectionLabel("NAVIGATION")
-
-                DrawerItem("Home", emoji = "🏠", enabled = !isNavigatingState.value, isActive = currentRoute == "home") {
-                    scope.launch {
-                        safeNavigate(navController, drawerState, "home", isNavigatingState)
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.Start
+                ) {
+                    item {
+                        // ── Drawer Header ──
+                        DrawerHeader(
+                            userName = userName,
+                            level = userLevel,
+                            title = userTitle,
+                            onClick = {
+                                scope.launch { drawerState.close() }
+                                showSettingsSheet = true
+                            }
+                        )
                     }
-                }
-                DrawerItem("Library", emoji = "📚", enabled = !isNavigatingState.value, isActive = currentRoute == "library") {
-                    scope.launch {
-                        safeNavigate(navController, drawerState, "library", isNavigatingState)
-                    }
-                }
-                DrawerItem("Articles", emoji = "📰", enabled = !isNavigatingState.value, isActive = currentRoute == "articles") {
-                    scope.launch {
-                        safeNavigate(navController, drawerState, "articles", isNavigatingState)
-                    }
-                }
-                DrawerItem("Premium", emoji = "⭐", textColor = SciAIAmber) {
-                    scope.launch { drawerState.close() }
-                }
-                DrawerItem("AI Companion", emoji = "✨", textColor = SciAICyan, enabled = !isNavigatingState.value, isActive = currentRoute == "sphere_settings") {
-                    scope.launch {
-                        safeNavigate(navController, drawerState, "sphere_settings", isNavigatingState)
-                    }
-                }
 
-                HorizontalDivider(color = SciAIBorder, modifier = Modifier.padding(top = 8.dp))
+                    item { HorizontalDivider(color = SciAIBorder) }
 
-                // ── History Section ──
-                DrawerSectionLabel("RECENT SEARCHES")
+                    item {
+                        // ── Navigation Section ──
+                        DrawerSectionLabel("NAVIGATION")
+                    }
 
-                LazyColumn(modifier = Modifier.weight(1f)) {
+                    item {
+                        DrawerItem(
+                            "Home",
+                            emoji = "🏠",
+                            enabled = !isNavigatingState.value,
+                            isActive = currentRoute == "home"
+                        ) {
+                            scope.launch {
+                                safeNavigate(navController, drawerState, "home", isNavigatingState)
+                            }
+                        }
+                    }
+
+                    item {
+                        DrawerItem(
+                            "Library",
+                            emoji = "📚",
+                            enabled = !isNavigatingState.value,
+                            isActive = currentRoute == "library"
+                        ) {
+                            scope.launch {
+                                safeNavigate(navController, drawerState, "library", isNavigatingState)
+                            }
+                        }
+                    }
+
+                    item {
+                        DrawerItem(
+                            "Articles",
+                            emoji = "📰",
+                            enabled = !isNavigatingState.value,
+                            isActive = currentRoute == "articles"
+                        ) {
+                            scope.launch {
+                                safeNavigate(navController, drawerState, "articles", isNavigatingState)
+                            }
+                        }
+                    }
+
+                    item {
+                        DrawerItem("Premium", emoji = "⭐", textColor = SciAIAmber) {
+                            scope.launch { drawerState.close() }
+                        }
+                    }
+
+                    item {
+                        DrawerItem(
+                            "AI Companion",
+                            emoji = "✨",
+                            textColor = SciAICyan,
+                            enabled = !isNavigatingState.value,
+                            isActive = currentRoute == "sphere_settings"
+                        ) {
+                            scope.launch {
+                                safeNavigate(
+                                    navController,
+                                    drawerState,
+                                    "sphere_settings",
+                                    isNavigatingState
+                                )
+                            }
+                        }
+                    }
+
+                    item {
+                        DrawerItem(
+                            "Playlist",
+                            emoji = "🎵",
+                            textColor = Color(0xFFA78BFA),
+                            enabled = !isNavigatingState.value,
+                            isActive = currentRoute == "playlist"
+                        ) {
+                            scope.launch {
+                                safeNavigate(navController, drawerState, "playlist", isNavigatingState)
+                            }
+                        }
+                    }
+
+                    item {
+                        HorizontalDivider(color = SciAIBorder, modifier = Modifier.padding(top = 8.dp))
+                        DrawerSectionLabel("RECENT SEARCHES")
+                    }
+
                     itemsIndexed(
-                        items = historyList, 
+                        items = historyList,
                         key = { index, item -> "hist_${item.timestamp}_${item.query.hashCode()}_$index" }
                     ) { index, item ->
                         HistoryDrawerItem(item = item) {
                             scope.launch {
                                 drawerState.close()
                                 val encodedQuery = Uri.encode(item.query)
-                                navController.navigate("answer/${encodedQuery}/${item.mode}?hybrid=true") { launchSingleTop = true }
+                                navController.navigate("answer/${encodedQuery}/${item.mode}?hybrid=true") {
+                                    launchSingleTop = true
+                                }
                             }
                         }
                     }
@@ -196,7 +266,18 @@ fun AppNav(themeViewModel: ThemeViewModel) {
                 composable("sphere_settings") {
                     AISphereSettingsScreen(navController, aiSphereViewModel)
                 }
+
+                composable("playlist") {
+                    PlaylistScreen(navController)
+                }
             }
         }
+
+        // ── Premium Settings Bottom Sheet ──
+        PremiumSettingsBottomSheet(
+            userManager = userManager,
+            isVisible = showSettingsSheet,
+            onDismissRequest = { showSettingsSheet = false }
+        )
     }
 }

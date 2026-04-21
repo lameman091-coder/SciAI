@@ -10,8 +10,6 @@ import kotlinx.coroutines.withContext
 
 object GeminiService {
 
-    private const val API_KEY = "AIzaSyAJnHthLZ1sKMQQB8qPJ4JFu5NflrBrkTk"
-
     suspend fun analyzeImage(
         context: Context,
         uri: Uri
@@ -20,11 +18,6 @@ object GeminiService {
         return withContext(Dispatchers.IO) {
 
             try {
-                val model = GenerativeModel(
-                    modelName = "gemini-3.1-flash-lite-preview",
-                    apiKey = API_KEY
-                )
-
                 val bitmap = ImageUtils.decodeSampledBitmapFromUri(
                     context,
                     uri,
@@ -32,28 +25,24 @@ object GeminiService {
                     1024
                 ) ?: throw IllegalArgumentException("Failed to decode image")
 
-                val inputContent = content {
-                    image(bitmap)
+                // Convert to Base64
+                val stream = java.io.ByteArrayOutputStream()
+                bitmap.compress(android.graphics.Bitmap.CompressFormat.JPEG, 80, stream)
+                val bytes = stream.toByteArray()
+                val imageB64 = android.util.Base64.encodeToString(bytes, android.util.Base64.NO_WRAP)
 
-                    text("""
-                    Analyze this image carefully.
+                val request = com.funtime.sciai.data.network.ImageAnalysisRequest(
+                    imageB64 = imageB64,
+                    question = "Analyze this scientific image/question concisely."
+                )
 
-                    If it contains a scientific question:
-                    - Extract the question
-                    - Answer in CLEAN format (NO symbols like **, ##,++)
-                    - Answer in structured format:
-                      Definition
-                      Explanation
-                      Key Points
-                      Do NOT use markdown symbols.
+                val response = com.funtime.sciai.data.network.NetworkClient.apiService.analyzeImage(request).execute()
 
-                    If unclear, describe what you see.
-                  """.trimIndent())
+                if (response.isSuccessful) {
+                    response.body()?.answer ?: "No response from AI engine."
+                } else {
+                    "Error: Backend failed with code ${response.code()}"
                 }
-
-                val response = model.generateContent(inputContent)
-
-                response.text ?: "No response"
 
             } catch (e: Exception) {
                 "Error: ${e.message}"
