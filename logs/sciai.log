@@ -5962,3 +5962,1233 @@ The image depicts a female character with long pink hair and purple eyes, wearin
 2026-04-21 18:37:11 | ERROR    | __main__:validation_exception_handler:88 - Body: b'{"context_chunks":[],"count":4,"domain":"Biology","level":50,"mode":"Quiz","previous_questions":[],"topic":"cell"}'
 2026-04-27 13:41:21 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
 2026-04-27 13:42:26 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-27 13:44:08 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-27 13:44:09 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-27 13:44:09 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-27 13:44:09 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-27 13:44:09 | INFO     | tts_engine:initialize:333 - TTS Engine: Initializing...
+2026-04-27 13:44:09 | INFO     | tts_engine:_init_kyutai:176 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-27 13:44:10 | INFO     | tts_engine:_init_kyutai:178 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-27 13:44:10 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'professor' (alba)
+2026-04-27 13:44:10 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'energetic' (cosette)
+2026-04-27 13:44:10 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'storyteller' (fantine)
+2026-04-27 13:44:10 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'formal_male' (marius)
+2026-04-27 13:44:10 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'casual_female' (eponine)
+2026-04-27 13:44:10 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'deep_male' (javert)
+2026-04-27 13:44:10 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'warm_female' (azelma)
+2026-04-27 13:44:10 | INFO     | tts_engine:initialize:337 - TTS Engine: Kyutai Pocket-TTS ready (Tier 1)
+2026-04-27 13:44:10 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-27 13:44:38 | INFO     | __main__:ask_question:215 - Question: cell | Hybrid: False | Book: None
+2026-04-27 13:44:38 | INFO     | model_manager:generate:691 - ModelManager: Auto-classified as 'speed'
+2026-04-27 13:44:38 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-27 13:44:42 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (4208 chars)
+2026-04-27 13:44:42 | INFO     | llm_engine:generate_llm_only:156 - LLM: Pure generation via Groq
+2026-04-27 13:46:04 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-27 13:46:04 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (131 chars)
+2026-04-27 13:46:04 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-27 13:46:08 | INFO     | __main__:ask_question:215 - Question: cell cycle | Hybrid: True | Book: None
+2026-04-27 13:46:08 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-04-27 13:46:08 | INFO     | faiss_store:load:87 - FAISS: Loaded 945 vectors of type IndexIDMap2.
+2026-04-27 13:46:08 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-27 13:46:14 | INFO     | faiss_store:search:199 - FAISS Search: query='cell cycle...', search_k=25, ntotal=945
+2026-04-27 13:46:14 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 3
+2026-04-27 13:46:14 | INFO     | live_articles:search_articles:244 - Article Search: 'cell cycle' | Page: 1
+2026-04-27 13:46:14 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell cycle'
+2026-04-27 13:46:14 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell cycle'
+2026-04-27 13:46:14 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell cycle'
+2026-04-27 13:46:14 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell cycle' (retmax=10)
+2026-04-27 13:46:16 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 602266)
+2026-04-27 13:46:19 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 13:46:19 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 602266)
+2026-04-27 13:46:19 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 96169)
+2026-04-27 13:46:19 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-27 13:46:19 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-27 13:46:21 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (5423 chars)
+2026-04-27 13:46:21 | INFO     | llm_engine:generate_hybrid_answer:227 - LLM: Hybrid generation via Groq
+2026-04-27 13:49:19 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-27 13:49:20 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (148 chars)
+2026-04-27 13:49:20 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-27 13:49:33 | INFO     | __main__:ask_question:215 - Question: cell metabolism  | Hybrid: True | Book: None
+2026-04-27 13:49:33 | INFO     | faiss_store:search:199 - FAISS Search: query='cell metabolism ...', search_k=25, ntotal=945
+2026-04-27 13:49:33 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 0
+2026-04-27 13:49:33 | INFO     | live_articles:search_articles:244 - Article Search: 'cell metabolism ' | Page: 1
+2026-04-27 13:49:33 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell metabolism '
+2026-04-27 13:49:33 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell metabolism '
+2026-04-27 13:49:33 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell metabolism '
+2026-04-27 13:49:33 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell metabolism ' (retmax=10)
+2026-04-27 13:49:34 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 2934183)
+2026-04-27 13:49:36 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 13:49:36 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 2934183)
+2026-04-27 13:49:36 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 54288)
+2026-04-27 13:49:36 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-27 13:49:36 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-04-27 13:49:37 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (3959 chars)
+2026-04-27 13:49:37 | INFO     | llm_engine:generate_hybrid_answer:227 - LLM: Hybrid generation via Groq
+2026-04-27 13:50:13 | INFO     | __main__:text_to_speech:486 - TTS: Processing 3827 chars, style=storyteller, mode=Expert
+2026-04-27 13:50:13 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-27 13:50:14 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (2665 chars)
+2026-04-27 13:50:14 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (3815 → 2665 chars)
+2026-04-27 13:50:14 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 17 chunks...
+2026-04-27 13:50:34 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 349484 bytes (storyteller)
+2026-04-27 13:50:36 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 407084 bytes (storyteller)
+2026-04-27 13:50:38 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 437804 bytes (storyteller)
+2026-04-27 13:50:39 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 468524 bytes (storyteller)
+2026-04-27 13:50:55 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 464684 bytes (storyteller)
+2026-04-27 13:50:55 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 380204 bytes (storyteller)
+2026-04-27 13:50:57 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 472364 bytes (storyteller)
+2026-04-27 13:51:09 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 679724 bytes (storyteller)
+2026-04-27 13:51:21 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 572204 bytes (storyteller)
+2026-04-27 13:51:22 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 572204 bytes (storyteller)
+2026-04-27 13:51:22 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 529964 bytes (storyteller)
+2026-04-27 13:51:35 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 545324 bytes (storyteller)
+2026-04-27 13:51:38 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 357164 bytes (storyteller)
+2026-04-27 13:51:44 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 503084 bytes (storyteller)
+2026-04-27 13:51:45 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 526124 bytes (storyteller)
+2026-04-27 13:51:48 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 276524 bytes (storyteller)
+2026-04-27 13:51:48 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 349484 bytes (storyteller)
+2026-04-27 13:54:03 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['artificial intelligence drug discovery', 'neuroscience consciousness', 'CRISPR gene editing']
+2026-04-27 13:54:03 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-27 13:54:03 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'artificial intelligence drug discovery' (retmax=10)
+2026-04-27 13:54:03 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'neuroscience consciousness' (retmax=10)
+2026-04-27 13:54:03 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'CRISPR gene editing' (retmax=10)
+2026-04-27 13:54:04 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 24216)
+2026-04-27 13:54:04 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 6725)
+2026-04-27 13:54:04 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 9785)
+2026-04-27 13:54:04 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-27 13:54:05 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-27 13:54:06 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 13:54:07 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 13:54:08 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 13:54:08 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-27 13:54:24 | INFO     | live_articles:search_articles:244 - Article Search: 'cell membrane' | Page: 1
+2026-04-27 13:54:24 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell membrane'
+2026-04-27 13:54:24 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell membrane'
+2026-04-27 13:54:24 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell membrane'
+2026-04-27 13:54:24 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell membrane' (retmax=10)
+2026-04-27 13:54:26 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 961803)
+2026-04-27 13:54:27 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 13:54:27 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 961803)
+2026-04-27 13:54:27 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 60080)
+2026-04-27 13:54:27 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-27 13:54:35 | INFO     | __main__:ask_question:215 - Question: Extract 4 brief key bullet points for the article titled 'Cell Membrane Perforation: Patterns, Mechanisms and Functions.'. | Hybrid: False | Book: None
+2026-04-27 13:54:35 | INFO     | model_manager:generate:691 - ModelManager: Auto-classified as 'deep'
+2026-04-27 13:54:35 | INFO     | model_manager:generate:715 - ModelManager: Trying Qwen (OpenRouter) (Tier 3) [key …8fb9ad]
+2026-04-27 13:54:36 | ERROR    | model_manager:generate:757 - ModelManager: ❌ Qwen (OpenRouter) error: Qwen (OpenRouter): HTTP 400 — {"error":{"message":"Provider returned error","code":400,"metadata":{"raw":"{\"code\":400,\"reason\":\"INVALID_REQUEST_BODY\",\"message\":\"model: qwen/qwen-2.5-72b-instruct does not support endpoint: completions\",\"metadata\":{}}","provider_name":"Novita","is_byok":false}},"user_id":"user_3CNREHko
+2026-04-27 13:54:36 | INFO     | model_manager:generate:715 - ModelManager: Trying Gemini Pro (Tier 4) [key …e__Wvw]
+2026-04-27 13:54:37 | WARNING  | model_manager:generate:751 - ModelManager: ⚠️ Gemini Pro: Rate limited (429)
+2026-04-27 13:54:37 | INFO     | model_manager:generate:715 - ModelManager: Trying OpenRouter Hub (Tier 5) [key …cb12eb]
+2026-04-27 13:54:43 | INFO     | model_manager:generate:742 - ModelManager: ✅ OpenRouter Hub succeeded (879 chars)
+2026-04-27 13:54:43 | INFO     | llm_engine:generate_llm_only:156 - LLM: Pure generation via OpenRouter Hub
+2026-04-27 13:55:00 | INFO     | __main__:ask_question:215 - Question: List 3 related scientific topics to 'Cell Membrane Perforation: Patterns, Mechanisms and Functions.'. Output ONLY comma separated list. | Hybrid: False | Book: None
+2026-04-27 13:55:00 | INFO     | model_manager:generate:691 - ModelManager: Auto-classified as 'deep'
+2026-04-27 13:55:00 | INFO     | model_manager:generate:715 - ModelManager: Trying Qwen (OpenRouter) (Tier 3) [key …0f9f0f]
+2026-04-27 13:55:01 | ERROR    | model_manager:generate:757 - ModelManager: ❌ Qwen (OpenRouter) error: Qwen (OpenRouter): HTTP 400 — {"error":{"message":"Provider returned error","code":400,"metadata":{"raw":"{\"code\":400,\"reason\":\"INVALID_REQUEST_BODY\",\"message\":\"model: qwen/qwen-2.5-72b-instruct does not support endpoint: completions\",\"metadata\":{}}","provider_name":"Novita","is_byok":false}},"user_id":"user_3CRF35mW
+2026-04-27 13:55:01 | INFO     | model_manager:generate:715 - ModelManager: Trying Gemini Pro (Tier 4) [key …4NUxag]
+2026-04-27 13:55:01 | WARNING  | model_manager:generate:751 - ModelManager: ⚠️ Gemini Pro: Rate limited (429)
+2026-04-27 13:55:01 | INFO     | model_manager:generate:715 - ModelManager: Trying OpenRouter Hub (Tier 5) [key …26dc10]
+2026-04-27 13:55:03 | INFO     | model_manager:generate:742 - ModelManager: ✅ OpenRouter Hub succeeded (86 chars)
+2026-04-27 13:55:03 | INFO     | llm_engine:generate_llm_only:156 - LLM: Pure generation via OpenRouter Hub
+2026-04-27 13:55:23 | INFO     | __main__:ask_question:215 - Question: Cell Membrane Perforation: Patterns, Mechanisms and Functions. | Hybrid: True | Book: None
+2026-04-27 13:55:23 | INFO     | faiss_store:search:199 - FAISS Search: query='Cell Membrane Perforation: Pat...', search_k=25, ntotal=945
+2026-04-27 13:55:23 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 0
+2026-04-27 13:55:23 | INFO     | live_articles:search_articles:244 - Article Search: 'Cell Membrane Perforation: Patterns, Mechanisms and Functions.' | Page: 1
+2026-04-27 13:55:23 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'Cell Membrane Perforation: Patterns, Mechanisms and Functions.'
+2026-04-27 13:55:23 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'Cell Membrane Perforation: Patterns, Mechanisms and Functions.'
+2026-04-27 13:55:23 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'Cell Membrane Perforation: Patterns, Mechanisms and Functions.'
+2026-04-27 13:55:23 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'Cell Membrane Perforation: Patterns, Mechanisms and Functions.' (retmax=10)
+2026-04-27 13:55:24 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 125)
+2026-04-27 13:55:26 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 13:55:26 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 125)
+2026-04-27 13:55:26 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 865163)
+2026-04-27 13:55:26 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-27 13:55:26 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-27 13:55:27 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (2912 chars)
+2026-04-27 13:55:27 | INFO     | llm_engine:generate_hybrid_answer:227 - LLM: Hybrid generation via Groq
+2026-04-27 13:55:40 | INFO     | __main__:text_to_speech:486 - TTS: Processing 2852 chars, style=storyteller, mode=Exam
+2026-04-27 13:55:40 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-27 13:55:41 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (2287 chars)
+2026-04-27 13:55:41 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (2852 → 2287 chars)
+2026-04-27 13:55:41 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 15 chunks...
+2026-04-27 13:56:02 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 384044 bytes (storyteller)
+2026-04-27 13:56:02 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 391724 bytes (storyteller)
+2026-04-27 13:56:06 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 468524 bytes (storyteller)
+2026-04-27 13:56:06 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 464684 bytes (storyteller)
+2026-04-27 13:56:24 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 380204 bytes (storyteller)
+2026-04-27 13:56:24 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 468524 bytes (storyteller)
+2026-04-27 13:56:25 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 407084 bytes (storyteller)
+2026-04-27 13:56:26 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 499244 bytes (storyteller)
+2026-04-27 13:56:33 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-27 13:56:33 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (147 chars)
+2026-04-27 13:56:33 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-27 13:56:39 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 288044 bytes (storyteller)
+2026-04-27 13:56:39 | INFO     | __main__:ask_question:215 - Question: cell death | Hybrid: True | Book: None
+2026-04-27 13:56:40 | INFO     | faiss_store:search:199 - FAISS Search: query='cell death...', search_k=25, ntotal=945
+2026-04-27 13:56:40 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 0
+2026-04-27 13:56:40 | INFO     | live_articles:search_articles:244 - Article Search: 'cell death' | Page: 1
+2026-04-27 13:56:40 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell death'
+2026-04-27 13:56:40 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell death'
+2026-04-27 13:56:40 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell death'
+2026-04-27 13:56:40 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell death' (retmax=10)
+2026-04-27 13:56:41 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 693190)
+2026-04-27 13:56:43 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 13:56:43 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 693190)
+2026-04-27 13:56:43 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 58783)
+2026-04-27 13:56:43 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-27 13:56:43 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-04-27 13:56:44 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (1942 chars)
+2026-04-27 13:56:44 | INFO     | llm_engine:generate_hybrid_answer:227 - LLM: Hybrid generation via Groq
+2026-04-27 13:56:44 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 426284 bytes (storyteller)
+2026-04-27 13:56:50 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 480044 bytes (storyteller)
+2026-04-27 13:56:52 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 576044 bytes (storyteller)
+2026-04-27 13:56:54 | INFO     | __main__:text_to_speech:486 - TTS: Processing 1918 chars, style=storyteller, mode=Exam
+2026-04-27 13:56:54 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-27 13:56:54 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (1548 chars)
+2026-04-27 13:56:54 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (1918 → 1548 chars)
+2026-04-27 13:56:54 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 11 chunks...
+2026-04-27 13:56:56 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 380204 bytes (storyteller)
+2026-04-27 13:57:01 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 257324 bytes (storyteller)
+2026-04-27 13:57:05 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 445484 bytes (storyteller)
+2026-04-27 13:57:11 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 349484 bytes (storyteller)
+2026-04-27 13:57:20 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 437804 bytes (storyteller)
+2026-04-27 13:57:21 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 529964 bytes (storyteller)
+2026-04-27 13:57:25 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 464684 bytes (storyteller)
+2026-04-27 13:57:32 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 222764 bytes (storyteller)
+2026-04-27 13:57:35 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 514604 bytes (storyteller)
+2026-04-27 13:57:39 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 407084 bytes (storyteller)
+2026-04-27 13:57:45 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 403244 bytes (storyteller)
+2026-04-27 13:57:46 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 314924 bytes (storyteller)
+2026-04-27 13:57:50 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 307244 bytes (storyteller)
+2026-04-27 13:57:51 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 545324 bytes (storyteller)
+2026-04-27 14:01:20 | INFO     | __main__:ask_question:215 - Question: summary of this pdf  | Hybrid: True | Book: 41e75be9-9a8f-400a-8209-b77b7a77b99c
+2026-04-27 14:01:20 | INFO     | faiss_store:search:199 - FAISS Search: query='summary of this pdf ...', search_k=945, ntotal=945
+2026-04-27 14:01:20 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=41e75be9-9a8f-400a-8209-b77b7a77b99c: 0
+2026-04-27 14:01:21 | INFO     | __main__:text_to_speech:486 - TTS: Processing 43 chars, style=storyteller, mode=Library
+2026-04-27 14:01:21 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 1 chunks...
+2026-04-27 14:01:23 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 126764 bytes (storyteller)
+2026-04-27 14:02:19 | INFO     | __main__:ask_question:215 - Question: summary and important points on rti | Hybrid: True | Book: a7e81afc-7b96-4645-97c1-065cb84c3583
+2026-04-27 14:02:19 | INFO     | faiss_store:search:199 - FAISS Search: query='summary and important points o...', search_k=945, ntotal=945
+2026-04-27 14:02:19 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=a7e81afc-7b96-4645-97c1-065cb84c3583: 528
+2026-04-27 14:02:19 | INFO     | model_manager:generate:715 - ModelManager: Trying Qwen (OpenRouter) (Tier 3) [key …0f9f0f]
+2026-04-27 14:02:53 | INFO     | model_manager:generate:742 - ModelManager: ✅ Qwen (OpenRouter) succeeded (5411 chars)
+2026-04-27 14:02:53 | INFO     | llm_engine:generate_book_answer:253 - LLM: Book generation via Qwen (OpenRouter)
+2026-04-27 14:03:09 | ERROR    | __main__:validation_exception_handler:87 - 422 Validation Error at /api/v1/tts: [{'type': 'string_too_long', 'loc': ('body', 'text'), 'msg': 'String should have at most 5000 characters', 'input': '### Key Findings\n\n1. Purpose and Impact of the RTI Act (2005):\n   - The Right to Information (RTI) Act empowers citizens to question the secrecy and abuse of power in governance.\n   - It promotes transparency and accountability in government operations.\n   - The Act helps in containing corruption and improving government performance.\n   - RTI information is considered a public good, crucial for a transparent and vibrant democracy.\n\n2. Usage and Scope:\n   - Approximately 60 lakh RTI applications are filed annually, making it one of the most extensively used sunshine legislations globally.\n   - RTI applications cover a wide range of issues, from basic rights and entitlements to high-level government decisions.\n   - The Act has been used to question public institutions on matters of public interest, such as demonetization, non-performing assets, and the Rafale fighter aircraft deal.\n\n3. Legal and Constitutional Basis:\n   - The Supreme Court has recognized RTI as a fundamental right derived from Articles 19 and 21 of the Constitution, which guarantee freedom of speech and expression and the right to life, respectively.\n   - Information obtained through RTI helps in making the government accountable and serves the overall interests of society.\n\n4. Recent Amendments and Concerns:\n   - The Central government now has the authority to decide the tenure, salary, allowances, and other terms of service of Information Commissioners.\n   - These amendments undermine the independence and authority of Information Commissions, violating constitutional principles of federalism.\n   - The amendments have been criticized for weakening the RTI framework and reducing the independence of the Information Commissions.\n\n5. Way Forward:\n   - Independent structures to regulate and monitor the government are essential for a democratic state.\n   - Centralizing power can threaten freedom of expression and democratic checks and balances.\n   - The separation of powers is crucial for maintaining the independence of regulatory bodies.\n\n### Detailed Analysis\n\n#### Purpose and Impact of the RTI Act (2005)\nThe Right to Information Act, enacted in 2005, is a landmark legislation that empowers citizens to question the secrecy and abuse of power in governance. It serves as a crucial tool for promoting transparency and accountability in the functioning of government institutions. The Act has been instrumental in containing corruption and improving the efficiency of government operations. By providing citizens with access to information, the RTI Act helps build a more informed and vigilant citizenry, which is essential for the smooth functioning of a democratic society.\n\n#### Usage and Scope\nThe RTI Act is one of the most extensively used sunshine legislations globally, with nearly 60 lakh applications filed annually. These applications cover a broad spectrum of issues, ranging from the delivery of basic rights and entitlements to questioning high-level government decisions. The Act has been used to seek information on matters of public interest, such as demonetization, non-performing assets, the Rafale fighter aircraft deal, electoral bonds, unemployment figures, and the appointment of the Central Vigilance Commissioner (CVC). The widespread use of the RTI Act underscores its importance in ensuring government accountability and transparency.\n\n#### Legal and Constitutional Basis\nThe legal and constitutional basis of the RTI Act is firmly established. The Supreme Court has recognized the right to information as a fundamental right flowing from Articles 19 and 21 of the Constitution, which guarantee the freedom of speech and expression and the right to life, respectively. This recognition underscores the importance of information access in a democratic society. The information obtained through RTI applications not only helps in making the government accountable but also serves the broader interests of society by exposing corruption, human rights violations, and other wrongdoings by the state.\n\n#### Recent Amendments and Concerns\nRecent amendments to the RTI Act have raised significant concerns. The Central government now has the authority to decide the tenure, salary, allowances, and other terms of service of Information Commissioners, both at the Centre and the States. This centralization of power undermines the independence and authority of Information Commissions, which are crucial for maintaining the integrity of the RTI framework. These amendments violate the constitutional principles of federalism and significantly dilute the widely used framework for transparency in India. Critics, including MP Shashi Tharoor, have referred to these amendments as an "RTI elimination Bill" that removes the organization\'s independence.\n\n#### Way Forward\nTo address the challenges posed by the recent amendments, it is essential to maintain the independence of regulatory bodies and uphold the separation of powers. Independent structures to regulate and monitor the government are vital for a democratic state committed to delivering justice and constitutional guarantees. Centralizing power can threaten freedom of expression and undermine democratic checks and balances. Therefore, it is crucial to ensure that the Information Commissions retain their independence and authority to effectively fulfill their role in promoting transparency and accountability.', 'ctx': {'max_length': 5000}}]
+2026-04-27 14:03:09 | ERROR    | __main__:validation_exception_handler:88 - Body: b'{"text":"### Key Findings\\n\\n1. Purpose and Impact of the RTI Act (2005):\\n   - The Right to Information (RTI) Act empowers citizens to question the secrecy and abuse of power in governance.\\n   - It promotes transparency and accountability in government operations.\\n   - The Act helps in containing corruption and improving government performance.\\n   - RTI information is considered a public good, crucial for a transparent and vibrant democracy.\\n\\n2. Usage and Scope:\\n   - Approximately 60 lakh RTI applications are filed annually, making it one of the most extensively used sunshine legislations globally.\\n   - RTI applications cover a wide range of issues, from basic rights and entitlements to high-level government decisions.\\n   - The Act has been used to question public institutions on matters of public interest, such as demonetization, non-performing assets, and the Rafale fighter aircraft deal.\\n\\n3. Legal and Constitutional Basis:\\n   - The Supreme Court has recognized RTI as a fundamental right derived from Articles 19 and 21 of the Constitution, which guarantee freedom of speech and expression and the right to life, respectively.\\n   - Information obtained through RTI helps in making the government accountable and serves the overall interests of society.\\n\\n4. Recent Amendments and Concerns:\\n   - The Central government now has the authority to decide the tenure, salary, allowances, and other terms of service of Information Commissioners.\\n   - These amendments undermine the independence and authority of Information Commissions, violating constitutional principles of federalism.\\n   - The amendments have been criticized for weakening the RTI framework and reducing the independence of the Information Commissions.\\n\\n5. Way Forward:\\n   - Independent structures to regulate and monitor the government are essential for a democratic state.\\n   - Centralizing power can threaten freedom of expression and democratic checks and balances.\\n   - The separation of powers is crucial for maintaining the independence of regulatory bodies.\\n\\n### Detailed Analysis\\n\\n#### Purpose and Impact of the RTI Act (2005)\\nThe Right to Information Act, enacted in 2005, is a landmark legislation that empowers citizens to question the secrecy and abuse of power in governance. It serves as a crucial tool for promoting transparency and accountability in the functioning of government institutions. The Act has been instrumental in containing corruption and improving the efficiency of government operations. By providing citizens with access to information, the RTI Act helps build a more informed and vigilant citizenry, which is essential for the smooth functioning of a democratic society.\\n\\n#### Usage and Scope\\nThe RTI Act is one of the most extensively used sunshine legislations globally, with nearly 60 lakh applications filed annually. These applications cover a broad spectrum of issues, ranging from the delivery of basic rights and entitlements to questioning high-level government decisions. The Act has been used to seek information on matters of public interest, such as demonetization, non-performing assets, the Rafale fighter aircraft deal, electoral bonds, unemployment figures, and the appointment of the Central Vigilance Commissioner (CVC). The widespread use of the RTI Act underscores its importance in ensuring government accountability and transparency.\\n\\n#### Legal and Constitutional Basis\\nThe legal and constitutional basis of the RTI Act is firmly established. The Supreme Court has recognized the right to information as a fundamental right flowing from Articles 19 and 21 of the Constitution, which guarantee the freedom of speech and expression and the right to life, respectively. This recognition underscores the importance of information access in a democratic society. The information obtained through RTI applications not only helps in making the government accountable but also serves the broader interests of society by exposing corruption, human rights violations, and other wrongdoings by the state.\\n\\n#### Recent Amendments and Concerns\\nRecent amendments to the RTI Act have raised significant concerns. The Central government now has the authority to decide the tenure, salary, allowances, and other terms of service of Information Commissioners, both at the Centre and the States. This centralization of power undermines the independence and authority of Information Commissions, which are crucial for maintaining the integrity of the RTI framework. These amendments violate the constitutional principles of federalism and significantly dilute the widely used framework for transparency in India. Critics, including MP Shashi Tharoor, have referred to these amendments as an \\"RTI elimination Bill\\" that removes the organization\'s independence.\\n\\n#### Way Forward\\nTo address the challenges posed by the recent amendments, it is essential to maintain the independence of regulatory bodies and uphold the separation of powers. Independent structures to regulate and monitor the government are vital for a democratic state committed to delivering justice and constitutional guarantees. Centralizing power can threaten freedom of expression and undermine democratic checks and balances. Therefore, it is crucial to ensure that the Information Commissions retain their independence and authority to effectively fulfill their role in promoting transparency and accountability.","voice_style":"professor","mode":"Library","speed":1.0}'
+2026-04-27 14:06:53 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['climate change mitigation', 'CRISPR gene editing', 'artificial intelligence drug discovery']
+2026-04-27 14:06:53 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-27 14:06:53 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'climate change mitigation' (retmax=10)
+2026-04-27 14:06:55 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 16084)
+2026-04-27 14:06:57 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 14:06:57 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-27 14:07:02 | INFO     | __main__:ask_question:215 - Question: Extract 4 brief key bullet points for the article titled 'The influence of GMO media strategies on public perceptions of CRISPR crop technologies in Southern Ontario.'. | Hybrid: False | Book: None
+2026-04-27 14:07:02 | INFO     | model_manager:generate:691 - ModelManager: Auto-classified as 'speed'
+2026-04-27 14:07:02 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-27 14:07:03 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (1208 chars)
+2026-04-27 14:07:03 | INFO     | llm_engine:generate_llm_only:156 - LLM: Pure generation via Groq
+2026-04-27 14:07:31 | INFO     | __main__:ask_question:215 - Question: List 3 related scientific topics to 'The influence of GMO media strategies on public perceptions of CRISPR crop technologies in Southern Ontario.'. Output ONLY comma separated list. | Hybrid: False | Book: None
+2026-04-27 14:07:31 | INFO     | model_manager:generate:691 - ModelManager: Auto-classified as 'speed'
+2026-04-27 14:07:31 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-27 14:07:31 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (186 chars)
+2026-04-27 14:07:31 | INFO     | llm_engine:generate_llm_only:156 - LLM: Pure generation via Groq
+2026-04-27 14:07:42 | INFO     | __main__:ask_question:215 - Question: The influence of GMO media strategies on public perceptions of CRISPR crop technologies in Southern Ontario. | Hybrid: True | Book: None
+2026-04-27 14:07:42 | INFO     | faiss_store:search:199 - FAISS Search: query='The influence of GMO media str...', search_k=25, ntotal=945
+2026-04-27 14:07:42 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 14
+2026-04-27 14:07:42 | INFO     | live_articles:search_articles:244 - Article Search: 'The influence of GMO media strategies on public perceptions of CRISPR crop technologies in Southern Ontario.' | Page: 1
+2026-04-27 14:07:42 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'The influence of GMO media strategies on public perceptions of CRISPR crop technologies in Southern Ontario.'
+2026-04-27 14:07:42 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'The influence of GMO media strategies on public perceptions of CRISPR crop technologies in Southern Ontario.'
+2026-04-27 14:07:42 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'The influence of GMO media strategies on public perceptions of CRISPR crop technologies in Southern Ontario.'
+2026-04-27 14:07:42 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'The influence of GMO media strategies on public perceptions of CRISPR crop technologies in Southern Ontario.' (retmax=10)
+2026-04-27 14:07:44 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 1 IDs (Total: 1)
+2026-04-27 14:07:45 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 1 articles.
+2026-04-27 14:07:45 | INFO     | live_articles:search_articles:289 - Source 0 returned 1 articles (Total in source: 1)
+2026-04-27 14:07:45 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 396918)
+2026-04-27 14:07:45 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-27 14:07:45 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-27 14:07:46 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (1669 chars)
+2026-04-27 14:07:46 | INFO     | llm_engine:generate_hybrid_answer:227 - LLM: Hybrid generation via Groq
+2026-04-27 14:07:51 | INFO     | __main__:text_to_speech:486 - TTS: Processing 1649 chars, style=professor, mode=Exam
+2026-04-27 14:07:51 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-04-27 14:07:51 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (1667 chars)
+2026-04-27 14:07:51 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (1649 → 1667 chars)
+2026-04-27 14:07:51 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 11 chunks...
+2026-04-27 14:08:20 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 433964 bytes (professor)
+2026-04-27 14:08:20 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 433964 bytes (professor)
+2026-04-27 14:08:26 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 526124 bytes (professor)
+2026-04-27 14:08:29 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 576044 bytes (professor)
+2026-04-27 14:08:36 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 280364 bytes (professor)
+2026-04-27 14:08:41 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 384044 bytes (professor)
+2026-04-27 14:08:51 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 322604 bytes (professor)
+2026-04-27 14:08:52 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 472364 bytes (professor)
+2026-04-27 14:08:58 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 361004 bytes (professor)
+2026-04-27 14:09:01 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 364844 bytes (professor)
+2026-04-27 14:09:08 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 422444 bytes (professor)
+2026-04-27 14:13:24 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-27 14:13:24 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (143 chars)
+2026-04-27 14:13:24 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-27 14:13:26 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-27 14:13:26 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (136 chars)
+2026-04-27 14:13:26 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-27 14:13:29 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-27 14:13:29 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (143 chars)
+2026-04-27 14:13:29 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-27 14:13:30 | INFO     | controller_prompt:classify:129 - Controller: Cache hit for 'cell pores...'
+2026-04-27 14:13:34 | INFO     | __main__:ask_question:215 - Question: cell pores
+ | Hybrid: True | Book: None
+2026-04-27 14:13:34 | INFO     | faiss_store:search:199 - FAISS Search: query='cell pores
+...', search_k=25, ntotal=945
+2026-04-27 14:13:34 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 3
+2026-04-27 14:13:34 | INFO     | live_articles:search_articles:244 - Article Search: 'cell pores
+' | Page: 1
+2026-04-27 14:13:34 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell pores
+'
+2026-04-27 14:13:34 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell pores
+'
+2026-04-27 14:13:34 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell pores
+'
+2026-04-27 14:13:34 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell pores
+' (retmax=10)
+2026-04-27 14:13:34 | ERROR    | live_articles:fetch_arxiv:238 - arXiv API error: Invalid non-printable ASCII character in URL, '\n' at position 61.
+2026-04-27 14:13:34 | ERROR    | live_articles:fetch_pubmed:187 - PubMed final error: InvalidURL: Invalid non-printable ASCII character in URL, '\n' at position 84.
+2026-04-27 14:13:34 | INFO     | live_articles:search_articles:289 - Source 0 returned 0 articles (Total in source: 0)
+2026-04-27 14:13:34 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-27 14:13:34 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-27 14:13:34 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-27 14:13:36 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (5573 chars)
+2026-04-27 14:13:36 | INFO     | llm_engine:generate_hybrid_answer:227 - LLM: Hybrid generation via Groq
+2026-04-27 14:13:52 | ERROR    | __main__:validation_exception_handler:87 - 422 Validation Error at /api/v1/tts: [{'type': 'string_too_long', 'loc': ('body', 'text'), 'msg': 'String should have at most 5000 characters', 'input': 'Definition / Introduction\n\nCell pores, also known as transmembrane channels or porins, are small openings or channels in the cell membrane that allow the passage of molecules, ions, or water across the cell membrane. They play a crucial role in maintaining cellular homeostasis, regulating the movement of substances in and out of the cell, and facilitating various cellular processes.\n\nCore Concept Explanation\n\nCell pores can be broadly classified into two categories:\n\n- Selective pores: These pores are highly specific and allow the passage of only certain molecules or ions, while restricting the movement of others. Examples include aquaporins, which facilitate water transport across the cell membrane.\n- Non-selective pores: These pores allow the passage of a wide range of molecules or ions, without any specificity. Examples include ion channels, which regulate the movement of ions across the cell membrane.\n\nMechanism / Process (step-wise)\n\nThe process of cell pore-mediated transport involves the following steps:\n\n1. Binding of molecules: Molecules or ions bind to the pore, either through electrostatic interactions or hydrophobic interactions.\n2. Conformational change: The pore undergoes a conformational change, allowing the bound molecule to pass through the pore.\n3. Transport across the membrane: The molecule or ion is transported across the cell membrane, either through the pore or through a nearby channel.\n4. Release of molecules: The molecule or ion is released on the other side of the membrane, either into the cytosol or into the extracellular space.\n\nKey Components / Factors\n\n- Pore structure: The structure of the pore, including its size, shape, and composition, determines its selectivity and transport properties.\n- Pore density: The density of pores in the cell membrane affects the rate of transport across the membrane.\n- Pore regulation: Pores can be regulated by various mechanisms, including phosphorylation, ubiquitination, and binding of regulatory proteins.\n\nApplications / Importance\n\n- Cellular homeostasis: Cell pores play a crucial role in maintaining cellular homeostasis by regulating the movement of substances in and out of the cell.\n- Disease mechanisms: Abnormalities in cell pore function have been implicated in various diseases, including cancer, diabetes, and neurodegenerative disorders.\n- Drug delivery: Cell pores can be targeted for drug delivery, allowing for the selective uptake of therapeutic molecules by cells.\n\nLimitations\n\n- Selectivity: Cell pores can be non-selective, allowing the passage of unwanted molecules or ions.\n- Regulation: Pores can be difficult to regulate, leading to uncontrolled transport across the membrane.\n- Toxicity: Abnormalities in pore function can lead to cellular toxicity and disease.\n\nConclusion / Summary\n\nCell pores are essential components of the cell membrane, regulating the movement of substances in and out of the cell. Understanding the structure, function, and regulation of cell pores is crucial for understanding various cellular processes and disease mechanisms.\n\nFlowchart / Diagram Representation (Textual)\n\n```\n                                      +---------------+\n                                        Cell Membrane  \n                                      +---------------+\n                                             \n                                             \n                                             v\n                                      +---------------+\n                                        Pore Structure  \n                                        (size, shape,    \n                                         composition)    \n                                      +---------------+\n                                             \n                                             \n                                             v\n                                      +---------------+\n                                        Pore Density    \n                                        (number of pores)\n                                      +---------------+\n                                             \n                                             \n                                             v\n                                      +---------------+\n                                        Pore Regulation  \n                                        (phosphorylation,  \n                                         ubiquitination,  \n                                         binding of regulatory\n                                         proteins)        \n                                      +---------------+\n                                             \n                                             \n                                             v\n                                      +---------------+\n                                        Transport Across  \n                                        the Membrane     \n                                      +---------------+\n                                             \n                                             \n                                             v\n                                      +---------------+\n                                        Release of Molecules\n                                        (into cytosol or  \n                                         extracellular space)\n                                      +---------------+\n```', 'ctx': {'max_length': 5000}}]
+2026-04-27 14:13:52 | ERROR    | __main__:validation_exception_handler:88 - Body: b'{"text":"Definition / Introduction\\n\\nCell pores, also known as transmembrane channels or porins, are small openings or channels in the cell membrane that allow the passage of molecules, ions, or water across the cell membrane. They play a crucial role in maintaining cellular homeostasis, regulating the movement of substances in and out of the cell, and facilitating various cellular processes.\\n\\nCore Concept Explanation\\n\\nCell pores can be broadly classified into two categories:\\n\\n- Selective pores: These pores are highly specific and allow the passage of only certain molecules or ions, while restricting the movement of others. Examples include aquaporins, which facilitate water transport across the cell membrane.\\n- Non-selective pores: These pores allow the passage of a wide range of molecules or ions, without any specificity. Examples include ion channels, which regulate the movement of ions across the cell membrane.\\n\\nMechanism / Process (step-wise)\\n\\nThe process of cell pore-mediated transport involves the following steps:\\n\\n1. Binding of molecules: Molecules or ions bind to the pore, either through electrostatic interactions or hydrophobic interactions.\\n2. Conformational change: The pore undergoes a conformational change, allowing the bound molecule to pass through the pore.\\n3. Transport across the membrane: The molecule or ion is transported across the cell membrane, either through the pore or through a nearby channel.\\n4. Release of molecules: The molecule or ion is released on the other side of the membrane, either into the cytosol or into the extracellular space.\\n\\nKey Components / Factors\\n\\n- Pore structure: The structure of the pore, including its size, shape, and composition, determines its selectivity and transport properties.\\n- Pore density: The density of pores in the cell membrane affects the rate of transport across the membrane.\\n- Pore regulation: Pores can be regulated by various mechanisms, including phosphorylation, ubiquitination, and binding of regulatory proteins.\\n\\nApplications / Importance\\n\\n- Cellular homeostasis: Cell pores play a crucial role in maintaining cellular homeostasis by regulating the movement of substances in and out of the cell.\\n- Disease mechanisms: Abnormalities in cell pore function have been implicated in various diseases, including cancer, diabetes, and neurodegenerative disorders.\\n- Drug delivery: Cell pores can be targeted for drug delivery, allowing for the selective uptake of therapeutic molecules by cells.\\n\\nLimitations\\n\\n- Selectivity: Cell pores can be non-selective, allowing the passage of unwanted molecules or ions.\\n- Regulation: Pores can be difficult to regulate, leading to uncontrolled transport across the membrane.\\n- Toxicity: Abnormalities in pore function can lead to cellular toxicity and disease.\\n\\nConclusion / Summary\\n\\nCell pores are essential components of the cell membrane, regulating the movement of substances in and out of the cell. Understanding the structure, function, and regulation of cell pores is crucial for understanding various cellular processes and disease mechanisms.\\n\\nFlowchart / Diagram Representation (Textual)\\n\\n```\\n                                      +---------------+\\n                                        Cell Membrane  \\n                                      +---------------+\\n                                             \\n                                             \\n                                             v\\n                                      +---------------+\\n                                        Pore Structure  \\n                                        (size, shape,    \\n                                         composition)    \\n                                      +---------------+\\n                                             \\n                                             \\n                                             v\\n                                      +---------------+\\n                                        Pore Density    \\n                                        (number of pores)\\n                                      +---------------+\\n                                             \\n                                             \\n                                             v\\n                                      +---------------+\\n                                        Pore Regulation  \\n                                        (phosphorylation,  \\n                                         ubiquitination,  \\n                                         binding of regulatory\\n                                         proteins)        \\n                                      +---------------+\\n                                             \\n                                             \\n                                             v\\n                                      +---------------+\\n                                        Transport Across  \\n                                        the Membrane     \\n                                      +---------------+\\n                                             \\n                                             \\n                                             v\\n                                      +---------------+\\n                                        Release of Molecules\\n                                        (into cytosol or  \\n                                         extracellular space)\\n                                      +---------------+\\n```","voice_style":"professor","mode":"Expert","speed":1.0}'
+2026-04-27 14:15:28 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['CRISPR gene editing', 'dark matter detection', 'nanomaterials']
+2026-04-27 14:15:28 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-27 14:15:28 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'dark matter detection' (retmax=10)
+2026-04-27 14:15:28 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'nanomaterials' (retmax=10)
+2026-04-27 14:15:30 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 435158)
+2026-04-27 14:15:30 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 1047)
+2026-04-27 14:15:30 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-27 14:15:32 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 14:15:33 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 14:15:33 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-27 14:15:39 | INFO     | __main__:ask_question:215 - Question: Extract 4 brief key bullet points for the article titled 'Proteomic mapping of Rosa damascena nanovesicles reveals plastid mitochondrial metabolic convergence and antimicrobial peptides.'. | Hybrid: False | Book: None
+2026-04-27 14:15:39 | INFO     | model_manager:generate:691 - ModelManager: Auto-classified as 'speed'
+2026-04-27 14:15:39 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-04-27 14:15:41 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (1545 chars)
+2026-04-27 14:15:41 | INFO     | llm_engine:generate_llm_only:156 - LLM: Pure generation via Groq
+2026-04-27 14:15:58 | INFO     | controller_prompt:classify:129 - Controller: Cache hit for 'cell cycle...'
+2026-04-27 14:16:01 | INFO     | __main__:ask_question:215 - Question: cell cycle | Hybrid: False | Book: None
+2026-04-27 14:16:01 | INFO     | model_manager:generate:691 - ModelManager: Auto-classified as 'speed'
+2026-04-27 14:16:01 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-27 14:16:04 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (4924 chars)
+2026-04-27 14:16:04 | INFO     | llm_engine:generate_llm_only:156 - LLM: Pure generation via Groq
+2026-04-27 14:18:41 | INFO     | __main__:ask_question:215 - Question: stratergy for cell biology | Hybrid: True | Book: 890155e0-8823-4ff4-8833-5551f38c900c
+2026-04-27 14:18:41 | INFO     | faiss_store:search:199 - FAISS Search: query='stratergy for cell biology...', search_k=945, ntotal=945
+2026-04-27 14:18:41 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=890155e0-8823-4ff4-8833-5551f38c900c: 12
+2026-04-27 14:18:41 | INFO     | model_manager:generate:715 - ModelManager: Trying Qwen (OpenRouter) (Tier 3) [key …26dc10]
+2026-04-27 14:18:48 | INFO     | model_manager:generate:742 - ModelManager: ✅ Qwen (OpenRouter) succeeded (1210 chars)
+2026-04-27 14:18:48 | INFO     | llm_engine:generate_book_answer:253 - LLM: Book generation via Qwen (OpenRouter)
+2026-04-27 14:18:52 | INFO     | __main__:text_to_speech:486 - TTS: Processing 1210 chars, style=professor, mode=Library
+2026-04-27 14:18:52 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-27 14:18:53 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (1219 chars)
+2026-04-27 14:18:53 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (1202 → 1219 chars)
+2026-04-27 14:18:53 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 8 chunks...
+2026-04-27 14:19:03 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 169004 bytes (professor)
+2026-04-27 14:19:22 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 514604 bytes (professor)
+2026-04-27 14:19:22 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 495404 bytes (professor)
+2026-04-27 14:19:26 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 556844 bytes (professor)
+2026-04-27 14:19:39 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 529964 bytes (professor)
+2026-04-27 14:19:39 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 299564 bytes (professor)
+2026-04-27 14:19:41 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 361004 bytes (professor)
+2026-04-27 14:19:47 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 457004 bytes (professor)
+2026-04-27 14:20:23 | INFO     | model_manager:generate:715 - ModelManager: Trying Qwen (OpenRouter) (Tier 3) [key …374ee2]
+2026-04-27 14:20:58 | INFO     | model_manager:generate:742 - ModelManager: ✅ Qwen (OpenRouter) succeeded (4525 chars)
+2026-04-27 14:20:58 | INFO     | llm_engine:generate_questions:413 - LLM: Question generation via Qwen (OpenRouter)
+2026-04-27 14:22:16 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-27 14:22:17 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (1162 chars)
+2026-04-27 14:22:17 | INFO     | llm_engine:evaluate_theory_answer_detailed:507 - LLM: Detailed evaluation via Groq
+2026-04-27 14:23:24 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-27 14:23:25 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (137 chars)
+2026-04-27 14:23:25 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-27 14:23:27 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-04-27 14:23:27 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (147 chars)
+2026-04-27 14:23:27 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-27 14:23:30 | INFO     | model_manager:generate:715 - ModelManager: Trying Qwen (OpenRouter) (Tier 3) [key …9055c5]
+2026-04-27 14:24:15 | INFO     | model_manager:generate:742 - ModelManager: ✅ Qwen (OpenRouter) succeeded (3311 chars)
+2026-04-27 14:24:15 | INFO     | llm_engine:generate_questions:413 - LLM: Question generation via Qwen (OpenRouter)
+2026-04-27 14:25:18 | INFO     | model_manager:generate:715 - ModelManager: Trying Qwen (OpenRouter) (Tier 3) [key …baa073]
+2026-04-27 14:25:55 | INFO     | model_manager:generate:742 - ModelManager: ✅ Qwen (OpenRouter) succeeded (3695 chars)
+2026-04-27 14:25:55 | INFO     | llm_engine:generate_questions:413 - LLM: Question generation via Qwen (OpenRouter)
+2026-04-27 14:26:07 | INFO     | __main__:text_to_speech:486 - TTS: Processing 19 chars, style=professor, mode=Quiz
+2026-04-27 14:26:07 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 1 chunks...
+2026-04-27 14:26:09 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 84524 bytes (professor)
+2026-04-27 14:29:38 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['CRISPR gene editing', 'graphene applications', 'neuroscience consciousness']
+2026-04-27 14:29:38 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-27 14:29:38 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'graphene applications' (retmax=10)
+2026-04-27 14:29:39 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 35152)
+2026-04-27 14:29:41 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 14:29:41 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-27 14:29:56 | INFO     | __main__:ask_question:215 - Question: what is this  | Hybrid: True | Book: 41e75be9-9a8f-400a-8209-b77b7a77b99c
+2026-04-27 14:29:56 | INFO     | faiss_store:search:199 - FAISS Search: query='what is this ...', search_k=945, ntotal=945
+2026-04-27 14:29:56 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=41e75be9-9a8f-400a-8209-b77b7a77b99c: 0
+2026-04-27 14:29:57 | INFO     | __main__:text_to_speech:486 - TTS: Processing 43 chars, style=storyteller, mode=Library
+2026-04-27 14:29:57 | INFO     | tts_engine:generate_stream:428 - TTS: Cache hit (stream) for 'storyteller'
+2026-04-27 14:32:34 | INFO     | __main__:ask_question:215 - Question: about this pdf | Hybrid: True | Book: bb3460d7-064b-40b1-81ef-584cc77e5b59
+2026-04-27 14:32:34 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Reloading index from disk (mtime changed)...
+2026-04-27 14:32:34 | INFO     | faiss_store:load:87 - FAISS: Loaded 1012 vectors of type IndexIDMap2.
+2026-04-27 14:32:34 | INFO     | faiss_store:search:199 - FAISS Search: query='about this pdf...', search_k=1012, ntotal=1012
+2026-04-27 14:32:34 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=bb3460d7-064b-40b1-81ef-584cc77e5b59: 67
+2026-04-27 14:32:34 | INFO     | model_manager:generate:715 - ModelManager: Trying Qwen (OpenRouter) (Tier 3) [key …020ee9]
+2026-04-27 14:32:42 | ERROR    | model_manager:generate:757 - ModelManager: ❌ Qwen (OpenRouter) error: 'choices'
+2026-04-27 14:32:42 | INFO     | model_manager:generate:715 - ModelManager: Trying Gemini Pro (Tier 4) [key …4NUxag]
+2026-04-27 14:32:42 | WARNING  | model_manager:generate:751 - ModelManager: ⚠️ Gemini Pro: Rate limited (429)
+2026-04-27 14:32:42 | INFO     | model_manager:generate:715 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-27 14:32:57 | INFO     | model_manager:generate:742 - ModelManager: ✅ Gemini Flash succeeded (3452 chars)
+2026-04-27 14:32:57 | INFO     | llm_engine:generate_book_answer:253 - LLM: Book generation via Gemini Flash
+2026-04-27 14:33:11 | INFO     | __main__:text_to_speech:486 - TTS: Processing 3388 chars, style=storyteller, mode=Library
+2026-04-27 14:33:11 | INFO     | model_manager:generate:715 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-27 14:33:12 | INFO     | model_manager:generate:742 - ModelManager: ✅ Groq succeeded (3404 chars)
+2026-04-27 14:33:12 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (3331 → 3404 chars)
+2026-04-27 14:33:12 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 25 chunks...
+2026-04-27 14:33:32 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 364844 bytes (storyteller)
+2026-04-27 14:33:40 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 503084 bytes (storyteller)
+2026-04-27 14:33:40 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 514604 bytes (storyteller)
+2026-04-27 14:33:43 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 579884 bytes (storyteller)
+2026-04-27 14:33:49 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 357164 bytes (storyteller)
+2026-04-27 14:33:56 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 353324 bytes (storyteller)
+2026-04-27 14:33:59 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 418604 bytes (storyteller)
+2026-04-27 14:34:00 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 230444 bytes (storyteller)
+2026-04-27 14:34:10 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 576044 bytes (storyteller)
+2026-04-27 14:34:14 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 318764 bytes (storyteller)
+2026-04-27 14:34:16 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 433964 bytes (storyteller)
+2026-04-27 14:34:18 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 380204 bytes (storyteller)
+2026-04-27 14:34:28 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 387884 bytes (storyteller)
+2026-04-27 14:34:29 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 257324 bytes (storyteller)
+2026-04-27 14:34:31 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 372524 bytes (storyteller)
+2026-04-27 14:34:42 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 311084 bytes (storyteller)
+2026-04-27 14:34:43 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 572204 bytes (storyteller)
+2026-04-27 14:34:45 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 311084 bytes (storyteller)
+2026-04-27 14:34:50 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 491564 bytes (storyteller)
+2026-04-27 14:34:55 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 276524 bytes (storyteller)
+2026-04-27 14:34:56 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 261164 bytes (storyteller)
+2026-04-27 14:34:59 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 353324 bytes (storyteller)
+2026-04-27 14:35:02 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 218924 bytes (storyteller)
+2026-04-27 14:35:03 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 376364 bytes (storyteller)
+2026-04-27 14:35:05 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 445484 bytes (storyteller)
+2026-04-27 14:52:50 | INFO     | model_manager:_setup_providers:445 - ModelManager: Configured providers: Groq (10 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (15 keys), OpenRouter Hub (15 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-27 14:52:52 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-27 14:52:52 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-27 14:52:52 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-27 14:52:52 | INFO     | tts_engine:initialize:333 - TTS Engine: Initializing...
+2026-04-27 14:52:58 | INFO     | tts_engine:_init_kyutai:176 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-27 14:53:04 | INFO     | tts_engine:_init_kyutai:178 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-27 14:53:04 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'professor' (alba)
+2026-04-27 14:53:04 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'energetic' (cosette)
+2026-04-27 14:53:04 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'storyteller' (fantine)
+2026-04-27 14:53:04 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'formal_male' (marius)
+2026-04-27 14:53:04 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'casual_female' (eponine)
+2026-04-27 14:53:04 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'deep_male' (javert)
+2026-04-27 14:53:05 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'warm_female' (azelma)
+2026-04-27 14:53:05 | INFO     | tts_engine:initialize:337 - TTS Engine: Kyutai Pocket-TTS ready (Tier 1)
+2026-04-27 14:53:05 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-27 14:54:22 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: False | Book: None
+2026-04-27 14:54:22 | INFO     | model_manager:generate:701 - ModelManager: Auto-classified as 'speed'
+2026-04-27 14:54:22 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-27 14:54:25 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (5435 chars)
+2026-04-27 14:54:25 | INFO     | llm_engine:generate_llm_only:156 - LLM: Pure generation via Groq
+2026-04-27 14:55:59 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: False | Book: None
+2026-04-27 14:56:41 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: False | Book: None
+2026-04-27 14:57:09 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: True | Book: None
+2026-04-27 14:57:09 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-04-27 14:57:09 | INFO     | faiss_store:load:87 - FAISS: Loaded 1012 vectors of type IndexIDMap2.
+2026-04-27 14:57:09 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-27 14:57:14 | INFO     | faiss_store:search:199 - FAISS Search: query='cell...', search_k=25, ntotal=1012
+2026-04-27 14:57:14 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 3
+2026-04-27 14:57:14 | INFO     | live_articles:search_articles:244 - Article Search: 'cell' | Page: 1
+2026-04-27 14:57:14 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell'
+2026-04-27 14:57:14 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell'
+2026-04-27 14:57:14 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell'
+2026-04-27 14:57:14 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell' (retmax=10)
+2026-04-27 14:57:15 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 8955996)
+2026-04-27 14:57:17 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 14:57:17 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 8955996)
+2026-04-27 14:57:17 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52611)
+2026-04-27 14:57:17 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-27 14:57:17 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-27 14:57:18 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (3588 chars)
+2026-04-27 14:57:18 | INFO     | llm_engine:generate_hybrid_answer:227 - LLM: Hybrid generation via Groq
+2026-04-27 14:58:22 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: False | Book: None
+2026-04-27 14:58:22 | INFO     | model_manager:generate:701 - ModelManager: Auto-classified as 'speed'
+2026-04-27 14:58:22 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-27 14:58:23 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (1395 chars)
+2026-04-27 14:58:23 | INFO     | llm_engine:generate_llm_only:156 - LLM: Pure generation via Groq
+2026-04-27 14:58:34 | INFO     | __main__:text_to_speech:489 - TTS: Processing 1395 chars, style=storyteller, mode=Exam
+2026-04-27 14:58:34 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-27 14:58:34 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (1304 chars)
+2026-04-27 14:58:34 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (1395 → 1304 chars)
+2026-04-27 14:58:34 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 9 chunks...
+2026-04-27 14:58:51 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 391724 bytes (storyteller)
+2026-04-27 14:58:52 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 410924 bytes (storyteller)
+2026-04-27 14:58:53 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 445484 bytes (storyteller)
+2026-04-27 14:58:55 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 483884 bytes (storyteller)
+2026-04-27 14:59:11 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 433964 bytes (storyteller)
+2026-04-27 14:59:11 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 391724 bytes (storyteller)
+2026-04-27 14:59:12 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 483884 bytes (storyteller)
+2026-04-27 14:59:15 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 487724 bytes (storyteller)
+2026-04-27 14:59:17 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 291884 bytes (storyteller)
+2026-04-27 15:01:07 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: False | Book: None
+2026-04-27 15:01:54 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: False | Book: None
+2026-04-27 15:01:59 | INFO     | __main__:text_to_speech:489 - TTS: Processing 1395 chars, style=storyteller, mode=Expert
+2026-04-27 15:01:59 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-04-27 15:02:00 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (1379 chars)
+2026-04-27 15:02:00 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (1395 → 1379 chars)
+2026-04-27 15:02:00 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 9 chunks...
+2026-04-27 15:02:17 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 384044 bytes (storyteller)
+2026-04-27 15:02:17 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 380204 bytes (storyteller)
+2026-04-27 15:02:18 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 410924 bytes (storyteller)
+2026-04-27 15:02:21 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 468524 bytes (storyteller)
+2026-04-27 15:02:38 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 441644 bytes (storyteller)
+2026-04-27 15:02:40 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 506924 bytes (storyteller)
+2026-04-27 15:02:41 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 480044 bytes (storyteller)
+2026-04-27 15:02:43 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 629804 bytes (storyteller)
+2026-04-27 15:02:45 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 322604 bytes (storyteller)
+2026-04-27 15:04:07 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: True | Book: None
+2026-04-27 15:04:07 | INFO     | faiss_store:search:199 - FAISS Search: query='cell...', search_k=25, ntotal=1012
+2026-04-27 15:04:07 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 6
+2026-04-27 15:04:07 | INFO     | live_articles:search_articles:244 - Article Search: 'cell' | Page: 1
+2026-04-27 15:04:07 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell'
+2026-04-27 15:04:07 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell'
+2026-04-27 15:04:07 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell'
+2026-04-27 15:04:07 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 8955996)
+2026-04-27 15:04:07 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52611)
+2026-04-27 15:04:07 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-27 15:04:07 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …46sRvF]
+2026-04-27 15:04:09 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (5983 chars)
+2026-04-27 15:04:09 | INFO     | llm_engine:generate_hybrid_answer:227 - LLM: Hybrid generation via Groq
+2026-04-27 15:04:37 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: True | Book: None
+2026-04-27 15:05:52 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: True | Book: None
+2026-04-27 15:10:53 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: False | Book: None
+2026-04-27 15:10:53 | INFO     | model_manager:generate:701 - ModelManager: Auto-classified as 'speed'
+2026-04-27 15:10:53 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …gziTsp]
+2026-04-27 15:10:54 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (1832 chars)
+2026-04-27 15:10:54 | INFO     | llm_engine:generate_llm_only:156 - LLM: Pure generation via Groq
+2026-04-27 15:11:39 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: False | Book: None
+2026-04-27 15:15:13 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …zJwWLp]
+2026-04-27 15:15:14 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (166 chars)
+2026-04-27 15:15:15 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['protein folding', 'CRISPR gene editing', 'graphene applications']
+2026-04-27 15:15:15 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-27 15:15:15 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'protein folding' (retmax=10)
+2026-04-27 15:15:15 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'CRISPR gene editing' (retmax=10)
+2026-04-27 15:15:15 | INFO     | live_articles:search_articles:244 - Article Search: 'SciNTicin' | Page: 1
+2026-04-27 15:15:15 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'SciNTicin'
+2026-04-27 15:15:15 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'SciNTicin'
+2026-04-27 15:15:15 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'SciNTicin'
+2026-04-27 15:15:15 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'SciNTicin' (retmax=10)
+2026-04-27 15:15:16 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 0 IDs (Total: 0)
+2026-04-27 15:15:16 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 98879)
+2026-04-27 15:15:16 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 24216)
+2026-04-27 15:15:17 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-27 15:15:18 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 15:15:20 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 15:15:28 | INFO     | live_articles:search_articles:244 - Article Search: 'scnt' | Page: 1
+2026-04-27 15:15:28 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'scnt'
+2026-04-27 15:15:28 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'scnt'
+2026-04-27 15:15:28 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'scnt'
+2026-04-27 15:15:28 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'scnt' (retmax=10)
+2026-04-27 15:15:30 | ERROR    | live_articles:fetch_arxiv:238 - arXiv API error: 
+2026-04-27 15:15:30 | ERROR    | live_articles:fetch_arxiv:238 - arXiv API error: 
+2026-04-27 15:15:30 | INFO     | live_articles:search_articles:289 - Source 0 returned 0 articles (Total in source: 0)
+2026-04-27 15:15:30 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-27 15:15:30 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-27 15:15:30 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 35 articles.
+2026-04-27 15:15:30 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 1869)
+2026-04-27 15:15:31 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 15:15:32 | INFO     | live_articles:search_articles:244 - Article Search: 'scnt' | Page: 1
+2026-04-27 15:15:32 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'scnt'
+2026-04-27 15:15:32 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'scnt'
+2026-04-27 15:15:32 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'scnt'
+2026-04-27 15:15:43 | ERROR    | live_articles:fetch_arxiv:238 - arXiv API error: 
+2026-04-27 15:15:43 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 1869)
+2026-04-27 15:15:43 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-27 15:15:43 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-27 15:15:47 | ERROR    | live_articles:fetch_arxiv:238 - arXiv API error: 
+2026-04-27 15:15:47 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 1869)
+2026-04-27 15:15:47 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-27 15:15:47 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-27 15:15:52 | INFO     | live_articles:search_articles:244 - Article Search: 'scnt' | Page: 2
+2026-04-27 15:15:52 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'scnt'
+2026-04-27 15:15:52 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'scnt'
+2026-04-27 15:15:52 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'scnt' (retmax=10)
+2026-04-27 15:15:53 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 1869)
+2026-04-27 15:15:55 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 15:15:55 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 1869)
+2026-04-27 15:15:55 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-27 15:16:06 | INFO     | __main__:ask_question:217 - Question: Extract 4 brief key bullet points for the article titled 'Accelerated mutator phenotype in a clinical Aspergillus fumigatus isolate contributes to adaptive evolution.'. | Hybrid: False | Book: None
+2026-04-27 15:16:06 | INFO     | model_manager:generate:701 - ModelManager: Auto-classified as 'speed'
+2026-04-27 15:16:06 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …YsNFU0]
+2026-04-27 15:16:07 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (672 chars)
+2026-04-27 15:16:07 | INFO     | llm_engine:generate_llm_only:156 - LLM: Pure generation via Groq
+2026-04-27 15:16:13 | INFO     | live_articles:search_articles:244 - Article Search: 'SciNTicin' | Page: 1
+2026-04-27 15:16:13 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'SciNTicin'
+2026-04-27 15:16:13 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'SciNTicin'
+2026-04-27 15:16:13 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'SciNTicin'
+2026-04-27 15:16:13 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'SciNTicin' (retmax=10)
+2026-04-27 15:16:14 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 0 IDs (Total: 0)
+2026-04-27 15:16:14 | INFO     | live_articles:search_articles:289 - Source 0 returned 0 articles (Total in source: 0)
+2026-04-27 15:16:14 | INFO     | live_articles:search_articles:289 - Source 1 returned 0 articles (Total in source: 0)
+2026-04-27 15:16:14 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-27 15:16:16 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: False | Book: None
+2026-04-27 15:16:16 | INFO     | model_manager:generate:701 - ModelManager: Auto-classified as 'speed'
+2026-04-27 15:16:16 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …l1coCr]
+2026-04-27 15:16:18 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (4428 chars)
+2026-04-27 15:16:18 | INFO     | llm_engine:generate_llm_only:156 - LLM: Pure generation via Groq
+2026-04-27 15:16:36 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-27 15:16:36 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (146 chars)
+2026-04-27 15:16:36 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-27 15:16:43 | INFO     | __main__:ask_question:217 - Question: cell membrane | Hybrid: False | Book: None
+2026-04-27 15:16:43 | INFO     | model_manager:generate:701 - ModelManager: Auto-classified as 'speed'
+2026-04-27 15:16:43 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-27 15:16:45 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2578 chars)
+2026-04-27 15:16:45 | INFO     | llm_engine:generate_llm_only:156 - LLM: Pure generation via Groq
+2026-04-27 15:16:54 | INFO     | __main__:text_to_speech:489 - TTS: Processing 2578 chars, style=storyteller, mode=Concept
+2026-04-27 15:16:54 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-27 15:16:55 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (1794 chars)
+2026-04-27 15:16:55 | INFO     | tts_text_processor:optimize_for_speech:270 - TTS: Text optimized via Groq (2578 → 1794 chars)
+2026-04-27 15:16:55 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 12 chunks...
+2026-04-27 15:17:08 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 238124 bytes (storyteller)
+2026-04-27 15:17:17 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 437804 bytes (storyteller)
+2026-04-27 15:17:18 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 464684 bytes (storyteller)
+2026-04-27 15:17:19 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 238124 bytes (storyteller)
+2026-04-27 15:17:20 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 487724 bytes (storyteller)
+2026-04-27 15:17:34 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 345644 bytes (storyteller)
+2026-04-27 15:17:38 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 476204 bytes (storyteller)
+2026-04-27 15:17:40 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 449324 bytes (storyteller)
+2026-04-27 15:17:41 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 514604 bytes (storyteller)
+2026-04-27 15:17:50 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 334124 bytes (storyteller)
+2026-04-27 15:17:52 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 487724 bytes (storyteller)
+2026-04-27 15:17:52 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 380204 bytes (storyteller)
+2026-04-27 15:18:41 | INFO     | __main__:ask_question:217 - Question: cell membrane | Hybrid: False | Book: None
+2026-04-27 15:18:41 | ERROR    | __main__:validation_exception_handler:87 - 422 Validation Error at /api/v1/route: [{'type': 'string_too_short', 'loc': ('body', 'query'), 'msg': 'String should have at least 1 character', 'input': '', 'ctx': {'min_length': 1}}]
+2026-04-27 15:18:41 | ERROR    | __main__:validation_exception_handler:88 - Body: b'{"query":""}'
+2026-04-27 15:19:44 | INFO     | faiss_store:save:74 - FAISS: Saved 945 vectors.
+2026-04-27 15:19:44 | INFO     | faiss_store:remove_document:174 - FAISS: Removed 67 chunks for book_id=bb3460d7-064b-40b1-81ef-584cc77e5b59 (Fast Rebuild)
+2026-04-27 15:19:56 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: True | Book: None
+2026-04-27 15:19:56 | INFO     | faiss_store:search:199 - FAISS Search: query='cell...', search_k=25, ntotal=945
+2026-04-27 15:19:56 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 0
+2026-04-27 15:19:56 | INFO     | live_articles:search_articles:244 - Article Search: 'cell' | Page: 1
+2026-04-27 15:19:56 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell'
+2026-04-27 15:19:56 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell'
+2026-04-27 15:19:56 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell'
+2026-04-27 15:19:57 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 8955996)
+2026-04-27 15:19:57 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52611)
+2026-04-27 15:19:57 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-27 15:19:57 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-27 15:19:58 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (4388 chars)
+2026-04-27 15:19:58 | INFO     | llm_engine:generate_hybrid_answer:227 - LLM: Hybrid generation via Groq
+2026-04-27 15:24:48 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: True | Book: None
+2026-04-27 15:36:20 | INFO     | model_manager:_setup_providers:445 - ModelManager: Configured providers: Groq (10 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (15 keys), OpenRouter Hub (15 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-27 15:36:22 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-27 15:36:22 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-27 15:36:22 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-27 15:36:22 | INFO     | tts_engine:initialize:333 - TTS Engine: Initializing...
+2026-04-27 15:36:24 | INFO     | tts_engine:_init_kyutai:176 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-27 15:36:29 | INFO     | tts_engine:_init_kyutai:178 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-27 15:36:29 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'professor' (alba)
+2026-04-27 15:36:29 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'energetic' (cosette)
+2026-04-27 15:36:29 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'storyteller' (fantine)
+2026-04-27 15:36:29 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'formal_male' (marius)
+2026-04-27 15:36:29 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'casual_female' (eponine)
+2026-04-27 15:36:29 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'deep_male' (javert)
+2026-04-27 15:36:29 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'warm_female' (azelma)
+2026-04-27 15:36:29 | INFO     | tts_engine:initialize:337 - TTS Engine: Kyutai Pocket-TTS ready (Tier 1)
+2026-04-27 15:36:29 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-27 15:38:01 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: False | Book: None
+2026-04-27 15:38:01 | INFO     | model_manager:generate:701 - ModelManager: Auto-classified as 'speed'
+2026-04-27 15:38:01 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-27 15:38:03 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (1100 chars)
+2026-04-27 15:38:03 | INFO     | llm_engine:generate_llm_only:156 - LLM: Pure generation via Groq
+2026-04-27 15:38:11 | INFO     | __main__:text_to_speech:489 - TTS: Processing 1100 chars, style=storyteller, mode=Exam
+2026-04-27 15:38:11 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-27 15:38:12 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (1371 chars)
+2026-04-27 15:38:12 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (1102 → 1371 chars)
+2026-04-27 15:38:12 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 9 chunks...
+2026-04-27 15:38:29 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 257324 bytes (storyteller)
+2026-04-27 15:38:43 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 553004 bytes (storyteller)
+2026-04-27 15:38:43 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 549164 bytes (storyteller)
+2026-04-27 15:38:43 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 564524 bytes (storyteller)
+2026-04-27 15:38:53 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 503084 bytes (storyteller)
+2026-04-27 15:38:58 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 318764 bytes (storyteller)
+2026-04-27 15:39:00 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 395564 bytes (storyteller)
+2026-04-27 15:39:02 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 295724 bytes (storyteller)
+2026-04-27 15:39:03 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 529964 bytes (storyteller)
+2026-04-27 15:40:22 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: False | Book: None
+2026-04-27 15:40:22 | INFO     | model_manager:generate:701 - ModelManager: Auto-classified as 'speed'
+2026-04-27 15:40:22 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-27 15:40:24 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (3941 chars)
+2026-04-27 15:40:24 | INFO     | llm_engine:generate_llm_only:156 - LLM: Pure generation via Groq
+2026-04-27 15:40:38 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3937 chars, style=storyteller, mode=Expert
+2026-04-27 15:40:38 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-27 15:40:39 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (3779 chars)
+2026-04-27 15:40:39 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3891 → 3779 chars)
+2026-04-27 15:40:39 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 26 chunks...
+2026-04-27 15:40:54 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 261164 bytes (storyteller)
+2026-04-27 15:40:56 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 299564 bytes (storyteller)
+2026-04-27 15:40:56 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 303404 bytes (storyteller)
+2026-04-27 15:41:08 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 518444 bytes (storyteller)
+2026-04-27 15:41:13 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 376364 bytes (storyteller)
+2026-04-27 15:41:19 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 468524 bytes (storyteller)
+2026-04-27 15:41:23 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 529964 bytes (storyteller)
+2026-04-27 15:41:29 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 361004 bytes (storyteller)
+2026-04-27 15:41:32 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 284204 bytes (storyteller)
+2026-04-27 15:41:33 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 549164 bytes (storyteller)
+2026-04-27 15:41:44 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 453164 bytes (storyteller)
+2026-04-27 15:41:45 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 268844 bytes (storyteller)
+2026-04-27 15:41:48 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 307244 bytes (storyteller)
+2026-04-27 15:41:48 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 384044 bytes (storyteller)
+2026-04-27 15:42:00 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 326444 bytes (storyteller)
+2026-04-27 15:42:02 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 291884 bytes (storyteller)
+2026-04-27 15:42:03 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 357164 bytes (storyteller)
+2026-04-27 15:42:11 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 460844 bytes (storyteller)
+2026-04-27 15:42:25 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 433964 bytes (storyteller)
+2026-04-27 15:42:26 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 422444 bytes (storyteller)
+2026-04-27 15:42:26 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 495404 bytes (storyteller)
+2026-04-27 15:42:32 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 399404 bytes (storyteller)
+2026-04-27 15:42:41 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 284204 bytes (storyteller)
+2026-04-27 15:42:43 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 314924 bytes (storyteller)
+2026-04-27 15:42:45 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 437804 bytes (storyteller)
+2026-04-27 15:42:47 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 480044 bytes (storyteller)
+2026-04-27 15:45:36 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['CRISPR gene editing', 'neuroscience consciousness', 'graphene applications']
+2026-04-27 15:45:37 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-27 15:45:37 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'neuroscience consciousness' (retmax=10)
+2026-04-27 15:45:37 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'graphene applications' (retmax=10)
+2026-04-27 15:45:38 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 6725)
+2026-04-27 15:45:38 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 35152)
+2026-04-27 15:45:39 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 15:45:39 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 15:45:39 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-27 15:46:00 | INFO     | __main__:ask_question:217 - Question: Extract 4 brief key bullet points for the article titled 'The influence of GMO media strategies on public perceptions of CRISPR crop technologies in Southern Ontario.'. | Hybrid: False | Book: None
+2026-04-27 15:46:00 | INFO     | model_manager:generate:701 - ModelManager: Auto-classified as 'speed'
+2026-04-27 15:46:00 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-04-27 15:46:01 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (1204 chars)
+2026-04-27 15:46:01 | INFO     | llm_engine:generate_llm_only:156 - LLM: Pure generation via Groq
+2026-04-27 15:46:31 | INFO     | __main__:ask_question:217 - Question: List 3 related scientific topics to 'The influence of GMO media strategies on public perceptions of CRISPR crop technologies in Southern Ontario.'. Output ONLY comma separated list. | Hybrid: False | Book: None
+2026-04-27 15:46:31 | INFO     | model_manager:generate:701 - ModelManager: Auto-classified as 'speed'
+2026-04-27 15:46:31 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …46sRvF]
+2026-04-27 15:46:32 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (115 chars)
+2026-04-27 15:46:32 | INFO     | llm_engine:generate_llm_only:156 - LLM: Pure generation via Groq
+2026-04-27 15:46:46 | INFO     | __main__:ask_question:217 - Question: The influence of GMO media strategies on public perceptions of CRISPR crop technologies in Southern Ontario. | Hybrid: True | Book: None
+2026-04-27 15:46:46 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-04-27 15:46:46 | INFO     | faiss_store:load:87 - FAISS: Loaded 945 vectors of type IndexIDMap2.
+2026-04-27 15:46:46 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-27 15:46:50 | INFO     | faiss_store:search:199 - FAISS Search: query='The influence of GMO media str...', search_k=25, ntotal=945
+2026-04-27 15:46:50 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 0
+2026-04-27 15:46:50 | INFO     | live_articles:search_articles:244 - Article Search: 'The influence of GMO media strategies on public perceptions of CRISPR crop technologies in Southern Ontario.' | Page: 1
+2026-04-27 15:46:50 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'The influence of GMO media strategies on public perceptions of CRISPR crop technologies in Southern Ontario.'
+2026-04-27 15:46:50 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'The influence of GMO media strategies on public perceptions of CRISPR crop technologies in Southern Ontario.'
+2026-04-27 15:46:50 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'The influence of GMO media strategies on public perceptions of CRISPR crop technologies in Southern Ontario.'
+2026-04-27 15:46:50 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'The influence of GMO media strategies on public perceptions of CRISPR crop technologies in Southern Ontario.' (retmax=10)
+2026-04-27 15:46:52 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 1 IDs (Total: 1)
+2026-04-27 15:46:52 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 1 articles.
+2026-04-27 15:46:52 | INFO     | live_articles:search_articles:289 - Source 0 returned 1 articles (Total in source: 1)
+2026-04-27 15:46:52 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 396918)
+2026-04-27 15:46:52 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-27 15:46:52 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …gziTsp]
+2026-04-27 15:46:53 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2150 chars)
+2026-04-27 15:46:53 | INFO     | llm_engine:generate_hybrid_answer:235 - LLM: Hybrid generation via Groq
+2026-04-27 15:47:02 | INFO     | __main__:text_to_speech:489 - TTS: Processing 2106 chars, style=storyteller, mode=Exam
+2026-04-27 15:47:02 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …zJwWLp]
+2026-04-27 15:47:03 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2418 chars)
+2026-04-27 15:47:03 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (2106 → 2418 chars)
+2026-04-27 15:47:03 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 17 chunks...
+2026-04-27 15:47:19 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 280364 bytes (storyteller)
+2026-04-27 15:47:23 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 361004 bytes (storyteller)
+2026-04-27 15:47:23 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 364844 bytes (storyteller)
+2026-04-27 15:47:27 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 460844 bytes (storyteller)
+2026-04-27 15:47:39 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 410924 bytes (storyteller)
+2026-04-27 15:47:45 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 468524 bytes (storyteller)
+2026-04-27 15:47:47 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 518444 bytes (storyteller)
+2026-04-27 15:47:48 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 441644 bytes (storyteller)
+2026-04-27 15:47:54 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 311084 bytes (storyteller)
+2026-04-27 15:47:58 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 199724 bytes (storyteller)
+2026-04-27 15:48:12 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 518444 bytes (storyteller)
+2026-04-27 15:48:13 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 591404 bytes (storyteller)
+2026-04-27 15:48:13 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 314924 bytes (storyteller)
+2026-04-27 15:48:19 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 522284 bytes (storyteller)
+2026-04-27 15:48:26 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 291884 bytes (storyteller)
+2026-04-27 15:48:27 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 318764 bytes (storyteller)
+2026-04-27 15:48:27 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 376364 bytes (storyteller)
+2026-04-27 15:49:26 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['nanomaterials', 'artificial intelligence drug discovery', 'cancer immunotherapy']
+2026-04-27 15:49:26 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-27 15:49:26 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'nanomaterials' (retmax=10)
+2026-04-27 15:49:26 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'artificial intelligence drug discovery' (retmax=10)
+2026-04-27 15:49:26 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cancer immunotherapy' (retmax=10)
+2026-04-27 15:49:27 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 435158)
+2026-04-27 15:49:28 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 225942)
+2026-04-27 15:49:28 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 9785)
+2026-04-27 15:49:28 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-04-27 15:49:30 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 15:49:30 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 15:49:31 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 15:49:31 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-27 15:49:51 | INFO     | __main__:ask_question:217 - Question: Extract 4 brief key bullet points for the article titled 'Overcoming the blood‒brain barrier: nanomedicine strategies for targeted delivery and multimodal therapy in Alzheimer's disease.'. | Hybrid: False | Book: None
+2026-04-27 15:49:51 | INFO     | model_manager:generate:701 - ModelManager: Auto-classified as 'speed'
+2026-04-27 15:49:51 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …YsNFU0]
+2026-04-27 15:49:51 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (746 chars)
+2026-04-27 15:49:51 | INFO     | llm_engine:generate_llm_only:156 - LLM: Pure generation via Groq
+2026-04-27 15:49:54 | INFO     | __main__:ask_question:217 - Question: List 3 related scientific topics to 'Overcoming the blood‒brain barrier: nanomedicine strategies for targeted delivery and multimodal therapy in Alzheimer's disease.'. Output ONLY comma separated list. | Hybrid: False | Book: None
+2026-04-27 15:49:54 | INFO     | model_manager:generate:701 - ModelManager: Auto-classified as 'speed'
+2026-04-27 15:49:54 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …l1coCr]
+2026-04-27 15:49:54 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (150 chars)
+2026-04-27 15:49:54 | INFO     | llm_engine:generate_llm_only:156 - LLM: Pure generation via Groq
+2026-04-27 15:51:02 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: True | Book: None
+2026-04-27 15:51:02 | INFO     | faiss_store:search:199 - FAISS Search: query='cell...', search_k=25, ntotal=945
+2026-04-27 15:51:02 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 0
+2026-04-27 15:51:02 | INFO     | live_articles:search_articles:244 - Article Search: 'cell' | Page: 1
+2026-04-27 15:51:02 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell'
+2026-04-27 15:51:02 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell'
+2026-04-27 15:51:02 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell'
+2026-04-27 15:51:03 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 8955996)
+2026-04-27 15:51:03 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52611)
+2026-04-27 15:51:03 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-27 15:51:03 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-27 15:51:04 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2830 chars)
+2026-04-27 15:51:04 | INFO     | llm_engine:generate_hybrid_answer:235 - LLM: Hybrid generation via Groq
+2026-04-27 15:51:13 | INFO     | __main__:text_to_speech:489 - TTS: Processing 2782 chars, style=storyteller, mode=Concept
+2026-04-27 15:51:13 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-27 15:51:14 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2187 chars)
+2026-04-27 15:51:14 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (2782 → 2187 chars)
+2026-04-27 15:51:14 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 16 chunks...
+2026-04-27 15:51:30 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 311084 bytes (storyteller)
+2026-04-27 15:51:39 | INFO     | __main__:text_to_speech:489 - TTS: Processing 2782 chars, style=storyteller, mode=Concept
+2026-04-27 15:51:39 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-27 15:51:40 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 410924 bytes (storyteller)
+2026-04-27 15:51:40 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 387884 bytes (storyteller)
+2026-04-27 15:51:40 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2201 chars)
+2026-04-27 15:51:40 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (2782 → 2201 chars)
+2026-04-27 15:51:40 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 16 chunks...
+2026-04-27 15:51:43 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 437804 bytes (storyteller)
+2026-04-27 15:52:00 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 372524 bytes (storyteller)
+2026-04-27 15:52:07 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 591404 bytes (storyteller)
+2026-04-27 15:52:12 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 595244 bytes (storyteller)
+2026-04-27 15:52:15 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 541484 bytes (storyteller)
+2026-04-27 15:52:18 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 238124 bytes (storyteller)
+2026-04-27 15:52:19 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 395564 bytes (storyteller)
+2026-04-27 15:52:31 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 395564 bytes (storyteller)
+2026-04-27 15:52:32 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 364844 bytes (storyteller)
+2026-04-27 15:52:33 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 291884 bytes (storyteller)
+2026-04-27 15:52:37 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 372524 bytes (storyteller)
+2026-04-27 15:52:40 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: True | Book: None
+2026-04-27 15:52:40 | INFO     | faiss_store:search:199 - FAISS Search: query='cell...', search_k=25, ntotal=945
+2026-04-27 15:52:40 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 0
+2026-04-27 15:52:40 | INFO     | live_articles:search_articles:244 - Article Search: 'cell' | Page: 1
+2026-04-27 15:52:40 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell'
+2026-04-27 15:52:40 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell'
+2026-04-27 15:52:40 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell'
+2026-04-27 15:52:41 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 8955996)
+2026-04-27 15:52:41 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52611)
+2026-04-27 15:52:41 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-27 15:52:41 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-27 15:52:42 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (6266 chars)
+2026-04-27 15:52:42 | INFO     | llm_engine:generate_hybrid_answer:235 - LLM: Hybrid generation via Groq
+2026-04-27 15:52:45 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 265004 bytes (storyteller)
+2026-04-27 15:52:49 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 384044 bytes (storyteller)
+2026-04-27 15:52:57 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 460844 bytes (storyteller)
+2026-04-27 15:53:01 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 476204 bytes (storyteller)
+2026-04-27 15:53:04 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 307244 bytes (storyteller)
+2026-04-27 15:53:12 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 541484 bytes (storyteller)
+2026-04-27 15:53:15 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 364844 bytes (storyteller)
+2026-04-27 15:53:27 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 437804 bytes (storyteller)
+2026-04-27 15:53:29 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 268844 bytes (storyteller)
+2026-04-27 15:53:29 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 318764 bytes (storyteller)
+2026-04-27 15:53:32 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 614444 bytes (storyteller)
+2026-04-27 15:53:45 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 314924 bytes (storyteller)
+2026-04-27 15:53:46 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 265004 bytes (storyteller)
+2026-04-27 15:53:49 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 422444 bytes (storyteller)
+2026-04-27 15:53:50 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 441644 bytes (storyteller)
+2026-04-27 15:53:57 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 349484 bytes (storyteller)
+2026-04-27 15:53:57 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 399404 bytes (storyteller)
+2026-04-27 15:59:36 | INFO     | model_manager:_setup_providers:445 - ModelManager: Configured providers: Groq (10 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (15 keys), OpenRouter Hub (15 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-27 15:59:37 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-27 15:59:37 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-27 15:59:37 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-27 15:59:37 | INFO     | tts_engine:initialize:333 - TTS Engine: Initializing...
+2026-04-27 15:59:38 | INFO     | tts_engine:_init_kyutai:176 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-27 15:59:41 | INFO     | tts_engine:_init_kyutai:178 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-27 15:59:41 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'professor' (alba)
+2026-04-27 15:59:41 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'energetic' (cosette)
+2026-04-27 15:59:41 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'storyteller' (fantine)
+2026-04-27 15:59:41 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'formal_male' (marius)
+2026-04-27 15:59:41 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'casual_female' (eponine)
+2026-04-27 15:59:41 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'deep_male' (javert)
+2026-04-27 15:59:41 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'warm_female' (azelma)
+2026-04-27 15:59:41 | INFO     | tts_engine:initialize:337 - TTS Engine: Kyutai Pocket-TTS ready (Tier 1)
+2026-04-27 15:59:41 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-27 16:02:09 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-27 16:02:09 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (131 chars)
+2026-04-27 16:02:09 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-27 16:02:31 | INFO     | __main__:ask_question:217 - Question: cell cycle | Hybrid: False | Book: None
+2026-04-27 16:02:31 | INFO     | model_manager:generate:701 - ModelManager: Auto-classified as 'speed'
+2026-04-27 16:02:31 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-27 16:02:34 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (4276 chars)
+2026-04-27 16:02:34 | INFO     | llm_engine:generate_llm_only:158 - LLM: Pure generation via Groq
+2026-04-27 16:02:47 | INFO     | __main__:text_to_speech:489 - TTS: Processing 4276 chars, style=professor, mode=Expert
+2026-04-27 16:02:47 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-27 16:02:48 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2781 chars)
+2026-04-27 16:02:48 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (4286 → 2781 chars)
+2026-04-27 16:02:48 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 19 chunks...
+2026-04-27 16:03:03 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 253484 bytes (professor)
+2026-04-27 16:03:15 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 510764 bytes (professor)
+2026-04-27 16:03:16 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 518444 bytes (professor)
+2026-04-27 16:03:18 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 579884 bytes (professor)
+2026-04-27 16:03:26 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 464684 bytes (professor)
+2026-04-27 16:03:31 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 261164 bytes (professor)
+2026-04-27 16:03:44 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 602924 bytes (professor)
+2026-04-27 16:03:45 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 410924 bytes (professor)
+2026-04-27 16:03:45 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 602924 bytes (professor)
+2026-04-27 16:03:57 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 514604 bytes (professor)
+2026-04-27 16:03:58 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 249644 bytes (professor)
+2026-04-27 16:03:58 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 291884 bytes (professor)
+2026-04-27 16:04:05 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 410924 bytes (professor)
+2026-04-27 16:04:12 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 322604 bytes (professor)
+2026-04-27 16:04:13 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 318764 bytes (professor)
+2026-04-27 16:04:14 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 330284 bytes (professor)
+2026-04-27 16:04:26 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 522284 bytes (professor)
+2026-04-27 16:04:26 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 384044 bytes (professor)
+2026-04-27 16:04:27 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 433964 bytes (professor)
+2026-04-27 16:05:16 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['climate change mitigation', 'artificial intelligence drug discovery', 'mRNA vaccine']
+2026-04-27 16:05:16 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-04-27 16:05:16 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'climate change mitigation' (retmax=10)
+2026-04-27 16:05:16 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'mRNA vaccine' (retmax=10)
+2026-04-27 16:05:17 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 21374)
+2026-04-27 16:05:18 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 16084)
+2026-04-27 16:05:19 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 16:05:19 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 16:05:19 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-04-27 16:05:22 | INFO     | __main__:ask_question:217 - Question: Extract 4 brief key bullet points for the article titled 'Unleashing the power of DNA-encoded libraries for challenging targets in drug discovery.'. | Hybrid: False | Book: None
+2026-04-27 16:05:22 | INFO     | model_manager:generate:701 - ModelManager: Auto-classified as 'speed'
+2026-04-27 16:05:22 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-27 16:05:24 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2815 chars)
+2026-04-27 16:05:24 | INFO     | llm_engine:generate_llm_only:158 - LLM: Pure generation via Groq
+2026-04-27 16:06:27 | INFO     | __main__:ask_question:217 - Question: summary | Hybrid: True | Book: 0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2
+2026-04-27 16:06:27 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-04-27 16:06:27 | INFO     | faiss_store:load:87 - FAISS: Loaded 995 vectors of type IndexIDMap2.
+2026-04-27 16:06:27 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-27 16:06:31 | INFO     | faiss_store:search:199 - FAISS Search: query='summary...', search_k=500, ntotal=995
+2026-04-27 16:06:31 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2: 0
+2026-04-27 16:06:32 | INFO     | __main__:text_to_speech:489 - TTS: Processing 43 chars, style=professor, mode=Library
+2026-04-27 16:06:32 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 1 chunks...
+2026-04-27 16:06:34 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 134444 bytes (professor)
+2026-04-27 16:07:03 | INFO     | __main__:ask_question:217 - Question: important points | Hybrid: True | Book: 0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2
+2026-04-27 16:07:03 | INFO     | faiss_store:search:199 - FAISS Search: query='important points...', search_k=500, ntotal=995
+2026-04-27 16:07:03 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2: 2
+2026-04-27 16:07:03 | INFO     | model_manager:generate:725 - ModelManager: Trying Qwen (OpenRouter) (Tier 3) [key …8fb9ad]
+2026-04-27 16:07:22 | INFO     | model_manager:generate:752 - ModelManager: ✅ Qwen (OpenRouter) succeeded (2486 chars)
+2026-04-27 16:07:22 | INFO     | llm_engine:generate_book_answer:272 - LLM: Book generation via Qwen (OpenRouter)
+2026-04-27 16:07:30 | INFO     | __main__:text_to_speech:489 - TTS: Processing 2486 chars, style=professor, mode=Library
+2026-04-27 16:07:30 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-04-27 16:07:31 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (1987 chars)
+2026-04-27 16:07:31 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (2486 → 1987 chars)
+2026-04-27 16:07:31 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 13 chunks...
+2026-04-27 16:07:54 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 410924 bytes (professor)
+2026-04-27 16:07:54 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 410924 bytes (professor)
+2026-04-27 16:08:00 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 545324 bytes (professor)
+2026-04-27 16:08:02 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 606764 bytes (professor)
+2026-04-27 16:08:20 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 549164 bytes (professor)
+2026-04-27 16:08:21 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 368684 bytes (professor)
+2026-04-27 16:08:22 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 449324 bytes (professor)
+2026-04-27 16:08:23 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 606764 bytes (professor)
+2026-04-27 16:08:26 | INFO     | __main__:ask_question:217 - Question: important points | Hybrid: True | Book: 0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2
+2026-04-27 16:08:27 | INFO     | __main__:ask_question:217 - Question: important points | Hybrid: True | Book: 0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2
+2026-04-27 16:08:34 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 268844 bytes (professor)
+2026-04-27 16:08:34 | INFO     | __main__:text_to_speech:489 - TTS: Processing 2486 chars, style=professor, mode=Library
+2026-04-27 16:08:34 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …46sRvF]
+2026-04-27 16:08:35 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2228 chars)
+2026-04-27 16:08:35 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (2486 → 2228 chars)
+2026-04-27 16:08:35 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 15 chunks...
+2026-04-27 16:08:37 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 307244 bytes (professor)
+2026-04-27 16:08:41 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 414764 bytes (professor)
+2026-04-27 16:08:46 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 480044 bytes (professor)
+2026-04-27 16:08:52 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 341804 bytes (professor)
+2026-04-27 16:08:53 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 234284 bytes (professor)
+2026-04-27 16:09:06 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 545324 bytes (professor)
+2026-04-27 16:09:17 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 576044 bytes (professor)
+2026-04-27 16:09:21 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 518444 bytes (professor)
+2026-04-27 16:09:22 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 553004 bytes (professor)
+2026-04-27 16:09:22 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 295724 bytes (professor)
+2026-04-27 16:09:39 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 311084 bytes (professor)
+2026-04-27 16:09:39 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 395564 bytes (professor)
+2026-04-27 16:09:41 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 372524 bytes (professor)
+2026-04-27 16:09:42 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 445484 bytes (professor)
+2026-04-27 16:09:59 | INFO     | __main__:ask_question:217 - Question: important points | Hybrid: True | Book: 0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2
+2026-04-27 16:10:00 | INFO     | __main__:ask_question:217 - Question: important points | Hybrid: True | Book: 0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2
+2026-04-27 16:10:43 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: True | Book: None
+2026-04-27 16:10:43 | INFO     | faiss_store:search:199 - FAISS Search: query='cell...', search_k=25, ntotal=995
+2026-04-27 16:10:43 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 22
+2026-04-27 16:10:43 | INFO     | live_articles:search_articles:244 - Article Search: 'cell' | Page: 1
+2026-04-27 16:10:43 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell'
+2026-04-27 16:10:43 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell'
+2026-04-27 16:10:43 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell'
+2026-04-27 16:10:43 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell' (retmax=10)
+2026-04-27 16:10:45 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 8956143)
+2026-04-27 16:10:47 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 16:10:47 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 8956143)
+2026-04-27 16:10:47 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 52611)
+2026-04-27 16:10:47 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-27 16:10:47 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …gziTsp]
+2026-04-27 16:10:49 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (4690 chars)
+2026-04-27 16:10:49 | INFO     | llm_engine:generate_hybrid_answer:238 - LLM: Hybrid generation via Groq
+2026-04-27 16:11:02 | INFO     | __main__:text_to_speech:489 - TTS: Processing 4642 chars, style=professor, mode=Expert
+2026-04-27 16:11:02 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …zJwWLp]
+2026-04-27 16:11:03 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (3599 chars)
+2026-04-27 16:11:03 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (4642 → 3599 chars)
+2026-04-27 16:11:03 | INFO     | tts_engine:generate_stream:445 - TTS: Streaming 23 chunks...
+2026-04-27 16:11:21 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 314924 bytes (professor)
+2026-04-27 16:11:27 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 430124 bytes (professor)
+2026-04-27 16:11:31 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 529964 bytes (professor)
+2026-04-27 16:11:34 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 587564 bytes (professor)
+2026-04-27 16:11:42 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 307244 bytes (professor)
+2026-04-27 16:11:42 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 433964 bytes (professor)
+2026-04-27 16:11:55 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 268844 bytes (professor)
+2026-04-27 16:11:57 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 510764 bytes (professor)
+2026-04-27 16:11:59 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 514604 bytes (professor)
+2026-04-27 16:12:02 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 414764 bytes (professor)
+2026-04-27 16:12:04 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 199724 bytes (professor)
+2026-04-27 16:12:15 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 253484 bytes (professor)
+2026-04-27 16:12:19 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 445484 bytes (professor)
+2026-04-27 16:12:25 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 387884 bytes (professor)
+2026-04-27 16:12:31 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 610604 bytes (professor)
+2026-04-27 16:12:48 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 618284 bytes (professor)
+2026-04-27 16:12:49 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: False | Book: None
+2026-04-27 16:12:49 | INFO     | model_manager:generate:701 - ModelManager: Auto-classified as 'speed'
+2026-04-27 16:12:49 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …YsNFU0]
+2026-04-27 16:12:49 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 460844 bytes (professor)
+2026-04-27 16:12:51 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 361004 bytes (professor)
+2026-04-27 16:12:52 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (4868 chars)
+2026-04-27 16:12:52 | INFO     | llm_engine:generate_llm_only:158 - LLM: Pure generation via Groq
+2026-04-27 16:12:58 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 729644 bytes (professor)
+2026-04-27 16:13:02 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 257324 bytes (professor)
+2026-04-27 16:13:07 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 364844 bytes (professor)
+2026-04-27 16:13:10 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 472364 bytes (professor)
+2026-04-27 16:13:12 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 426284 bytes (professor)
+2026-04-27 16:27:11 | INFO     | model_manager:_setup_providers:445 - ModelManager: Configured providers: Groq (10 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (15 keys), OpenRouter Hub (15 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-27 16:27:12 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-27 16:27:12 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-27 16:27:12 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-27 16:27:12 | INFO     | tts_engine:initialize:333 - TTS Engine: Initializing...
+2026-04-27 16:27:13 | INFO     | tts_engine:_init_kyutai:176 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-27 16:27:14 | INFO     | tts_engine:_init_kyutai:178 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-27 16:27:14 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'professor' (alba)
+2026-04-27 16:27:14 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'energetic' (cosette)
+2026-04-27 16:27:14 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'storyteller' (fantine)
+2026-04-27 16:27:14 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'formal_male' (marius)
+2026-04-27 16:27:14 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'casual_female' (eponine)
+2026-04-27 16:27:14 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'deep_male' (javert)
+2026-04-27 16:27:14 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'warm_female' (azelma)
+2026-04-27 16:27:14 | INFO     | tts_engine:initialize:337 - TTS Engine: Kyutai Pocket-TTS ready (Tier 1)
+2026-04-27 16:27:14 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-27 16:28:09 | ERROR    | __main__:validation_exception_handler:87 - 422 Validation Error at /api/v1/route: [{'type': 'string_too_short', 'loc': ('body', 'query'), 'msg': 'String should have at least 1 character', 'input': '', 'ctx': {'min_length': 1}}]
+2026-04-27 16:28:09 | ERROR    | __main__:validation_exception_handler:88 - Body: b'{"query":""}'
+2026-04-27 16:28:09 | INFO     | __main__:ask_question:217 - Question: cell cycle | Hybrid: False | Book: None
+2026-04-27 16:28:09 | INFO     | model_manager:generate:701 - ModelManager: Auto-classified as 'speed'
+2026-04-27 16:28:09 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-27 16:28:12 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (4172 chars)
+2026-04-27 16:28:12 | INFO     | llm_engine:generate_llm_only:158 - LLM: Pure generation via Groq
+2026-04-27 16:28:25 | INFO     | __main__:text_to_speech:489 - TTS: Processing 4172 chars, style=professor, mode=Concept
+2026-04-27 16:28:25 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-27 16:28:25 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (3457 chars)
+2026-04-27 16:28:25 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (4178 → 3457 chars)
+2026-04-27 16:28:25 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 24 chunks...
+2026-04-27 16:28:36 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 230444 bytes (professor)
+2026-04-27 16:28:41 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 337964 bytes (professor)
+2026-04-27 16:28:45 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 426284 bytes (professor)
+2026-04-27 16:28:52 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 361004 bytes (professor)
+2026-04-27 16:28:54 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 633644 bytes (professor)
+2026-04-27 16:29:04 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 460844 bytes (professor)
+2026-04-27 16:29:05 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 560684 bytes (professor)
+2026-04-27 16:29:07 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 311084 bytes (professor)
+2026-04-27 16:29:10 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 414764 bytes (professor)
+2026-04-27 16:29:13 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 24 tasks.
+2026-04-27 16:29:25 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 261164 bytes (professor)
+2026-04-27 16:29:31 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 503084 bytes (professor)
+2026-04-27 16:29:32 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 464684 bytes (professor)
+2026-04-27 16:29:32 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 345644 bytes (professor)
+2026-04-27 16:29:32 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 510764 bytes (professor)
+2026-04-27 16:30:33 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-27 16:30:33 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (131 chars)
+2026-04-27 16:30:33 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-27 16:30:40 | INFO     | __main__:ask_question:217 - Question: cell cycle | Hybrid: True | Book: None
+2026-04-27 16:30:40 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-04-27 16:30:40 | INFO     | faiss_store:load:87 - FAISS: Loaded 995 vectors of type IndexIDMap2.
+2026-04-27 16:30:40 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-27 16:30:44 | INFO     | faiss_store:search:199 - FAISS Search: query='cell cycle...', search_k=25, ntotal=995
+2026-04-27 16:30:44 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=None: 24
+2026-04-27 16:30:44 | INFO     | live_articles:search_articles:244 - Article Search: 'cell cycle' | Page: 1
+2026-04-27 16:30:45 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'cell cycle'
+2026-04-27 16:30:45 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'cell cycle'
+2026-04-27 16:30:45 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'cell cycle'
+2026-04-27 16:30:45 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'cell cycle' (retmax=10)
+2026-04-27 16:30:46 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 602274)
+2026-04-27 16:30:48 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-04-27 16:30:49 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 602274)
+2026-04-27 16:30:49 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 96169)
+2026-04-27 16:30:49 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-04-27 16:30:49 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-27 16:30:50 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (4722 chars)
+2026-04-27 16:30:50 | INFO     | llm_engine:generate_hybrid_answer:238 - LLM: Hybrid generation via Groq
+2026-04-27 16:31:04 | INFO     | __main__:text_to_speech:489 - TTS: Processing 4690 chars, style=professor, mode=Expert
+2026-04-27 16:31:04 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-04-27 16:31:05 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (3440 chars)
+2026-04-27 16:31:05 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (4690 → 3440 chars)
+2026-04-27 16:31:05 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 24 chunks...
+2026-04-27 16:31:26 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 426284 bytes (professor)
+2026-04-27 16:31:27 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 449324 bytes (professor)
+2026-04-27 16:31:27 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 472364 bytes (professor)
+2026-04-27 16:31:29 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 503084 bytes (professor)
+2026-04-27 16:31:41 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 353324 bytes (professor)
+2026-04-27 16:31:44 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 384044 bytes (professor)
+2026-04-27 16:31:49 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 526124 bytes (professor)
+2026-04-27 16:31:51 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 510764 bytes (professor)
+2026-04-27 16:31:51 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 238124 bytes (professor)
+2026-04-27 16:32:02 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 430124 bytes (professor)
+2026-04-27 16:32:08 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 414764 bytes (professor)
+2026-04-27 16:32:11 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 445484 bytes (professor)
+2026-04-27 16:32:11 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 460844 bytes (professor)
+2026-04-27 16:32:25 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 376364 bytes (professor)
+2026-04-27 16:32:26 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 522284 bytes (professor)
+2026-04-27 16:32:29 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 399404 bytes (professor)
+2026-04-27 16:32:36 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 261164 bytes (professor)
+2026-04-27 16:32:40 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 238124 bytes (professor)
+2026-04-27 16:32:41 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 652844 bytes (professor)
+2026-04-27 16:32:44 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 395564 bytes (professor)
+2026-04-27 16:32:57 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 457004 bytes (professor)
+2026-04-27 16:32:58 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 410924 bytes (professor)
+2026-04-27 16:32:59 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 426284 bytes (professor)
+2026-04-27 16:33:00 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 510764 bytes (professor)
+2026-04-27 16:35:56 | INFO     | __main__:ask_question:217 - Question: cell | Hybrid: True | Book: 0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2
+2026-04-27 16:35:56 | INFO     | faiss_store:search:199 - FAISS Search: query='cell...', search_k=500, ntotal=995
+2026-04-27 16:35:56 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2: 50
+2026-04-27 16:35:56 | INFO     | model_manager:generate:725 - ModelManager: Trying Qwen (OpenRouter) (Tier 3) [key …8fb9ad]
+2026-04-27 16:36:26 | INFO     | model_manager:generate:752 - ModelManager: ✅ Qwen (OpenRouter) succeeded (3035 chars)
+2026-04-27 16:36:26 | INFO     | llm_engine:generate_book_answer:272 - LLM: Book generation via Qwen (OpenRouter)
+2026-04-27 16:36:35 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3035 chars, style=professor, mode=Library
+2026-04-27 16:36:35 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …46sRvF]
+2026-04-27 16:36:36 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2851 chars)
+2026-04-27 16:36:36 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3035 → 2851 chars)
+2026-04-27 16:36:36 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 20 chunks...
+2026-04-27 16:36:56 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 418604 bytes (professor)
+2026-04-27 16:36:59 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 491564 bytes (professor)
+2026-04-27 16:37:04 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 614444 bytes (professor)
+2026-04-27 16:37:05 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 20 tasks.
+2026-04-27 16:37:08 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 687404 bytes (professor)
+2026-04-27 16:37:13 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 311084 bytes (professor)
+2026-04-27 16:37:16 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 487724 bytes (professor)
+2026-04-27 16:37:17 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 276524 bytes (professor)
+2026-04-27 16:37:19 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 560684 bytes (professor)
+2026-04-27 16:43:14 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …gziTsp]
+2026-04-27 16:43:14 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (146 chars)
+2026-04-27 16:43:14 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-27 16:43:21 | INFO     | __main__:ask_question:217 - Question: cell membranes | Hybrid: False | Book: None
+2026-04-27 16:43:21 | INFO     | model_manager:generate:701 - ModelManager: Auto-classified as 'speed'
+2026-04-27 16:43:21 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …zJwWLp]
+2026-04-27 16:43:23 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (4049 chars)
+2026-04-27 16:43:23 | INFO     | llm_engine:generate_llm_only:158 - LLM: Pure generation via Groq
+2026-04-27 16:43:35 | INFO     | __main__:text_to_speech:489 - TTS: Processing 4049 chars, style=professor, mode=Concept
+2026-04-27 16:43:35 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …YsNFU0]
+2026-04-27 16:43:36 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2434 chars)
+2026-04-27 16:43:36 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (4049 → 2434 chars)
+2026-04-27 16:43:36 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 17 chunks...
+2026-04-27 16:43:48 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 261164 bytes (professor)
+2026-04-27 16:43:50 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 303404 bytes (professor)
+2026-04-27 16:43:51 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 318764 bytes (professor)
+2026-04-27 16:43:54 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 384044 bytes (professor)
+2026-04-27 16:44:03 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 303404 bytes (professor)
+2026-04-27 16:44:05 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 322604 bytes (professor)
+2026-04-27 16:44:12 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 468524 bytes (professor)
+2026-04-27 16:44:12 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 418604 bytes (professor)
+2026-04-27 16:44:25 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 326444 bytes (professor)
+2026-04-27 16:44:25 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 526124 bytes (professor)
+2026-04-27 16:44:29 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 549164 bytes (professor)
+2026-04-27 16:44:31 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 433964 bytes (professor)
+2026-04-27 16:44:38 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 272684 bytes (professor)
+2026-04-27 16:44:44 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 341804 bytes (professor)
+2026-04-27 16:44:45 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 457004 bytes (professor)
+2026-04-27 16:44:47 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 464684 bytes (professor)
+2026-04-27 16:44:48 | ERROR    | __main__:validation_exception_handler:87 - 422 Validation Error at /api/v1/tts: [{'type': 'json_invalid', 'loc': ('body', 27), 'msg': 'JSON decode error', 'input': {}, 'ctx': {'error': 'Invalid control character at'}}]
+2026-04-27 16:44:48 | ERROR    | __main__:validation_exception_handler:88 - Body: b'{"text":"Executive Overview\nThe cell membrane is a thin, semi-permeable barrier that surrounds every cell and regulates the flow of materials in and out. It is composed of a phospholipid bilayer with embedded proteins that perform various functions, such as transporting molecules, receiving signals, and maintaining cell shape. The cell membrane plays a crucial role in maintaining cellular homeostasis and allowing cells to interact with their environment.\n\nCell Structure\nThe cell membrane is composed of a phospholipid bilayer, with the hydrophilic (water-loving) heads facing outwards and the hydrophobic (water-fearing) tails facing inwards. This arrangement allows the cell membrane to maintain its structure and function in an aqueous environment. The phospholipid bilayer is semi-permeable, allowing certain molecules to pass through while restricting others. Embedded proteins, such as transport proteins and receptors, are responsible for regulating the flow of molecules across the cell membrane.\n\nMechanisms\nThe cell membrane uses several mechanisms to regulate the flow of materials in and out of the cell. One such mechanism is diffusion, where molecules move from an area of high concentration to an area of low concentration. The cell membrane also uses active transport, where energy is used to pump molecules against their concentration gradient. Additionally, the cell membrane uses endocytosis and exocytosis, where molecules are engulfed or released from the cell through vesicles. These mechanisms allow the cell to maintain homeostasis and respond to changes in its environment.\n\nTransport Processes\nThe cell membrane uses various transport processes to regulate the flow of molecules in and out of the cell. One such process is facilitated diffusion, where transport proteins help molecules move down their concentration gradient. Another process is active transport, where energy is used to pump molecules against their concentration gradient. The cell membrane also uses osmosis, where water molecules move in and out of the cell to equalize solute concentrations. These transport processes allow the cell to maintain a stable internal environment and respond to changes in its external environment.\n\nClinical Significance\nThe cell membrane plays a crucial role in various clinical conditions, such as cancer, where changes in cell membrane structure and function can lead to uncontrolled cell growth and metastasis. The cell membrane is also involved in neurological disorders, such as Alzheimer\'s disease, where changes in cell membrane structure and function can lead to neuronal dysfunction and death. Additionally, the cell membrane is a target for various drugs, such as antibiotics and anticancer agents, which can interact with cell membrane proteins to exert their effects.\n\nHistorical Context\nThe discovery of the cell membrane dates back to the 19th century, when scientists such as Rudolf Virchow and Robert Hooke first described the existence of a cell boundary. However, it wasn\'t until the 20th century, with the development of electron microscopy and biochemical techniques, that the structure and function of the cell membrane were fully elucidated. The discovery of the cell membrane has had a significant impact on our understanding of cellular biology and has led to major advances in fields such as medicine and biotechnology.\n\nFuture Directions\nFuture research on the cell membrane is expected to focus on understanding the complex interactions between the cell membrane and its environment. This will involve the use of advanced techniques, such as single-molecule microscopy and computational modeling, to study the dynamics of cell membrane structure and function. Additionally, researchers will seek to develop new therapies that target the cell membrane, such as drugs that can selectively target cancer cells or repair damaged cell membranes. By continuing to study the cell membrane, scientists hope to gain a deeper understanding of cellular biology and develop new treatments for a range of diseases.","voice_style":"professor","mode":"Concept","speed":1.0}'
+2026-04-27 16:44:49 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 445484 bytes (professor)
+2026-04-27 16:44:54 | ERROR    | __main__:validation_exception_handler:87 - 422 Validation Error at /api/v1/tts: [{'type': 'json_invalid', 'loc': ('body', 27), 'msg': 'JSON decode error', 'input': {}, 'ctx': {'error': 'Invalid control character at'}}]
+2026-04-27 16:44:54 | ERROR    | __main__:validation_exception_handler:88 - Body: b'{"text":"Executive Overview\nThe cell membrane is a thin, semi-permeable barrier that surrounds every cell and regulates the flow of materials in and out. It is composed of a phospholipid bilayer with embedded proteins that perform various functions, such as transporting molecules, receiving signals, and maintaining cell shape. The cell membrane plays a crucial role in maintaining cellular homeostasis and allowing cells to interact with their environment.\n\nCell Structure\nThe cell membrane is composed of a phospholipid bilayer, with the hydrophilic (water-loving) heads facing outwards and the hydrophobic (water-fearing) tails facing inwards. This arrangement allows the cell membrane to maintain its structure and function in an aqueous environment. The phospholipid bilayer is semi-permeable, allowing certain molecules to pass through while restricting others. Embedded proteins, such as transport proteins and receptors, are responsible for regulating the flow of molecules across the cell membrane.\n\nMechanisms\nThe cell membrane uses several mechanisms to regulate the flow of materials in and out of the cell. One such mechanism is diffusion, where molecules move from an area of high concentration to an area of low concentration. The cell membrane also uses active transport, where energy is used to pump molecules against their concentration gradient. Additionally, the cell membrane uses endocytosis and exocytosis, where molecules are engulfed or released from the cell through vesicles. These mechanisms allow the cell to maintain homeostasis and respond to changes in its environment.\n\nTransport Processes\nThe cell membrane uses various transport processes to regulate the flow of molecules in and out of the cell. One such process is facilitated diffusion, where transport proteins help molecules move down their concentration gradient. Another process is active transport, where energy is used to pump molecules against their concentration gradient. The cell membrane also uses osmosis, where water molecules move in and out of the cell to equalize solute concentrations. These transport processes allow the cell to maintain a stable internal environment and respond to changes in its external environment.\n\nClinical Significance\nThe cell membrane plays a crucial role in various clinical conditions, such as cancer, where changes in cell membrane structure and function can lead to uncontrolled cell growth and metastasis. The cell membrane is also involved in neurological disorders, such as Alzheimer\'s disease, where changes in cell membrane structure and function can lead to neuronal dysfunction and death. Additionally, the cell membrane is a target for various drugs, such as antibiotics and anticancer agents, which can interact with cell membrane proteins to exert their effects.\n\nHistorical Context\nThe discovery of the cell membrane dates back to the 19th century, when scientists such as Rudolf Virchow and Robert Hooke first described the existence of a cell boundary. However, it wasn\'t until the 20th century, with the development of electron microscopy and biochemical techniques, that the structure and function of the cell membrane were fully elucidated. The discovery of the cell membrane has had a significant impact on our understanding of cellular biology and has led to major advances in fields such as medicine and biotechnology.\n\nFuture Directions\nFuture research on the cell membrane is expected to focus on understanding the complex interactions between the cell membrane and its environment. This will involve the use of advanced techniques, such as single-molecule microscopy and computational modeling, to study the dynamics of cell membrane structure and function. Additionally, researchers will seek to develop new therapies that target the cell membrane, such as drugs that can selectively target cancer cells or repair damaged cell membranes. By continuing to study the cell membrane, scientists hope to gain a deeper understanding of cellular biology and develop new treatments for a range of diseases.","voice_style":"professor","mode":"Concept","speed":1.0}'
+2026-04-27 16:44:56 | ERROR    | __main__:validation_exception_handler:87 - 422 Validation Error at /api/v1/tts: [{'type': 'json_invalid', 'loc': ('body', 27), 'msg': 'JSON decode error', 'input': {}, 'ctx': {'error': 'Invalid control character at'}}]
+2026-04-27 16:44:56 | ERROR    | __main__:validation_exception_handler:88 - Body: b'{"text":"Executive Overview\nThe cell membrane is a thin, semi-permeable barrier that surrounds every cell and regulates the flow of materials in and out. It is composed of a phospholipid bilayer with embedded proteins that perform various functions, such as transporting molecules, receiving signals, and maintaining cell shape. The cell membrane plays a crucial role in maintaining cellular homeostasis and allowing cells to interact with their environment.\n\nCell Structure\nThe cell membrane is composed of a phospholipid bilayer, with the hydrophilic (water-loving) heads facing outwards and the hydrophobic (water-fearing) tails facing inwards. This arrangement allows the cell membrane to maintain its structure and function in an aqueous environment. The phospholipid bilayer is semi-permeable, allowing certain molecules to pass through while restricting others. Embedded proteins, such as transport proteins and receptors, are responsible for regulating the flow of molecules across the cell membrane.\n\nMechanisms\nThe cell membrane uses several mechanisms to regulate the flow of materials in and out of the cell. One such mechanism is diffusion, where molecules move from an area of high concentration to an area of low concentration. The cell membrane also uses active transport, where energy is used to pump molecules against their concentration gradient. Additionally, the cell membrane uses endocytosis and exocytosis, where molecules are engulfed or released from the cell through vesicles. These mechanisms allow the cell to maintain homeostasis and respond to changes in its environment.\n\nTransport Processes\nThe cell membrane uses various transport processes to regulate the flow of molecules in and out of the cell. One such process is facilitated diffusion, where transport proteins help molecules move down their concentration gradient. Another process is active transport, where energy is used to pump molecules against their concentration gradient. The cell membrane also uses osmosis, where water molecules move in and out of the cell to equalize solute concentrations. These transport processes allow the cell to maintain a stable internal environment and respond to changes in its external environment.\n\nClinical Significance\nThe cell membrane plays a crucial role in various clinical conditions, such as cancer, where changes in cell membrane structure and function can lead to uncontrolled cell growth and metastasis. The cell membrane is also involved in neurological disorders, such as Alzheimer\'s disease, where changes in cell membrane structure and function can lead to neuronal dysfunction and death. Additionally, the cell membrane is a target for various drugs, such as antibiotics and anticancer agents, which can interact with cell membrane proteins to exert their effects.\n\nHistorical Context\nThe discovery of the cell membrane dates back to the 19th century, when scientists such as Rudolf Virchow and Robert Hooke first described the existence of a cell boundary. However, it wasn\'t until the 20th century, with the development of electron microscopy and biochemical techniques, that the structure and function of the cell membrane were fully elucidated. The discovery of the cell membrane has had a significant impact on our understanding of cellular biology and has led to major advances in fields such as medicine and biotechnology.\n\nFuture Directions\nFuture research on the cell membrane is expected to focus on understanding the complex interactions between the cell membrane and its environment. This will involve the use of advanced techniques, such as single-molecule microscopy and computational modeling, to study the dynamics of cell membrane structure and function. Additionally, researchers will seek to develop new therapies that target the cell membrane, such as drugs that can selectively target cancer cells or repair damaged cell membranes. By continuing to study the cell membrane, scientists hope to gain a deeper understanding of cellular biology and develop new treatments for a range of diseases.","voice_style":"professor","mode":"Concept","speed":1.0}'
+2026-04-27 16:45:48 | ERROR    | __main__:validation_exception_handler:87 - 422 Validation Error at /api/v1/tts: [{'type': 'json_invalid', 'loc': ('body', 27), 'msg': 'JSON decode error', 'input': {}, 'ctx': {'error': 'Invalid control character at'}}]
+2026-04-27 16:45:48 | ERROR    | __main__:validation_exception_handler:88 - Body: b'{"text":"Executive Overview\nThe cell membrane is a thin, semi-permeable barrier that surrounds every cell and regulates the flow of materials in and out. It is composed of a phospholipid bilayer with embedded proteins that perform various functions, such as transporting molecules, receiving signals, and maintaining cell shape. The cell membrane plays a crucial role in maintaining cellular homeostasis and allowing cells to interact with their environment.\n\nCell Structure\nThe cell membrane is composed of a phospholipid bilayer, with the hydrophilic (water-loving) heads facing outwards and the hydrophobic (water-fearing) tails facing inwards. This arrangement allows the cell membrane to maintain its structure and function in an aqueous environment. The phospholipid bilayer is semi-permeable, allowing certain molecules to pass through while restricting others. Embedded proteins, such as transport proteins and receptors, are responsible for regulating the flow of molecules across the cell membrane.\n\nMechanisms\nThe cell membrane uses several mechanisms to regulate the flow of materials in and out of the cell. One such mechanism is diffusion, where molecules move from an area of high concentration to an area of low concentration. The cell membrane also uses active transport, where energy is used to pump molecules against their concentration gradient. Additionally, the cell membrane uses endocytosis and exocytosis, where molecules are engulfed or released from the cell through vesicles. These mechanisms allow the cell to maintain homeostasis and respond to changes in its environment.\n\nTransport Processes\nThe cell membrane uses various transport processes to regulate the flow of molecules in and out of the cell. One such process is facilitated diffusion, where transport proteins help molecules move down their concentration gradient. Another process is active transport, where energy is used to pump molecules against their concentration gradient. The cell membrane also uses osmosis, where water molecules move in and out of the cell to equalize solute concentrations. These transport processes allow the cell to maintain a stable internal environment and respond to changes in its external environment.\n\nClinical Significance\nThe cell membrane plays a crucial role in various clinical conditions, such as cancer, where changes in cell membrane structure and function can lead to uncontrolled cell growth and metastasis. The cell membrane is also involved in neurological disorders, such as Alzheimer\'s disease, where changes in cell membrane structure and function can lead to neuronal dysfunction and death. Additionally, the cell membrane is a target for various drugs, such as antibiotics and anticancer agents, which can interact with cell membrane proteins to exert their effects.\n\nHistorical Context\nThe discovery of the cell membrane dates back to the 19th century, when scientists such as Rudolf Virchow and Robert Hooke first described the existence of a cell boundary. However, it wasn\'t until the 20th century, with the development of electron microscopy and biochemical techniques, that the structure and function of the cell membrane were fully elucidated. The discovery of the cell membrane has had a significant impact on our understanding of cellular biology and has led to major advances in fields such as medicine and biotechnology.\n\nFuture Directions\nFuture research on the cell membrane is expected to focus on understanding the complex interactions between the cell membrane and its environment. This will involve the use of advanced techniques, such as single-molecule microscopy and computational modeling, to study the dynamics of cell membrane structure and function. Additionally, researchers will seek to develop new therapies that target the cell membrane, such as drugs that can selectively target cancer cells or repair damaged cell membranes. By continuing to study the cell membrane, scientists hope to gain a deeper understanding of cellular biology and develop new treatments for a range of diseases.","voice_style":"professor","mode":"Concept","speed":1.0}'
+2026-04-27 16:45:49 | ERROR    | __main__:validation_exception_handler:87 - 422 Validation Error at /api/v1/tts: [{'type': 'json_invalid', 'loc': ('body', 27), 'msg': 'JSON decode error', 'input': {}, 'ctx': {'error': 'Invalid control character at'}}]
+2026-04-27 16:45:49 | ERROR    | __main__:validation_exception_handler:88 - Body: b'{"text":"Executive Overview\nThe cell membrane is a thin, semi-permeable barrier that surrounds every cell and regulates the flow of materials in and out. It is composed of a phospholipid bilayer with embedded proteins that perform various functions, such as transporting molecules, receiving signals, and maintaining cell shape. The cell membrane plays a crucial role in maintaining cellular homeostasis and allowing cells to interact with their environment.\n\nCell Structure\nThe cell membrane is composed of a phospholipid bilayer, with the hydrophilic (water-loving) heads facing outwards and the hydrophobic (water-fearing) tails facing inwards. This arrangement allows the cell membrane to maintain its structure and function in an aqueous environment. The phospholipid bilayer is semi-permeable, allowing certain molecules to pass through while restricting others. Embedded proteins, such as transport proteins and receptors, are responsible for regulating the flow of molecules across the cell membrane.\n\nMechanisms\nThe cell membrane uses several mechanisms to regulate the flow of materials in and out of the cell. One such mechanism is diffusion, where molecules move from an area of high concentration to an area of low concentration. The cell membrane also uses active transport, where energy is used to pump molecules against their concentration gradient. Additionally, the cell membrane uses endocytosis and exocytosis, where molecules are engulfed or released from the cell through vesicles. These mechanisms allow the cell to maintain homeostasis and respond to changes in its environment.\n\nTransport Processes\nThe cell membrane uses various transport processes to regulate the flow of molecules in and out of the cell. One such process is facilitated diffusion, where transport proteins help molecules move down their concentration gradient. Another process is active transport, where energy is used to pump molecules against their concentration gradient. The cell membrane also uses osmosis, where water molecules move in and out of the cell to equalize solute concentrations. These transport processes allow the cell to maintain a stable internal environment and respond to changes in its external environment.\n\nClinical Significance\nThe cell membrane plays a crucial role in various clinical conditions, such as cancer, where changes in cell membrane structure and function can lead to uncontrolled cell growth and metastasis. The cell membrane is also involved in neurological disorders, such as Alzheimer\'s disease, where changes in cell membrane structure and function can lead to neuronal dysfunction and death. Additionally, the cell membrane is a target for various drugs, such as antibiotics and anticancer agents, which can interact with cell membrane proteins to exert their effects.\n\nHistorical Context\nThe discovery of the cell membrane dates back to the 19th century, when scientists such as Rudolf Virchow and Robert Hooke first described the existence of a cell boundary. However, it wasn\'t until the 20th century, with the development of electron microscopy and biochemical techniques, that the structure and function of the cell membrane were fully elucidated. The discovery of the cell membrane has had a significant impact on our understanding of cellular biology and has led to major advances in fields such as medicine and biotechnology.\n\nFuture Directions\nFuture research on the cell membrane is expected to focus on understanding the complex interactions between the cell membrane and its environment. This will involve the use of advanced techniques, such as single-molecule microscopy and computational modeling, to study the dynamics of cell membrane structure and function. Additionally, researchers will seek to develop new therapies that target the cell membrane, such as drugs that can selectively target cancer cells or repair damaged cell membranes. By continuing to study the cell membrane, scientists hope to gain a deeper understanding of cellular biology and develop new treatments for a range of diseases.","voice_style":"professor","mode":"Concept","speed":1.0}'
+2026-04-27 16:46:07 | ERROR    | __main__:validation_exception_handler:87 - 422 Validation Error at /api/v1/tts: [{'type': 'json_invalid', 'loc': ('body', 27), 'msg': 'JSON decode error', 'input': {}, 'ctx': {'error': 'Invalid control character at'}}]
+2026-04-27 16:46:07 | ERROR    | __main__:validation_exception_handler:88 - Body: b'{"text":"Executive Overview\nThe cell membrane is a thin, semi-permeable barrier that surrounds every cell and regulates the flow of materials in and out. It is composed of a phospholipid bilayer with embedded proteins that perform various functions, such as transporting molecules, receiving signals, and maintaining cell shape. The cell membrane plays a crucial role in maintaining cellular homeostasis and allowing cells to interact with their environment.\n\nCell Structure\nThe cell membrane is composed of a phospholipid bilayer, with the hydrophilic (water-loving) heads facing outwards and the hydrophobic (water-fearing) tails facing inwards. This arrangement allows the cell membrane to maintain its structure and function in an aqueous environment. The phospholipid bilayer is semi-permeable, allowing certain molecules to pass through while restricting others. Embedded proteins, such as transport proteins and receptors, are responsible for regulating the flow of molecules across the cell membrane.\n\nMechanisms\nThe cell membrane uses several mechanisms to regulate the flow of materials in and out of the cell. One such mechanism is diffusion, where molecules move from an area of high concentration to an area of low concentration. The cell membrane also uses active transport, where energy is used to pump molecules against their concentration gradient. Additionally, the cell membrane uses endocytosis and exocytosis, where molecules are engulfed or released from the cell through vesicles. These mechanisms allow the cell to maintain homeostasis and respond to changes in its environment.\n\nTransport Processes\nThe cell membrane uses various transport processes to regulate the flow of molecules in and out of the cell. One such process is facilitated diffusion, where transport proteins help molecules move down their concentration gradient. Another process is active transport, where energy is used to pump molecules against their concentration gradient. The cell membrane also uses osmosis, where water molecules move in and out of the cell to equalize solute concentrations. These transport processes allow the cell to maintain a stable internal environment and respond to changes in its external environment.\n\nClinical Significance\nThe cell membrane plays a crucial role in various clinical conditions, such as cancer, where changes in cell membrane structure and function can lead to uncontrolled cell growth and metastasis. The cell membrane is also involved in neurological disorders, such as Alzheimer\'s disease, where changes in cell membrane structure and function can lead to neuronal dysfunction and death. Additionally, the cell membrane is a target for various drugs, such as antibiotics and anticancer agents, which can interact with cell membrane proteins to exert their effects.\n\nHistorical Context\nThe discovery of the cell membrane dates back to the 19th century, when scientists such as Rudolf Virchow and Robert Hooke first described the existence of a cell boundary. However, it wasn\'t until the 20th century, with the development of electron microscopy and biochemical techniques, that the structure and function of the cell membrane were fully elucidated. The discovery of the cell membrane has had a significant impact on our understanding of cellular biology and has led to major advances in fields such as medicine and biotechnology.\n\nFuture Directions\nFuture research on the cell membrane is expected to focus on understanding the complex interactions between the cell membrane and its environment. This will involve the use of advanced techniques, such as single-molecule microscopy and computational modeling, to study the dynamics of cell membrane structure and function. Additionally, researchers will seek to develop new therapies that target the cell membrane, such as drugs that can selectively target cancer cells or repair damaged cell membranes. By continuing to study the cell membrane, scientists hope to gain a deeper understanding of cellular biology and develop new treatments for a range of diseases.","voice_style":"professor","mode":"Concept","speed":1.0}'
+2026-04-27 16:57:17 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …l1coCr]
+2026-04-27 16:57:17 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (140 chars)
+2026-04-27 16:57:17 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-27 16:57:18 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-27 16:57:19 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (139 chars)
+2026-04-27 16:57:19 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-27 16:57:21 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-27 16:57:21 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (139 chars)
+2026-04-27 16:57:21 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-27 16:57:23 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-27 16:57:23 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (156 chars)
+2026-04-27 16:57:23 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-27 16:57:26 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-27 16:57:26 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (151 chars)
+2026-04-27 16:57:26 | INFO     | controller_prompt:classify:153 - Controller: Routing via Groq
+2026-04-27 16:57:32 | INFO     | __main__:ask_question:217 - Question: cellular mechanisms and signaling | Hybrid: False | Book: None
+2026-04-27 16:57:32 | INFO     | model_manager:generate:701 - ModelManager: Auto-classified as 'deep'
+2026-04-27 16:57:32 | INFO     | model_manager:generate:725 - ModelManager: Trying Qwen (OpenRouter) (Tier 3) [key …cb12eb]
+2026-04-27 16:58:09 | INFO     | model_manager:generate:752 - ModelManager: ✅ Qwen (OpenRouter) succeeded (6612 chars)
+2026-04-27 16:58:09 | INFO     | llm_engine:generate_llm_only:158 - LLM: Pure generation via Qwen (OpenRouter)
+2026-04-27 16:58:28 | INFO     | __main__:text_to_speech:489 - TTS: Processing 6612 chars, style=professor, mode=Expert
+2026-04-27 16:58:28 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-04-27 16:58:29 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (4084 chars)
+2026-04-27 16:58:29 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (6616 → 4084 chars)
+2026-04-27 16:58:29 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 30 chunks...
+2026-04-27 16:58:39 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 222764 bytes (professor)
+2026-04-27 16:58:43 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 322604 bytes (professor)
+2026-04-27 16:58:47 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 410924 bytes (professor)
+2026-04-27 16:58:50 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 457004 bytes (professor)
+2026-04-27 16:58:54 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 349484 bytes (professor)
+2026-04-27 16:58:56 | INFO     | __main__:text_to_speech:489 - TTS: Processing 6612 chars, style=professor, mode=Expert
+2026-04-27 16:58:56 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …46sRvF]
+2026-04-27 16:58:57 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (4176 chars)
+2026-04-27 16:58:57 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (6616 → 4176 chars)
+2026-04-27 16:58:57 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 29 chunks...
+2026-04-27 16:59:02 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 441644 bytes (professor)
+2026-04-27 16:59:03 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 380204 bytes (professor)
+2026-04-27 16:59:06 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 272684 bytes (professor)
+2026-04-27 16:59:07 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 29 tasks.
+2026-04-27 16:59:09 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 476204 bytes (professor)
+2026-04-27 16:59:17 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 318764 bytes (professor)
+2026-04-27 16:59:19 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 384044 bytes (professor)
+2026-04-27 16:59:23 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 391724 bytes (professor)
+2026-04-27 16:59:24 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 349484 bytes (professor)
+2026-04-27 16:59:30 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 261164 bytes (professor)
+2026-04-27 16:59:34 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 399404 bytes (professor)
+2026-04-27 16:59:39 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 364844 bytes (professor)
+2026-04-27 16:59:40 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 357164 bytes (professor)
+2026-04-27 16:59:48 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 330284 bytes (professor)
+2026-04-27 16:59:50 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 245804 bytes (professor)
+2026-04-27 16:59:52 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 522284 bytes (professor)
+2026-04-27 16:59:53 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 349484 bytes (professor)
+2026-04-27 17:00:06 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 368684 bytes (professor)
+2026-04-27 17:00:09 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 364844 bytes (professor)
+2026-04-27 17:00:11 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 541484 bytes (professor)
+2026-04-27 17:00:13 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 503084 bytes (professor)
+2026-04-27 17:00:23 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 314924 bytes (professor)
+2026-04-27 17:00:23 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 280364 bytes (professor)
+2026-04-27 17:00:25 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 460844 bytes (professor)
+2026-04-27 17:00:27 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 361004 bytes (professor)
+2026-04-27 17:00:30 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 587564 bytes (professor)
+2026-04-27 17:02:20 | INFO     | __main__:text_to_speech:489 - TTS: Processing 6612 chars, style=professor, mode=Expert
+2026-04-27 17:02:20 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …gziTsp]
+2026-04-27 17:02:21 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (4936 chars)
+2026-04-27 17:02:21 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (6616 → 4936 chars)
+2026-04-27 17:02:21 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 36 chunks...
+2026-04-27 17:02:31 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 36 tasks.
+2026-04-27 17:02:36 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 318764 bytes (professor)
+2026-04-27 17:02:36 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 345644 bytes (professor)
+2026-04-27 17:02:37 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 395564 bytes (professor)
+2026-04-27 17:02:37 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 437804 bytes (professor)

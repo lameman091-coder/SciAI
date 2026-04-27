@@ -120,10 +120,13 @@ fun parseDynamicSections(text: String): List<Pair<String, String>> {
         
         // Check for "Title:" style or all caps short lines as fallback
         val isTraditionalHeading = trimmed.firstOrNull()?.isUpperCase() == true && 
-                trimmed.split(" ").size <= 6 && 
+                trimmed.split(" ").size <= 7 && 
                 !trimmed.endsWith(".") && 
-                !trimmed.contains(":") && 
-                trimmed.length > 3
+                !trimmed.endsWith("?") &&
+                !trimmed.endsWith("!") &&
+                // Allow a colon if it's at the end or if the line is very short
+                (!trimmed.contains(":") || trimmed.endsWith(":") || trimmed.split(" ").size <= 3) && 
+                trimmed.length >= 3
 
         if (markdownHeaderMatch != null || isTraditionalHeading) {
             val h = markdownHeaderMatch?.groupValues?.get(2) ?: trimmed
@@ -338,16 +341,18 @@ fun AnswerScreen(
     var ttsAutoTriggered by remember { mutableStateOf(false) }
     var downloadProgress by remember { mutableStateOf(0f) }
     var isDownloaded by remember { mutableStateOf(false) }
+    var isSaved by remember { mutableStateOf(false) }
 
-    // Stable answer ID for caching
-    val answerId = remember(question) {
-        val hash = question.hashCode()
+    // Stable answer ID for caching (must include mode and level to avoid cross-mode collisions)
+    val answerId = remember(question, mode, expertLevel) {
+        val hash = (question + mode + expertLevel).hashCode()
         "q_${if (hash < 0) "n${-hash}" else hash}"
     }
 
-    // Update downloaded status when answerId changes
+    // Update saved/downloaded status when answerId changes
     LaunchedEffect(answerId) {
         isDownloaded = ttsManager.isDownloaded(answerId)
+        isSaved = ttsManager.isSaved(answerId)
     }
 
     // TTS progress/position polling
@@ -463,6 +468,7 @@ fun AnswerScreen(
                 question = question,
                 mode = mode,
                 domain = selectedDomain,
+                level = expertLevel,
                 bookId = bookId,
                 hybrid = true,
                 userId = userId
@@ -633,10 +639,38 @@ fun AnswerScreen(
                             isEnabled = ttsEnabled,
                             selectedStyle = ttsVoiceStyle,
                             progress = progress,
+                            isSaved = isSaved,
+                            isDownloaded = isDownloaded,
+                            downloadProgress = downloadProgress,
                             onToggle = {
                                 showTTSPanel = !showTTSPanel
                             },
-
+                            onSave = {
+                                if (!isSaved) {
+                                    ttsManager.saveMetadata(answerId, question.take(60), answer, mode, ttsVoiceStyle)
+                                    isSaved = true
+                                }
+                            },
+                            onDownload = {
+                                if (!isDownloaded) {
+                                    if (!isSaved) {
+                                        ttsManager.saveMetadata(answerId, question.take(60), answer, mode, ttsVoiceStyle)
+                                        isSaved = true
+                                    }
+                                    ttsManager.downloadTrack(
+                                        answerId = answerId,
+                                        text = answer,
+                                        mode = mode,
+                                        voiceStyle = ttsVoiceStyle,
+                                        onProgress = { downloadProgress = it }
+                                    ) { success ->
+                                        if (success) {
+                                            isDownloaded = true
+                                            downloadProgress = 0f
+                                        }
+                                    }
+                                }
+                            },
                             onPlayPause = {
                                 when (ttsState) {
                                     TTSState.PLAYING -> {
@@ -658,7 +692,6 @@ fun AnswerScreen(
                                                 mode = mode,
                                                 speed = ttsSpeed
                                             ) { state -> ttsState = state }
-
                                         }
                                     }
 
@@ -1131,8 +1164,26 @@ fun AnswerScreen(
                         ttsManager.seekForward()
                         ttsCurrentPosition = ttsManager.getCurrentPosition()
                     },
+                    onSave = {
+                        if (!isSaved) {
+                            ttsManager.saveMetadata(
+                                answerId = answerId,
+                                title = question.take(60),
+                                text = answer,
+                                mode = mode,
+                                voiceStyle = ttsVoiceStyle
+                            )
+                            isSaved = true
+                        }
+                    },
                     onDownload = {
                         if (!isDownloaded) {
+                            // Automatically save metadata if not already saved
+                            if (!isSaved) {
+                                ttsManager.saveMetadata(answerId, question.take(60), answer, mode, ttsVoiceStyle)
+                                isSaved = true
+                            }
+                            
                             ttsManager.downloadTrack(
                                 answerId = answerId,
                                 text = answer,
@@ -1147,6 +1198,7 @@ fun AnswerScreen(
                             }
                         }
                     },
+                    isSaved = isSaved,
                     isDownloaded = isDownloaded,
                     downloadProgress = downloadProgress,
                     modifier = Modifier.align(Alignment.BottomCenter)

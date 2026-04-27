@@ -11,6 +11,20 @@ encoding = tiktoken.get_encoding("cl100k_base")
 MODEL_FAST = "llama-3.1-8b-instant"      # Book RAG + hybrid
 MODEL_SMART = "llama-3.3-70b-versatile"   # Pure LLM
 
+# ── STRUCTURE RULES ──────────────────────────────────────────────────
+STRUCTURE_RULES = """
+Structure the answer into clear, distinct sections for each subtopic to ensure a highly organized layout.
+
+Rules:
+- Each section MUST start with a short heading (concise, 2–5 words) on its own line.
+- The first section should be a concise "Executive Overview".
+- Subsequent sections should cover specific aspects (e.g., "Mechanisms", "Clinical Significance", "Historical Context", "Future Directions").
+- Do NOT use markdown symbols like ### or ** for headings or emphasis.
+- Each heading MUST be followed by 1-2 paragraphs of detailed explanation.
+- Write equations in readable plain format (NO LaTeX, no \\frac, $$, \\, etc.)
+- Ensure at least 4-5 distinct sections for comprehensive topics to provide a premium, organized experience.
+"""
+
 # ── EXPERT TIER PROMPTS ──────────────────────────────────────────────────
 EXPERT_PROMPTS = {
     "Beginner": """You are an expert science tutor designed to explain complex topics in the simplest possible way.
@@ -107,18 +121,6 @@ def trim_context(context: str, max_tokens: int = 4000) -> str:
     return result
 
 async def generate_llm_only(question: str, mode: str, domain: str, level: str = "Academic") -> str:
-    structure_rules = """
-Structure the answer into clear sections.
-
-Rules:
-- Each section must start with a short heading (concise, 3–6 words)
-- Followed by explanation
-- Do NOT use markdown symbols like ### or ** for emphasis (keep it clean)
-- Do NOT include <think> or hidden reasoning
-- Write equations in readable plain format (NO LaTeX, no \\frac, $$, \\, etc.)
-- Example Correct: K = ([C]^c × [D]^d) / ([A]^a × [B]^b)
-"""
-
     domain_prompts = {
         "Biology": "Focus on biological processes, flow, and real-life examples. Use clear terminology.",
         "Physics": "Include formulas, variables, units, and real-world applications. Explain each variable clearly.",
@@ -136,7 +138,7 @@ Rules:
         f"You are SciAI, the world's most advanced scientific research assistant.\n"
         f"{mode_prompts.get(mode, 'Provide an expert response.')}\n"
         f"Domain: {domain}. {domain_prompts.get(domain, '')}\n"
-        f"{structure_rules}\n"
+        f"{STRUCTURE_RULES}\n"
         "Ensure the response is PREMIUM, professional, and scientifically accurate."
     )
 
@@ -203,11 +205,20 @@ async def analyze_image(image_b64: str, question: Optional[str] = None) -> str:
         return f"Error analyzing image: {str(e)}"
 
 async def generate_hybrid_answer(question: str, context: str, mode: str, domain: str, level: str = "Academic") -> str:
-    expert_spec = f"\n{EXPERT_PROMPTS.get(level, EXPERT_PROMPTS['Academic'])}" if mode == "Expert" else f"Mode: {mode}."
+    # Improved mode differentiation
+    mode_instructions = {
+        "Expert": EXPERT_PROMPTS.get(level, EXPERT_PROMPTS["Academic"]),
+        "Exam": "Focus: Exam-readiness. Use structured bullet points, clear definitions, and highlight key terms scoring potential.",
+        "Concept": "Focus: Conceptual intuition. Use simple language, analogies, and step-by-step logic to build deep understanding."
+    }
+    spec = mode_instructions.get(mode, "Provide a balanced scientific response.")
+    
     system = (
         f"You are SciAI, an expert research assistant specialized in {domain}.\n"
         f"Synthesize the provided context into a refined summary. Do not just quote.\n"
-        f"Structure with headings, facts, and a concluding takeaway. {expert_spec}"
+        f"{STRUCTURE_RULES}\n"
+        f"Mode-Specific Focus: {spec}\n"
+        "Ensure the synthesized answer is highly organized with multiple distinct sections."
     )
     trimmed = trim_context(context, 4000)
     prompt = f"CONTEXT:\n{trimmed}\n\nQUESTION: {question}\n\nSynthesized Answer:"
@@ -228,11 +239,19 @@ async def generate_hybrid_answer(question: str, context: str, mode: str, domain:
     return result
 
 async def generate_book_answer(question: str, context: str, mode: str, domain: str, level: str = "Academic") -> str:
-    expert_spec = f"\n{EXPERT_PROMPTS.get(level, EXPERT_PROMPTS['Academic'])}" if mode == "Expert" else f"Mode: {mode}."
+    # Improved mode differentiation for book analysis
+    mode_instructions = {
+        "Expert": EXPERT_PROMPTS.get(level, EXPERT_PROMPTS["Academic"]),
+        "Exam": "Focus: Extracting exam-relevant facts and definitions from the document. Present as structured notes.",
+        "Concept": "Focus: Explaining the document's content intuitively. Use analogies to clarify technical excerpts."
+    }
+    spec = mode_instructions.get(mode, "Analyze the document precisely.")
+
     system = (
-        f"You are SciAI, a precision precision assistant analyzing a user's document.\n"
+        f"You are SciAI, a precision assistant analyzing a user's document.\n"
         f"Rules: Only use the provided excerpts. No outside knowledge. If missing, say so.\n"
-        f"Format: Key Findings, Detailed Analysis. {expert_spec}\n"
+        f"{STRUCTURE_RULES}\n"
+        f"Mode-Specific Focus: {spec}\n"
         f"Domain: {domain}."
     )
     trimmed = trim_context(context, 5000)

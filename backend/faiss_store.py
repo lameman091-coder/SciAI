@@ -186,7 +186,7 @@ class VectorStore:
         
         with self.lock:
             if self.index is None: return []
-            search_k = self.index.ntotal if book_id else min(top_k * 5, self.index.ntotal)
+            search_k = min(500, self.index.ntotal) if book_id else min(top_k * 5, self.index.ntotal)
             if search_k == 0: return []
             
             # FAISS search is fast and thread-safe for reading from similar pointers

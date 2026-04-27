@@ -164,7 +164,7 @@ class RouteQueryRequest(BaseModel):
     query: str = Field(..., min_length=1, max_length=1000)
 
 class TTSRequest(BaseModel):
-    text: str = Field(..., min_length=1, max_length=5000)
+    text: str = Field(..., min_length=1, max_length=15000)
     voice_style: str = Field(default="professor", pattern="^(professor|energetic|storyteller)$")
     mode: str = Field(default="Concept", pattern="^(Concept|Exam|Expert|Quiz|Library|Articles|Test)$")
     speed: float = Field(default=1.0, ge=0.5, le=2.0)
@@ -212,10 +212,12 @@ async def companion_chat(request: Request, request_body: CompanionChatRequest):
 @api_router.post("/ask")
 @limiter.limit("30/minute")
 async def ask_question(request: Request, request_body: AskRequest):
+    # Clean query
+    request_body.question = request_body.question.replace("\n", " ").strip()
     log.info(f"Question: {request_body.question} | Hybrid: {request_body.hybrid} | Book: {request_body.book_id}")
     
     # Check Cache
-    cache_key = f"ask:{request_body.question}_{request_body.book_id}_{request_body.domain}_{request_body.hybrid}_{request_body.user_id}"
+    cache_key = f"ask:{request_body.question}_{request_body.mode}_{request_body.level}_{request_body.book_id}_{request_body.domain}_{request_body.hybrid}_{request_body.user_id}"
     cached = await cache_service.get(cache_key)
     if cached:
         return cached
@@ -362,6 +364,7 @@ async def get_articles(
     sort: str = "pub+date"
 ):
     if query:
+        query = query.replace("\n", " ").strip()
         return await live_articles.search_articles(
             query, page=page, limit=limit, 
             source_filter=source, domain_filter=domain, 

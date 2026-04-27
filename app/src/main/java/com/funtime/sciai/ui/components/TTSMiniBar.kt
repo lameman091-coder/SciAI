@@ -7,6 +7,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.BookmarkAdd
+import androidx.compose.material.icons.filled.BookmarkAdded
+import androidx.compose.material.icons.filled.CloudDone
+import androidx.compose.material.icons.filled.CloudDownload
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.*
@@ -33,8 +37,13 @@ fun TTSMiniBar(
     isEnabled: Boolean,
     selectedStyle: VoiceStyle,
     progress: Float,
+    isSaved: Boolean = false,
+    isDownloaded: Boolean = false,
+    downloadProgress: Float = 0f,
     onToggle: () -> Unit,
     onPlayPause: () -> Unit,
+    onSave: () -> Unit,
+    onDownload: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (!isEnabled) return
@@ -93,27 +102,66 @@ fun TTSMiniBar(
                     }
                 }
 
-                // Play/Pause Mini Control
-                IconButton(
-                    onClick = { onPlayPause() },
-                    modifier = Modifier
-                        .size(42.dp)
-                        .clip(CircleShape)
-                        .background(if (ttsState == TTSState.PLAYING) TTSAccent else Color.White.copy(alpha = 0.1f))
-                ) {
-                    if (ttsState == TTSState.LOADING) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(18.dp),
-                            color = Color.White,
-                            strokeWidth = 2.dp
-                        )
-                    } else {
+                // Controls Group
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    // Save Button
+                    IconButton(
+                        onClick = onSave,
+                        modifier = Modifier.size(32.dp)
+                    ) {
                         Icon(
-                            imageVector = if (ttsState == TTSState.PLAYING) Icons.Default.Pause else Icons.Default.PlayArrow,
-                            contentDescription = null,
-                            tint = Color.White,
-                            modifier = Modifier.size(22.dp)
+                            imageVector = if (isSaved) Icons.Default.BookmarkAdded else Icons.Default.BookmarkAdd,
+                            contentDescription = "Save",
+                            tint = if (isSaved) TTSAccent else Color.White.copy(alpha = 0.5f),
+                            modifier = Modifier.size(18.dp)
                         )
+                    }
+
+                    // Download Button
+                    IconButton(
+                        onClick = onDownload,
+                        enabled = !isDownloaded,
+                        modifier = Modifier.size(32.dp)
+                    ) {
+                        if (downloadProgress > 0f && downloadProgress < 1f) {
+                            CircularProgressIndicator(
+                                progress = downloadProgress,
+                                modifier = Modifier.size(16.dp),
+                                color = TTSAccent,
+                                strokeWidth = 2.dp
+                            )
+                        } else {
+                            Icon(
+                                imageVector = if (isDownloaded) Icons.Default.CloudDone else Icons.Default.CloudDownload,
+                                contentDescription = "Download",
+                                tint = if (isDownloaded) Color(0xFF10B981) else Color.White.copy(alpha = 0.5f),
+                                modifier = Modifier.size(18.dp)
+                            )
+                        }
+                    }
+
+                    // Play/Pause Mini Control
+                    IconButton(
+                        onClick = { onPlayPause() },
+                        modifier = Modifier
+                            .size(36.dp)
+                            .clip(CircleShape)
+                            .background(if (ttsState == TTSState.PLAYING) TTSAccent else Color.White.copy(alpha = 0.1f))
+                    ) {
+                        if (ttsState == TTSState.LOADING) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(16.dp),
+                                color = Color.White,
+                                strokeWidth = 2.dp
+                            )
+                        } else {
+                            Icon(
+                                imageVector = if (ttsState == TTSState.PLAYING) Icons.Default.Pause else Icons.Default.PlayArrow,
+                                contentDescription = null,
+                                tint = Color.White,
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
                     }
                 }
             }

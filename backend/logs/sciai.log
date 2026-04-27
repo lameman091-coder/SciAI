@@ -1079,3 +1079,23 @@
 2026-04-27 13:43:48 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'warm_female' (azelma)
 2026-04-27 13:43:48 | INFO     | tts_engine:initialize:337 - TTS Engine: Kyutai Pocket-TTS ready (Tier 1)
 2026-04-27 13:43:48 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-27 14:01:06 | INFO     | celery_config:process_pdf_async:36 - Celery: Starting PDF processing for 41e75be9-9a8f-400a-8209-b77b7a77b99c
+2026-04-27 14:01:06 | WARNING  | pdf_processor:process_pdf:30 - PDF Extraction: No text found in C:\Users\HP\AndroidStudioProjects\SciAI\backend\temp\41e75be9-9a8f-400a-8209-b77b7a77b99c.pdf
+2026-04-27 14:32:12 | INFO     | celery_config:process_pdf_async:36 - Celery: Starting PDF processing for bb3460d7-064b-40b1-81ef-584cc77e5b59
+2026-04-27 14:32:12 | INFO     | pdf_processor:process_pdf:33 - PDF Extraction: Extracted 35104 characters from C:\Users\HP\AndroidStudioProjects\SciAI\backend\temp\bb3460d7-064b-40b1-81ef-584cc77e5b59.pdf
+2026-04-27 14:32:12 | INFO     | pdf_processor:process_pdf:58 - PDF: Processed 67 chunks from C:\Users\HP\AndroidStudioProjects\SciAI\backend\temp\bb3460d7-064b-40b1-81ef-584cc77e5b59.pdf
+2026-04-27 14:32:12 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-04-27 14:32:12 | INFO     | faiss_store:load:87 - FAISS: Loaded 945 vectors of type IndexIDMap2.
+2026-04-27 14:32:12 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-27 14:32:18 | INFO     | faiss_store:save:74 - FAISS: Saved 1012 vectors.
+2026-04-27 14:32:18 | INFO     | celery_config:process_pdf_async:52 - Celery: Indexed 67 chunks for bb3460d7-064b-40b1-81ef-584cc77e5b59
+2026-04-27 14:32:18 | INFO     | celery_config:update_db:63 - Celery: Updated database preview for bb3460d7-064b-40b1-81ef-584cc77e5b59
+2026-04-27 16:06:12 | INFO     | celery_config:process_pdf_async:36 - Celery: Starting PDF processing for 0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2
+2026-04-27 16:06:13 | INFO     | pdf_processor:process_pdf:33 - PDF Extraction: Extracted 31269 characters from C:\Users\HP\AndroidStudioProjects\SciAI\backend\temp\0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2.pdf
+2026-04-27 16:06:13 | INFO     | pdf_processor:process_pdf:58 - PDF: Processed 50 chunks from C:\Users\HP\AndroidStudioProjects\SciAI\backend\temp\0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2.pdf
+2026-04-27 16:06:13 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-04-27 16:06:13 | INFO     | faiss_store:load:87 - FAISS: Loaded 945 vectors of type IndexIDMap2.
+2026-04-27 16:06:13 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-27 16:06:19 | INFO     | faiss_store:save:74 - FAISS: Saved 995 vectors.
+2026-04-27 16:06:19 | INFO     | celery_config:process_pdf_async:52 - Celery: Indexed 50 chunks for 0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2
+2026-04-27 16:06:19 | INFO     | celery_config:update_db:63 - Celery: Updated database preview for 0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2

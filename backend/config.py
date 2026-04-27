@@ -26,6 +26,11 @@ class Settings(BaseSettings):
     GROQ_API_KEY_3: str = ""
     GROQ_API_KEY_4: str = ""
     GROQ_API_KEY_5: str = ""
+    GROQ_API_KEY_6: str = ""
+    GROQ_API_KEY_7: str = ""
+    GROQ_API_KEY_8: str = ""
+    GROQ_API_KEY_9: str = ""
+    GROQ_API_KEY_10: str = ""
     
     # ── TIER 2/3: Gemini Flash + Pro — 5 keys ──
     GEMINI_API_KEY: str = ""
@@ -50,6 +55,11 @@ class Settings(BaseSettings):
     OPENROUTER_API_KEY_8: str = ""
     OPENROUTER_API_KEY_9: str = ""
     OPENROUTER_API_KEY_10: str = ""
+    OPENROUTER_API_KEY_11: str = ""
+    OPENROUTER_API_KEY_12: str = ""
+    OPENROUTER_API_KEY_13: str = ""
+    OPENROUTER_API_KEY_14: str = ""
+    OPENROUTER_API_KEY_15: str = ""
     
     # ── TIER 6: Backup Providers ──
     MISTRAL_API_KEY: str = ""
@@ -70,7 +80,7 @@ class Settings(BaseSettings):
     HF_TTS_API_KEY: str = ""           # Separate HF key for TTS fallback
     TTS_CACHE_DIR: str = str(BASE_DIR / "cache" / "tts")
     TTS_DEFAULT_VOICE: str = "professor"
-    TTS_MAX_TEXT_LENGTH: int = 5000
+    TTS_MAX_TEXT_LENGTH: int = 15000
     TTS_CHUNK_SIZE: int = 200           # Max chars per TTS chunk
     
     # Database
