@@ -1063,3 +1063,19 @@
 2026-04-20 00:43:51 | INFO     | __main__:text_to_speech:476 - TTS: Processing 25 chars, style=professor, mode=Concept
 2026-04-20 00:43:51 | INFO     | tts_engine:generate_stream:447 - TTS: Streaming 1 chunks...
 2026-04-20 00:43:53 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 80684 bytes (professor)
+2026-04-27 13:43:42 | INFO     | model_manager:_setup_providers:435 - ModelManager: Configured providers: Groq (5 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (10 keys), OpenRouter Hub (10 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-27 13:43:43 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-27 13:43:43 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-27 13:43:43 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-27 13:43:43 | INFO     | tts_engine:initialize:333 - TTS Engine: Initializing...
+2026-04-27 13:43:45 | INFO     | tts_engine:_init_kyutai:176 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-27 13:43:48 | INFO     | tts_engine:_init_kyutai:178 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-27 13:43:48 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'professor' (alba)
+2026-04-27 13:43:48 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'energetic' (cosette)
+2026-04-27 13:43:48 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'storyteller' (fantine)
+2026-04-27 13:43:48 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'formal_male' (marius)
+2026-04-27 13:43:48 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'casual_female' (eponine)
+2026-04-27 13:43:48 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'deep_male' (javert)
+2026-04-27 13:43:48 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'warm_female' (azelma)
+2026-04-27 13:43:48 | INFO     | tts_engine:initialize:337 - TTS Engine: Kyutai Pocket-TTS ready (Tier 1)
+2026-04-27 13:43:48 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
