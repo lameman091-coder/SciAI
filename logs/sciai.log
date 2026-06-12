@@ -7192,3 +7192,338 @@ The image depicts a female character with long pink hair and purple eyes, wearin
 2026-04-27 17:02:36 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 345644 bytes (professor)
 2026-04-27 17:02:37 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 395564 bytes (professor)
 2026-04-27 17:02:37 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 437804 bytes (professor)
+2026-04-27 17:08:24 | INFO     | model_manager:_setup_providers:445 - ModelManager: Configured providers: Groq (10 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (15 keys), OpenRouter Hub (15 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-04-27 17:08:25 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-04-27 17:08:25 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-04-27 17:08:25 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-04-27 17:08:25 | INFO     | tts_engine:initialize:333 - TTS Engine: Initializing...
+2026-04-27 17:08:26 | INFO     | tts_engine:_init_kyutai:176 - TTS: Loading Kyutai Pocket-TTS model...
+2026-04-27 17:08:28 | INFO     | tts_engine:_init_kyutai:178 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-04-27 17:08:28 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'professor' (alba)
+2026-04-27 17:08:28 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'energetic' (cosette)
+2026-04-27 17:08:28 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'storyteller' (fantine)
+2026-04-27 17:08:28 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'formal_male' (marius)
+2026-04-27 17:08:28 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'casual_female' (eponine)
+2026-04-27 17:08:28 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'deep_male' (javert)
+2026-04-27 17:08:28 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'warm_female' (azelma)
+2026-04-27 17:08:28 | INFO     | tts_engine:initialize:337 - TTS Engine: Kyutai Pocket-TTS ready (Tier 1)
+2026-04-27 17:08:28 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-04-27 17:09:33 | INFO     | __main__:ask_question:217 - Question: summary | Hybrid: True | Book: 0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2
+2026-04-27 17:09:33 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-04-27 17:09:33 | INFO     | faiss_store:load:87 - FAISS: Loaded 995 vectors of type IndexIDMap2.
+2026-04-27 17:09:33 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-04-27 17:09:37 | INFO     | faiss_store:search:199 - FAISS Search: query='summary...', search_k=500, ntotal=995
+2026-04-27 17:09:37 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2: 0
+2026-04-27 17:09:41 | INFO     | __main__:ask_question:217 - Question: summary | Hybrid: True | Book: 0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2
+2026-04-27 17:09:42 | INFO     | __main__:ask_question:217 - Question: summary | Hybrid: True | Book: 0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2
+2026-04-27 17:09:55 | INFO     | __main__:ask_question:217 - Question: important points | Hybrid: True | Book: 0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2
+2026-04-27 17:09:56 | INFO     | faiss_store:search:199 - FAISS Search: query='important points...', search_k=500, ntotal=995
+2026-04-27 17:09:56 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2: 2
+2026-04-27 17:09:56 | INFO     | model_manager:generate:725 - ModelManager: Trying Qwen (OpenRouter) (Tier 3) [key …8fb9ad]
+2026-04-27 17:10:20 | INFO     | model_manager:generate:752 - ModelManager: ✅ Qwen (OpenRouter) succeeded (3494 chars)
+2026-04-27 17:10:20 | INFO     | llm_engine:generate_book_answer:272 - LLM: Book generation via Qwen (OpenRouter)
+2026-04-27 17:10:31 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3494 chars, style=professor, mode=Library
+2026-04-27 17:10:31 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-27 17:10:32 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (3185 chars)
+2026-04-27 17:10:32 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3494 → 3185 chars)
+2026-04-27 17:10:32 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 20 chunks...
+2026-04-27 17:10:47 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 261164 bytes (professor)
+2026-04-27 17:10:56 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 441644 bytes (professor)
+2026-04-27 17:10:59 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 506924 bytes (professor)
+2026-04-27 17:11:00 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 522284 bytes (professor)
+2026-04-27 17:11:05 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 364844 bytes (professor)
+2026-04-27 17:11:10 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 234284 bytes (professor)
+2026-04-27 17:11:16 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3494 chars, style=professor, mode=Library
+2026-04-27 17:11:16 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-27 17:11:16 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3494 chars, style=professor, mode=Library
+2026-04-27 17:11:16 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-27 17:11:16 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2189 chars)
+2026-04-27 17:11:16 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3494 → 2189 chars)
+2026-04-27 17:11:16 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 13 chunks...
+2026-04-27 17:11:17 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (3275 chars)
+2026-04-27 17:11:17 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3494 → 3275 chars)
+2026-04-27 17:11:17 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 22 chunks...
+2026-04-27 17:11:18 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 480044 bytes (professor)
+2026-04-27 17:11:24 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 422444 bytes (professor)
+2026-04-27 17:11:26 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 13 tasks.
+2026-04-27 17:11:27 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 22 tasks.
+2026-04-27 17:11:31 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 422444 bytes (professor)
+2026-04-27 17:11:31 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 679724 bytes (professor)
+2026-04-27 17:11:35 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 20 tasks.
+2026-04-27 17:11:39 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 299564 bytes (professor)
+2026-04-27 17:11:42 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 445484 bytes (professor)
+2026-04-27 17:11:49 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 391724 bytes (professor)
+2026-04-27 17:11:51 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 514604 bytes (professor)
+2026-04-27 17:11:52 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 433964 bytes (professor)
+2026-04-27 17:12:00 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3494 chars, style=professor, mode=Library
+2026-04-27 17:12:00 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-27 17:12:01 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2295 chars)
+2026-04-27 17:12:01 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3494 → 2295 chars)
+2026-04-27 17:12:01 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 16 chunks...
+2026-04-27 17:12:12 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 16 tasks.
+2026-04-27 17:12:14 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3494 chars, style=professor, mode=Library
+2026-04-27 17:12:14 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-04-27 17:12:15 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2457 chars)
+2026-04-27 17:12:15 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3494 → 2457 chars)
+2026-04-27 17:12:15 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 15 chunks...
+2026-04-27 17:12:19 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 265004 bytes (professor)
+2026-04-27 17:12:23 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 15 tasks.
+2026-04-27 17:12:25 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 311084 bytes (professor)
+2026-04-27 17:12:36 | INFO     | __main__:ask_question:217 - Question: key points of this pdf | Hybrid: True | Book: 0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2
+2026-04-27 17:12:36 | INFO     | faiss_store:search:199 - FAISS Search: query='key points of this pdf...', search_k=500, ntotal=995
+2026-04-27 17:12:36 | INFO     | faiss_store:search:227 - FAISS Search: Matches for book_id=0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2: 21
+2026-04-27 17:12:36 | INFO     | model_manager:generate:725 - ModelManager: Trying Qwen (OpenRouter) (Tier 3) [key …cb12eb]
+2026-04-27 17:12:48 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 495404 bytes (professor)
+2026-04-27 17:12:54 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 545324 bytes (professor)
+2026-04-27 17:13:01 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 410924 bytes (professor)
+2026-04-27 17:13:01 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 384044 bytes (professor)
+2026-04-27 17:13:01 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 395564 bytes (professor)
+2026-04-27 17:13:03 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 437804 bytes (professor)
+2026-04-27 17:13:03 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 376364 bytes (professor)
+2026-04-27 17:13:04 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 568364 bytes (professor)
+2026-04-27 17:13:15 | INFO     | model_manager:generate:752 - ModelManager: ✅ Qwen (OpenRouter) succeeded (3168 chars)
+2026-04-27 17:13:15 | INFO     | llm_engine:generate_book_answer:272 - LLM: Book generation via Qwen (OpenRouter)
+2026-04-27 17:13:25 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3168 chars, style=professor, mode=Library
+2026-04-27 17:13:25 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …46sRvF]
+2026-04-27 17:13:26 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2879 chars)
+2026-04-27 17:13:26 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3168 → 2879 chars)
+2026-04-27 17:13:26 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 20 chunks...
+2026-04-27 17:13:43 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 303404 bytes (professor)
+2026-04-27 17:13:47 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 368684 bytes (professor)
+2026-04-27 17:13:50 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 464684 bytes (professor)
+2026-04-27 17:13:56 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 288044 bytes (professor)
+2026-04-27 17:13:58 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 622124 bytes (professor)
+2026-04-27 17:14:06 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 418604 bytes (professor)
+2026-04-27 17:14:07 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 337964 bytes (professor)
+2026-04-27 17:14:21 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 472364 bytes (professor)
+2026-04-27 17:14:26 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 591404 bytes (professor)
+2026-04-27 17:14:31 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 464684 bytes (professor)
+2026-04-27 17:14:31 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 480044 bytes (professor)
+2026-04-27 17:14:46 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 280364 bytes (professor)
+2026-04-27 17:14:47 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 407084 bytes (professor)
+2026-04-27 17:14:49 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 526124 bytes (professor)
+2026-04-27 17:14:50 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 387884 bytes (professor)
+2026-04-27 17:15:02 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 257324 bytes (professor)
+2026-04-27 17:15:13 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 433964 bytes (professor)
+2026-04-27 17:15:14 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 441644 bytes (professor)
+2026-04-27 17:15:15 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 576044 bytes (professor)
+2026-04-27 17:15:18 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 468524 bytes (professor)
+2026-04-27 17:16:24 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3168 chars, style=professor, mode=Library
+2026-04-27 17:16:24 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …gziTsp]
+2026-04-27 17:16:25 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2940 chars)
+2026-04-27 17:16:25 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3168 → 2940 chars)
+2026-04-27 17:16:25 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 22 chunks...
+2026-04-27 17:16:25 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3168 chars, style=professor, mode=Library
+2026-04-27 17:16:25 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …zJwWLp]
+2026-04-27 17:16:25 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3168 chars, style=professor, mode=Library
+2026-04-27 17:16:25 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …YsNFU0]
+2026-04-27 17:16:25 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2524 chars)
+2026-04-27 17:16:25 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3168 → 2524 chars)
+2026-04-27 17:16:25 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 20 chunks...
+2026-04-27 17:16:26 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (1919 chars)
+2026-04-27 17:16:26 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3168 → 1919 chars)
+2026-04-27 17:16:26 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 15 chunks...
+2026-04-27 17:16:35 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 22 tasks.
+2026-04-27 17:16:35 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 20 tasks.
+2026-04-27 17:16:36 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 15 tasks.
+2026-04-27 17:16:49 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 238124 bytes (professor)
+2026-04-27 17:16:56 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3168 chars, style=professor, mode=Library
+2026-04-27 17:16:56 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …l1coCr]
+2026-04-27 17:16:56 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3168 chars, style=professor, mode=Library
+2026-04-27 17:16:56 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-04-27 17:16:56 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3168 chars, style=professor, mode=Library
+2026-04-27 17:16:56 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-04-27 17:16:57 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2426 chars)
+2026-04-27 17:16:57 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3168 → 2426 chars)
+2026-04-27 17:16:57 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 17 chunks...
+2026-04-27 17:16:57 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3168 chars, style=professor, mode=Library
+2026-04-27 17:16:57 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-27 17:16:57 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3168 chars, style=professor, mode=Library
+2026-04-27 17:16:57 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-04-27 17:16:57 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2655 chars)
+2026-04-27 17:16:57 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3168 → 2655 chars)
+2026-04-27 17:16:57 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 20 chunks...
+2026-04-27 17:16:57 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3168 chars, style=professor, mode=Library
+2026-04-27 17:16:57 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-04-27 17:16:57 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2372 chars)
+2026-04-27 17:16:57 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3168 → 2372 chars)
+2026-04-27 17:16:57 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 17 chunks...
+2026-04-27 17:16:57 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3168 chars, style=professor, mode=Library
+2026-04-27 17:16:57 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …46sRvF]
+2026-04-27 17:16:57 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3168 chars, style=professor, mode=Library
+2026-04-27 17:16:57 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …gziTsp]
+2026-04-27 17:16:57 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2223 chars)
+2026-04-27 17:16:57 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3168 → 2223 chars)
+2026-04-27 17:16:57 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 17 chunks...
+2026-04-27 17:16:57 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3168 chars, style=professor, mode=Library
+2026-04-27 17:16:57 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …zJwWLp]
+2026-04-27 17:16:58 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3168 chars, style=professor, mode=Library
+2026-04-27 17:16:58 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …YsNFU0]
+2026-04-27 17:16:58 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2692 chars)
+2026-04-27 17:16:58 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3168 → 2692 chars)
+2026-04-27 17:16:58 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 19 chunks...
+2026-04-27 17:16:58 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3168 chars, style=professor, mode=Library
+2026-04-27 17:16:58 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …l1coCr]
+2026-04-27 17:16:58 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2472 chars)
+2026-04-27 17:16:58 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3168 → 2472 chars)
+2026-04-27 17:16:58 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 17 chunks...
+2026-04-27 17:16:58 | WARNING  | model_manager:generate:761 - ModelManager: ⚠️ Groq: Rate limited (429)
+2026-04-27 17:16:58 | INFO     | model_manager:generate:725 - ModelManager: Trying Cerebras (Tier 8) [key …ftjevt]
+2026-04-27 17:16:58 | INFO     | __main__:text_to_speech:489 - TTS: Processing 3168 chars, style=professor, mode=Library
+2026-04-27 17:16:58 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-04-27 17:16:58 | WARNING  | model_manager:generate:761 - ModelManager: ⚠️ Groq: Rate limited (429)
+2026-04-27 17:16:58 | INFO     | model_manager:generate:725 - ModelManager: Trying Cerebras (Tier 8) [key …ftjevt]
+2026-04-27 17:16:58 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2649 chars)
+2026-04-27 17:16:58 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3168 → 2649 chars)
+2026-04-27 17:16:58 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 19 chunks...
+2026-04-27 17:17:07 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 17 tasks.
+2026-04-27 17:17:07 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 20 tasks.
+2026-04-27 17:17:07 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 17 tasks.
+2026-04-27 17:17:07 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 17 tasks.
+2026-04-27 17:17:08 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 17 tasks.
+2026-04-27 17:17:08 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 19 tasks.
+2026-04-27 17:17:08 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 19 tasks.
+2026-04-27 17:17:31 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 387884 bytes (professor)
+2026-04-27 17:17:31 | ERROR    | model_manager:generate:767 - ModelManager: ❌ Cerebras error: Cerebras: HTTP 404 — {"message":"Model llama-3.3-70b does not exist or you do not have access to it.","type":"not_found_error","param":"model","code":"model_not_found"}
+2026-04-27 17:17:31 | INFO     | model_manager:generate:725 - ModelManager: Trying Gemini Flash (Tier 2) [key …rBrkTk]
+2026-04-27 17:17:31 | ERROR    | model_manager:generate:767 - ModelManager: ❌ Cerebras error: Cerebras: HTTP 404 — {"message":"Model llama-3.3-70b does not exist or you do not have access to it.","type":"not_found_error","param":"model","code":"model_not_found"}
+2026-04-27 17:17:31 | INFO     | model_manager:generate:725 - ModelManager: Trying Gemini Flash (Tier 2) [key …nQKpEg]
+2026-04-27 17:17:31 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2027 chars)
+2026-04-27 17:17:31 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3168 → 2027 chars)
+2026-04-27 17:17:31 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 16 chunks...
+2026-04-27 17:17:31 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 16 tasks.
+2026-04-27 17:17:31 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2361 chars)
+2026-04-27 17:17:31 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3168 → 2361 chars)
+2026-04-27 17:17:31 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2371 chars)
+2026-04-27 17:17:31 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (3168 → 2371 chars)
+2026-04-27 17:17:31 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 17 chunks...
+2026-04-27 17:17:31 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 17 chunks...
+2026-04-27 17:17:32 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 17 tasks.
+2026-04-27 17:17:32 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 17 tasks.
+2026-04-27 17:17:34 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 403244 bytes (professor)
+2026-04-27 17:17:35 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 234284 bytes (professor)
+2026-04-27 17:17:41 | INFO     | model_manager:generate:752 - ModelManager: ✅ Gemini Flash succeeded (455 chars)
+2026-04-27 17:17:41 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Gemini Flash (3168 → 455 chars)
+2026-04-27 17:17:41 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 3 chunks...
+2026-04-27 17:17:41 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 3 tasks.
+2026-04-27 17:17:43 | INFO     | model_manager:generate:752 - ModelManager: ✅ Gemini Flash succeeded (460 chars)
+2026-04-27 17:17:43 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Gemini Flash (3168 → 460 chars)
+2026-04-27 17:17:43 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 3 chunks...
+2026-04-27 17:17:43 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 3 tasks.
+2026-04-27 17:17:44 | INFO     | __main__:shutdown_event:117 - SciAI SHUTTING DOWN...
+2026-04-27 17:17:44 | INFO     | faiss_store:save:74 - FAISS: Saved 995 vectors.
+2026-04-27 17:17:50 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 288044 bytes (professor)
+2026-04-27 17:17:51 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 311084 bytes (professor)
+2026-04-27 17:17:58 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 318764 bytes (professor)
+2026-04-27 17:17:59 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 357164 bytes (professor)
+2026-04-27 17:17:59 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 330284 bytes (professor)
+2026-04-27 17:17:59 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 334124 bytes (professor)
+2026-04-27 17:18:01 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 526124 bytes (professor)
+2026-04-27 17:18:05 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 372524 bytes (professor)
+2026-04-27 17:18:15 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 449324 bytes (professor)
+2026-04-27 17:18:17 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 464684 bytes (professor)
+2026-04-27 17:18:21 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 499244 bytes (professor)
+2026-04-27 17:18:31 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 514604 bytes (professor)
+2026-04-27 17:18:33 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 391724 bytes (professor)
+2026-04-27 17:18:34 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 564524 bytes (professor)
+2026-04-27 17:18:34 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 449324 bytes (professor)
+2026-06-12 12:29:32 | INFO     | model_manager:_setup_providers:445 - ModelManager: Configured providers: Groq (10 keys), Gemini Flash (5 keys), Gemini Pro (5 keys), Qwen (OpenRouter) (15 keys), OpenRouter Hub (15 keys), Mistral (1 keys), Together AI (1 keys), NVIDIA NIM (1 keys), Cohere (1 keys), Cerebras (1 keys), Hugging Face (1 keys)
+2026-06-12 12:29:37 | INFO     | __main__:startup_event:104 - SciAI PRODUCTION ENGINE STARTING...
+2026-06-12 12:29:38 | INFO     | cache_service:connect:26 - Redis cache connected successfully
+2026-06-12 12:29:38 | INFO     | __main__:startup_event:107 - ModelManager: 11 providers configured
+2026-06-12 12:29:38 | INFO     | tts_engine:initialize:333 - TTS Engine: Initializing...
+2026-06-12 12:29:40 | INFO     | tts_engine:_init_kyutai:176 - TTS: Loading Kyutai Pocket-TTS model...
+2026-06-12 12:29:43 | INFO     | tts_engine:_init_kyutai:178 - TTS: Kyutai model loaded (sample_rate=24000)
+2026-06-12 12:29:43 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'professor' (alba)
+2026-06-12 12:29:43 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'energetic' (cosette)
+2026-06-12 12:29:43 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'storyteller' (fantine)
+2026-06-12 12:29:43 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'formal_male' (marius)
+2026-06-12 12:29:43 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'casual_female' (eponine)
+2026-06-12 12:29:43 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'deep_male' (javert)
+2026-06-12 12:29:43 | INFO     | tts_engine:_init_kyutai:185 - TTS: Loaded Kyutai catalog voice 'warm_female' (azelma)
+2026-06-12 12:29:43 | INFO     | tts_engine:initialize:337 - TTS Engine: Kyutai Pocket-TTS ready (Tier 1)
+2026-06-12 12:29:43 | INFO     | __main__:startup_event:111 - TTS Engine: Initialized
+2026-06-12 12:31:49 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['neuroscience consciousness', 'CRISPR gene editing', 'graphene applications']
+2026-06-12 12:31:50 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-06-12 12:31:50 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'neuroscience consciousness' (retmax=10)
+2026-06-12 12:31:50 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'CRISPR gene editing' (retmax=10)
+2026-06-12 12:31:50 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'graphene applications' (retmax=10)
+2026-06-12 12:31:50 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 6827)
+2026-06-12 12:31:50 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 24606)
+2026-06-12 12:31:51 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 35532)
+2026-06-12 12:31:51 | WARNING  | live_articles:fetch_pubmed:136 - PubMed efetch hit 429 Rate Limit. Retrying after 2s...
+2026-06-12 12:31:52 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-06-12 12:31:52 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-06-12 12:31:54 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-06-12 12:31:54 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-06-12 12:35:26 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …DURcU2]
+2026-06-12 12:35:29 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (181 chars)
+2026-06-12 12:35:29 | INFO     | live_articles:fetch_trending:320 - Fetching trending for topics: ['nanomaterials', 'dark matter detection', 'climate change mitigation']
+2026-06-12 12:35:29 | INFO     | live_articles:fetch_trending:324 - Trending: Starting parallel fetch for topics...
+2026-06-12 12:35:29 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'nanomaterials' (retmax=10)
+2026-06-12 12:35:29 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'dark matter detection' (retmax=10)
+2026-06-12 12:35:29 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'climate change mitigation' (retmax=10)
+2026-06-12 12:35:29 | INFO     | live_articles:search_articles:244 - Article Search: 'search scientific articles' | Page: 1
+2026-06-12 12:35:29 | INFO     | live_articles:search_articles:253 - Adding PubMed task for 'search scientific articles'
+2026-06-12 12:35:29 | INFO     | live_articles:search_articles:256 - Adding arXiv task for 'search scientific articles'
+2026-06-12 12:35:29 | INFO     | live_articles:search_articles:263 - Adding Wikipedia task for 'search scientific articles'
+2026-06-12 12:35:29 | INFO     | live_articles:fetch_pubmed:106 - PubMed: Searching for 'search scientific articles' (retmax=10)
+2026-06-12 12:35:30 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 16443)
+2026-06-12 12:35:30 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 439396)
+2026-06-12 12:35:30 | WARNING  | live_articles:fetch_pubmed:112 - PubMed search hit 429 Rate Limit. Retrying after 1.5s...
+2026-06-12 12:35:31 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 280039)
+2026-06-12 12:35:32 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-06-12 12:35:32 | INFO     | live_articles:search_articles:289 - Source 0 returned 10 articles (Total in source: 280039)
+2026-06-12 12:35:32 | INFO     | live_articles:search_articles:289 - Source 1 returned 10 articles (Total in source: 229111)
+2026-06-12 12:35:32 | INFO     | live_articles:search_articles:293 - Wikipedia returned 0 articles
+2026-06-12 12:35:33 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-06-12 12:35:33 | INFO     | live_articles:fetch_pubmed:124 - PubMed search returned 10 IDs (Total: 1064)
+2026-06-12 12:35:33 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-06-12 12:35:34 | INFO     | live_articles:fetch_pubmed:180 - PubMed: Successfully parsed 10 articles.
+2026-06-12 12:35:34 | INFO     | live_articles:fetch_trending:340 - Trending: Total fetched 45 articles.
+2026-06-12 12:35:52 | ERROR    | __main__:validation_exception_handler:87 - 422 Validation Error at /api/v1/route: [{'type': 'string_too_short', 'loc': ('body', 'query'), 'msg': 'String should have at least 1 character', 'input': '', 'ctx': {'min_length': 1}}]
+2026-06-12 12:35:52 | ERROR    | __main__:validation_exception_handler:88 - Body: b'{"query":""}'
+2026-06-12 12:35:53 | INFO     | __main__:ask_question:217 - Question: cell cycle | Hybrid: False | Book: None
+2026-06-12 12:35:53 | INFO     | model_manager:generate:701 - ModelManager: Auto-classified as 'speed'
+2026-06-12 12:35:53 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …l8NUH9]
+2026-06-12 12:35:56 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (5463 chars)
+2026-06-12 12:35:56 | INFO     | llm_engine:generate_llm_only:158 - LLM: Pure generation via Groq
+2026-06-12 12:36:16 | INFO     | __main__:text_to_speech:489 - TTS: Processing 5463 chars, style=professor, mode=Expert
+2026-06-12 12:36:16 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …1ls9p2]
+2026-06-12 12:36:17 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2462 chars)
+2026-06-12 12:36:17 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (5465 → 2462 chars)
+2026-06-12 12:36:17 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 18 chunks...
+2026-06-12 12:36:39 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 341804 bytes (professor)
+2026-06-12 12:36:39 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 364844 bytes (professor)
+2026-06-12 12:36:48 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 568364 bytes (professor)
+2026-06-12 12:36:49 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 672044 bytes (professor)
+2026-06-12 12:36:51 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 322604 bytes (professor)
+2026-06-12 12:36:59 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 241964 bytes (professor)
+2026-06-12 12:37:01 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 556844 bytes (professor)
+2026-06-12 12:37:06 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 361004 bytes (professor)
+2026-06-12 12:37:10 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 549164 bytes (professor)
+2026-06-12 12:37:16 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 430124 bytes (professor)
+2026-06-12 12:37:18 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 426284 bytes (professor)
+2026-06-12 12:37:20 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 372524 bytes (professor)
+2026-06-12 12:37:30 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 487724 bytes (professor)
+2026-06-12 12:37:35 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 441644 bytes (professor)
+2026-06-12 12:37:36 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 345644 bytes (professor)
+2026-06-12 12:37:36 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 418604 bytes (professor)
+2026-06-12 12:37:41 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 272684 bytes (professor)
+2026-06-12 12:37:41 | INFO     | tts_engine:_kyutai_generate:220 - TTS: Kyutai generated 368684 bytes (professor)
+2026-06-12 12:38:04 | INFO     | __main__:text_to_speech:489 - TTS: Processing 5463 chars, style=professor, mode=Expert
+2026-06-12 12:38:04 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …9pzhKT]
+2026-06-12 12:38:05 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (2892 chars)
+2026-06-12 12:38:05 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (5465 → 2892 chars)
+2026-06-12 12:38:05 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 20 chunks...
+2026-06-12 12:38:14 | INFO     | __main__:text_to_speech:489 - TTS: Processing 5463 chars, style=professor, mode=Expert
+2026-06-12 12:38:14 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …Q27Y0X]
+2026-06-12 12:38:14 | INFO     | __main__:text_to_speech:489 - TTS: Processing 5463 chars, style=professor, mode=Expert
+2026-06-12 12:38:14 | INFO     | model_manager:generate:725 - ModelManager: Trying Groq (Tier 1) [key …46sRvF]
+2026-06-12 12:38:15 | INFO     | tts_engine:generate_stream:459 - TTS: Streaming interrupted for 'professor'. Cancelling 20 tasks.
+2026-06-12 12:38:16 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (3352 chars)
+2026-06-12 12:38:16 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (5465 → 3352 chars)
+2026-06-12 12:38:16 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 23 chunks...
+2026-06-12 12:38:17 | INFO     | model_manager:generate:752 - ModelManager: ✅ Groq succeeded (5145 chars)
+2026-06-12 12:38:17 | INFO     | tts_text_processor:optimize_for_speech:277 - TTS: Text optimized via Groq (5465 → 5145 chars)
+2026-06-12 12:38:17 | INFO     | tts_engine:generate_stream:443 - TTS: Streaming 32 chunks...
