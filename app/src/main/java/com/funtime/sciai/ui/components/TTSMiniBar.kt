@@ -9,8 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BookmarkAdd
 import androidx.compose.material.icons.filled.BookmarkAdded
-import androidx.compose.material.icons.filled.CloudDone
-import androidx.compose.material.icons.filled.CloudDownload
+
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.*
@@ -38,12 +37,9 @@ fun TTSMiniBar(
     selectedStyle: VoiceStyle,
     progress: Float,
     isSaved: Boolean = false,
-    isDownloaded: Boolean = false,
-    downloadProgress: Float = 0f,
     onToggle: () -> Unit,
     onPlayPause: () -> Unit,
     onSave: () -> Unit,
-    onDownload: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (!isEnabled) return
@@ -117,28 +113,6 @@ fun TTSMiniBar(
                         )
                     }
 
-                    // Download Button
-                    IconButton(
-                        onClick = onDownload,
-                        enabled = !isDownloaded,
-                        modifier = Modifier.size(32.dp)
-                    ) {
-                        if (downloadProgress > 0f && downloadProgress < 1f) {
-                            CircularProgressIndicator(
-                                progress = downloadProgress,
-                                modifier = Modifier.size(16.dp),
-                                color = TTSAccent,
-                                strokeWidth = 2.dp
-                            )
-                        } else {
-                            Icon(
-                                imageVector = if (isDownloaded) Icons.Default.CloudDone else Icons.Default.CloudDownload,
-                                contentDescription = "Download",
-                                tint = if (isDownloaded) Color(0xFF10B981) else Color.White.copy(alpha = 0.5f),
-                                modifier = Modifier.size(18.dp)
-                            )
-                        }
-                    }
 
                     // Play/Pause Mini Control
                     IconButton(

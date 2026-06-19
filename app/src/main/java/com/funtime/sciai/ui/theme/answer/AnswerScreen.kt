@@ -10,7 +10,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.compose.ui.draw.clip
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.LibraryAddCheck
 import com.funtime.sciai.components.AppScaffold
 import com.funtime.sciai.data.rag.RagService
@@ -339,8 +338,6 @@ fun AnswerScreen(
     var ttsDuration by remember { mutableLongStateOf(0L) }
     var showTTSPanel by remember { mutableStateOf(false) }
     var ttsAutoTriggered by remember { mutableStateOf(false) }
-    var downloadProgress by remember { mutableStateOf(0f) }
-    var isDownloaded by remember { mutableStateOf(false) }
     var isSaved by remember { mutableStateOf(false) }
 
     // Stable answer ID for caching (must include mode and level to avoid cross-mode collisions)
@@ -349,9 +346,8 @@ fun AnswerScreen(
         "q_${if (hash < 0) "n${-hash}" else hash}"
     }
 
-    // Update saved/downloaded status when answerId changes
+    // Update saved status when answerId changes
     LaunchedEffect(answerId) {
-        isDownloaded = ttsManager.isDownloaded(answerId)
         isSaved = ttsManager.isSaved(answerId)
     }
 
@@ -640,8 +636,6 @@ fun AnswerScreen(
                             selectedStyle = ttsVoiceStyle,
                             progress = progress,
                             isSaved = isSaved,
-                            isDownloaded = isDownloaded,
-                            downloadProgress = downloadProgress,
                             onToggle = {
                                 showTTSPanel = !showTTSPanel
                             },
@@ -649,26 +643,6 @@ fun AnswerScreen(
                                 if (!isSaved) {
                                     ttsManager.saveMetadata(answerId, question.take(60), answer, mode, ttsVoiceStyle)
                                     isSaved = true
-                                }
-                            },
-                            onDownload = {
-                                if (!isDownloaded) {
-                                    if (!isSaved) {
-                                        ttsManager.saveMetadata(answerId, question.take(60), answer, mode, ttsVoiceStyle)
-                                        isSaved = true
-                                    }
-                                    ttsManager.downloadTrack(
-                                        answerId = answerId,
-                                        text = answer,
-                                        mode = mode,
-                                        voiceStyle = ttsVoiceStyle,
-                                        onProgress = { downloadProgress = it }
-                                    ) { success ->
-                                        if (success) {
-                                            isDownloaded = true
-                                            downloadProgress = 0f
-                                        }
-                                    }
                                 }
                             },
                             onPlayPause = {
@@ -1176,31 +1150,7 @@ fun AnswerScreen(
                             isSaved = true
                         }
                     },
-                    onDownload = {
-                        if (!isDownloaded) {
-                            // Automatically save metadata if not already saved
-                            if (!isSaved) {
-                                ttsManager.saveMetadata(answerId, question.take(60), answer, mode, ttsVoiceStyle)
-                                isSaved = true
-                            }
-                            
-                            ttsManager.downloadTrack(
-                                answerId = answerId,
-                                text = answer,
-                                mode = mode,
-                                voiceStyle = ttsVoiceStyle,
-                                onProgress = { downloadProgress = it }
-                            ) { success ->
-                                if (success) {
-                                    isDownloaded = true
-                                    downloadProgress = 0f
-                                }
-                            }
-                        }
-                    },
                     isSaved = isSaved,
-                    isDownloaded = isDownloaded,
-                    downloadProgress = downloadProgress,
                     modifier = Modifier.align(Alignment.BottomCenter)
                 )
             }

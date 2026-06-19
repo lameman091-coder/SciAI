@@ -1099,3 +1099,12 @@
 2026-04-27 16:06:19 | INFO     | faiss_store:save:74 - FAISS: Saved 995 vectors.
 2026-04-27 16:06:19 | INFO     | celery_config:process_pdf_async:52 - Celery: Indexed 50 chunks for 0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2
 2026-04-27 16:06:19 | INFO     | celery_config:update_db:63 - Celery: Updated database preview for 0b3eb816-27ec-4d42-a5d7-5dbff64c2bf2
+2026-06-12 14:00:06 | INFO     | celery_config:process_pdf_async:36 - Celery: Starting PDF processing for e914afca-bde4-4198-98ad-3a7b8765c3ac
+2026-06-12 14:00:07 | INFO     | pdf_processor:process_pdf:33 - PDF Extraction: Extracted 31269 characters from C:\Users\HP\AndroidStudioProjects\SciAI\backend\temp\e914afca-bde4-4198-98ad-3a7b8765c3ac.pdf
+2026-06-12 14:00:07 | INFO     | pdf_processor:process_pdf:58 - PDF: Processed 50 chunks from C:\Users\HP\AndroidStudioProjects\SciAI\backend\temp\e914afca-bde4-4198-98ad-3a7b8765c3ac.pdf
+2026-06-12 14:00:07 | INFO     | faiss_store:ensure_loaded:52 - FAISS: Loading index from disk (mtime changed)...
+2026-06-12 14:00:07 | INFO     | faiss_store:load:87 - FAISS: Loaded 995 vectors of type IndexIDMap2.
+2026-06-12 14:00:07 | INFO     | faiss_store:get_model:15 - Loading embedding model...
+2026-06-12 14:00:13 | INFO     | faiss_store:save:74 - FAISS: Saved 1045 vectors.
+2026-06-12 14:00:13 | INFO     | celery_config:process_pdf_async:52 - Celery: Indexed 50 chunks for e914afca-bde4-4198-98ad-3a7b8765c3ac
+2026-06-12 14:00:13 | INFO     | celery_config:update_db:63 - Celery: Updated database preview for e914afca-bde4-4198-98ad-3a7b8765c3ac

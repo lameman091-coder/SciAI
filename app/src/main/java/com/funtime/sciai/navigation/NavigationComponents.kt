@@ -21,35 +21,30 @@ import com.funtime.sciai.ui.theme.*
 import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
-suspend fun safeNavigate(
+fun safeNavigate(
     navController: NavController,
     drawerState: DrawerState,
     route: String,
-    isNavigatingState: MutableState<Boolean>
+    scope: kotlinx.coroutines.CoroutineScope
 ) {
-    if (isNavigatingState.value) return
+    // Close drawer immediately and independently
+    scope.launch { 
+        try {
+            drawerState.close() 
+        } catch (e: Exception) {
+            // Ignore cancellation or animation errors
+        }
+    }
 
     try {
-        isNavigatingState.value = true
-        drawerState.close()
-
-        // 🔥 simple & reliable instead of snapshotFlow
-        delay(300)
-
         navController.navigate(route) {
             launchSingleTop = true
-            restoreState = true
-            popUpTo(navController.graph.startDestinationId) {
-                saveState = true
-            }
+            popUpTo("home")
         }
-        
-        // Wait for screen transition
-        delay(200)
-    } finally {
-        isNavigatingState.value = false
+    } catch (e: Exception) {
+        e.printStackTrace()
     }
 }
 

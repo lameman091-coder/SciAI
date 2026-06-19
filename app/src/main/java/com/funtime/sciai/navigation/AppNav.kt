@@ -38,7 +38,6 @@ fun AppNav(themeViewModel: ThemeViewModel) {
     val aiSphereViewModel: AISphereViewModel = viewModel()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
-    val isNavigatingState = remember { mutableStateOf(false) }
     var showSettingsSheet by remember { mutableStateOf(false) }
 
     // ── History & User State ──
@@ -70,7 +69,7 @@ fun AppNav(themeViewModel: ThemeViewModel) {
 
     ModalNavigationDrawer(
         drawerState = drawerState,
-        gesturesEnabled = !isNavigatingState.value,
+        gesturesEnabled = true,
         drawerContent = {
             ModalDrawerSheet(
                 drawerContainerColor = SciAISurfaceAlt
@@ -103,12 +102,10 @@ fun AppNav(themeViewModel: ThemeViewModel) {
                         DrawerItem(
                             "Home",
                             emoji = "🏠",
-                            enabled = !isNavigatingState.value,
+                            enabled = true,
                             isActive = currentRoute == "home"
                         ) {
-                            scope.launch {
-                                safeNavigate(navController, drawerState, "home", isNavigatingState)
-                            }
+                            safeNavigate(navController, drawerState, "home", scope)
                         }
                     }
 
@@ -116,12 +113,10 @@ fun AppNav(themeViewModel: ThemeViewModel) {
                         DrawerItem(
                             "Library",
                             emoji = "📚",
-                            enabled = !isNavigatingState.value,
-                            isActive = currentRoute == "library"
+                            enabled = true,
+                            isActive = currentRoute.startsWith("library")
                         ) {
-                            scope.launch {
-                                safeNavigate(navController, drawerState, "library", isNavigatingState)
-                            }
+                            safeNavigate(navController, drawerState, "library?q=", scope)
                         }
                     }
 
@@ -129,12 +124,10 @@ fun AppNav(themeViewModel: ThemeViewModel) {
                         DrawerItem(
                             "Articles",
                             emoji = "📰",
-                            enabled = !isNavigatingState.value,
-                            isActive = currentRoute == "articles"
+                            enabled = true,
+                            isActive = currentRoute.startsWith("articles")
                         ) {
-                            scope.launch {
-                                safeNavigate(navController, drawerState, "articles", isNavigatingState)
-                            }
+                            safeNavigate(navController, drawerState, "articles?q=", scope)
                         }
                     }
 
@@ -149,17 +142,10 @@ fun AppNav(themeViewModel: ThemeViewModel) {
                             "AI Companion",
                             emoji = "✨",
                             textColor = SciAICyan,
-                            enabled = !isNavigatingState.value,
+                            enabled = true,
                             isActive = currentRoute == "sphere_settings"
                         ) {
-                            scope.launch {
-                                safeNavigate(
-                                    navController,
-                                    drawerState,
-                                    "sphere_settings",
-                                    isNavigatingState
-                                )
-                            }
+                            safeNavigate(navController, drawerState, "sphere_settings", scope)
                         }
                     }
 
@@ -168,12 +154,10 @@ fun AppNav(themeViewModel: ThemeViewModel) {
                             "Playlist",
                             emoji = "🎵",
                             textColor = Color(0xFFA78BFA),
-                            enabled = !isNavigatingState.value,
+                            enabled = true,
                             isActive = currentRoute == "playlist"
                         ) {
-                            scope.launch {
-                                safeNavigate(navController, drawerState, "playlist", isNavigatingState)
-                            }
+                            safeNavigate(navController, drawerState, "playlist", scope)
                         }
                     }
 
@@ -229,7 +213,10 @@ fun AppNav(themeViewModel: ThemeViewModel) {
                     HomeScreen(navController, drawerState, themeViewModel)
                 }
 
-                composable("library?q={q}") { backStackEntry ->
+                composable(
+                    route = "library?q={q}",
+                    arguments = listOf(androidx.navigation.navArgument("q") { nullable = true; defaultValue = null })
+                ) { backStackEntry ->
                     val query = backStackEntry.arguments?.getString("q")
                     LibraryScreen(navController, drawerState, query)
                 }
@@ -239,12 +226,22 @@ fun AppNav(themeViewModel: ThemeViewModel) {
                     LibraryDetailScreen(bookId, navController)
                 }
 
-                composable("articles?q={q}") { backStackEntry ->
+                composable(
+                    route = "articles?q={q}",
+                    arguments = listOf(androidx.navigation.navArgument("q") { nullable = true; defaultValue = null })
+                ) { backStackEntry ->
                     val query = backStackEntry.arguments?.getString("q")
                     ArticlesScreen(navController, drawerState, query)
                 }
 
-                composable("answer/{question}/{mode}?bookId={bookId}&hybrid={hybrid}&level={level}") { backStackEntry ->
+                composable(
+                    route = "answer/{question}/{mode}?bookId={bookId}&hybrid={hybrid}&level={level}",
+                    arguments = listOf(
+                        androidx.navigation.navArgument("bookId") { nullable = true; defaultValue = null },
+                        androidx.navigation.navArgument("hybrid") { nullable = true; defaultValue = null },
+                        androidx.navigation.navArgument("level") { nullable = true; defaultValue = null }
+                    )
+                ) { backStackEntry ->
                     val question = backStackEntry.arguments?.getString("question") ?: ""
                     val mode = backStackEntry.arguments?.getString("mode") ?: "Exam"
                     val bookId = backStackEntry.arguments?.getString("bookId")
@@ -269,7 +266,7 @@ fun AppNav(themeViewModel: ThemeViewModel) {
                 }
 
                 composable("playlist") {
-                    PlaylistScreen(navController)
+                    PlaylistScreen(navController, drawerState)
                 }
             }
         }
