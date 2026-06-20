@@ -4,7 +4,7 @@ import os
 
 class Settings(BaseSettings):
     # API Keys
-    GROQ_API_KEY: str = "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"
+    GROQ_API_KEY: str = ""
     
     # Database
     DATABASE_URL: str = "sqlite+aiosqlite:///./sciai.db"
